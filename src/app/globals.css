@@ -72,8 +72,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: url('https://www.transparenttextures.com/patterns/az-subtle.png');
-    background-attachment: fixed;
   }
 }
 

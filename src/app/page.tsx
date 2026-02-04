@@ -8,26 +8,9 @@ import Link from 'next/link';
 import placeholderImages from '@/lib/placeholder-images.json';
 
 export default async function Home() {
-  const heroData = {
-    headlines: [
-      {
-        headline: "Fostering Excellence, Building Character",
-        subHeadline: "A transformative education for the leaders of tomorrow."
-      },
-      {
-        headline: "A Legacy of Academic Achievement",
-        subHeadline: "Join a community dedicated to intellectual curiosity and personal growth."
-      },
-      {
-        headline: "Empowering Minds, Shaping Futures",
-        subHeadline: "Discover your potential at a world-class educational institution."
-      }
-    ]
-  };
-
   return (
     <div className="flex flex-col items-center">
-      <HeroSection headlines={heroData.headlines} />
+      <HeroSection />
 
       <section id="introduction" className="w-full py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4 animated-fade-in">
