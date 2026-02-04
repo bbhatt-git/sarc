@@ -22,7 +22,7 @@ export default function StaffPage() {
                         {staffProfiles.map(staff => {
                              const image = placeholderImages.placeholderImages.find(img => img.id === staff.image);
                             return (
-                                <Link key={staff.id} href={`/staff/${''\'\'\''}{staff.id}`} className="group">
+                                <Link key={staff.id} href={`/staff/${staff.id}`} className="group">
                                     <Card className="glass-card h-full text-center flex flex-col items-center p-4">
                                         <CardHeader className="items-center">
                                             <Avatar className="w-24 h-24 mb-4 ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all group-hover:scale-105">

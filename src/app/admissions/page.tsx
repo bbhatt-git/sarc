@@ -76,7 +76,7 @@ export default function AdmissionsPage() {
         
         addDoc(collRef, inquiryData).then(() => {
           setState({
-              message: `Thank you, ${''\'\'\''}{validatedFields.data.parentName}! Your inquiry has been received. We will be in touch shortly.`,
+              message: `Thank you, ${validatedFields.data.parentName}! Your inquiry has been received. We will be in touch shortly.`,
               errors: null,
               success: true
           });

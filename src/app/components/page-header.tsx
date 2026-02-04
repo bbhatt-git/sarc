@@ -12,7 +12,7 @@ export default function PageHeader({ title, subtitle, backgroundImage }: PageHea
             {backgroundImage && (
                 <Image
                     src={backgroundImage}
-                    alt={`${''\'\'\''}{title} header background`}
+                    alt={`${title} header background`}
                     fill
                     className="object-cover"
                     priority
