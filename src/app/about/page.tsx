@@ -19,7 +19,7 @@ export default function AboutPage() {
             <PageHeader
                 title="About SARC"
                 subtitle="Shaping the future through a legacy of excellence and a vision for a better world."
-                backgroundImage={placeholderImages.placeholderImages[20].imageUrl}
+                backgroundImage={placeholderImages.placeholderImages[19].imageUrl}
             />
 
             <section className="py-16 lg:py-24">
@@ -36,9 +36,9 @@ export default function AboutPage() {
                         </div>
                         <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
                             <Image 
-                                src={placeholderImages.placeholderImages[21].imageUrl}
-                                alt={placeholderImages.placeholderImages[21].description}
-                                data-ai-hint={placeholderImages.placeholderImages[21].imageHint}
+                                src={placeholderImages.placeholderImages[20].imageUrl}
+                                alt={placeholderImages.placeholderImages[20].description}
+                                data-ai-hint={placeholderImages.placeholderImages[20].imageHint}
                                 fill
                                 className="object-cover"
                             />
@@ -52,9 +52,9 @@ export default function AboutPage() {
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="order-2 md:order-1 relative h-96 rounded-2xl overflow-hidden shadow-2xl">
                              <Image 
-                                src={placeholderImages.placeholderImages[20].imageUrl}
-                                alt={placeholderImages.placeholderImages[20].description}
-                                data-ai-hint={placeholderImages.placeholderImages[20].imageHint}
+                                src={placeholderImages.placeholderImages[19].imageUrl}
+                                alt={placeholderImages.placeholderImages[19].description}
+                                data-ai-hint={placeholderImages.placeholderImages[19].imageHint}
                                 fill
                                 className="object-cover"
                             />

@@ -13,7 +13,7 @@ export default function StaffPage() {
             <PageHeader
                 title="Our Staff & Faculty"
                 subtitle="A dedicated team of educators, mentors, and leaders committed to student success."
-                backgroundImage={placeholderImages.placeholderImages[23].imageUrl}
+                backgroundImage={placeholderImages.placeholderImages[22].imageUrl}
             />
 
             <section className="py-16 lg:py-24">

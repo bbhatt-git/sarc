@@ -18,7 +18,7 @@ export default function NewsAndGalleryPage() {
             <PageHeader
                 title="News & Gallery"
                 subtitle="A glimpse into the vibrant life and latest happenings at SARC."
-                backgroundImage={placeholderImages.placeholderImages[24].imageUrl}
+                backgroundImage={placeholderImages.placeholderImages[23].imageUrl}
             />
 
             <section id="news" className="py-16 lg:py-24">

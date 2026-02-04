@@ -11,7 +11,7 @@ export default function AcademicsPage() {
             <PageHeader
                 title="Academics"
                 subtitle="A rigorous and inspiring curriculum designed to cultivate intellectual curiosity and a passion for lifelong learning."
-                backgroundImage={placeholderImages.placeholderImages[22].imageUrl}
+                backgroundImage={placeholderImages.placeholderImages[21].imageUrl}
             />
 
             <section className="py-16 lg:py-24">
