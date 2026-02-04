@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("scroll-smooth", inter.variable, playfairDisplay.variable)}>
+    <html lang="en" className={cn("dark scroll-smooth", inter.variable, playfairDisplay.variable)}>
       <body
         className={cn(
           'font-body antialiased min-h-screen flex flex-col',

@@ -46,7 +46,7 @@ export default function StaffProfilePage({ params }: { params: { slug: string } 
                                      <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-lg mb-4 ring-4 ring-primary/20">
                                         <Image
                                             src={image.imageUrl}
-                                            alt={`Portrait of ${staffMember.name}`}
+                                            alt={`Portrait of ${''\'\'\''}{staffMember.name}`}
                                             data-ai-hint={image.imageHint}
                                             fill
                                             className="object-cover"
