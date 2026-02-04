@@ -5,16 +5,15 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
 import Link from 'next/link';
-import placeholderImages from '@/lib/placeholder-images.json';
 
 export default function HeroSection() {
   const heroImages = [
-    placeholderImages.placeholderImages.find(img => img.id === 'hero-background'),
-    placeholderImages.placeholderImages.find(img => img.id === 'campus-overview'),
-    placeholderImages.placeholderImages.find(img => img.id === 'admissions-header'),
-    placeholderImages.placeholderImages.find(img => img.id === 'academics-header'),
-    placeholderImages.placeholderImages.find(img => img.id === 'gallery-6'),
-  ].filter(Boolean); // Filter out any not found
+    { src: '/images/hero/0.jpg', alt: 'SARC campus view' },
+    { src: '/images/hero/1.jpg', alt: 'Students in a modern classroom' },
+    { src: '/images/hero/2.jpg', alt: 'A state-of-the-art science laboratory' },
+    { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' },
+    { src: '/images/hero/4.jpg', alt: 'Graduation ceremony with students celebrating' },
+  ];
 
   const headline = {
     headline: "Fostering Excellence, Building Character",
@@ -30,11 +29,10 @@ export default function HeroSection() {
       >
         <CarouselContent className="h-full">
           {heroImages.map((image, index) => (
-            image && <CarouselItem key={index} className="h-full relative">
+            <CarouselItem key={index} className="h-full relative">
               <Image
-                src={image.imageUrl}
-                alt={image.description}
-                data-ai-hint={image.imageHint}
+                src={image.src}
+                alt={image.alt}
                 fill
                 className="object-cover"
                 priority={index === 0}
