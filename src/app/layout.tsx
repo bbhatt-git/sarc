@@ -9,6 +9,10 @@ import { FirebaseClientProvider } from '@/firebase';
 export const metadata: Metadata = {
   title: 'SARC Education Foundation',
   description: 'Fostering Excellence and Character Building',
+  icons: {
+    icon: '/images/sarc.png',
+    apple: '/images/sarc.png',
+  },
 };
 
 export default function RootLayout({

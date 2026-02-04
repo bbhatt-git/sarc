@@ -2,11 +2,9 @@
 
 import type { HeroHeadlinesOutput } from '@/ai/flows/generate-hero-headlines';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
-import placeholderImages from '@/lib/placeholder-images.json';
 import Link from 'next/link';
 
 type HeroSectionProps = {
@@ -14,20 +12,15 @@ type HeroSectionProps = {
 };
 
 export default function HeroSection({ headlines }: HeroSectionProps) {
-  const heroBg = placeholderImages.placeholderImages.find(img => img.id === 'hero-background');
-
   return (
     <section className="relative w-full h-[80vh] min-h-[600px] flex items-center justify-center text-white overflow-hidden">
-      {heroBg && (
-        <Image
-          src={heroBg.imageUrl}
-          alt={heroBg.description}
-          data-ai-hint={heroBg.imageHint}
-          fill
-          className="object-cover"
-          priority
-        />
-      )}
+      <Image
+        src="/images/hero.png"
+        alt="SARC Education Foundation hero background"
+        fill
+        className="object-cover"
+        priority
+      />
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative container mx-auto px-4 text-center z-10 animated-fade-in">
         <Carousel
