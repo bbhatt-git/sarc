@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow anyone to create an admission inquiry.
+    // Disallow all other operations for now to keep the database secure.
+    match /admissionInquiries/{inquiryId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+  }
+}

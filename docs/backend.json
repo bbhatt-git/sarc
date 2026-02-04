@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "admissionInquiry": {
+      "title": "Admission Inquiry",
+      "description": "Represents an inquiry for admission submitted through the website form.",
+      "type": "object",
+      "properties": {
+        "parentName": {
+          "type": "string",
+          "description": "The name of the parent or guardian."
+        },
+        "studentName": {
+          "type": "string",
+          "description": "The name of the prospective student."
+        },
+        "studentAge": {
+          "type": "number",
+          "description": "The age of the prospective student."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The contact email address."
+        },
+        "message": {
+          "type": "string",
+          "description": "An optional message from the inquirer."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the inquiry was submitted."
+        }
+      },
+      "required": ["parentName", "studentName", "studentAge", "email", "createdAt"]
+    }
+  },
+  "auth": {
+    "providers": []
+  },
+  "firestore": {
+    "/admissionInquiries/{inquiryId}": {
+      "schema": {
+        "$ref": "#/entities/admissionInquiry"
+      },
+      "description": "Collection of admission inquiries."
+    }
+  }
+}

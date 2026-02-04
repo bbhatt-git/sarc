@@ -1,0 +1,18 @@
+'use client';
+import { initializeFirebase, FirebaseProvider } from '@/firebase';
+
+// This provider is responsible for initializing Firebase on the client
+// and wrapping the application with the FirebaseProvider.
+// It ensures that Firebase is initialized only once.
+export function FirebaseClientProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { firebaseApp, auth, firestore } = initializeFirebase();
+  return (
+    <FirebaseProvider value={{ firebaseApp, auth, firestore }}>
+      {children}
+    </FirebaseProvider>
+  );
+}

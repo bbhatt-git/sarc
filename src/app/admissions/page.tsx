@@ -1,46 +1,108 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
-import { useEffect, useRef } from 'react';
+import { useState, useRef, FormEvent } from 'react';
 import PageHeader from "@/app/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { submitInquiry } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 import placeholderImages from '@/lib/placeholder-images.json';
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { CheckCircle, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-        <Button type="submit" className="w-full" disabled={pending}>
-            {pending ? 'Submitting...' : 'Submit Inquiry'}
-        </Button>
-    );
-}
+import { z } from "zod";
+import { useFirestore } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
+
+const inquirySchema = z.object({
+  parentName: z.string().min(2, "Name is too short"),
+  studentName: z.string().min(2, "Name is too short"),
+  studentAge: z.coerce.number().min(5, "Age must be at least 5").max(18, "Age must be at most 18"),
+  email: z.string().email("Invalid email address"),
+  message: z.string().optional(),
+});
+
+type State = {
+  message: string | null;
+  errors: Record<string, string[] | undefined> | null;
+  success: boolean;
+};
 
 export default function AdmissionsPage() {
-    const initialState = { message: null, errors: {} };
-    const [state, dispatch] = useFormState(submitInquiry, initialState);
+    const [state, setState] = useState<State>({ message: null, errors: null, success: false });
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const { toast } = useToast();
     const formRef = useRef<HTMLFormElement>(null);
+    const firestore = useFirestore();
 
-    useEffect(() => {
-        if (state.message && state.errors && Object.keys(state.errors).length > 0) {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!firestore) return;
+
+        setIsSubmitting(true);
+        setState({ message: null, errors: null, success: false });
+
+        const formData = new FormData(e.currentTarget);
+        const rawData = Object.fromEntries(formData.entries());
+
+        const validatedFields = inquirySchema.safeParse(rawData);
+
+        if (!validatedFields.success) {
+            const errors = validatedFields.error.flatten().fieldErrors;
+            setState({
+                errors,
+                message: 'Error: Please check your input.',
+                success: false,
+            });
+            setIsSubmitting(false);
             toast({
                 variant: 'destructive',
                 title: 'Submission Error',
-                description: state.message,
+                description: 'Please correct the errors in the form.',
             });
+            return;
         }
-        if (state.message && (!state.errors || Object.keys(state.errors).length === 0)) {
-            if(state.reset) formRef.current?.reset();
-        }
-    }, [state, toast]);
+
+        const inquiryData = {
+          ...validatedFields.data,
+          createdAt: serverTimestamp(),
+        };
+
+        const collRef = collection(firestore, "admissionInquiries");
+        
+        addDoc(collRef, inquiryData).then(() => {
+          setState({
+              message: `Thank you, ${validatedFields.data.parentName}! Your inquiry has been received. We will be in touch shortly.`,
+              errors: null,
+              success: true
+          });
+          formRef.current?.reset();
+        }).catch((serverError) => {
+          const permissionError = new FirestorePermissionError({
+            path: collRef.path,
+            operation: 'create',
+            requestResourceData: inquiryData,
+          });
+          errorEmitter.emit('permission-error', permissionError);
+
+          setState({
+              message: 'Server Error: Could not submit your inquiry. Please try again later.',
+              errors: null,
+              success: false
+          });
+          toast({
+              variant: 'destructive',
+              title: 'Submission Error',
+              description: 'Could not submit your inquiry. Please try again later.',
+          });
+        }).finally(() => {
+          setIsSubmitting(false);
+        });
+    }
 
     return (
         <div className="animated-fade-in">
@@ -83,7 +145,7 @@ export default function AdmissionsPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <form ref={formRef} action={dispatch} className="space-y-4">
+                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="parentName">Parent's Name</Label>
                                     <Input id="parentName" name="parentName" placeholder="e.g. Jane Doe" required />
@@ -110,8 +172,15 @@ export default function AdmissionsPage() {
                                     <Label htmlFor="message">Message (Optional)</Label>
                                     <Textarea id="message" name="message" placeholder="Tell us about your child's interests or any questions you have." />
                                 </div>
-                                <SubmitButton />
-                                {state.message && (!state.errors || Object.keys(state.errors).length === 0) && state.reset && (
+                                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            Submitting...
+                                        </>
+                                     ) : 'Submit Inquiry'}
+                                </Button>
+                                {state.success && state.message && (
                                     <Alert variant="default" className="mt-4 bg-green-50 border-green-200 text-green-800 dark:bg-green-950 dark:border-green-800 dark:text-green-300">
                                       <CheckCircle className="h-4 w-4" />
                                       <AlertTitle>Success!</AlertTitle>
