@@ -11,16 +11,37 @@ type HeroSectionProps = {
   headlines: HeroHeadlinesOutput['headlines'];
 };
 
+const backgroundImages = [
+  '/images/hero0.jpg',
+  '/images/hero1.jpg',
+  '/images/hero2.jpg',
+  '/images/hero3.jpg',
+  '/images/hero4.jpg',
+];
+
 export default function HeroSection({ headlines }: HeroSectionProps) {
   return (
     <section className="relative w-full h-[80vh] min-h-[600px] flex items-center justify-center text-white overflow-hidden">
-      <Image
-        src="/images/hero.png"
-        alt="SARC Education Foundation hero background"
-        fill
-        className="object-cover"
-        priority
-      />
+       <Carousel
+        opts={{ loop: true }}
+        plugins={[Autoplay({ delay: 5000, stopOnInteraction: false })]}
+        className="absolute inset-0 w-full h-full"
+      >
+        <CarouselContent className="h-full">
+          {backgroundImages.map((src, index) => (
+            <CarouselItem key={index} className="h-full relative">
+              <Image
+                src={src}
+                alt={`Hero background ${index + 1}`}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative container mx-auto px-4 text-center z-10 animated-fade-in">
         <Carousel
