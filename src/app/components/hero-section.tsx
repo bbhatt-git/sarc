@@ -6,20 +6,20 @@ import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function HeroSection() {
-  const heroImages = [
+const heroImages = [
     { src: '/images/0.jpg', alt: 'SARC campus view' },
     { src: '/images/1.jpg', alt: 'Students in a modern classroom' },
     { src: '/images/2.jpg', alt: 'A state-of-the-art science laboratory' },
     { src: '/images/3.jpg', alt: 'Students collaborating on a project' },
     { src: '/images/4.jpg', alt: 'Graduation ceremony with students celebrating' },
-  ];
+];
 
-  const headline = {
+const headline = {
     headline: "Fostering Excellence, Building Character",
     subHeadline: "A transformative education for the leaders of tomorrow."
-  };
+};
 
+export default function HeroSection() {
   return (
     <section className="relative w-full h-[90vh] min-h-[700px] flex items-center justify-center text-white overflow-hidden">
       <Carousel
