@@ -56,7 +56,7 @@ export default function AcademicsPage() {
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
                         {departmentDetails.map(dept => (
-                            <Card key={dept.id} className="glass-card hover:shadow-primary/20 transition-shadow duration-300">
+                            <Card key={dept.id} className="glass-card">
                                 <CardHeader className="items-center text-center">
                                     <div className="bg-primary/10 p-4 rounded-full mb-4">
                                         <dept.icon className="w-8 h-8 text-primary" />

@@ -29,7 +29,7 @@ export default async function Home() {
     <div className="flex flex-col items-center">
       <HeroSection headlines={heroData.headlines} />
 
-      <section id="introduction" className="w-full py-16 lg:py-24 bg-secondary/50">
+      <section id="introduction" className="w-full py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4 animated-fade-in">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-4">
@@ -43,7 +43,7 @@ export default async function Home() {
                 <Link href="/about">Learn More About Us <ArrowRight className="ml-2" /></Link>
               </Button>
             </div>
-            <div className="relative h-80 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <Image 
                 src={placeholderImages.placeholderImages[0].imageUrl} 
                 alt={placeholderImages.placeholderImages[0].description}
@@ -56,7 +56,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="academics-preview" className="w-full py-16 lg:py-24">
+      <section id="academics-preview" className="w-full py-16 lg:py-24 bg-secondary/50">
         <div className="container mx-auto px-4 animated-fade-in">
           <div className="flex flex-col items-center text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">A World-Class Curriculum</h2>
@@ -67,12 +67,12 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {curriculumDetails.map((level) => (
-              <Card key={level.id} className="glass-card hover:shadow-primary/20 transition-shadow duration-300">
+              <Card key={level.id} className="glass-card">
                 <CardHeader className="flex-row items-center gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg">
+                  <div className="bg-primary/10 p-3 rounded-full">
                     <BookOpen className="w-6 h-6 text-primary" />
                   </div>
-                  <CardTitle className="font-headline">{level.title}</CardTitle>
+                  <CardTitle className="font-headline text-xl">{level.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{level.summary}</p>
@@ -96,7 +96,7 @@ export default async function Home() {
           <p className="mx-auto max-w-[600px] md:text-xl mt-4">
             Discover a transformative educational experience. Apply now to join a community dedicated to excellence.
           </p>
-          <Button asChild size="lg" variant="secondary" className="mt-8">
+          <Button asChild size="lg" variant="secondary" className="mt-8 bg-background text-foreground hover:bg-background/90">
             <Link href="/admissions">Apply for Admissions <ArrowRight className="ml-2" /></Link>
           </Button>
         </div>

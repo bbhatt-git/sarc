@@ -77,7 +77,7 @@ export default function AboutPage() {
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline mb-12">Our Core Values</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                         {coreValues.map((value) => (
-                            <div key={value} className="flex items-center gap-3">
+                            <div key={value} className="flex items-center gap-3 p-4 bg-secondary/30 rounded-lg">
                                 <CheckCircle className="w-6 h-6 text-primary" />
                                 <span className="font-medium text-left">{value}</span>
                             </div>

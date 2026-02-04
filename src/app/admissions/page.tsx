@@ -181,9 +181,9 @@ export default function AdmissionsPage() {
                                      ) : 'Submit Inquiry'}
                                 </Button>
                                 {state.success && state.message && (
-                                    <Alert variant="default" className="mt-4 bg-green-50 border-green-200 text-green-800 dark:bg-green-950 dark:border-green-800 dark:text-green-300">
-                                      <CheckCircle className="h-4 w-4" />
-                                      <AlertTitle>Success!</AlertTitle>
+                                    <Alert variant="default" className="mt-4 bg-green-50/10 border-green-200/20 text-green-300">
+                                      <CheckCircle className="h-4 w-4 text-green-400" />
+                                      <AlertTitle className="text-green-400">Success!</AlertTitle>
                                       <AlertDescription>
                                         {state.message}
                                       </AlertDescription>

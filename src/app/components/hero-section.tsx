@@ -14,16 +14,16 @@ type HeroSectionProps = {
 };
 
 const backgroundImages = [
-  '/images/hero0.jpg',
-  '/images/hero1.jpg',
-  '/images/hero2.jpg',
-  '/images/hero3.jpg',
-  '/images/hero4.jpg',
+  '/images/hero/0.jpg',
+  '/images/hero/1.jpg',
+  '/images/hero/2.jpg',
+  '/images/hero/3.jpg',
+  '/images/hero/4.jpg',
 ];
 
 export default function HeroSection({ headlines }: HeroSectionProps) {
   return (
-    <section className="relative w-full h-[80vh] min-h-[600px] flex items-center justify-center text-white overflow-hidden">
+    <section className="relative w-full h-[90vh] min-h-[700px] flex items-center justify-center text-white overflow-hidden">
        <Carousel
         opts={{ loop: true }}
         plugins={[Autoplay({ delay: 5000, stopOnInteraction: false })]}
@@ -44,7 +44,7 @@ export default function HeroSection({ headlines }: HeroSectionProps) {
         </CarouselContent>
       </Carousel>
 
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/60" />
       <div className="relative container mx-auto px-4 text-center z-10 animated-fade-in">
         <Carousel
           opts={{ loop: true }}
@@ -55,7 +55,7 @@ export default function HeroSection({ headlines }: HeroSectionProps) {
             {headlines.map((item, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
-                  <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl font-headline text-shadow-lg">
+                  <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline text-shadow-lg">
                     {item.headline}
                   </h1>
                   <p className="mx-auto mt-4 max-w-[700px] text-lg md:text-xl text-shadow">
