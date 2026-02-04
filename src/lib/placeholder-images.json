@@ -3,19 +3,19 @@
     {
       "id": "campus-overview",
       "description": "An aerial view of a modern and beautiful school campus.",
-      "imageUrl": "https://images.unsplash.com/photo-1758413350790-560b73f26c04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb2Rlcm4lMjBjYW1wdXN8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1763615834709-cd4b196980db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtb2Rlcm4lMjBjYW1wdXN8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "modern campus"
     },
     {
       "id": "hero-background",
       "description": "A bright, inspiring image of a library or classroom.",
-      "imageUrl": "https://images.unsplash.com/photo-1623723228633-0ca9f4abdcef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxicmlnaHQlMjBsaWJyYXJ5fGVufDB8fHx8MTc3MDIxMDAzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1644430351358-8a50028e81b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxicmlnaHQlMjBsaWJyYXJ5fGVufDB8fHx8MTc3MDIxMDAzMXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "bright library"
     },
     {
       "id": "admissions-header",
       "description": "Welcoming group of diverse students smiling.",
-      "imageUrl": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzcwMjA2MjAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1548102249-acdce64fffbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkaXZlcnNlJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzcwMjA2MjAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "diverse students"
     },
     {
@@ -27,121 +27,121 @@
     {
       "id": "head-of-sciences",
       "description": "Portrait of a science department head in a lab.",
-      "imageUrl": "https://images.unsplash.com/photo-1641893588018-b958a5845cab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzY2llbnRpc3QlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAxMzUwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1607988795691-3d0147b43231?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzY2llbnRpc3QlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAxMzUwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "scientist portrait"
     },
     {
       "id": "arts-coordinator",
       "description": "Portrait of an arts coordinator in a studio.",
-      "imageUrl": "https://images.unsplash.com/photo-1712687947291-8e89f1f426ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhcnRpc3QlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAxNDM1NTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1746309820773-7bd3498c36fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcnRpc3QlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAxNDM1NTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "artist portrait"
     },
     {
       "id": "athletic-director",
       "description": "Portrait of an athletic director on a sports field.",
-      "imageUrl": "https://images.unsplash.com/photo-1701481080490-cb2e7f4fd5f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2FjaCUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MDIwNzg0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1701481063068-0103e348d844?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb2FjaCUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MDIwNzg0OXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "coach portrait"
     },
     {
       "id": "faculty-1",
       "description": "Portrait of a friendly senior faculty member.",
-      "imageUrl": "https://images.unsplash.com/photo-1487309078313-fad80c3ec1e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0ZWFjaGVyJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzcwMTA5MzIyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1643773664163-1b7c307ae888?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx0ZWFjaGVyJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzcwMTA5MzIyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "teacher portrait"
     },
     {
       "id": "faculty-2",
       "description": "Portrait of an engaging senior faculty member.",
-      "imageUrl": "https://images.unsplash.com/photo-1574281570877-bd815ebb50a4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9mZXNzb3IlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAxODI0ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1615712278090-a935af124081?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9mZXNzb3IlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAxODI0ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "professor portrait"
     },
     {
       "id": "faculty-3",
       "description": "Portrait of a wise senior faculty member.",
-      "imageUrl": "https://images.unsplash.com/photo-1729824186589-6bda2448f987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhY2FkZW1pYyUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MDIwNzg0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1505226317007-67f4f53d8624?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhY2FkZW1pYyUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MDIwNzg0OXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "academic portrait"
     },
     {
       "id": "faculty-4",
       "description": "Portrait of a dedicated senior faculty member.",
-      "imageUrl": "https://images.unsplash.com/photo-1491440305722-061438e1cdc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxlZHVjYXRvciUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MDIwNzg0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1758685848006-1bc450061624?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxlZHVjYXRvciUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MDIwNzg0OXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "educator portrait"
     },
     {
       "id": "gallery-1",
       "description": "Students collaborating on a science project.",
-      "imageUrl": "https://images.unsplash.com/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzdHVkZW50cyUyMHNjaWVuY2V8ZW58MHx8fHwxNzcwMTMxODI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1758685734030-a31d96462eec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzdHVkZW50cyUyMHNjaWVuY2V8ZW58MHx8fHwxNzcwMTMxODI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "students science"
     },
     {
       "id": "gallery-2",
       "description": "A school theater production.",
-      "imageUrl": "https://images.unsplash.com/photo-1758598737955-7c8a9556706a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzY2hvb2wlMjBwbGF5fGVufDB8fHx8MTc3MDE0MTc2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1761682753542-421c80ae8be2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzY2hvb2wlMjBwbGF5fGVufDB8fHx8MTc3MDE0MTc2MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "school play"
     },
     {
       "id": "gallery-3",
       "description": "A student art exhibition.",
-      "imageUrl": "https://images.unsplash.com/photo-1656129974517-7da8bb940a1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhcnQlMjBleGhpYml0aW9ufGVufDB8fHx8MTc3MDA4OTY0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1605999081451-4436bf1d0d88?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhcnQlMjBleGhpYml0aW9ufGVufDB8fHx8MTc3MDIxMzU2N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "art exhibition"
     },
     {
       "id": "gallery-4",
       "description": "The school's basketball team celebrating a victory.",
-      "imageUrl": "https://images.unsplash.com/photo-1519766304817-4f37bda74a26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxiYXNrZXRiYWxsJTIwdGVhbXxlbnwwfHx8fDE3NzAyMTAwMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1573800495261-93132cc8d578?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YmFza2V0YmFsbCUyMHRlYW18ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "basketball team"
     },
     {
       "id": "gallery-5",
       "description": "Students participating in a debate competition.",
-      "imageUrl": "https://images.unsplash.com/photo-1655472355485-d949925e67bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkZWJhdGUlMjBjbHVifGVufDB8fHx8MTc3MDIxMDAzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1753546466496-d2d8a819f61a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkZWJhdGUlMjBjbHVifGVufDB8fHx8MTc3MDIxMDAzMXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "debate club"
     },
     {
       "id": "gallery-6",
       "description": "Graduation day ceremony.",
-      "imageUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmFkdWF0aW9uJTIwY2VyZW1vbnl8ZW58MHx8fHwxNzcwMjA3ODQ5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1621052123734-b54bd83c92e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxncmFkdWF0aW9uJTIwY2VyZW1vbnl8ZW58MHx8fHwxNzcwMjA3ODQ5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "graduation ceremony"
     },
     {
       "id": "news-1",
       "description": "Student winning a national science fair.",
-      "imageUrl": "https://images.unsplash.com/photo-1681689377699-caa51c35ea46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzY2llbmNlJTIwYXdhcmR8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1706340674031-acaaf6e2144b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzY2llbmNlJTIwYXdhcmR8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "science award"
     },
     {
       "id": "news-2",
       "description": "School orchestra performing at a concert.",
-      "imageUrl": "https://images.unsplash.com/photo-1764590544621-3fab73b1a78c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzY2hvb2wlMjBvcmNoZXN0cmF8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1726095091581-77f2877cba95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzY2hvb2wlMjBvcmNoZXN0cmF8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "school orchestra"
     },
     {
       "id": "about-vision",
       "description": "A telescope pointing towards the stars, symbolizing vision.",
-      "imageUrl": "https://images.unsplash.com/photo-1711990259686-254b8a5bdbe5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0ZWxlc2NvcGUlMjBzdGFyc3xlbnwwfHx8fDE3NzAyMTAwMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1711560708483-199b16ec2e97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0ZWxlc2NvcGUlMjBzdGFyc3xlbnwwfHx8fDE3NzAyMTAwMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "telescope stars"
     },
     {
       "id": "about-history",
       "description": "An old, classic library with books, symbolizing history.",
-      "imageUrl": "https://images.unsplash.com/photo-1625053376622-e462848c453f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxvbGQlMjBsaWJyYXJ5fGVufDB8fHx8MTc3MDE5ODc5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1640273837947-ea830d50c191?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxvbGQlMjBsaWJyYXJ5fGVufDB8fHx8MTc3MDE5ODc5MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "old library"
     },
     {
       "id": "academics-header",
       "description": "A grand university lecture hall.",
-      "imageUrl": "https://images.unsplash.com/photo-1594122230689-45899d9e6f69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsZWN0dXJlJTIwaGFsbHxlbnwwfHx8fDE3NzAxMTIyNzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxsZWN0dXJlJTIwaGFsbHxlbnwwfHx8fDE3NzAxMTIyNzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "lecture hall"
     },
     {
       "id": "staff-header",
       "description": "A group of professional and diverse faculty members.",
-      "imageUrl": "https://images.unsplash.com/photo-1706690163950-169c4abce307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmYWN1bHR5JTIwZ3JvdXB8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1728404059704-d4232080b338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYWN1bHR5JTIwZ3JvdXB8ZW58MHx8fHwxNzcwMjEwMDMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "faculty group"
     },
     {
       "id": "news-header",
       "description": "A bustling school hallway between classes.",
-      "imageUrl": "https://images.unsplash.com/photo-1599036495538-ee049546a069?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzY2hvb2wlMjBoYWxsd2F5fGVufDB8fHx8MTc3MDE4NDI5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1556168308-629ef2891e9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzY2hvb2wlMjBoYWxsd2F5fGVufDB8fHx8MTc3MDE4NDI5OXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "school hallway"
     }
   ]

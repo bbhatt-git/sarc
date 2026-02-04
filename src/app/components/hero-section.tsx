@@ -1,6 +1,5 @@
 'use client';
 
-import type { HeroHeadlinesOutput } from '@/ai/flows/generate-hero-headlines';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
@@ -8,7 +7,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 type HeroSectionProps = {
-  headlines: HeroHeadlinesOutput['headlines'];
+  headlines: {
+    headline: string;
+    subHeadline: string;
+  }[];
 };
 
 const backgroundImages = [

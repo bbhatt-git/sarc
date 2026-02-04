@@ -1,6 +1,7 @@
 'use client';
 import { initializeFirebase } from './init';
 import { FirebaseProvider } from './provider';
+import FirebaseErrorListener from '@/components/FirebaseErrorListener';
 
 // This provider is responsible for initializing Firebase on the client
 // and wrapping the application with the FirebaseProvider.
@@ -14,6 +15,7 @@ export function FirebaseClientProvider({
   return (
     <FirebaseProvider value={{ firebaseApp, auth, firestore }}>
       {children}
+      <FirebaseErrorListener />
     </FirebaseProvider>
   );
 }
