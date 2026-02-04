@@ -8,11 +8,11 @@ import Link from 'next/link';
 
 export default function HeroSection() {
   const heroImages = [
-    { src: '/images/hero/0.jpg', alt: 'SARC campus view' },
-    { src: '/images/hero/1.jpg', alt: 'Students in a modern classroom' },
-    { src: '/images/hero/2.jpg', alt: 'A state-of-the-art science laboratory' },
-    { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' },
-    { src: '/images/hero/4.jpg', alt: 'Graduation ceremony with students celebrating' },
+    { src: '/images/0.jpg', alt: 'SARC campus view' },
+    { src: '/images/1.jpg', alt: 'Students in a modern classroom' },
+    { src: '/images/2.jpg', alt: 'A state-of-the-art science laboratory' },
+    { src: '/images/3.jpg', alt: 'Students collaborating on a project' },
+    { src: '/images/4.jpg', alt: 'Graduation ceremony with students celebrating' },
   ];
 
   const headline = {
