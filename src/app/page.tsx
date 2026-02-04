@@ -1,15 +1,29 @@
-import { generateHeroHeadlines } from '@/ai/flows/generate-hero-headlines';
 import HeroSection from '@/app/components/hero-section';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { curriculumDetails, departmentDetails } from '@/lib/data';
-import { ArrowRight, BookOpen, FlaskConical, Palette } from 'lucide-react';
+import { curriculumDetails } from '@/lib/data';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import placeholderImages from '@/lib/placeholder-images.json';
 
 export default async function Home() {
-  const heroData = await generateHeroHeadlines({ theme: 'Excellence and Character Building' });
+  const heroData = {
+    headlines: [
+      {
+        headline: "Fostering Excellence, Building Character",
+        subHeadline: "A transformative education for the leaders of tomorrow."
+      },
+      {
+        headline: "A Legacy of Academic Achievement",
+        subHeadline: "Join a community dedicated to intellectual curiosity and personal growth."
+      },
+      {
+        headline: "Empowering Minds, Shaping Futures",
+        subHeadline: "Discover your potential at a world-class educational institution."
+      }
+    ]
+  };
 
   return (
     <div className="flex flex-col items-center">
