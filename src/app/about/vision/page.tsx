@@ -22,7 +22,7 @@ const missionItems = [
 export default function VisionPage() {
     return (
         <div className="pt-32 pb-20">
-            <SectionTitle title="Our Vision & Mission" subtitle="Guiding Our Path to Excellence" />
+            <SectionTitle title="Vision, Mission & Values" subtitle="The principles that guide us" />
             
             <motion.section 
                 initial={{ opacity: 0, y: 50 }}

@@ -7,7 +7,7 @@ import SectionTitle from '@/app/components/section-title';
 export default function AboutUsPage() {
     return (
         <div className="pt-32 pb-20">
-            <SectionTitle title="About SARC" subtitle="A Legacy of Excellence Since 2017" />
+            <SectionTitle title="Our School" subtitle="Discover our campus and educational approach" />
             
             <motion.section 
                 initial={{ opacity: 0, y: 50 }}

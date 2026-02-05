@@ -10,7 +10,7 @@ import { NAV_LINKS } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
-const NavItem = ({ link }: { link: (typeof NAV_LINKS)[0] }) => {
+const NavItem = ({ link }: { link: (typeof NAV_LINKS)[0] & {children?: any[]} }) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,17 +38,36 @@ const NavItem = ({ link }: { link: (typeof NAV_LINKS)[0] }) => {
               transition={{ duration: 0.2, ease: 'easeOut' }}
               className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-20"
             >
-              <div className="bg-slate-900/80 border-slate-700 text-slate-200 backdrop-blur-md rounded-xl shadow-lg p-2 min-w-[200px]">
-                {link.children.map((child) => (
-                  <Link
-                    key={child.label}
-                    href={child.href}
-                    className="block px-4 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded-md"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {child.label}
-                  </Link>
-                ))}
+              <div className="bg-slate-900/80 border-slate-700 backdrop-blur-md rounded-xl shadow-lg p-4 min-w-[320px]">
+                <ul className="space-y-1">
+                  {link.children.map((child) => (
+                    child.icon && child.description ? (
+                      <li key={child.label}>
+                          <Link
+                              href={child.href}
+                              className="flex items-start gap-4 p-3 rounded-lg transition-colors hover:bg-slate-800"
+                              onClick={() => setIsOpen(false)}
+                          >
+                              <child.icon className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
+                              <div>
+                                  <span className="font-semibold text-white">{child.label}</span>
+                                  <p className="text-sm text-slate-400">{child.description}</p>
+                              </div>
+                          </Link>
+                      </li>
+                    ) : (
+                      <li key={child.label}>
+                          <Link
+                              href={child.href}
+                              className="block px-4 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded-md"
+                              onClick={() => setIsOpen(false)}
+                          >
+                              {child.label}
+                          </Link>
+                      </li>
+                    )
+                  ))}
+                </ul>
               </div>
             </motion.div>
           )}
@@ -160,7 +179,7 @@ export default function Header() {
                                     <div key={link.label}>
                                         <h3 className="text-slate-400 mb-3">{link.label}</h3>
                                         <div className='flex flex-col gap-4 pl-4 border-l border-slate-700'>
-                                        {link.children.map(child => (
+                                        {link.children.map((child: any) => (
                                             <Link key={child.label} href={child.href} className="text-slate-200 hover:text-emerald-500" onClick={() => setIsMobileMenuOpen(false)}>
                                                 {child.label}
                                             </Link>

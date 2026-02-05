@@ -1,14 +1,15 @@
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { 
     label: 'About',
     children: [
-      { href: '/about/us', label: 'About Us' },
-      { href: '/about/vision', label: 'Vision & Mission' },
-      { href: '/about/staffs', label: 'Staffs' },
-      { href: '/about/why-us', label: 'Why Choose Us?' },
+      { href: '/about/us', label: 'Our School', description: 'Discover our campus and educational approach', icon: GraduationCap },
+      { href: '/about/vision', label: 'Vision, Mission & Values', description: 'The principles that guide us', icon: Target },
+      { href: '/about/staffs', label: 'Our Staff', description: 'Meet our dedicated team', icon: Users },
+      { href: '/about/founder', label: 'Our Founder', description: 'The visionary behind SARC', icon: User },
+      { href: '/about/history', label: 'Our History', description: 'Journey & achievements', icon: History },
     ],
   },
   { 

@@ -7,7 +7,7 @@ import SectionTitle from '@/app/components/section-title';
 export default function StaffPage() {
     return (
         <div className="pt-32 pb-20">
-            <SectionTitle title="Our Faculty" subtitle="Meet Our Dedicated Team" />
+            <SectionTitle title="Our Staff" subtitle="Meet Our Dedicated Team" />
             <div className="container mx-auto px-4 mt-16">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {STAFF_MEMBERS.map((staff, index) => (
