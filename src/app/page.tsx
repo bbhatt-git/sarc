@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Quote } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -14,7 +14,6 @@ import Autoplay from "embla-carousel-autoplay"
 
 import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
-import { Card, CardContent } from '@/components/ui/card';
 import Marquee from './components/marquee';
 
 export default function Home() {
@@ -30,7 +29,7 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col items-center overflow-x-hidden"
+      className="flex flex-col items-center"
     >
       {/* Hero Section */}
       <section className="relative w-full h-[calc(100vh-80px)] text-white">
@@ -159,35 +158,37 @@ export default function Home() {
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
         <div className="mt-16 space-y-8">
             <Marquee>
-                {TESTIMONIALS.slice(0, 3).map((testimonial, i) => (
-                    <Card key={i} className="bg-white w-[400px] mx-4 flex-shrink-0 shadow-md">
-                        <CardContent className="p-6">
-                            <p className="text-slate-600 italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-4 mt-6'>
-                            <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full" />
-                            <div>
-                                <h4 className="font-bold text-slate-800">{testimonial.author}</h4>
-                                <p className='text-sm text-slate-500'>{testimonial.role}</p>
+                {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
+                    <div key={i} className="glass-card w-[450px] max-w-[90vw] mx-6 flex-shrink-0 p-8 rounded-3xl relative">
+                        <Quote className="absolute top-6 left-6 w-16 h-16 text-emerald-600/10" strokeWidth={1.5} />
+                        <div className="relative z-10 flex flex-col h-full">
+                            <p className="text-slate-600 text-lg font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-4 mt-6 pt-6 border-t border-slate-200/50'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={56} height={56} className="rounded-full border-2 border-white/50" />
+                                <div>
+                                    <h4 className="font-semibold text-slate-800">{testimonial.author}</h4>
+                                    <p className='text-sm text-slate-500'>{testimonial.role}</p>
+                                </div>
                             </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 ))}
             </Marquee>
             <Marquee direction="right">
-                {TESTIMONIALS.slice(3, 6).map((testimonial, i) => (
-                     <Card key={i} className="bg-white w-[400px] mx-4 flex-shrink-0 shadow-md">
-                        <CardContent className="p-6">
-                            <p className="text-slate-600 italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-4 mt-6'>
-                            <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full" />
-                            <div>
-                                <h4 className="font-bold text-slate-800">{testimonial.author}</h4>
-                                <p className='text-sm text-slate-500'>{testimonial.role}</p>
+                {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
+                     <div key={i} className="glass-card w-[450px] max-w-[90vw] mx-6 flex-shrink-0 p-8 rounded-3xl relative">
+                        <Quote className="absolute top-6 left-6 w-16 h-16 text-emerald-600/10" strokeWidth={1.5} />
+                        <div className="relative z-10 flex flex-col h-full">
+                            <p className="text-slate-600 text-lg font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-4 mt-6 pt-6 border-t border-slate-200/50'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={56} height={56} className="rounded-full border-2 border-white/50" />
+                                <div>
+                                    <h4 className="font-semibold text-slate-800">{testimonial.author}</h4>
+                                    <p className='text-sm text-slate-500'>{testimonial.role}</p>
+                                </div>
                             </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 ))}
             </Marquee>
         </div>
