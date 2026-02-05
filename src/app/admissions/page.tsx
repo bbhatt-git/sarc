@@ -105,12 +105,12 @@ export default function AdmissionsPage() {
     }
 
     return (
-        <div className="pt-24 pb-20 bg-slate-950/50">
+        <div className="pt-24 pb-20 bg-slate-50">
             <SectionTitle title="Admissions" subtitle="Begin Your Journey at SARC" />
             <div className="container mx-auto px-4 max-w-4xl mt-16">
-                 <div className="glass-card p-8 md:p-12">
-                    <h3 className="text-2xl font-bold mb-2 text-slate-100">Online Admission Form</h3>
-                    <p className="text-slate-400 mb-8">Fill out the form below to start the admission process.</p>
+                 <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+                    <h3 className="text-2xl font-bold mb-2 text-slate-800">Online Admission Form</h3>
+                    <p className="text-slate-600 mb-8">Fill out the form below to start the admission process.</p>
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
@@ -167,8 +167,8 @@ export default function AdmissionsPage() {
                              ) : 'Submit Inquiry'}
                         </Button>
                         {state.success && state.message && (
-                             <Alert variant="default" className="mt-4 bg-emerald-900/50 border-emerald-700 text-emerald-300">
-                              <CheckCircle className="h-4 w-4 !text-emerald-400" />
+                             <Alert variant="default" className="mt-4 bg-emerald-50 border-emerald-200 text-emerald-800">
+                              <CheckCircle className="h-4 w-4 !text-emerald-600" />
                               <AlertTitle className="font-semibold">Success!</AlertTitle>
                               <AlertDescription>
                                 {state.message}

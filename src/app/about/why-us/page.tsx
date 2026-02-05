@@ -5,7 +5,7 @@ import SectionTitle from '@/app/components/section-title';
 
 export default function WhyUsPage() {
     return (
-        <div className="pt-24 pb-20">
+        <div className="pt-24 pb-20 bg-slate-50">
             <SectionTitle title="Why Choose SARC?" subtitle="Our Commitment to Your Success" />
 
             <div className="container mx-auto px-4 mt-16">
@@ -17,14 +17,14 @@ export default function WhyUsPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="glass-card p-8 flex items-start gap-6 transition-all hover:shadow-lg hover:-translate-y-1 hover:shadow-emerald-900/50"
+                            className="bg-white rounded-lg shadow-md p-8 flex items-start gap-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                         >
-                            <div className="bg-emerald-900/50 p-4 rounded-full border border-emerald-700/50">
-                                <item.icon className="w-8 h-8 text-emerald-400" />
+                            <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
+                                <item.icon className="w-8 h-8 text-emerald-600" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-slate-100 mb-2">{item.title}</h3>
-                                <p className="text-slate-400 text-lg">{item.description}</p>
+                                <h3 className="text-2xl font-bold text-slate-800 mb-2">{item.title}</h3>
+                                <p className="text-slate-600 text-lg">{item.description}</p>
                             </div>
                         </motion.div>
                     ))}

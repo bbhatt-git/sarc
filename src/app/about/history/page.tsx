@@ -33,11 +33,11 @@ export default function HistoryPage() {
                                 transition={{ duration: 0.5, delay: index * 0.2 }}
                                 className="relative"
                             >
-                                <div className="absolute -left-12 top-1 flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 ring-4 ring-white">
+                                <div className="absolute -left-12 top-1 flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 ring-4 ring-white">
                                     <Check className="w-5 h-5 text-white" />
                                 </div>
                                 <div className="bg-white border border-slate-200 shadow-sm rounded-lg p-6 ml-4">
-                                    <p className="text-lg font-bold text-blue-600">{item.year}</p>
+                                    <p className="text-lg font-bold text-emerald-600">{item.year}</p>
                                     <h3 className="text-xl font-semibold text-slate-800 mt-1">{item.event}</h3>
                                 </div>
                             </motion.div>

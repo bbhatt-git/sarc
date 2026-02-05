@@ -35,9 +35,9 @@ export default function VisionPage() {
                 {...fadeIn}
                 className="container mx-auto px-4 mt-16"
             >
-                <div className="glass-card p-12 text-center relative overflow-hidden">
-                    <h2 className="text-3xl font-bold text-slate-100 mb-4 relative">Our Vision</h2>
-                    <p className="text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed relative">
+                <div className="bg-white shadow-lg rounded-2xl p-12 text-center relative overflow-hidden">
+                    <h2 className="text-3xl font-bold text-slate-800 mb-4 relative">Our Vision</h2>
+                    <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed relative">
                         To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
                     </p>
                 </div>
@@ -47,16 +47,16 @@ export default function VisionPage() {
                  {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-100 text-center mb-12">Our Mission</h2>
+                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Mission</h2>
                 <div className="grid md:grid-cols-2 gap-8">
                    {missionItems.map((item, index) => (
                        <motion.div 
                         key={index} 
                         {...fadeIn}
                         transition={{...fadeIn.transition, delay: index * 0.1}}
-                        className={`glass-card p-6 flex items-start gap-4 border-l-4 ${item.color}`}>
-                           <Check className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
-                           <p className="text-slate-300 text-lg">{item.text}</p>
+                        className={`bg-white shadow rounded-lg p-6 flex items-start gap-4 border-l-4 ${item.color}`}>
+                           <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
+                           <p className="text-slate-700 text-lg">{item.text}</p>
                        </motion.div>
                    ))}
                 </div>
@@ -66,16 +66,16 @@ export default function VisionPage() {
                  {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-100 text-center mb-12">Future Goals</h2>
+                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Future Goals</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {futureGoals.map((goal, index) => (
                         <motion.div 
                             key={index} 
                             {...fadeIn}
                             transition={{...fadeIn.transition, delay: index * 0.1}}
-                            className="flex items-center gap-3 bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                            <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-                            <p className="text-slate-300">{goal}</p>
+                            className="flex items-center gap-3 bg-slate-100 p-4 rounded-lg border border-slate-200">
+                            <Check className="w-5 h-5 text-emerald-500 shrink-0" />
+                            <p className="text-slate-700">{goal}</p>
                         </motion.div>
                     ))}
                 </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BookOpen, UserCheck, Target, Award } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -49,7 +49,7 @@ export default function Home() {
                   className="object-cover"
                   priority={index === 0}
                 />
-                 <div className="absolute inset-0 bg-slate-950/70" />
+                 <div className="absolute inset-0 bg-slate-900/60" />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -85,7 +85,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="w-full py-20 lg:py-24 bg-slate-950">
+      <section className="w-full py-20 lg:py-24 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {STATS.map((stat, index) => (
@@ -94,8 +94,8 @@ export default function Home() {
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
-                <p className="text-4xl lg:text-5xl font-bold text-emerald-500">{stat.number}</p>
-                <p className="text-slate-400 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
+                <p className="text-4xl lg:text-5xl font-bold text-emerald-600">{stat.number}</p>
+                <p className="text-slate-500 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -108,7 +108,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div {...fadeIn}>
               <SectionTitle title="A Legacy of Educational Excellence" subtitle="WELCOME TO SARC" align='left' />
-              <p className="mt-6 text-slate-400 leading-relaxed">
+              <p className="mt-6 text-slate-600 leading-relaxed">
                 Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
               </p>
               <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white mt-8'>
@@ -117,7 +117,7 @@ export default function Home() {
             </motion.div>
             <motion.div
               {...fadeIn}
-              className="relative h-[450px] rounded-2xl overflow-hidden shadow-2xl shadow-slate-950"
+              className="relative h-[450px] rounded-2xl overflow-hidden shadow-2xl"
             >
               <Image
                 src="https://picsum.photos/seed/homepage/800/600"
@@ -131,7 +131,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="w-full py-20 lg:py-28 bg-slate-950">
+      <section className="w-full py-20 lg:py-28 bg-slate-50">
         <div className="container mx-auto px-4">
           <SectionTitle title="Why Choose SARC?" subtitle="OUR COMMITMENT" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
@@ -141,12 +141,12 @@ export default function Home() {
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
-                <div className="glass-card text-center h-full p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-emerald-500/10">
-                  <div className="mb-4 inline-block bg-emerald-900/50 text-emerald-400 p-4 rounded-full">
+                <div className="bg-white text-center h-full p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-emerald-500/10 rounded-lg shadow-md">
+                  <div className="mb-4 inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full">
                     <item.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-100">{item.title}</h3>
-                  <p className="text-slate-400 mt-2 text-sm">{item.description}</p>
+                  <h3 className="text-xl font-bold text-slate-800">{item.title}</h3>
+                  <p className="text-slate-600 mt-2 text-sm">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -160,14 +160,14 @@ export default function Home() {
         <div className="mt-16 space-y-8">
             <Marquee>
                 {TESTIMONIALS.slice(0, 3).map((testimonial, i) => (
-                    <Card key={i} className="glass-card w-[400px] mx-4 flex-shrink-0">
+                    <Card key={i} className="bg-white w-[400px] mx-4 flex-shrink-0 shadow-md">
                         <CardContent className="p-6">
-                            <p className="text-slate-300 italic">"{testimonial.text}"</p>
+                            <p className="text-slate-600 italic">"{testimonial.text}"</p>
                             <div className='flex items-center gap-4 mt-6'>
                             <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full" />
                             <div>
-                                <h4 className="font-bold text-slate-100">{testimonial.author}</h4>
-                                <p className='text-sm text-slate-400'>{testimonial.role}</p>
+                                <h4 className="font-bold text-slate-800">{testimonial.author}</h4>
+                                <p className='text-sm text-slate-500'>{testimonial.role}</p>
                             </div>
                             </div>
                         </CardContent>
@@ -176,14 +176,14 @@ export default function Home() {
             </Marquee>
             <Marquee direction="right">
                 {TESTIMONIALS.slice(3, 6).map((testimonial, i) => (
-                     <Card key={i} className="glass-card w-[400px] mx-4 flex-shrink-0">
+                     <Card key={i} className="bg-white w-[400px] mx-4 flex-shrink-0 shadow-md">
                         <CardContent className="p-6">
-                            <p className="text-slate-300 italic">"{testimonial.text}"</p>
+                            <p className="text-slate-600 italic">"{testimonial.text}"</p>
                             <div className='flex items-center gap-4 mt-6'>
                             <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full" />
                             <div>
-                                <h4 className="font-bold text-slate-100">{testimonial.author}</h4>
-                                <p className='text-sm text-slate-400'>{testimonial.role}</p>
+                                <h4 className="font-bold text-slate-800">{testimonial.author}</h4>
+                                <p className='text-sm text-slate-500'>{testimonial.role}</p>
                             </div>
                             </div>
                         </CardContent>

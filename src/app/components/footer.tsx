@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="glass-card mt-20 mb-4 mx-4">
+    <footer className="bg-slate-800 text-slate-300 mt-20">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
@@ -32,13 +32,13 @@ export default function Footer() {
                {NAV_LINKS.map(link => (
                     link.children ? link.children.map(child => (
                          <li key={child.label}>
-                            <Link href={child.href} className="text-sm text-slate-400 hover:text-emerald-500 transition-colors">
+                            <Link href={child.href} className="text-sm text-slate-400 hover:text-emerald-400 transition-colors">
                                 {child.label}
                             </Link>
                         </li>
                     )) : (
                         <li key={link.label}>
-                            <Link href={link.href} className="text-sm text-slate-400 hover:text-emerald-500 transition-colors">
+                            <Link href={link.href} className="text-sm text-slate-400 hover:text-emerald-400 transition-colors">
                                 {link.label}
                             </Link>
                         </li>
@@ -56,18 +56,18 @@ export default function Footer() {
               </li>
               <li className='flex items-center gap-3'>
                 <Phone size={16} className='shrink-0 text-emerald-500/70'/>
-                <a href="tel:+97714242424" className="hover:text-emerald-500 transition-colors">+977-1-4242424</a>
+                <a href="tel:+97714242424" className="hover:text-emerald-400 transition-colors">+977-1-4242424</a>
               </li>
               <li className='flex items-center gap-3'>
                 <Mail size={16} className='shrink-0 text-emerald-500/70'/>
-                <a href="mailto:info@sarc.edu.np" className="hover:text-emerald-500 transition-colors">info@sarc.edu.np</a>
+                <a href="mailto:info@sarc.edu.np" className="hover:text-emerald-400 transition-colors">info@sarc.edu.np</a>
               </li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-white mb-4 uppercase tracking-wider text-sm">Our Location</h3>
-            <div className='aspect-video rounded-lg overflow-hidden border border-slate-800'>
+            <div className='aspect-video rounded-lg overflow-hidden border border-slate-700'>
                <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.391735118744!2d85.31633887546813!3d27.705417076184245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18e2c9a7ab33%3A0x26f1a4c90353a44!2sPadma%20Kanya%20Multiple%20Campus!5e0!3m2!1sen!2snp!4v1720272097723!5m2!1sen!2snp" 
                   width="100%" 
@@ -82,7 +82,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500">
+        <div className="border-t border-slate-700 mt-12 pt-8 text-center text-sm text-slate-500">
           <p>&copy; {new Date().getFullYear()} SARC, Padma Kanya Multiple Campus. All Rights Reserved.</p>
         </div>
       </div>

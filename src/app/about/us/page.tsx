@@ -23,8 +23,8 @@ export default function AboutUsPage() {
             >
                 <div className="grid md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-6">
-                        <h2 className="text-3xl font-bold text-slate-100">Nurturing Future Leaders</h2>
-                        <p className="text-slate-400 text-lg leading-relaxed">
+                        <h2 className="text-3xl font-bold text-slate-800">Nurturing Future Leaders</h2>
+                        <p className="text-slate-600 text-lg leading-relaxed">
                             Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
                         </p>
                     </div>
@@ -38,15 +38,15 @@ export default function AboutUsPage() {
                 {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-100 text-center mb-12">Our Unique Features</h2>
+                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Unique Features</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {WHY_US_ITEMS.map((item, index) => (
-                         <div key={item.title} className="glass-card p-8 text-center transition-transform hover:-translate-y-2">
-                            <div className="inline-block bg-emerald-900/50 text-emerald-400 p-4 rounded-full mb-4">
+                         <div key={item.title} className="bg-white rounded-lg shadow-md p-8 text-center transition-transform hover:-translate-y-2">
+                            <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <item.icon className="w-8 h-8" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-100 mb-2">{item.title}</h3>
-                            <p className="text-slate-400">{item.description}</p>
+                            <h3 className="text-xl font-bold text-slate-800 mb-2">{item.title}</h3>
+                            <p className="text-slate-600">{item.description}</p>
                         </div>
                     ))}
                 </div>
@@ -56,11 +56,11 @@ export default function AboutUsPage() {
                 {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                 <h2 className="text-3xl font-bold text-slate-100 text-center mb-12">Our Programs</h2>
+                 <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Programs</h2>
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
                     {['School (ECD-10)', 'Bridge Course', '+2 Science', '+2 Management', '+2 Law', 'CTEVT Programs'].map(program => (
-                        <div key={program} className="bg-slate-800/60 border border-slate-700 rounded-md p-4">
-                            <p className="text-slate-300 font-semibold">{program}</p>
+                        <div key={program} className="bg-slate-100 border border-slate-200 rounded-md p-4">
+                            <p className="text-slate-700 font-semibold">{program}</p>
                         </div>
                     ))}
                  </div>

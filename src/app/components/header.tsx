@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -21,7 +21,7 @@ const NavItem = ({ link }: { link: (typeof NAV_LINKS)[number] & { children?: any
         <button
           className={cn(
             'flex items-center gap-1 transition-colors text-base font-medium',
-            isChildActive ? 'text-emerald-400' : 'text-slate-200 hover:text-emerald-400'
+            isChildActive ? 'text-emerald-600' : 'text-slate-700 hover:text-emerald-600'
           )}
         >
           {link.label}
@@ -38,20 +38,20 @@ const NavItem = ({ link }: { link: (typeof NAV_LINKS)[number] & { children?: any
               transition={{ duration: 0.2, ease: 'easeOut' }}
               className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-20"
             >
-              <div className="glass-card min-w-[280px]">
+              <div className="bg-white/80 backdrop-blur-lg shadow-xl rounded-2xl border border-slate-200/50 min-w-[280px]">
                  <ul className="space-y-1 p-2">
                   {link.children.map((child) => (
                     child.icon && child.description ? (
                       <li key={child.label}>
                         <Link
                           href={child.href}
-                          className="flex items-start gap-4 p-3 rounded-lg transition-colors hover:bg-slate-800/50"
+                          className="flex items-start gap-4 p-3 rounded-lg transition-colors hover:bg-slate-100"
                           onClick={() => setIsOpen(false)}
                         >
-                          <child.icon className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
+                          <child.icon className="w-5 h-5 text-emerald-500 mt-1 flex-shrink-0" />
                           <div>
-                            <span className="font-semibold text-slate-100">{child.label}</span>
-                            <p className="text-sm text-slate-400">{child.description}</p>
+                            <span className="font-semibold text-slate-800">{child.label}</span>
+                            <p className="text-sm text-slate-500">{child.description}</p>
                           </div>
                         </Link>
                       </li>
@@ -59,7 +59,7 @@ const NavItem = ({ link }: { link: (typeof NAV_LINKS)[number] & { children?: any
                       <li key={child.label}>
                           <Link
                               href={child.href}
-                              className="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800/50 rounded-md"
+                              className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md"
                               onClick={() => setIsOpen(false)}
                           >
                               {child.label}
@@ -82,13 +82,52 @@ const NavItem = ({ link }: { link: (typeof NAV_LINKS)[number] & { children?: any
       href={link.href}
       className={cn(
         'transition-colors text-base font-medium',
-        isActive ? 'text-emerald-400' : 'text-slate-200 hover:text-emerald-400'
+        isActive ? 'text-emerald-600' : 'text-slate-700 hover:text-emerald-600'
       )}
     >
       {link.label}
     </Link>
   );
 };
+
+const MobileNavItem = ({ link, closeMenu }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  if (!link.children) {
+    return (
+      <Link href={link.href} className="text-slate-700 hover:text-emerald-600 border-b border-slate-200 pb-4" onClick={closeMenu}>
+        {link.label}
+      </Link>
+    );
+  }
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center text-slate-500 mb-3 text-sm uppercase tracking-wider">
+        {link.label}
+        <ChevronRight className={cn('w-4 h-4 transition-transform', isOpen && 'rotate-90')} />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className='overflow-hidden'
+          >
+            <div className='flex flex-col gap-4 pl-4 border-l border-slate-200'>
+              {link.children.map((child: any) => (
+                <Link key={child.label} href={child.href} className="text-slate-600 hover:text-emerald-600" onClick={closeMenu}>
+                  {child.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -108,15 +147,15 @@ export default function Header() {
       <header
         className={cn(
           "sticky top-0 z-50 w-full transition-all duration-300",
-          isScrolled ? 'bg-background/80 backdrop-blur-lg border-b border-slate-800' : 'bg-transparent'
+          isScrolled ? 'bg-white/80 backdrop-blur-lg border-b border-slate-200/80 shadow-sm' : 'bg-transparent'
         )}
       >
         <div className="container mx-auto flex h-20 items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-3">
             <Image src="/images/sarc.png" alt="SARC Logo" width={48} height={48} />
             <div>
-              <span className="font-bold text-xl tracking-tight text-slate-100">SARC</span>
-              <p className="text-xs text-slate-400">Education Foundation</p>
+              <span className="font-bold text-xl tracking-tight text-slate-800">SARC</span>
+              <p className="text-xs text-slate-500">Education Foundation</p>
             </div>
           </Link>
           
@@ -133,7 +172,7 @@ export default function Header() {
           </div>
 
           <div className="lg:hidden">
-            <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(true)} className="text-slate-200">
+            <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(true)} className="text-slate-700">
               <Menu />
             </Button>
           </div>
@@ -146,7 +185,7 @@ export default function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-slate-950/50 backdrop-blur-lg lg:hidden"
+            className="fixed inset-0 z-[100] bg-slate-900/20 backdrop-blur-lg lg:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <motion.div
@@ -154,40 +193,22 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-full max-w-sm bg-slate-900/95 p-6"
+              className="fixed top-0 right-0 h-full w-full max-w-sm bg-white/95 p-6"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
                 <Link href="/" className="flex items-center gap-3">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} />
-                  <span className="font-bold text-lg tracking-tight text-slate-100">SARC</span>
+                  <span className="font-bold text-lg tracking-tight text-slate-800">SARC</span>
                 </Link>
-                <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)} className='text-slate-200'>
+                <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)} className='text-slate-600'>
                   <X />
                 </Button>
               </div>
               <nav className="flex flex-col gap-6 text-lg font-medium">
-                {NAV_LINKS.map(link => {
-                  if (link.children) {
-                    return (
-                      <div key={link.label}>
-                        <h3 className="text-slate-400 mb-3 text-sm uppercase tracking-wider">{link.label}</h3>
-                        <div className='flex flex-col gap-4 pl-4 border-l border-slate-700'>
-                          {link.children.map((child: any) => (
-                            <Link key={child.label} href={child.href} className="text-slate-200 hover:text-emerald-500" onClick={() => setIsMobileMenuOpen(false)}>
-                              {child.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )
-                  }
-                  return (
-                    <Link key={link.label} href={link.href} className="text-slate-200 hover:text-emerald-500 border-b border-slate-800 pb-4" onClick={() => setIsMobileMenuOpen(false)}>
-                      {link.label}
-                    </Link>
-                  )
-                })}
+                {NAV_LINKS.map(link => (
+                  <MobileNavItem key={link.label} link={link} closeMenu={() => setIsMobileMenuOpen(false)} />
+                ))}
               </nav>
               <Button asChild className="w-full mt-12 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold" size="lg">
                 <Link href="/admissions" onClick={() => setIsMobileMenuOpen(false)}>Admissions</Link>
