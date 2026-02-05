@@ -90,9 +90,7 @@ const NavItem = ({ link }: { link: (typeof NAV_LINKS)[number] & { children?: any
   );
 };
 
-const MobileNavItem = ({ link, closeMenu }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  
+const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }) => {
   if (!link.children) {
     return (
       <Link href={link.href} className="text-slate-700 hover:text-emerald-600 border-b border-slate-200 pb-4" onClick={closeMenu}>
@@ -103,7 +101,7 @@ const MobileNavItem = ({ link, closeMenu }) => {
 
   return (
     <div>
-      <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center text-slate-500 mb-3 text-sm uppercase tracking-wider">
+      <button onClick={onToggle} className="w-full flex justify-between items-center text-slate-500 mb-3 text-sm uppercase tracking-wider">
         {link.label}
         <ChevronRight className={cn('w-4 h-4 transition-transform', isOpen && 'rotate-90')} />
       </button>
@@ -132,6 +130,7 @@ const MobileNavItem = ({ link, closeMenu }) => {
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -141,6 +140,17 @@ export default function Header() {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <>
@@ -193,7 +203,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-full max-w-sm bg-white/95 p-6"
+              className="fixed top-0 right-0 h-full w-full max-w-sm bg-white/95 p-6 overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
@@ -207,7 +217,13 @@ export default function Header() {
               </div>
               <nav className="flex flex-col gap-6 text-lg font-medium">
                 {NAV_LINKS.map(link => (
-                  <MobileNavItem key={link.label} link={link} closeMenu={() => setIsMobileMenuOpen(false)} />
+                  <MobileNavItem 
+                    key={link.label} 
+                    link={link} 
+                    closeMenu={() => setIsMobileMenuOpen(false)}
+                    isOpen={openMobileDropdown === link.label}
+                    onToggle={() => setOpenMobileDropdown(prev => prev === link.label ? null : link.label)}
+                  />
                 ))}
               </nav>
               <Button asChild className="w-full mt-12 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold" size="lg">
