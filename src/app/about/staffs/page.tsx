@@ -17,9 +17,9 @@ export default function StaffPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="bg-white border border-slate-200 shadow-md rounded-lg p-6 text-center group transition-all hover:shadow-xl hover:-translate-y-2"
+                            className="glass-card p-6 text-center group transition-all hover:shadow-xl hover:-translate-y-2 hover:shadow-emerald-900/50"
                         >
-                            <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden ring-4 ring-slate-200 group-hover:ring-blue-500/50 transition-all duration-300">
+                            <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden ring-4 ring-slate-700 group-hover:ring-emerald-500/50 transition-all duration-300">
                                 <Image
                                     src={staff.image}
                                     alt={staff.name}
@@ -27,10 +27,10 @@ export default function StaffPage() {
                                     className="object-cover"
                                 />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-800 mt-4">{staff.name}</h3>
-                            <p className="text-blue-600 font-medium">{staff.role}</p>
-                            <p className="text-xs text-slate-500 mt-1">{staff.credentials}</p>
-                            <p className="text-sm text-slate-600 mt-4 italic">"{staff.philosophy}"</p>
+                            <h3 className="text-xl font-bold text-slate-100 mt-4">{staff.name}</h3>
+                            <p className="text-emerald-400 font-medium">{staff.role}</p>
+                            <p className="text-xs text-slate-400 mt-1">{staff.credentials}</p>
+                            <p className="text-sm text-slate-300 mt-4 italic">"{staff.philosophy}"</p>
                         </motion.div>
                     ))}
                 </div>

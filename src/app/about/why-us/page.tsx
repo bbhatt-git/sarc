@@ -17,14 +17,14 @@ export default function WhyUsPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="bg-white border border-slate-200 rounded-lg p-8 flex items-start gap-6 shadow-md transition-all hover:shadow-lg hover:-translate-y-1"
+                            className="glass-card p-8 flex items-start gap-6 transition-all hover:shadow-lg hover:-translate-y-1 hover:shadow-emerald-900/50"
                         >
-                            <div className="bg-blue-100 p-4 rounded-full border border-blue-200">
-                                <item.icon className="w-8 h-8 text-blue-600" />
+                            <div className="bg-emerald-900/50 p-4 rounded-full border border-emerald-700/50">
+                                <item.icon className="w-8 h-8 text-emerald-400" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-slate-800 mb-2">{item.title}</h3>
-                                <p className="text-slate-600 text-lg">{item.description}</p>
+                                <h3 className="text-2xl font-bold text-slate-100 mb-2">{item.title}</h3>
+                                <p className="text-slate-400 text-lg">{item.description}</p>
                             </div>
                         </motion.div>
                     ))}

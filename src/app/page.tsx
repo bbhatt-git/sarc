@@ -9,22 +9,28 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 
-import { FACILITIES, TESTIMONIALS, STATS, HERO_IMAGES } from '@/lib/constants';
+import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Card, CardContent } from '@/components/ui/card';
+import Marquee from './components/marquee';
 
 export default function Home() {
+  const fadeIn = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, ease: 'easeOut' },
+    viewport: { once: true, amount: 0.2 }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col items-center"
+      className="flex flex-col items-center overflow-x-hidden"
     >
       {/* Hero Section */}
       <section className="relative w-full h-[calc(100vh-80px)] text-white">
@@ -43,7 +49,7 @@ export default function Home() {
                   className="object-cover"
                   priority={index === 0}
                 />
-                 <div className="absolute inset-0 bg-slate-950/60" />
+                 <div className="absolute inset-0 bg-slate-950/70" />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -55,7 +61,7 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4"
         >
-          <div className='inline-block bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm text-slate-100 mb-4 backdrop-blur-sm'>
+          <div className='inline-block bg-black/20 border border-white/20 rounded-full px-4 py-1.5 text-sm backdrop-blur-sm mb-4'>
             Affiliated to NEB
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-shadow-lg">
@@ -68,7 +74,7 @@ export default function Home() {
             A Legacy of Excellence in Education Since 2017.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <Button asChild size="lg" className='rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-900/30 transition-transform hover:scale-105'>
+            <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-900/30 transition-transform hover:scale-105'>
               <Link href="/about/why-us">Explore Programs</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className='rounded-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-transform hover:scale-105'>
@@ -79,19 +85,17 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="w-full py-20 lg:py-24 bg-gray-50">
+      <section className="w-full py-20 lg:py-24 bg-slate-950">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {STATS.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.5 }}
+                {...fadeIn}
+                transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
-                <p className="text-4xl lg:text-5xl font-bold text-blue-600">{stat.number}</p>
-                <p className="text-slate-500 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
+                <p className="text-4xl lg:text-5xl font-bold text-emerald-500">{stat.number}</p>
+                <p className="text-slate-400 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -102,29 +106,21 @@ export default function Home() {
        <section className="w-full py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true, amount: 0.5 }}
-            >
+            <motion.div {...fadeIn}>
               <SectionTitle title="A Legacy of Educational Excellence" subtitle="WELCOME TO SARC" align='left' />
-              <p className="mt-6 text-slate-600 leading-relaxed">
+              <p className="mt-6 text-slate-400 leading-relaxed">
                 Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
               </p>
-              <Button asChild size="lg" className='rounded-full bg-blue-600 hover:bg-blue-700 text-white mt-8'>
+              <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white mt-8'>
                 <Link href="/about/us">Learn More <ArrowRight className="ml-2" /></Link>
               </Button>
             </motion.div>
             <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true, amount: 0.5 }}
-              className="relative h-[450px] rounded-lg overflow-hidden shadow-xl"
+              {...fadeIn}
+              className="relative h-[450px] rounded-2xl overflow-hidden shadow-2xl shadow-slate-950"
             >
               <Image
-                src="/images/hero/1.jpg"
+                src="https://picsum.photos/seed/homepage/800/600"
                 alt="Students collaborating"
                 fill
                 className="object-cover"
@@ -135,30 +131,23 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="w-full py-20 lg:py-28 bg-gray-50">
+      <section className="w-full py-20 lg:py-28 bg-slate-950">
         <div className="container mx-auto px-4">
           <SectionTitle title="Why Choose SARC?" subtitle="OUR COMMITMENT" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-            {[
-              { icon: BookOpen, title: "Holistic Education", desc: "Balancing academics with character development." },
-              { icon: UserCheck, title: "Experienced Faculty", desc: "Mentorship from dedicated and expert educators." },
-              { icon: Target, title: "Career-Oriented", desc: "Programs designed for real-world success." },
-              { icon: Award, title: "Proven Excellence", desc: "A track record of outstanding student achievements." },
-            ].map((item, index) => (
+            {WHY_US_ITEMS.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
+                {...fadeIn}
+                transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
-                <Card className="text-center h-full p-6 hover:shadow-lg hover:-translate-y-2 transition-all">
-                  <div className="mb-4 inline-block bg-blue-100 text-blue-600 p-4 rounded-full">
+                <div className="glass-card text-center h-full p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-emerald-500/10">
+                  <div className="mb-4 inline-block bg-emerald-900/50 text-emerald-400 p-4 rounded-full">
                     <item.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-800">{item.title}</h3>
-                  <p className="text-slate-600 mt-2 text-sm">{item.desc}</p>
-                </Card>
+                  <h3 className="text-xl font-bold text-slate-100">{item.title}</h3>
+                  <p className="text-slate-400 mt-2 text-sm">{item.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -166,49 +155,59 @@ export default function Home() {
       </section>
       
       {/* Testimonials */}
-      <section className="w-full py-20 lg:py-28">
-        <SectionTitle title="What Our Students Say" subtitle="TESTIMONIALS" />
-        <div className="container mx-auto px-4 mt-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {TESTIMONIALS.slice(0, 3).map((testimonial, i) => (
-              <motion.div
-                key={i}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-              >
-                <Card className="h-full">
-                  <CardContent className="p-6">
-                    <p className="text-slate-600 italic">"{testimonial.text}"</p>
-                    <div className='flex items-center gap-4 mt-6'>
-                      <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full" />
-                      <div>
-                        <h4 className="font-bold text-slate-800">{testimonial.author}</h4>
-                        <p className='text-sm text-slate-500'>{testimonial.role}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+      <section className="w-full py-20 lg:py-28 overflow-hidden">
+        <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
+        <div className="mt-16 space-y-8">
+            <Marquee>
+                {TESTIMONIALS.slice(0, 3).map((testimonial, i) => (
+                    <Card key={i} className="glass-card w-[400px] mx-4 flex-shrink-0">
+                        <CardContent className="p-6">
+                            <p className="text-slate-300 italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-4 mt-6'>
+                            <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full" />
+                            <div>
+                                <h4 className="font-bold text-slate-100">{testimonial.author}</h4>
+                                <p className='text-sm text-slate-400'>{testimonial.role}</p>
+                            </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </Marquee>
+            <Marquee direction="right">
+                {TESTIMONIALS.slice(3, 6).map((testimonial, i) => (
+                     <Card key={i} className="glass-card w-[400px] mx-4 flex-shrink-0">
+                        <CardContent className="p-6">
+                            <p className="text-slate-300 italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-4 mt-6'>
+                            <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full" />
+                            <div>
+                                <h4 className="font-bold text-slate-100">{testimonial.author}</h4>
+                                <p className='text-sm text-slate-400'>{testimonial.role}</p>
+                            </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </Marquee>
         </div>
       </section>
 
        {/* CTA Footer */}
       <section className="w-full mt-20">
-         <div className="bg-blue-600">
+         <div className="bg-emerald-600">
             <div className="container mx-auto px-4 py-20 text-center text-white">
-                <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-shadow">
+                <motion.h2 {...fadeIn} className="text-3xl lg:text-4xl font-bold tracking-tight text-shadow">
                     Shape Your Future With Us
-                </h2>
-                <p className="mx-auto max-w-2xl md:text-lg mt-4 text-slate-200">
+                </motion.h2>
+                <motion.p {...fadeIn} transition={{...fadeIn.transition, delay: 0.1}} className="mx-auto max-w-2xl md:text-lg mt-4 text-emerald-100">
                     Join a community dedicated to excellence. Apply for admission and start your journey at SARC today.
-                </p>
-                <Button asChild size="lg" className="mt-10 bg-white text-slate-800 hover:bg-slate-200 hover:scale-105 transition-all duration-300 rounded-full font-semibold">
-                    <Link href="/admissions">Apply for Admissions <ArrowRight className="ml-2" /></Link>
-                </Button>
+                </motion.p>
+                <motion.div {...fadeIn} transition={{...fadeIn.transition, delay: 0.2}}>
+                    <Button asChild size="lg" className="mt-10 bg-white text-slate-800 hover:bg-slate-200 hover:scale-105 transition-all duration-300 rounded-full font-semibold">
+                        <Link href="/admissions">Apply for Admissions <ArrowRight className="ml-2" /></Link>
+                    </Button>
+                </motion.div>
             </div>
          </div>
       </section>

@@ -20,7 +20,7 @@ export default function GalleryPage() {
                     <button
                         onClick={() => setActiveCategory('All')}
                         className={cn("px-6 py-2 rounded-full text-sm font-medium transition-colors",
-                            activeCategory === 'All' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            activeCategory === 'All' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                         )}
                     >
                         All
@@ -30,7 +30,7 @@ export default function GalleryPage() {
                             key={category}
                             onClick={() => setActiveCategory(category)}
                             className={cn("px-6 py-2 rounded-full text-sm font-medium transition-colors",
-                                activeCategory === category ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                activeCategory === category ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                             )}
                         >
                             {category}
@@ -52,7 +52,7 @@ export default function GalleryPage() {
                             transition={{ duration: 0.3 }}
                             className="masonry-item"
                         >
-                             <div className="overflow-hidden rounded-lg shadow-md">
+                             <div className="overflow-hidden rounded-lg shadow-lg">
                                 <Image
                                     src={image.src}
                                     alt={image.hint}

@@ -1,11 +1,11 @@
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { 
     label: 'About',
     children: [
-      { href: '/about/us', label: 'Our School', description: 'Discover our campus and educational approach', icon: GraduationCap },
+      { href: '/about/us', label: 'Our School', description: 'Discover our campus and educational approach', icon: Building },
       { href: '/about/vision', label: 'Vision, Mission & Values', description: 'The principles that guide us', icon: Target },
       { href: '/about/staffs', label: 'Our Staff', description: 'Meet our dedicated team', icon: Users },
       { href: '/about/founder', label: 'Our Founder', description: 'The visionary behind SARC', icon: User },
@@ -118,7 +118,7 @@ export const NEWS_ITEMS = [
         title: 'Annual Tech Fest "Innovate 2024" Concludes with Record Participation',
         date: '2024-05-20',
         summary: 'Our annual tech festival saw groundbreaking projects from students across various departments, from AI-driven apps to sustainable tech solutions, drawing attention from industry leaders.',
-        image: 'news-1',
+        image: 'https://picsum.photos/seed/news1/600/400',
         category: 'Campus Event'
     },
     {
@@ -126,7 +126,7 @@ export const NEWS_ITEMS = [
         title: 'SARC Organizes Successful Blood Donation Drive, Saving Lives',
         date: '2024-04-15',
         summary: 'In a powerful display of community spirit, our student-led blood donation drive in collaboration with the Red Cross collected over 200 pints, making a significant impact.',
-        image: 'news-2',
+        image: 'https://picsum.photos/seed/news2/600/400',
         category: 'Community'
     },
     {
@@ -134,7 +134,7 @@ export const NEWS_ITEMS = [
         title: 'Alumni Speaker Series Featuring Silicon Valley Innovators Inspires Students',
         date: '2024-03-10',
         summary: 'Top alumni from leading tech companies returned to campus to share their career journeys, offering invaluable insights and mentorship to the next generation of leaders.',
-        image: 'news-3',
+        image: 'https://picsum.photos/seed/news3/600/400',
         category: 'Alumni'
     }
 ];
