@@ -66,7 +66,7 @@ export default function Home() {
           className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4"
         >
           <div className='inline-block bg-black/20 border border-white/20 rounded-full px-4 py-1.5 text-sm backdrop-blur-sm mb-4'>
-            Affiliated to NEB
+            Your Partner For Education
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-shadow-lg">
             Pioneering Futures
