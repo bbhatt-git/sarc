@@ -1,4 +1,4 @@
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -10,17 +10,10 @@ export const NAV_LINKS = [
       { href: '/about/staffs', label: 'Our Staff', description: 'Meet our dedicated team', icon: Users },
       { href: '/about/founder', label: 'Our Founder', description: 'The visionary behind SARC', icon: User },
       { href: '/about/history', label: 'Our History', description: 'Journey & achievements', icon: History },
+      { href: '/about/why-us', label: 'Why Choose SARC?', description: 'Our commitment to your success', icon: HeartHandshake },
     ],
   },
   { 
-    label: 'Overview',
-    children: [
-      { href: '#', label: 'Board' },
-      { href: '#', label: 'Message from Founder' },
-      { href: '#', label: 'Message from Principal' },
-    ],
-  },
-    { 
     label: 'Academics',
     children: [
       { href: '#', label: 'Academic Programs' },
@@ -39,6 +32,14 @@ export const NAV_LINKS = [
   },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact', label: 'Contact' },
+];
+
+export const HERO_IMAGES = [
+    { src: '/images/hero/0.jpg', alt: 'SARC campus view' },
+    { src: '/images/hero/1.jpg', alt: 'Students in a modern classroom' },
+    { src: '/images/hero/2.jpg', alt: 'A state-of-the-art science laboratory' },
+    { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' },
+    { src: '/images/hero/4.jpg', alt: 'Graduation ceremony with students celebrating' },
 ];
 
 export const STATS = [
@@ -175,7 +176,7 @@ export const STAFF_MEMBERS = [
 
 export const WHY_US_ITEMS = [
     {
-        icon: GraduationCap,
+        icon: Award,
         title: "Academic Excellence",
         description: "Pursue knowledge with our world-class curriculum and distinguished, dedicated faculty."
     },
@@ -191,8 +192,8 @@ export const WHY_US_ITEMS = [
     },
     {
         icon: HeartHandshake,
-        title: "Alumni Mentorship",
-        description: "Connect with a global network of experienced professionals and alumni for guidance and support."
+        title: "Holistic Growth",
+        description: "We focus on the all-round development of our students, nurturing both mind and character."
     }
 ];
 

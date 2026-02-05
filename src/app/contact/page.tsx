@@ -77,7 +77,7 @@ export default function ContactPage() {
     }
 
     return (
-        <div className="pt-32 pb-20">
+        <div className="pt-24 pb-20">
             <SectionTitle title="Contact Us" subtitle="Get In Touch With SARC" />
 
             <motion.section 
@@ -87,38 +87,38 @@ export default function ContactPage() {
                 className="container mx-auto px-4 mt-16"
             >
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
-                    <div className="bg-slate-900/95 border border-slate-800 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
-                        <h3 className="text-3xl font-bold mb-2 text-white">Send Us a Message</h3>
-                        <p className="text-slate-400 mb-8">We'll get back to you as soon as possible.</p>
+                    <div className="bg-white border border-slate-200 rounded-lg shadow-lg p-8 md:p-12">
+                        <h3 className="text-2xl font-bold mb-2 text-slate-800">Send Us a Message</h3>
+                        <p className="text-slate-500 mb-8">We'll get back to you as soon as possible.</p>
                         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="fullName" className="text-slate-300">Full Name</Label>
+                                    <Label htmlFor="fullName">Full Name</Label>
                                     <Input id="fullName" name="fullName" placeholder="e.g. John Doe" required />
                                     {state.errors?.fullName && <p className="text-sm text-rose-500">{state.errors.fullName[0]}</p>}
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="email" className="text-slate-300">Email Address</Label>
+                                    <Label htmlFor="email">Email Address</Label>
                                     <Input id="email" name="email" type="email" placeholder="you@example.com" required />
                                     {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="subject" className="text-slate-300">Subject</Label>
+                                <Label htmlFor="subject">Subject</Label>
                                 <Input id="subject" name="subject" placeholder="e.g. Admission Inquiry" required />
                                 {state.errors?.subject && <p className="text-sm text-rose-500">{state.errors.subject[0]}</p>}
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="message" className="text-slate-300">Message</Label>
+                                <Label htmlFor="message">Message</Label>
                                 <Textarea id="message" name="message" placeholder="Your message here..." required rows={5} />
                                 {state.errors?.message && <p className="text-sm text-rose-500">{state.errors.message[0]}</p>}
                             </div>
-                            <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" disabled={isSubmitting}>
+                            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold" size="lg" disabled={isSubmitting}>
                                 {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : 'Send Message'}
                             </Button>
                             {state.success && state.message && (
-                                <Alert variant="default" className="mt-4 bg-emerald-500/10 border-emerald-500/30 text-emerald-300">
-                                  <CheckCircle className="h-4 w-4 !text-emerald-400" />
+                                <Alert variant="default" className="mt-4 bg-emerald-50 border-emerald-300 text-emerald-800">
+                                  <CheckCircle className="h-4 w-4 !text-emerald-500" />
                                   <AlertTitle className="font-semibold">Success!</AlertTitle>
                                   <AlertDescription>{state.message}</AlertDescription>
                                 </Alert>
@@ -127,7 +127,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-8">
-                        <div className="rounded-3xl overflow-hidden border border-slate-800">
+                        <div className="rounded-lg overflow-hidden border border-slate-200">
                             <iframe 
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.391735118744!2d85.31633887546813!3d27.705417076184245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18e2c9a7ab33%3A0x26f1a4c90353a44!2sPadma%20Kanya%20Multiple%20Campus!5e0!3m2!1sen!2snp!4v1720272097723!5m2!1sen!2snp" 
                                 width="100%" 
@@ -153,15 +153,15 @@ export default function ContactPage() {
 
 const InfoCard = ({ icon: Icon, title, text, href }: { icon: React.ElementType, title: string, text: string, href?: string }) => (
     <div className="flex items-start gap-4">
-        <div className="bg-slate-800 p-3 rounded-full border border-slate-700">
-            <Icon className="w-5 h-5 text-emerald-500" />
+        <div className="bg-blue-100 p-3 rounded-full border border-blue-200">
+            <Icon className="w-5 h-5 text-blue-600" />
         </div>
         <div>
-            <h4 className="font-semibold text-lg text-white">{title}</h4>
+            <h4 className="font-semibold text-lg text-slate-800">{title}</h4>
             {href ? (
-                 <a href={href} className="text-slate-400 hover:text-emerald-500 transition-colors">{text}</a>
+                 <a href={href} className="text-slate-600 hover:text-blue-600 transition-colors">{text}</a>
             ) : (
-                <p className="text-slate-400">{text}</p>
+                <p className="text-slate-600">{text}</p>
             )}
         </div>
     </div>

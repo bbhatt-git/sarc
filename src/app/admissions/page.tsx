@@ -71,7 +71,7 @@ export default function AdmissionsPage() {
           createdAt: serverTimestamp(),
         };
 
-        const collRef = collection(firestore, "admissions");
+        const collRef = collection(firestore, "admissionInquiries");
         
         addDoc(collRef, inquiryData).then(() => {
           setState({
@@ -104,39 +104,39 @@ export default function AdmissionsPage() {
     }
 
     return (
-        <div className="pt-32 pb-20">
+        <div className="pt-24 pb-20 bg-gray-50/50">
             <SectionTitle title="Admissions" subtitle="Begin Your Journey at SARC" />
             <div className="container mx-auto px-4 max-w-4xl mt-16">
-                 <div className="bg-slate-900/95 border border-slate-800 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
-                    <h3 className="text-3xl font-bold mb-2 text-white">Online Admission Form</h3>
-                    <p className="text-slate-400 mb-8">Fill out the form below to start the admission process.</p>
+                 <div className="bg-white border border-slate-200 rounded-lg shadow-lg p-8 md:p-12">
+                    <h3 className="text-2xl font-bold mb-2 text-slate-800">Online Admission Form</h3>
+                    <p className="text-slate-500 mb-8">Fill out the form below to start the admission process.</p>
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <Label htmlFor="parentName" className="text-slate-300">Parent/Guardian Full Name</Label>
+                                <Label htmlFor="parentName">Parent/Guardian Full Name</Label>
                                 <Input id="parentName" name="parentName" placeholder="e.g. Jane Doe" required />
                                 {state.errors?.parentName && <p className="text-sm text-rose-500">{state.errors.parentName[0]}</p>}
                             </div>
                              <div className="space-y-2">
-                                <Label htmlFor="studentName" className="text-slate-300">Student's Full Name</Label>
+                                <Label htmlFor="studentName">Student's Full Name</Label>
                                 <Input id="studentName" name="studentName" placeholder="e.g. John Doe" required />
                                 {state.errors?.studentName && <p className="text-sm text-rose-500">{state.errors.studentName[0]}</p>}
                             </div>
                         </div>
                         <div className="grid md:grid-cols-2 gap-6">
                              <div className="space-y-2">
-                                <Label htmlFor="email" className="text-slate-300">Email Address</Label>
+                                <Label htmlFor="email">Email Address</Label>
                                 <Input id="email" name="email" type="email" placeholder="you@example.com" required />
                                 {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="phone" className="text-slate-300">Phone Number</Label>
+                                <Label htmlFor="phone">Phone Number</Label>
                                 <Input id="phone" name="phone" type="tel" placeholder="+977-..." required />
                                 {state.errors?.phone && <p className="text-sm text-rose-500">{state.errors.phone[0]}</p>}
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="gradeLevel" className="text-slate-300">Applying for Grade</Label>
+                            <Label htmlFor="gradeLevel">Applying for Grade</Label>
                             <Select name="gradeLevel">
                               <SelectTrigger id="gradeLevel">
                                 <SelectValue placeholder="Select a grade" />
@@ -154,10 +154,10 @@ export default function AdmissionsPage() {
                             {state.errors?.gradeLevel && <p className="text-sm text-rose-500">{state.errors.gradeLevel[0]}</p>}
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="message" className="text-slate-300">Message (Optional)</Label>
+                            <Label htmlFor="message">Message (Optional)</Label>
                             <Textarea id="message" name="message" placeholder="Any questions you have for us?" />
                         </div>
-                        <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold" size="lg" disabled={isSubmitting}>
                             {isSubmitting ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -166,8 +166,8 @@ export default function AdmissionsPage() {
                              ) : 'Submit Inquiry'}
                         </Button>
                         {state.success && state.message && (
-                            <Alert variant="default" className="mt-4 bg-emerald-500/10 border-emerald-500/30 text-emerald-300">
-                              <CheckCircle className="h-4 w-4 !text-emerald-400" />
+                            <Alert variant="default" className="mt-4 bg-emerald-50 border-emerald-300 text-emerald-800">
+                              <CheckCircle className="h-4 w-4 !text-emerald-500" />
                               <AlertTitle className="font-semibold">Success!</AlertTitle>
                               <AlertDescription>
                                 {state.message}

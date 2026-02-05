@@ -6,65 +6,65 @@
 
 @layer base {
   :root {
-    --background: 220 40% 5%; /* #020617 */
-    --foreground: 215 20% 65%; /* text-slate-400 */
+    --background: 0 0% 100%; /* White */
+    --foreground: 222.2 84% 4.9%; /* Rich Black */
     
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 220 40% 5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 40% 98%; /* Light gray - for primary text on colored backgrounds */
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 158 95% 31%; /* Emerald Green */
+    --secondary: 217.2 91.2% 59.8%; /* Blue */
     --secondary-foreground: 210 40% 98%;
     
-    --muted: 215 28% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
     
-    --accent: 215 28% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 32% 21%;
-    --input: 217 32% 21%;
-    --ring: 158 95% 31%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
     
-    --radius: 1.5rem;
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: 220 40% 5%;
-    --foreground: 215 20% 65%;
-    
-    --card: 222 47% 11%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 220 40% 5%;
+    --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 158 95% 31%;
+    --secondary: 217.2 91.2% 59.8%;
     --secondary-foreground: 210 40% 98%;
-    
-    --muted: 215 28% 17%;
-    --muted-foreground: 215 20% 65%;
-    
-    --accent: 215 28% 17%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 32% 21%;
-    --input: 217 32% 21%;
-    --ring: 158 95% 31%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 215 20.2% 65.1%;
   }
 }
 
@@ -78,89 +78,5 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     overflow-x: hidden;
-  }
-  body::-webkit-scrollbar {
-    display: none;
-  }
-  body {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-}
-
-@layer utilities {
-  .glass-container {
-    @apply bg-slate-900/95 border border-slate-800 rounded-3xl backdrop-blur-sm;
-  }
-
-  .cta-clip {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-  
-  .text-reveal {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-  }
-
-  .animated-blobs {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    overflow: hidden;
-    filter: blur(120px);
-  }
-
-  .animated-blobs::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAALklEQVRoQ+3NMQEAAAgDoC25/z8DOjAq8e/eAQQQEBBQQAABHZAQEBBQQAABHZAQEBBQQAABeQE3aQCF82f3ogAAAABJRU5ErkJggg==');
-    opacity: 0.1;
-  }
-
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    animation: move 25s infinite alternate;
-  }
-
-  .blob-1 {
-    width: 500px;
-    height: 500px;
-    background: rgba(139, 92, 246, 0.2);
-    top: -10%;
-    left: -20%;
-    animation-duration: 20s;
-  }
-
-  .blob-2 {
-    width: 400px;
-    height: 400px;
-    background: rgba(5, 150, 105, 0.2);
-    bottom: -5%;
-    right: -10%;
-    animation-duration: 30s;
-    animation-delay: -10s;
-  }
-  
-  .blob-3 {
-    width: 300px;
-    height: 300px;
-    background: rgba(236, 72, 153, 0.2);
-    top: 40%;
-    right: 30%;
-    animation-duration: 25s;
-    animation-delay: -5s;
-  }
-
-  @keyframes move {
-    from {
-      transform: translate(-100px, 50px) rotate(0deg);
-    }
-    to {
-      transform: translate(200px, -100px) rotate(360deg);
-    }
   }
 }

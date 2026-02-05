@@ -16,15 +16,13 @@ export default function SectionTitle({ title, subtitle, align = 'center', classN
             transition={{ duration: 0.6 }}
             viewport={{ once: true, amount: 0.3 }}
             className={cn(
-                'flex flex-col gap-3', 
+                'flex flex-col gap-2', 
                 align === 'center' ? 'items-center text-center' : 'items-start text-left',
                 className
             )}
         >
-            <div className="bg-emerald-900/50 border border-emerald-800 rounded-full px-4 py-1">
-                <p className="text-sm font-medium text-emerald-300 tracking-widest uppercase">{subtitle}</p>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white">
+            <p className="text-sm font-semibold text-blue-600 tracking-widest uppercase">{subtitle}</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800">
                 {title}
             </h2>
         </motion.div>

@@ -28,17 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(poppins.variable, 'dark')}>
+    <html lang="en" className={cn(poppins.variable)}>
       <body
         className={cn(
           'font-sans antialiased min-h-screen flex flex-col bg-background relative'
         )}
       >
-        <div className="animated-blobs">
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
-          <div className="blob blob-3"></div>
-        </div>
         <FirebaseClientProvider>
           <Header />
           <main className="flex-grow z-10">{children}</main>

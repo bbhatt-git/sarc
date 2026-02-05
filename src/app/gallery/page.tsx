@@ -12,7 +12,7 @@ export default function GalleryPage() {
     const filteredImages = activeCategory === 'All' ? GALLERY_IMAGES : GALLERY_IMAGES.filter(img => img.category === activeCategory);
 
     return (
-        <div className="pt-32 pb-20">
+        <div className="pt-24 pb-20">
             <SectionTitle title="Our Gallery" subtitle="Explore moments of learning, discovery, and community at SARC." />
 
             <div className="container mx-auto px-4 mt-16">
@@ -20,7 +20,7 @@ export default function GalleryPage() {
                     <button
                         onClick={() => setActiveCategory('All')}
                         className={cn("px-6 py-2 rounded-full text-sm font-medium transition-colors",
-                            activeCategory === 'All' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                            activeCategory === 'All' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                         )}
                     >
                         All
@@ -30,7 +30,7 @@ export default function GalleryPage() {
                             key={category}
                             onClick={() => setActiveCategory(category)}
                             className={cn("px-6 py-2 rounded-full text-sm font-medium transition-colors",
-                                activeCategory === category ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                                activeCategory === category ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             )}
                         >
                             {category}
@@ -52,14 +52,16 @@ export default function GalleryPage() {
                             transition={{ duration: 0.3 }}
                             className="masonry-item"
                         >
-                            <Image
-                                src={image.src}
-                                alt={image.hint}
-                                width={500}
-                                height={700}
-                                data-ai-hint={image.hint}
-                                className="w-full h-auto rounded-xl object-cover"
-                            />
+                             <div className="overflow-hidden rounded-lg shadow-md">
+                                <Image
+                                    src={image.src}
+                                    alt={image.hint}
+                                    width={500}
+                                    height={700}
+                                    data-ai-hint={image.hint}
+                                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                                />
+                             </div>
                         </motion.div>
                     ))}
                 </motion.div>
@@ -68,21 +70,21 @@ export default function GalleryPage() {
             <div className="mt-24 space-y-8 overflow-hidden">
                 <Marquee>
                     {GALLERY_IMAGES.slice(0, 7).map((image, i) => (
-                        <div key={`marquee-1-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-xl overflow-hidden">
+                        <div key={`marquee-1-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
                             <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
                         </div>
                     ))}
                 </Marquee>
                  <Marquee direction="right">
                     {GALLERY_IMAGES.slice(7, 14).map((image, i) => (
-                         <div key={`marquee-2-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-xl overflow-hidden">
+                         <div key={`marquee-2-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
                             <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
                         </div>
                     ))}
                 </Marquee>
                  <Marquee>
                     {GALLERY_IMAGES.slice(14).map((image, i) => (
-                         <div key={`marquee-3-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-xl overflow-hidden">
+                         <div key={`marquee-3-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
                             <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
                         </div>
                     ))}

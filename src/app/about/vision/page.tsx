@@ -21,7 +21,7 @@ const missionItems = [
 
 export default function VisionPage() {
     return (
-        <div className="pt-32 pb-20">
+        <div className="pt-24 pb-20">
             <SectionTitle title="Vision, Mission & Values" subtitle="The principles that guide us" />
             
             <motion.section 
@@ -30,10 +30,9 @@ export default function VisionPage() {
                 transition={{ duration: 0.7 }}
                 className="container mx-auto px-4 mt-16"
             >
-                <div className="glass-container p-12 text-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-grid-slate-800/20 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0))]"></div>
-                    <h2 className="text-3xl font-bold text-white mb-4 relative">Our Vision</h2>
-                    <p className="text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed relative">
+                <div className="bg-white border border-slate-200 rounded-lg shadow-lg p-12 text-center relative overflow-hidden">
+                    <h2 className="text-3xl font-bold text-slate-800 mb-4 relative">Our Vision</h2>
+                    <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed relative">
                         To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
                     </p>
                 </div>
@@ -46,12 +45,12 @@ export default function VisionPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-white text-center mb-12">Our Mission</h2>
+                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Mission</h2>
                 <div className="grid md:grid-cols-2 gap-8">
                    {missionItems.map((item, index) => (
-                       <div key={index} className={`glass-container p-6 flex items-start gap-4 border-l-4 ${item.color}`}>
+                       <div key={index} className={`bg-white border border-slate-200 shadow-md rounded-lg p-6 flex items-start gap-4 ${item.color}`}>
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
-                           <p className="text-slate-300 text-lg">{item.text}</p>
+                           <p className="text-slate-700 text-lg">{item.text}</p>
                        </div>
                    ))}
                 </div>
@@ -64,12 +63,12 @@ export default function VisionPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-white text-center mb-12">Future Goals</h2>
+                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Future Goals</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {futureGoals.map((goal, index) => (
-                        <div key={index} className="flex items-center gap-3 bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                        <div key={index} className="flex items-center gap-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
                             <Check className="w-5 h-5 text-emerald-500 shrink-0" />
-                            <p className="text-slate-300">{goal}</p>
+                            <p className="text-slate-700">{goal}</p>
                         </div>
                     ))}
                 </div>
