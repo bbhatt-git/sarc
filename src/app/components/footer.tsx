@@ -32,13 +32,13 @@ export default function Footer() {
               <ul className="space-y-3">
                 {NAV_LINKS.map(link => (
                     link.children ? link.children.map(child => (
-                         <li key={child.href}>
+                         <li key={child.label}>
                             <Link href={child.href} className="text-sm text-slate-400 hover:text-emerald-500 transition-colors">
                                 {child.label}
                             </Link>
                         </li>
                     )) : (
-                        <li key={link.href}>
+                        <li key={link.label}>
                             <Link href={link.href} className="text-sm text-slate-400 hover:text-emerald-500 transition-colors">
                                 {link.label}
                             </Link>
