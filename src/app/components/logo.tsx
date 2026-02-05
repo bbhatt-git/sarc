@@ -4,16 +4,19 @@ import Image from 'next/image';
 
 export default function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className={cn("flex items-center gap-3 font-headline", className)}>
+    <Link href="/" className={cn("flex items-center gap-3", className)}>
       <Image
         src="/images/sarc.png"
         alt="SARC Logo"
-        width={40}
-        height={40}
+        width={48}
+        height={48}
         priority
-        className="h-10 w-10"
+        className="h-12 w-12"
       />
-      <span className="font-bold text-2xl tracking-tight">SARC</span>
+      <div className='flex flex-col'>
+      <span className="font-bold text-xl tracking-tight leading-tight">SARC</span>
+      <span className="text-xs text-muted-foreground leading-tight">Padma Kanya Campus</span>
+      </div>
     </Link>
   );
 }

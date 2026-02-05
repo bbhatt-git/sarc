@@ -1,19 +1,21 @@
 import PageHeader from "@/app/components/page-header";
 import { staffProfiles } from "@/lib/data";
 import placeholderImages from '@/lib/placeholder-images.json';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export default function StaffPage() {
+    const headerImage = placeholderImages.placeholderImages.find(img => img.id === 'page-header-staff');
+
     return (
         <div className="animated-fade-in">
             <PageHeader
                 title="Our Staff & Faculty"
                 subtitle="A dedicated team of educators, mentors, and leaders committed to student success."
-                backgroundImage={placeholderImages.placeholderImages[22].imageUrl}
+                backgroundImage={headerImage?.imageUrl}
             />
 
             <section className="py-16 lg:py-24">
@@ -23,21 +25,23 @@ export default function StaffPage() {
                              const image = placeholderImages.placeholderImages.find(img => img.id === staff.image);
                             return (
                                 <Link key={staff.id} href={`/staff/${staff.id}`} className="group">
-                                    <Card className="glass-card h-full text-center flex flex-col items-center p-4">
+                                    <Card className="h-full text-center flex flex-col items-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                                         <CardHeader className="items-center">
-                                            <Avatar className="w-24 h-24 mb-4 ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all group-hover:scale-105">
+                                            <Avatar className="w-24 h-24 mb-4 ring-4 ring-primary/10 group-hover:ring-primary/20 transition-all">
                                                 {image && <AvatarImage src={image.imageUrl} alt={staff.name} />}
                                                 <AvatarFallback>{staff.name.charAt(0)}</AvatarFallback>
                                             </Avatar>
-                                            <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">{staff.name}</CardTitle>
+                                            <CardTitle className="text-lg group-hover:text-primary transition-colors">{staff.name}</CardTitle>
                                             <p className="text-sm text-primary font-medium">{staff.designation}</p>
                                         </CardHeader>
                                         <CardContent className="flex-grow">
-                                            <Badge variant="secondary" className="bg-primary/10 text-primary-foreground/80">{staff.credentials}</Badge>
+                                            <Badge variant="secondary" className="font-normal">{staff.credentials}</Badge>
                                         </CardContent>
-                                        <div className="pb-6 text-sm font-semibold text-muted-foreground group-hover:text-primary transition-colors">
-                                            View Profile <ArrowRight className="inline-block w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                                        </div>
+                                        <CardFooter>
+                                          <div className="text-sm font-semibold text-muted-foreground group-hover:text-primary transition-colors flex items-center">
+                                              View Profile <ArrowRight className="inline-block w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                                          </div>
+                                        </CardFooter>
                                     </Card>
                                 </Link>
                             )

@@ -4,36 +4,35 @@ import { galleryItems, newsItems } from "@/lib/data";
 import placeholderImages from '@/lib/placeholder-images.json';
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from 'date-fns';
 
 export default function NewsAndGalleryPage() {
     const allImages = placeholderImages.placeholderImages;
-
-    const findImage = (id: string) => allImages.find(img => img.id === id);
+    const headerImage = allImages.find(img => img.id === 'page-header-news');
 
     return (
         <div className="animated-fade-in">
             <PageHeader
                 title="News & Gallery"
                 subtitle="A glimpse into the vibrant life and latest happenings at SARC."
-                backgroundImage={placeholderImages.placeholderImages[23].imageUrl}
+                backgroundImage={headerImage?.imageUrl}
             />
 
             <section id="news" className="py-16 lg:py-24">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline text-center mb-12">Latest News</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-center mb-12 sm:text-4xl">Latest News</h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {newsItems.map(item => {
-                            const image = findImage(item.image);
+                            const image = allImages.find(img => img.id === item.image);
                             return (
-                                <Card key={item.id} className="glass-card flex flex-col overflow-hidden group">
+                                <Card key={item.id} className="flex flex-col overflow-hidden group hover:shadow-lg transition-shadow">
                                     {image && (
                                         <div className="relative h-56 overflow-hidden">
                                             <Image 
                                                 src={image.imageUrl}
-                                                alt={image.description}
+                                                alt={item.title}
                                                 data-ai-hint={image.imageHint}
                                                 fill
                                                 className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -41,8 +40,12 @@ export default function NewsAndGalleryPage() {
                                         </div>
                                     )}
                                     <CardHeader>
-                                        <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">{item.title}</CardTitle>
-                                        <p className="text-sm text-muted-foreground">{format(new Date(item.date), 'MMMM dd, yyyy')}</p>
+                                        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                                            <Calendar className="w-4 h-4" />
+                                            <span>{format(new Date(item.date), 'MMMM dd, yyyy')}</span>
+                                            <Badge variant="outline">{item.category}</Badge>
+                                        </div>
+                                        <CardTitle className="text-xl group-hover:text-primary transition-colors">{item.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="flex-grow">
                                         <p className="text-muted-foreground">{item.summary}</p>
@@ -61,15 +64,15 @@ export default function NewsAndGalleryPage() {
             
             <section id="gallery" className="py-16 lg:py-24 bg-secondary/50">
                  <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline text-center mb-12">Campus Life Gallery</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-center mb-12 sm:text-4xl">Campus Life Gallery</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {galleryItems.map(item => {
-                            const image = findImage(item.image);
+                            const image = allImages.find(img => img.id === item.image);
                             return image ? (
-                                <div key={item.id} className="relative aspect-video rounded-xl overflow-hidden group shadow-lg">
+                                <div key={item.id} className="relative aspect-square rounded-lg overflow-hidden group shadow-md">
                                     <Image 
                                         src={image.imageUrl}
-                                        alt={image.description}
+                                        alt={item.description}
                                         data-ai-hint={image.imageHint}
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform duration-500"

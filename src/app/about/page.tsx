@@ -1,47 +1,45 @@
 import PageHeader from "@/app/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Goal, Rocket } from "lucide-react";
 import Image from "next/image";
 import placeholderImages from '@/lib/placeholder-images.json';
-
-const coreValues = [
-    "Integrity and Ethical Conduct",
-    "Excellence in All Endeavors",
-    "Lifelong Learning and Curiosity",
-    "Compassion and Global Citizenship",
-    "Resilience and Courage",
-    "Community and Collaboration",
-];
+import { stats } from "@/lib/data";
 
 export default function AboutPage() {
+    const headerImage = placeholderImages.placeholderImages.find(img => img.id === 'page-header-about');
+    const principalImage = placeholderImages.placeholderImages.find(img => img.id === 'principal');
+    const missionVisionImage = placeholderImages.placeholderImages.find(img => img.id === 'mission-vision');
+
     return (
         <div className="animated-fade-in">
             <PageHeader
                 title="About SARC"
-                subtitle="Shaping the future through a legacy of excellence and a vision for a better world."
-                backgroundImage={placeholderImages.placeholderImages[19].imageUrl}
+                subtitle="Fostering community, skills, and opportunities."
+                backgroundImage={headerImage?.imageUrl}
             />
 
             <section className="py-16 lg:py-24">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline">Our History</h2>
+                            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Our History & Purpose</h2>
                             <p className="text-muted-foreground text-lg">
-                                Founded in 1985 by a group of visionary educators and philanthropists, the SARC Education Foundation was established with a simple yet profound mission: to create an institution that would set a new standard for academic excellence and character development. From our humble beginnings with a single building and 50 students, we have grown into a world-renowned institution that nurtures the minds of thousands.
+                                The Student-Alumni Relations Cell (SARC) at Padma Kanya Multiple Campus is a student-led initiative established to bridge the gap between current students and the vast network of successful alumni. Founded in 2015, our primary goal has been to create a symbiotic relationship where alumni can give back to their alma mater through mentorship and support, and students can gain invaluable insights and opportunities to kickstart their careers.
                             </p>
                             <p className="text-muted-foreground text-lg">
-                                Throughout our history, we have remained steadfast in our commitment to fostering an environment of intellectual curiosity, ethical leadership, and a deep-seated sense of community. Our journey is one of continuous evolution, driven by a passion for education and a belief in the limitless potential of every child.
+                                We believe that learning extends beyond the classroom. By organizing workshops, networking events, and community outreach programs, we aim to provide a holistic development experience for every student.
                             </p>
                         </div>
-                        <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-                            <Image 
-                                src={placeholderImages.placeholderImages[20].imageUrl}
-                                alt={placeholderImages.placeholderImages[20].description}
-                                data-ai-hint={placeholderImages.placeholderImages[20].imageHint}
-                                fill
-                                className="object-cover"
-                            />
+                        <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
+                            {missionVisionImage && (
+                                <Image 
+                                    src={missionVisionImage.imageUrl}
+                                    alt={missionVisionImage.description}
+                                    data-ai-hint={missionVisionImage.imageHint}
+                                    fill
+                                    className="object-cover"
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -49,58 +47,56 @@ export default function AboutPage() {
             
             <section className="py-16 lg:py-24 bg-secondary/50">
                 <div className="container mx-auto px-4">
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="order-2 md:order-1 relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-                             <Image 
-                                src={placeholderImages.placeholderImages[19].imageUrl}
-                                alt={placeholderImages.placeholderImages[19].description}
-                                data-ai-hint={placeholderImages.placeholderImages[19].imageHint}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                        <div className="space-y-4 order-1 md:order-2">
-                             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline">Vision &amp; Mission</h2>
-                            <p className="text-muted-foreground text-lg">
-                                <strong>Our Vision:</strong> To be a global leader in education, recognized for empowering students to lead lives of purpose and impact.
-                            </p>
-                             <p className="text-muted-foreground text-lg">
-                                <strong>Our Mission:</strong> To provide a transformative education that develops knowledgeable, compassionate, and ethical citizens of the world. We achieve this through a rigorous curriculum, a commitment to character building, and a vibrant community that inspires lifelong learning.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section className="py-16 lg:py-24">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline mb-12">Our Core Values</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                        {coreValues.map((value) => (
-                            <div key={value} className="flex items-center gap-3 p-4 bg-secondary/30 rounded-lg">
-                                <CheckCircle className="w-6 h-6 text-primary" />
-                                <span className="font-medium text-left">{value}</span>
+                    <div className="grid md:grid-cols-2 gap-16 items-center">
+                        <div className="space-y-6">
+                            <div className="flex items-center gap-4">
+                                <div className="bg-primary/10 p-3 rounded-full text-primary">
+                                    <Rocket className="w-8 h-8" />
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-bold">Our Mission</h3>
+                                    <p className="text-muted-foreground mt-1 text-lg">To empower students by connecting them with alumni, providing resources for skill development, and fostering a culture of lifelong learning and community engagement.</p>
+                                </div>
                             </div>
-                        ))}
+                             <div className="flex items-center gap-4">
+                                <div className="bg-primary/10 p-3 rounded-full text-primary">
+                                    <Goal className="w-8 h-8" />
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-bold">Our Vision</h3>
+                                    <p className="text-muted-foreground mt-1 text-lg">To build a vibrant and supportive ecosystem where every student and alumnus is an active partner in the growth and success of the SARC community.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-8 text-center">
+                             {stats.map((stat) => (
+                                <div key={stat.label} className="bg-background p-6 rounded-lg shadow-sm">
+                                    <p className="text-3xl font-bold text-primary">{stat.number}</p>
+                                    <p className="text-muted-foreground mt-2 font-medium">{stat.label}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
-             <section className="py-16 lg:py-24 bg-secondary/50">
-                <div className="container mx-auto px-4 max-w-4xl">
-                    <Card className="glass-card">
-                        <CardHeader className="text-center">
-                            <CardTitle className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline">Governance</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4 text-center text-muted-foreground text-lg">
-                            <p>
-                                The SARC Education Foundation is governed by a dedicated Board of Trustees composed of leaders in education, business, and the arts. The Board is responsible for the long-term strategic direction and financial health of the foundation, ensuring we remain true to our mission.
-                            </p>
-                            <p>
-                                Day-to-day leadership is provided by our Principal and senior administrative team, who work in close collaboration with our faculty to deliver an exceptional educational experience. We are committed to transparency, accountability, and ethical governance in all our operations.
-                            </p>
-                        </CardContent>
-                    </Card>
+             <section className="py-16 lg:py-24">
+                <div className="container mx-auto px-4 max-w-4xl text-center">
+                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Message from the Principal</h2>
+                     {principalImage && (
+                         <Image
+                            src={principalImage.imageUrl}
+                            alt="Principal Dr. Evelyn Reed"
+                            width={100}
+                            height={100}
+                            className="rounded-full mx-auto mb-4"
+                        />
+                     )}
+                    <p className="text-lg text-muted-foreground italic max-w-2xl mx-auto">
+                        "SARC represents the very best of our campus spirit—initiative, community, and a commitment to mutual growth. I am incredibly proud of our students who run this organization and our alumni who so generously give their time and expertise. This is where leaders are made."
+                    </p>
+                    <p className="font-semibold mt-4">Dr. Evelyn Reed</p>
+                    <p className="text-sm text-muted-foreground">Principal</p>
                 </div>
             </section>
         </div>
