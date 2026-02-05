@@ -35,10 +35,11 @@ export const NAV_LINKS = [
 ];
 
 export const HERO_IMAGES = [
-    { src: '/images/sarc.png', alt: 'SARC campus view' },
+    { src: '/images/hero/0.jpg', alt: 'SARC campus view' },
     { src: '/images/hero/1.jpg', alt: 'Students in a modern classroom' },
     { src: '/images/hero/2.jpg', alt: 'A state-of-the-art science laboratory' },
-    { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' }
+    { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' },
+    { src: '/images/hero/4.jpg', alt: 'Graduation ceremony with students celebrating' },
 ];
 
 export const STATS = [

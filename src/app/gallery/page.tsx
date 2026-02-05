@@ -68,24 +68,17 @@ export default function GalleryPage() {
             </div>
 
             <div className="mt-24 space-y-8 overflow-hidden">
-                <Marquee>
-                    {GALLERY_IMAGES.slice(0, 5).map((image, i) => (
-                        <div key={`marquee-1-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
-                            <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
-                        </div>
-                    ))}
-                </Marquee>
-                 <Marquee direction="right">
-                    {GALLERY_IMAGES.slice(5, 10).map((image, i) => (
-                         <div key={`marquee-2-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
-                            <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
+                <Marquee direction="right">
+                    {GALLERY_IMAGES.slice(0, Math.ceil(GALLERY_IMAGES.length / 2)).map((image, i) => (
+                        <div key={`marquee-1-${i}`} className="relative w-80 h-56 mx-4 flex-shrink-0 rounded-2xl overflow-hidden shadow-xl glass-card p-2">
+                            <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover rounded-xl" />
                         </div>
                     ))}
                 </Marquee>
                  <Marquee>
-                    {GALLERY_IMAGES.slice(10, 15).map((image, i) => (
-                         <div key={`marquee-3-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
-                            <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
+                    {GALLERY_IMAGES.slice(Math.ceil(GALLERY_IMAGES.length / 2)).map((image, i) => (
+                         <div key={`marquee-2-${i}`} className="relative w-80 h-56 mx-4 flex-shrink-0 rounded-2xl overflow-hidden shadow-xl glass-card p-2">
+                            <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover rounded-xl" />
                         </div>
                     ))}
                 </Marquee>
