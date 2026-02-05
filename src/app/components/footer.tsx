@@ -53,7 +53,7 @@ export default function Footer() {
           </div>
 
           <div className="border-t border-slate-200/50 mt-12 pt-8 text-center text-sm text-slate-500">
-            <p>&copy; {new Date().getFullYear()} SARC, Padma Kanya Multiple Campus. All Rights Reserved.</p>
+            <p>&copy; {new Date().getFullYear()} SARC Education Foundation. All Rights Reserved.</p>
           </div>
         </div>
       </div>
