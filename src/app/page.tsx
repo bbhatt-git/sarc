@@ -164,12 +164,12 @@ export default function Home() {
         <div className="mt-16 space-y-8">
             <Marquee>
                 {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                    <div key={i} className="glass-card w-[80vw] max-w-xs sm:w-[450px] sm:max-w-none mx-6 flex-shrink-0 p-8 rounded-3xl relative whitespace-normal">
-                        <Quote className="absolute top-6 left-6 w-16 h-16 text-emerald-600/10" strokeWidth={1.5} />
+                    <div key={i} className="glass-card w-[80vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-6 rounded-3xl relative whitespace-normal">
+                        <Quote className="absolute top-4 left-4 w-12 h-12 text-emerald-600/10" strokeWidth={1.5} />
                         <div className="relative z-10 flex flex-col h-full">
-                            <p className="text-slate-600 text-lg font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-4 mt-6 pt-6 border-t border-slate-200/50'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={56} height={56} className="rounded-full border-2 border-white/50" />
+                            <p className="text-slate-600 text-base font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-4 mt-4 pt-4 border-t border-slate-200/50'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full border-2 border-white/50" />
                                 <div>
                                     <h4 className="font-semibold text-slate-800">{testimonial.author}</h4>
                                     <p className='text-sm text-slate-500'>{testimonial.role}</p>
@@ -181,12 +181,12 @@ export default function Home() {
             </Marquee>
             <Marquee direction="right">
                 {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                     <div key={i} className="glass-card w-[80vw] max-w-xs sm:w-[450px] sm:max-w-none mx-6 flex-shrink-0 p-8 rounded-3xl relative whitespace-normal">
-                        <Quote className="absolute top-6 left-6 w-16 h-16 text-emerald-600/10" strokeWidth={1.5} />
+                     <div key={i} className="glass-card w-[80vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-6 rounded-3xl relative whitespace-normal">
+                        <Quote className="absolute top-4 left-4 w-12 h-12 text-emerald-600/10" strokeWidth={1.5} />
                         <div className="relative z-10 flex flex-col h-full">
-                            <p className="text-slate-600 text-lg font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-4 mt-6 pt-6 border-t border-slate-200/50'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={56} height={56} className="rounded-full border-2 border-white/50" />
+                            <p className="text-slate-600 text-base font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-4 mt-4 pt-4 border-t border-slate-200/50'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={48} height={48} className="rounded-full border-2 border-white/50" />
                                 <div>
                                     <h4 className="font-semibold text-slate-800">{testimonial.author}</h4>
                                     <p className='text-sm text-slate-500'>{testimonial.role}</p>
