@@ -69,21 +69,21 @@ export default function GalleryPage() {
 
             <div className="mt-24 space-y-8 overflow-hidden">
                 <Marquee>
-                    {GALLERY_IMAGES.slice(0, 7).map((image, i) => (
+                    {GALLERY_IMAGES.slice(0, 5).map((image, i) => (
                         <div key={`marquee-1-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
                             <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
                         </div>
                     ))}
                 </Marquee>
                  <Marquee direction="right">
-                    {GALLERY_IMAGES.slice(7, 14).map((image, i) => (
+                    {GALLERY_IMAGES.slice(5, 10).map((image, i) => (
                          <div key={`marquee-2-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
                             <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
                         </div>
                     ))}
                 </Marquee>
                  <Marquee>
-                    {GALLERY_IMAGES.slice(14).map((image, i) => (
+                    {GALLERY_IMAGES.slice(10, 15).map((image, i) => (
                          <div key={`marquee-3-${i}`} className="relative w-64 h-48 mx-4 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
                             <Image src={image.src} alt={image.hint} data-ai-hint={image.hint} fill className="object-cover" />
                         </div>
