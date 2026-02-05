@@ -1,31 +1,20 @@
 'use client';
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import React from 'react';
 
+// This is a CSS-only implementation for a seamless marquee.
 const Marquee = ({ children, direction = 'left', className }: { children: React.ReactNode, direction?: 'left' | 'right', className?: string }) => {
-    const marqueeVariants = {
-        animate: {
-            x: direction === 'left' ? [0, '-50%'] : ['-50%', 0],
-            transition: {
-                x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: 5,
-                    ease: "linear",
-                },
-            },
-        },
-    };
-
     return (
         <div className={cn("w-full overflow-hidden", className)}>
-            <motion.div
-                className="flex whitespace-nowrap"
-                variants={marqueeVariants}
-                animate="animate"
+            <div
+                className={cn(
+                    'flex w-max animate-marquee-scroll',
+                    direction === 'right' ? '[animation-direction:reverse]' : ''
+                )}
             >
-                {children}{children}
-            </motion.div>
+                <div className="flex-shrink-0 flex">{children}</div>
+                <div className="flex-shrink-0 flex" aria-hidden="true">{children}</div>
+            </div>
         </div>
     );
 };
