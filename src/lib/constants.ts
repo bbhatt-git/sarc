@@ -1,4 +1,4 @@
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -16,18 +16,18 @@ export const NAV_LINKS = [
   { 
     label: 'Academics',
     children: [
-      { href: '#', label: 'Academic Programs' },
-      { href: '#', label: 'Services' },
-      { href: '#', label: 'Faculties' },
-      { href: '#', label: 'Achievements' },
+      { href: '#', label: 'Academic Programs', description: 'Explore our comprehensive range of programs.', icon: BookOpen },
+      { href: '#', label: 'Services', description: 'Discover the support services we offer.', icon: Briefcase },
+      { href: '#', label: 'Faculties', description: 'Meet our experienced and dedicated faculties.', icon: Users },
+      { href: '#', label: 'Achievements', description: 'Celebrate the accomplishments of our students.', icon: Award },
     ],
   },
     { 
     label: 'Notice',
     children: [
-      { href: '#', label: 'General Notice' },
-      { href: '#', label: 'Holiday Notice' },
-      { href: '#', label: 'Exam & Results' },
+      { href: '#', label: 'General Notice', description: 'Stay updated with general announcements.', icon: Bell },
+      { href: '#', label: 'Holiday Notice', description: 'View our academic calendar and holidays.', icon: CalendarDays },
+      { href: '#', label: 'Exam & Results', description: 'Find exam schedules and check results.', icon: FileText },
     ],
   },
   { href: '/gallery', label: 'Gallery' },

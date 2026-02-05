@@ -38,7 +38,7 @@ const NavItem = ({ link }: { link: (typeof NAV_LINKS)[number] & { children?: any
               transition={{ duration: 0.2, ease: 'easeOut' }}
               className="absolute top-full left-1/2 -translate-x-1/2 pt-4 z-20"
             >
-              <div className="bg-white/80 backdrop-blur-lg shadow-xl rounded-2xl border border-slate-200/50 min-w-[280px]">
+              <div className="bg-white/80 backdrop-blur-xl shadow-xl rounded-2xl border border-slate-200/50 min-w-[280px]">
                  <ul className="space-y-1 p-2">
                   {link.children.map((child) => (
                     child.icon && child.description ? (
