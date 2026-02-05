@@ -10,7 +10,7 @@ const Marquee = ({ children, direction = 'left', className }: { children: React.
                 x: {
                     repeat: Infinity,
                     repeatType: "loop",
-                    duration: 50,
+                    duration: 25,
                     ease: "linear",
                 },
             },

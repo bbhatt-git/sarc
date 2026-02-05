@@ -5,12 +5,6 @@ import { ArrowRight, Quote } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
 
 import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
@@ -33,26 +27,14 @@ export default function Home() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-[calc(100vh-80px)] text-white">
-         <Carousel 
-            opts={{ loop: true }} 
-            plugins={[Autoplay({ delay: 5000, stopOnInteraction: false })]}
-            className="absolute inset-0 w-full h-full"
-        >
-          <CarouselContent className="h-full">
-            {HERO_IMAGES.map((image, index) => (
-              <CarouselItem key={index} className="h-full relative">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                />
-                 <div className="absolute inset-0 bg-slate-900/60" />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+        <Image
+          src={HERO_IMAGES[0].src}
+          alt={HERO_IMAGES[0].alt}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-slate-900/60" />
 
         <motion.div
           initial={{ y: 20, opacity: 0 }}
