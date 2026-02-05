@@ -4,13 +4,25 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Quote } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import Marquee from './components/marquee';
 
 export default function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === HERO_IMAGES.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change image every 5 seconds
+    return () => clearInterval(timer);
+  }, []);
+  
   const fadeIn = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
@@ -26,14 +38,25 @@ export default function Home() {
       className="flex flex-col items-center"
     >
       {/* Hero Section */}
-      <section className="relative w-full h-[calc(100vh-80px)] text-white">
-        <Image
-          src={HERO_IMAGES[0].src}
-          alt={HERO_IMAGES[0].alt}
-          fill
-          className="object-cover"
-          priority
-        />
+      <section className="relative w-full h-[calc(100vh-80px)] text-white overflow-hidden">
+        <AnimatePresence>
+            <motion.div
+                key={currentImageIndex}
+                className="absolute inset-0"
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5, ease: 'easeInOut' }}
+            >
+                <Image
+                    src={HERO_IMAGES[currentImageIndex].src}
+                    alt={HERO_IMAGES[currentImageIndex].alt}
+                    fill
+                    className="object-cover"
+                    priority
+                />
+            </motion.div>
+        </AnimatePresence>
         <div className="absolute inset-0 bg-slate-900/60" />
 
         <motion.div
