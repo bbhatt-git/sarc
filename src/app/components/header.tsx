@@ -49,7 +49,7 @@ export default function Header() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-slate-900/80 border-slate-700 text-slate-200 backdrop-blur-md">
             {link.children.map((child) => (
-              <DropdownMenuItem key={child.href} asChild>
+              <DropdownMenuItem key={child.label} asChild>
                 <Link href={child.href}>{child.label}</Link>
               </DropdownMenuItem>
             ))}
@@ -148,7 +148,7 @@ export default function Header() {
                                         <h3 className="text-slate-400 mb-3">{link.label}</h3>
                                         <div className='flex flex-col gap-4 pl-4 border-l border-slate-700'>
                                         {link.children.map(child => (
-                                            <Link key={child.href} href={child.href} className="text-slate-200 hover:text-emerald-500" onClick={() => setIsMobileMenuOpen(false)}>
+                                            <Link key={child.label} href={child.href} className="text-slate-200 hover:text-emerald-500" onClick={() => setIsMobileMenuOpen(false)}>
                                                 {child.label}
                                             </Link>
                                         ))}
