@@ -1,10 +1,11 @@
-import { GraduationCap, Briefcase, Users, HeartHandshake, Award, Building, BookOpen, FlaskConical, Landmark, Palette } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake } from 'lucide-react';
 
 export const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About Us' },
   { href: '/academics', label: 'Programs' },
   { href: '/admissions', label: 'Admissions' },
+  { href: '/staff', label: 'Faculty' },
   { href: '/news-gallery', label: 'News & Gallery' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -12,52 +13,52 @@ export const navLinks = [
 export const heroCarouselItems = [
   {
     id: 'hero-1',
-    title: 'Welcome to SARC',
-    subtitle: 'Fostering Community, Skills, and Opportunities at Padma Kanya Multiple Campus.',
+    title: 'Pioneering Futures, Honoring Traditions',
+    subtitle: 'At SARC, we are dedicated to fostering an environment of academic excellence, innovation, and character development for the leaders of tomorrow.',
     image: 'hero-1'
   },
   {
     id: 'hero-2',
-    title: 'Excellence in Education',
-    subtitle: 'Discover a learning environment that challenges and inspires.',
+    title: 'A Legacy of Educational Excellence',
+    subtitle: 'Discover a transformative learning experience that challenges the mind and inspires the spirit.',
     image: 'hero-2'
   },
   {
     id: 'hero-3',
-    title: 'Shape Your Future',
-    subtitle: 'Join a network of successful alumni and future leaders.',
+    title: 'Shape Your Future With Us',
+    subtitle: 'Join a vibrant community of scholars, innovators, and successful alumni who are making a difference in the world.',
     image: 'hero-3'
   }
 ];
 
 export const whySarcItems = [
     {
-        icon: Award,
+        icon: GraduationCap,
         title: "Academic Excellence",
-        description: "Pursue knowledge with our comprehensive curriculum and dedicated faculty."
+        description: "Pursue knowledge with our world-class curriculum and distinguished, dedicated faculty."
     },
     {
         icon: Users,
-        title: "Community Engagement",
-        description: "Participate in social initiatives and develop leadership skills."
+        title: "Vibrant Community",
+        description: "Engage in a diverse and inclusive community with a rich tradition of social initiatives."
     },
     {
         icon: Briefcase,
         title: "Career Development",
-        description: "Gain access to internships, workshops, and career counseling services."
+        description: "Unlock your potential with access to internships, career counseling, and global networking events."
     },
     {
         icon: HeartHandshake,
-        title: "Mentorship Programs",
-        description: "Connect with experienced professionals and alumni for guidance and support."
+        title: "Alumni Mentorship",
+        description: "Connect with a global network of experienced professionals and alumni for guidance and support."
     }
 ];
 
 export const stats = [
-    { number: '12+', label: 'Programs' },
-    { number: '500+', label: 'Students' },
-    { number: '40+', label: 'Faculty' },
-    { number: '10k+', label: 'Alumni' },
+    { number: '12+', label: 'Academic Programs' },
+    { number: '500+', label: 'Current Students' },
+    { number: '40+', label: 'Expert Faculty' },
+    { number: '10k+', label: 'Global Alumni' },
 ];
 
 export const curriculumDetails = [
@@ -102,25 +103,25 @@ export const curriculumDetails = [
 export const newsItems = [
     {
         id: '1',
-        title: 'Annual Tech Fest "Innovate 2024" Concludes',
+        title: 'Annual Tech Fest "Innovate 2024" Concludes with Record Participation',
         date: '2024-05-20',
-        summary: 'Our annual tech festival saw groundbreaking projects from students across various departments, from AI-driven apps to sustainable tech solutions.',
+        summary: 'Our annual tech festival saw groundbreaking projects from students across various departments, from AI-driven apps to sustainable tech solutions, drawing attention from industry leaders.',
         image: 'news-1',
         category: 'Campus Event'
     },
     {
         id: '2',
-        title: 'SARC Organizes Successful Blood Donation Drive',
+        title: 'SARC Organizes Successful Blood Donation Drive, Saving Lives',
         date: '2024-04-15',
-        summary: 'In collaboration with the Red Cross, our student-led blood donation drive collected over 200 pints, making a significant community impact.',
+        summary: 'In a powerful display of community spirit, our student-led blood donation drive in collaboration with the Red Cross collected over 200 pints, making a significant impact.',
         image: 'news-2',
         category: 'Community'
     },
     {
         id: '3',
-        title: 'Alumni Speaker Series Inspires Current Students',
+        title: 'Alumni Speaker Series Featuring Silicon Valley Innovators Inspires Students',
         date: '2024-03-10',
-        summary: 'Successful alumni from various industries returned to campus to share their career journeys and offer valuable advice to our current students.',
+        summary: 'Top alumni from leading tech companies returned to campus to share their career journeys, offering invaluable insights and mentorship to the next generation of leaders.',
         image: 'news-3',
         category: 'Alumni'
     }

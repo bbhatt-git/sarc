@@ -39,7 +39,6 @@ export default function ContactPage() {
         setIsSubmitting(true);
         setState({ message: null, errors: null, success: false });
 
-        // Simulate form submission
         await new Promise(resolve => setTimeout(resolve, 1000));
         
         const formData = new FormData(e.currentTarget);
@@ -84,46 +83,46 @@ export default function ContactPage() {
                 backgroundImage={headerImage?.imageUrl}
             />
 
-            <section className="py-16 lg:py-24">
+            <section className="py-20 lg:py-28">
                 <div className="container mx-auto px-4 grid lg:grid-cols-3 gap-16">
                     <div className="lg:col-span-1 space-y-8">
-                         <h2 className="text-3xl font-bold tracking-tight">Get in Touch</h2>
-                         <div className="space-y-6 text-muted-foreground">
+                         <h2 className="text-3xl font-bold tracking-tight font-headline">Get in Touch</h2>
+                         <div className="space-y-8 text-muted-foreground">
                             <div className='flex items-start gap-4'>
-                                <MapPin className='text-primary mt-1 shrink-0' />
+                                <MapPin className='text-primary mt-1 shrink-0 h-6 w-6' />
                                 <div>
-                                    <h3 className='font-semibold text-foreground'>Our Address</h3>
+                                    <h3 className='font-semibold text-foreground text-lg'>Our Address</h3>
                                     <p>Padma Kanya Multiple Campus, Bagbazar, Kathmandu, Nepal</p>
                                 </div>
                             </div>
                             <div className='flex items-start gap-4'>
-                                <Phone className='text-primary mt-1 shrink-0' />
+                                <Phone className='text-primary mt-1 shrink-0 h-6 w-6' />
                                 <div>
-                                    <h3 className='font-semibold text-foreground'>Call Us</h3>
-                                    <p>+977-1-4242424</p>
+                                    <h3 className='font-semibold text-foreground text-lg'>Call Us</h3>
+                                    <a href="tel:+97714242424" className="hover:text-primary transition-colors">+977-1-4242424</a>
                                 </div>
                             </div>
                             <div className='flex items-start gap-4'>
-                                <Mail className='text-primary mt-1 shrink-0' />
+                                <Mail className='text-primary mt-1 shrink-0 h-6 w-6' />
                                 <div>
-                                    <h3 className='font-semibold text-foreground'>Email Us</h3>
-                                    <p>info@sarc.edu.np</p>
+                                    <h3 className='font-semibold text-foreground text-lg'>Email Us</h3>
+                                     <a href="mailto:info@sarc.edu.np" className="hover:text-primary transition-colors">info@sarc.edu.np</a>
                                 </div>
                             </div>
                          </div>
                     </div>
 
                     <div className="lg:col-span-2">
-                        <Card className="shadow-lg">
+                        <Card className="glass-card p-2">
                             <CardHeader>
-                                <CardTitle className="text-2xl">Send us a Message</CardTitle>
+                                <CardTitle className="text-3xl font-headline">Send us a Message</CardTitle>
                                 <CardDescription>
                                     Fill out the form below and we will get back to you as soon as possible.
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-                                     <div className="grid sm:grid-cols-2 gap-4">
+                                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                                     <div className="grid sm:grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <Label htmlFor="fullName">Full Name</Label>
                                             <Input id="fullName" name="fullName" placeholder="e.g. John Doe" required />
@@ -145,7 +144,7 @@ export default function ContactPage() {
                                         <Textarea id="message" name="message" placeholder="Your message here..." required rows={5} />
                                         {state.errors?.message && <p className="text-sm text-destructive">{state.errors.message[0]}</p>}
                                     </div>
-                                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                                    <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                                         {isSubmitting ? (
                                             <>
                                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -154,8 +153,8 @@ export default function ContactPage() {
                                         ) : 'Send Message'}
                                     </Button>
                                     {state.success && state.message && (
-                                        <Alert variant="default" className="mt-4 border-green-500/50 bg-green-50 text-green-800">
-                                            <CheckCircle className="h-4 w-4 !text-green-600" />
+                                        <Alert variant="default" className="mt-4 bg-green-500/10 border-green-500/30 text-green-300">
+                                            <CheckCircle className="h-4 w-4 !text-green-400" />
                                             <AlertTitle className="font-semibold">Success!</AlertTitle>
                                             <AlertDescription>
                                                 {state.message}

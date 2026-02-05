@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    --background: 210 60% 98%;
-    --foreground: 224 71% 4%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 217 91% 60%;
+    --background: 224 71% 4%; /* Deep Navy */
+    --foreground: 210 40% 98%; /* Light Gray */
+    --card: 224 71% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%; /* Vibrant Blue */
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 215 28% 17%; /* Dark Slate */
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 28% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 38 92% 50%; /* Gold */
+    --accent-foreground: 224 71% 4%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 215 28% 22%;
+    --input: 215 28% 22%;
     --ring: 217 91% 60%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -37,14 +37,25 @@
 }
 
 @layer components {
-  .animated-fade-in {
-    animation: fadeIn 0.8s ease-in-out;
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-lg border border-white/10 shadow-lg transition-all duration-300;
+  }
+  .glass-card:hover {
+    @apply bg-card/60 border-white/20 shadow-2xl;
   }
 
-  @keyframes fadeIn {
+  .animated-fade-in {
+    animation: fade-in-up 0.8s ease-in-out;
+  }
+  
+  .animated-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes fade-in-up {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -52,7 +63,13 @@
     }
   }
 
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
   .text-shadow {
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
   }
 }

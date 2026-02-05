@@ -30,8 +30,8 @@ export default function Header() {
       <Link
         href={href}
         className={cn(
-          'text-sm font-medium transition-colors hover:text-primary',
-          isActive ? 'text-primary' : 'text-foreground/80'
+          'text-sm font-medium transition-colors hover:text-primary relative after:content-[""] after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary after:scale-x-0 after:origin-left after:transition-transform',
+          isActive ? 'text-primary after:scale-x-100' : 'text-foreground/80 hover:after:scale-x-100'
         )}
         onClick={() => setIsMobileMenuOpen(false)}
       >
@@ -43,17 +43,17 @@ export default function Header() {
   return (
     <header className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
-        isScrolled ? "bg-background/95 backdrop-blur-sm border-b" : "bg-transparent"
+        isScrolled ? "bg-background/80 backdrop-blur-lg border-b border-white/10" : "bg-transparent"
     )}>
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <Logo />
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
         <div className="hidden md:block">
-            <Button asChild>
+            <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
                 <Link href="/contact">Contact Us</Link>
             </Button>
         </div>
@@ -66,21 +66,21 @@ export default function Header() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-xs bg-background">
-                <div className="flex justify-between items-center mb-8">
+            <SheetContent side="right" className="w-full max-w-xs bg-background/90 backdrop-blur-lg border-l border-white/10">
+                <div className="flex justify-between items-center mb-12">
                     <Logo />
                      <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
                         <X className="h-6 w-6" />
                         <span className="sr-only">Close menu</span>
                     </Button>
                 </div>
-              <nav className="flex flex-col space-y-6">
+              <nav className="flex flex-col space-y-8 text-center">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      'text-lg font-medium transition-colors hover:text-primary',
+                      'text-xl font-medium transition-colors hover:text-primary',
                        pathname.startsWith(link.href) ? 'text-primary' : 'text-foreground'
                     )}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -89,7 +89,7 @@ export default function Header() {
                   </Link>
                 ))}
               </nav>
-               <Button asChild className="w-full mt-8">
+               <Button asChild className="w-full mt-12" size="lg">
                 <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
             </Button>
             </SheetContent>

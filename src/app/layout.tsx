@@ -5,11 +5,16 @@ import { Toaster } from '@/components/ui/toaster';
 import Header from '@/app/components/header';
 import Footer from '@/app/components/footer';
 import { FirebaseClientProvider } from '@/firebase';
-import { Inter } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
 });
 
 export const metadata: Metadata = {
@@ -27,16 +32,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(inter.variable)}>
+    <html lang="en" className={cn(inter.variable, playfair.variable, 'dark')}>
       <body
         className={cn(
-          'font-body antialiased min-h-screen flex flex-col',
-          'bg-secondary/30'
+          'font-body antialiased min-h-screen flex flex-col bg-background'
         )}
       >
         <FirebaseClientProvider>
           <Header />
-          <main className="flex-grow bg-background">{children}</main>
+          <main className="flex-grow">{children}</main>
           <Footer />
           <Toaster />
         </FirebaseClientProvider>

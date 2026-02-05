@@ -13,31 +13,31 @@ export default function StaffPage() {
     return (
         <div className="animated-fade-in">
             <PageHeader
-                title="Our Staff & Faculty"
+                title="Our Faculty"
                 subtitle="A dedicated team of educators, mentors, and leaders committed to student success."
                 backgroundImage={headerImage?.imageUrl}
             />
 
-            <section className="py-16 lg:py-24">
+            <section className="py-20 lg:py-28">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {staffProfiles.map(staff => {
                              const image = placeholderImages.placeholderImages.find(img => img.id === staff.image);
                             return (
                                 <Link key={staff.id} href={`/staff/${staff.id}`} className="group">
-                                    <Card className="h-full text-center flex flex-col items-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                                        <CardHeader className="items-center">
-                                            <Avatar className="w-24 h-24 mb-4 ring-4 ring-primary/10 group-hover:ring-primary/20 transition-all">
+                                    <Card className="glass-card h-full text-center flex flex-col items-center p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                        <CardHeader className="items-center p-0">
+                                            <Avatar className="w-32 h-32 mb-4 ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all group-hover:scale-105">
                                                 {image && <AvatarImage src={image.imageUrl} alt={staff.name} />}
                                                 <AvatarFallback>{staff.name.charAt(0)}</AvatarFallback>
                                             </Avatar>
-                                            <CardTitle className="text-lg group-hover:text-primary transition-colors">{staff.name}</CardTitle>
+                                            <CardTitle className="text-xl font-headline group-hover:text-primary transition-colors">{staff.name}</CardTitle>
                                             <p className="text-sm text-primary font-medium">{staff.designation}</p>
                                         </CardHeader>
-                                        <CardContent className="flex-grow">
+                                        <CardContent className="flex-grow mt-4 p-0">
                                             <Badge variant="secondary" className="font-normal">{staff.credentials}</Badge>
                                         </CardContent>
-                                        <CardFooter>
+                                        <CardFooter className="p-0 mt-4">
                                           <div className="text-sm font-semibold text-muted-foreground group-hover:text-primary transition-colors flex items-center">
                                               View Profile <ArrowRight className="inline-block w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                                           </div>

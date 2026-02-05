@@ -21,9 +21,10 @@ import { FirestorePermissionError } from '@/firebase/errors';
 import { curriculumDetails } from '@/lib/data';
 
 const inquirySchema = z.object({
-  fullName: z.string().min(2, "Name is too short"),
+  parentName: z.string().min(2, "Name is too short"),
+  studentName: z.string().min(2, "Student name is too short"),
+  studentAge: z.string().refine(val => !isNaN(parseInt(val, 10)) && parseInt(val, 10) > 0, { message: "Invalid age" }),
   email: z.string().email("Invalid email address"),
-  phone: z.string().min(7, "Please enter a valid phone number"),
   program: z.string().min(1, "Please select a program"),
   message: z.string().optional(),
 });
@@ -70,9 +71,9 @@ export default function AdmissionsPage() {
             return;
         }
         
-        // Firestore logic to save the inquiry
         const inquiryData = {
           ...validatedFields.data,
+          studentAge: parseInt(validatedFields.data.studentAge, 10),
           createdAt: serverTimestamp(),
         };
 
@@ -80,7 +81,7 @@ export default function AdmissionsPage() {
         
         addDoc(collRef, inquiryData).then(() => {
           setState({
-              message: `Thank you, ${validatedFields.data.fullName}! Your inquiry has been received. We will be in touch shortly.`,
+              message: `Thank you, ${validatedFields.data.parentName}! Your inquiry has been received. We will be in touch shortly.`,
               errors: null,
               success: true
           });
@@ -116,15 +117,15 @@ export default function AdmissionsPage() {
                 backgroundImage={headerImage?.imageUrl}
             />
 
-            <section className="py-16 lg:py-24">
+            <section className="py-20 lg:py-28">
                 <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
-                    <div className="space-y-8">
+                    <div className="space-y-12">
                         <div>
-                            <h2 className="text-3xl font-bold tracking-tight mb-4">The Admissions Process</h2>
-                            <p className="text-muted-foreground text-lg mb-6">
+                            <h2 className="text-3xl font-bold tracking-tight mb-6 font-headline">The Admissions Process</h2>
+                            <p className="text-muted-foreground text-lg mb-8">
                                 We welcome applications from students who are intellectually curious, motivated, and eager to contribute to our vibrant school community. Our admissions process is designed to be holistic and personal, allowing us to get to know each applicant as an individual.
                             </p>
-                            <ol className="list-decimal list-inside space-y-4 text-muted-foreground text-lg">
+                            <ol className="list-decimal list-inside space-y-6 text-muted-foreground text-lg">
                                 <li><strong>Submit an Inquiry:</strong> Begin by completing the form on this page to receive our admissions brochure and connect with our team.</li>
                                 <li><strong>Application Review:</strong> Our admissions committee carefully reviews each application, considering academic records and personal statements.</li>
                                 <li><strong>Interview:</strong> Shortlisted candidates will be invited for a personal interview to discuss their goals and aspirations.</li>
@@ -132,8 +133,8 @@ export default function AdmissionsPage() {
                             </ol>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold tracking-tight mb-4">Key Dates & Deadlines</h3>
-                             <ul className="space-y-2 text-muted-foreground text-lg">
+                            <h3 className="text-2xl font-bold tracking-tight mb-4 font-headline">Key Dates & Deadlines</h3>
+                             <ul className="space-y-3 text-muted-foreground text-lg">
                                 <li><strong>Fall Semester Applications Open:</strong> April 1st</li>
                                 <li><strong>Fall Semester Application Deadline:</strong> July 15th</li>
                                 <li><strong>Decision Notification:</strong> August 1st</li>
@@ -141,31 +142,36 @@ export default function AdmissionsPage() {
                         </div>
                     </div>
 
-                    <Card className="shadow-lg sticky top-24">
+                    <Card className="glass-card sticky top-24 p-2">
                         <CardHeader>
-                            <CardTitle className="text-2xl">Request Information</CardTitle>
+                            <CardTitle className="text-3xl font-headline">Request Information</CardTitle>
                             <CardDescription>
                                 Complete this form to begin your journey with SARC.
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="fullName">Full Name</Label>
-                                    <Input id="fullName" name="fullName" placeholder="e.g. Jane Doe" required />
-                                    {state.errors?.fullName && <p className="text-sm text-destructive">{state.errors.fullName[0]}</p>}
+                                    <Label htmlFor="parentName">Parent/Guardian Full Name</Label>
+                                    <Input id="parentName" name="parentName" placeholder="e.g. Jane Doe" required />
+                                    {state.errors?.parentName && <p className="text-sm text-destructive">{state.errors.parentName[0]}</p>}
                                 </div>
                                 <div className="grid sm:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email">Email Address</Label>
-                                        <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-                                        {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
+                                     <div className="space-y-2">
+                                        <Label htmlFor="studentName">Student's Full Name</Label>
+                                        <Input id="studentName" name="studentName" placeholder="e.g. John Doe" required />
+                                        {state.errors?.studentName && <p className="text-sm text-destructive">{state.errors.studentName[0]}</p>}
                                     </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="phone">Phone Number</Label>
-                                        <Input id="phone" name="phone" placeholder="+977-..." required />
-                                        {state.errors?.phone && <p className="text-sm text-destructive">{state.errors.phone[0]}</p>}
+                                     <div className="space-y-2">
+                                        <Label htmlFor="studentAge">Student's Age</Label>
+                                        <Input id="studentAge" name="studentAge" type="number" placeholder="e.g. 16" required />
+                                        {state.errors?.studentAge && <p className="text-sm text-destructive">{state.errors.studentAge[0]}</p>}
                                     </div>
+                                </div>
+                                 <div className="space-y-2">
+                                    <Label htmlFor="email">Email Address</Label>
+                                    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                                    {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="program">Program of Interest</Label>
@@ -185,7 +191,7 @@ export default function AdmissionsPage() {
                                     <Label htmlFor="message">Message (Optional)</Label>
                                     <Textarea id="message" name="message" placeholder="Any questions you have for us?" />
                                 </div>
-                                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                                     {isSubmitting ? (
                                         <>
                                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -194,8 +200,8 @@ export default function AdmissionsPage() {
                                      ) : 'Submit Inquiry'}
                                 </Button>
                                 {state.success && state.message && (
-                                    <Alert variant="default" className="mt-4 border-green-500/50 bg-green-50 text-green-800">
-                                      <CheckCircle className="h-4 w-4 !text-green-600" />
+                                    <Alert variant="default" className="mt-4 bg-green-500/10 border-green-500/30 text-green-300">
+                                      <CheckCircle className="h-4 w-4 !text-green-400" />
                                       <AlertTitle className="font-semibold">Success!</AlertTitle>
                                       <AlertDescription>
                                         {state.message}
