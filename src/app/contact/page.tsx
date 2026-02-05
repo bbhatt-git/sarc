@@ -1,18 +1,20 @@
 'use client';
 
 import { useState, useRef, FormEvent } from 'react';
-import PageHeader from "@/app/components/page-header";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import placeholderImages from '@/lib/placeholder-images.json';
-import { CheckCircle, Loader2, Mail, MapPin, Phone } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-
+import { CheckCircle, Loader2, Mail, MapPin, Phone, Clock } from 'lucide-react';
 import { z } from "zod";
+import { useFirestore } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import SectionTitle from '../components/section-title';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { motion } from 'framer-motion';
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Name is too short"),
@@ -32,141 +34,135 @@ export default function ContactPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { toast } = useToast();
     const formRef = useRef<HTMLFormElement>(null);
-    const headerImage = placeholderImages.placeholderImages.find(img => img.id === 'page-header-contact');
-
+    const firestore = useFirestore();
+    
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!firestore) return;
+
         setIsSubmitting(true);
         setState({ message: null, errors: null, success: false });
 
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
         const formData = new FormData(e.currentTarget);
         const rawData = Object.fromEntries(formData.entries());
-
         const validatedFields = contactSchema.safeParse(rawData);
 
         if (!validatedFields.success) {
             const errors = validatedFields.error.flatten().fieldErrors;
-            setState({
-                errors,
-                message: 'Please check your input.',
-                success: false,
-            });
-             toast({
-                variant: 'destructive',
-                title: 'Submission Error',
-                description: 'Please correct the errors in the form.',
-            });
+            setState({ errors, message: "Please correct the errors.", success: false });
             setIsSubmitting(false);
+            toast({ variant: 'destructive', title: 'Submission Error' });
             return;
         }
 
-        setState({
-            message: `Thank you, ${validatedFields.data.fullName}! Your message has been sent. We'll get back to you soon.`,
-            errors: null,
-            success: true
+        const contactData = { ...validatedFields.data, createdAt: serverTimestamp() };
+
+        const collRef = collection(firestore, "messages");
+        
+        addDoc(collRef, contactData).then(() => {
+          setState({ message: "Thank you for your message! We will get back to you shortly.", errors: null, success: true });
+          formRef.current?.reset();
+        }).catch((serverError) => {
+          const permissionError = new FirestorePermissionError({
+            path: collRef.path,
+            operation: 'create',
+            requestResourceData: contactData,
+          });
+          errorEmitter.emit('permission-error', permissionError);
+          setState({ message: 'Server Error: Could not send message.', errors: null, success: false });
+          toast({ variant: 'destructive', title: 'Server Error' });
+        }).finally(() => {
+          setIsSubmitting(false);
         });
-        toast({
-            title: 'Message Sent!',
-            description: 'We will be in touch shortly.',
-        });
-        formRef.current?.reset();
-        setIsSubmitting(false);
     }
 
     return (
-        <div className="animated-fade-in">
-            <PageHeader
-                title="Contact Us"
-                subtitle="We're here to help. Reach out to us with any questions or inquiries."
-                backgroundImage={headerImage?.imageUrl}
-            />
+        <div className="pt-32 pb-20">
+            <SectionTitle title="Contact Us" subtitle="Get In Touch With SARC" />
 
-            <section className="py-20 lg:py-28">
-                <div className="container mx-auto px-4 grid lg:grid-cols-3 gap-16">
-                    <div className="lg:col-span-1 space-y-8">
-                         <h2 className="text-3xl font-bold tracking-tight font-headline">Get in Touch</h2>
-                         <div className="space-y-8 text-muted-foreground">
-                            <div className='flex items-start gap-4'>
-                                <MapPin className='text-primary mt-1 shrink-0 h-6 w-6' />
-                                <div>
-                                    <h3 className='font-semibold text-foreground text-lg'>Our Address</h3>
-                                    <p>Padma Kanya Multiple Campus, Bagbazar, Kathmandu, Nepal</p>
+            <motion.section 
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="container mx-auto px-4 mt-16"
+            >
+                <div className="grid lg:grid-cols-2 gap-16 items-start">
+                    <div className="bg-slate-900/95 border border-slate-800 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
+                        <h3 className="text-3xl font-bold mb-2 text-white">Send Us a Message</h3>
+                        <p className="text-slate-400 mb-8">We'll get back to you as soon as possible.</p>
+                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                            <div className="grid sm:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="fullName" className="text-slate-300">Full Name</Label>
+                                    <Input id="fullName" name="fullName" placeholder="e.g. John Doe" required />
+                                    {state.errors?.fullName && <p className="text-sm text-rose-500">{state.errors.fullName[0]}</p>}
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="email" className="text-slate-300">Email Address</Label>
+                                    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                                    {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
                                 </div>
                             </div>
-                            <div className='flex items-start gap-4'>
-                                <Phone className='text-primary mt-1 shrink-0 h-6 w-6' />
-                                <div>
-                                    <h3 className='font-semibold text-foreground text-lg'>Call Us</h3>
-                                    <a href="tel:+97714242424" className="hover:text-primary transition-colors">+977-1-4242424</a>
-                                </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="subject" className="text-slate-300">Subject</Label>
+                                <Input id="subject" name="subject" placeholder="e.g. Admission Inquiry" required />
+                                {state.errors?.subject && <p className="text-sm text-rose-500">{state.errors.subject[0]}</p>}
                             </div>
-                            <div className='flex items-start gap-4'>
-                                <Mail className='text-primary mt-1 shrink-0 h-6 w-6' />
-                                <div>
-                                    <h3 className='font-semibold text-foreground text-lg'>Email Us</h3>
-                                     <a href="mailto:info@sarc.edu.np" className="hover:text-primary transition-colors">info@sarc.edu.np</a>
-                                </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="message" className="text-slate-300">Message</Label>
+                                <Textarea id="message" name="message" placeholder="Your message here..." required rows={5} />
+                                {state.errors?.message && <p className="text-sm text-rose-500">{state.errors.message[0]}</p>}
                             </div>
-                         </div>
+                            <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" disabled={isSubmitting}>
+                                {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : 'Send Message'}
+                            </Button>
+                            {state.success && state.message && (
+                                <Alert variant="default" className="mt-4 bg-emerald-500/10 border-emerald-500/30 text-emerald-300">
+                                  <CheckCircle className="h-4 w-4 !text-emerald-400" />
+                                  <AlertTitle className="font-semibold">Success!</AlertTitle>
+                                  <AlertDescription>{state.message}</AlertDescription>
+                                </Alert>
+                            )}
+                        </form>
                     </div>
 
-                    <div className="lg:col-span-2">
-                        <Card className="glass-card p-2">
-                            <CardHeader>
-                                <CardTitle className="text-3xl font-headline">Send us a Message</CardTitle>
-                                <CardDescription>
-                                    Fill out the form below and we will get back to you as soon as possible.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                                     <div className="grid sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="fullName">Full Name</Label>
-                                            <Input id="fullName" name="fullName" placeholder="e.g. John Doe" required />
-                                            {state.errors?.fullName && <p className="text-sm text-destructive">{state.errors.fullName[0]}</p>}
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="email">Email Address</Label>
-                                            <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-                                            {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="subject">Subject</Label>
-                                        <Input id="subject" name="subject" placeholder="e.g. Admission Inquiry" required />
-                                        {state.errors?.subject && <p className="text-sm text-destructive">{state.errors.subject[0]}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="message">Message</Label>
-                                        <Textarea id="message" name="message" placeholder="Your message here..." required rows={5} />
-                                        {state.errors?.message && <p className="text-sm text-destructive">{state.errors.message[0]}</p>}
-                                    </div>
-                                    <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                                        {isSubmitting ? (
-                                            <>
-                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                                Sending...
-                                            </>
-                                        ) : 'Send Message'}
-                                    </Button>
-                                    {state.success && state.message && (
-                                        <Alert variant="default" className="mt-4 bg-green-500/10 border-green-500/30 text-green-300">
-                                            <CheckCircle className="h-4 w-4 !text-green-400" />
-                                            <AlertTitle className="font-semibold">Success!</AlertTitle>
-                                            <AlertDescription>
-                                                {state.message}
-                                            </AlertDescription>
-                                        </Alert>
-                                    )}
-                                </form>
-                            </CardContent>
-                        </Card>
+                    <div className="space-y-8">
+                        <div className="rounded-3xl overflow-hidden border border-slate-800">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.391735118744!2d85.31633887546813!3d27.705417076184245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18e2c9a7ab33%3A0x26f1a4c90353a44!2sPadma%20Kanya%20Multiple%20Campus!5e0!3m2!1sen!2snp!4v1720272097723!5m2!1sen!2snp" 
+                                width="100%" 
+                                height="300" 
+                                style={{border: 0}} 
+                                allowFullScreen={false} 
+                                loading="lazy" 
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                        <div className="space-y-6">
+                            <InfoCard icon={MapPin} title="Address" text="Padma Kanya Multiple Campus, Bagbazar, KTM" />
+                            <InfoCard icon={Phone} title="Phone" text="+977-1-4242424" href="tel:+97714242424"/>
+                            <InfoCard icon={Mail} title="Email" text="info@sarc.edu.np" href="mailto:info@sarc.edu.np"/>
+                            <InfoCard icon={Clock} title="Working Hours" text="Sun - Fri: 9:00 AM - 5:00 PM"/>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
         </div>
     );
 }
+
+const InfoCard = ({ icon: Icon, title, text, href }: { icon: React.ElementType, title: string, text: string, href?: string }) => (
+    <div className="flex items-start gap-4">
+        <div className="bg-slate-800 p-3 rounded-full border border-slate-700">
+            <Icon className="w-5 h-5 text-emerald-500" />
+        </div>
+        <div>
+            <h4 className="font-semibold text-lg text-white">{title}</h4>
+            {href ? (
+                 <a href={href} className="text-slate-400 hover:text-emerald-500 transition-colors">{text}</a>
+            ) : (
+                <p className="text-slate-400">{text}</p>
+            )}
+        </div>
+    </div>
+)

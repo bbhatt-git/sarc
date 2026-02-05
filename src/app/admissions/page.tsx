@@ -1,31 +1,27 @@
 'use client';
 
 import { useState, useRef, FormEvent } from 'react';
-import PageHeader from "@/app/components/page-header";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import placeholderImages from '@/lib/placeholder-images.json';
 import { CheckCircle, Loader2 } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
 import { z } from "zod";
 import { useFirestore } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
-import { curriculumDetails } from '@/lib/data';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import SectionTitle from '../components/section-title';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-const inquirySchema = z.object({
-  parentName: z.string().min(2, "Name is too short"),
-  studentName: z.string().min(2, "Student name is too short"),
-  studentAge: z.string().refine(val => !isNaN(parseInt(val, 10)) && parseInt(val, 10) > 0, { message: "Invalid age" }),
+const admissionSchema = z.object({
+  parentName: z.string().min(2, "Parent's name is too short"),
+  studentName: z.string().min(2, "Student's name is too short"),
   email: z.string().email("Invalid email address"),
-  program: z.string().min(1, "Please select a program"),
+  phone: z.string().min(10, "Invalid phone number"),
+  gradeLevel: z.string().min(1, "Please select a grade level"),
   message: z.string().optional(),
 });
 
@@ -41,7 +37,6 @@ export default function AdmissionsPage() {
     const { toast } = useToast();
     const formRef = useRef<HTMLFormElement>(null);
     const firestore = useFirestore();
-    const headerImage = placeholderImages.placeholderImages.find(img => img.id === 'page-header-admissions');
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -53,7 +48,7 @@ export default function AdmissionsPage() {
         const formData = new FormData(e.currentTarget);
         const rawData = Object.fromEntries(formData.entries());
 
-        const validatedFields = inquirySchema.safeParse(rawData);
+        const validatedFields = admissionSchema.safeParse(rawData);
 
         if (!validatedFields.success) {
             const errors = validatedFields.error.flatten().fieldErrors;
@@ -73,15 +68,14 @@ export default function AdmissionsPage() {
         
         const inquiryData = {
           ...validatedFields.data,
-          studentAge: parseInt(validatedFields.data.studentAge, 10),
           createdAt: serverTimestamp(),
         };
 
-        const collRef = collection(firestore, "admissionInquiries");
+        const collRef = collection(firestore, "admissions");
         
         addDoc(collRef, inquiryData).then(() => {
           setState({
-              message: `Thank you, ${validatedFields.data.parentName}! Your inquiry has been received. We will be in touch shortly.`,
+              message: `Thank you, ${validatedFields.data.parentName}! Your admission inquiry has been received. We will be in touch shortly.`,
               errors: null,
               success: true
           });
@@ -110,117 +104,87 @@ export default function AdmissionsPage() {
     }
 
     return (
-        <div className="animated-fade-in">
-            <PageHeader
-                title="Admissions"
-                subtitle="Begin your journey with SARC. Join a community where curiosity is celebrated and potential is realized."
-                backgroundImage={headerImage?.imageUrl}
-            />
-
-            <section className="py-20 lg:py-28">
-                <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
-                    <div className="space-y-12">
-                        <div>
-                            <h2 className="text-3xl font-bold tracking-tight mb-6 font-headline">The Admissions Process</h2>
-                            <p className="text-muted-foreground text-lg mb-8">
-                                We welcome applications from students who are intellectually curious, motivated, and eager to contribute to our vibrant school community. Our admissions process is designed to be holistic and personal, allowing us to get to know each applicant as an individual.
-                            </p>
-                            <ol className="list-decimal list-inside space-y-6 text-muted-foreground text-lg">
-                                <li><strong>Submit an Inquiry:</strong> Begin by completing the form on this page to receive our admissions brochure and connect with our team.</li>
-                                <li><strong>Application Review:</strong> Our admissions committee carefully reviews each application, considering academic records and personal statements.</li>
-                                <li><strong>Interview:</strong> Shortlisted candidates will be invited for a personal interview to discuss their goals and aspirations.</li>
-                                <li><strong>Decision:</strong> Admissions decisions are communicated in early spring. We look forward to welcoming new families to SARC!</li>
-                            </ol>
+        <div className="pt-32 pb-20">
+            <SectionTitle title="Admissions" subtitle="Begin Your Journey at SARC" />
+            <div className="container mx-auto px-4 max-w-4xl mt-16">
+                 <div className="bg-slate-900/95 border border-slate-800 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
+                    <h3 className="text-3xl font-bold mb-2 text-white">Online Admission Form</h3>
+                    <p className="text-slate-400 mb-8">Fill out the form below to start the admission process.</p>
+                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="parentName" className="text-slate-300">Parent/Guardian Full Name</Label>
+                                <Input id="parentName" name="parentName" placeholder="e.g. Jane Doe" required />
+                                {state.errors?.parentName && <p className="text-sm text-rose-500">{state.errors.parentName[0]}</p>}
+                            </div>
+                             <div className="space-y-2">
+                                <Label htmlFor="studentName" className="text-slate-300">Student's Full Name</Label>
+                                <Input id="studentName" name="studentName" placeholder="e.g. John Doe" required />
+                                {state.errors?.studentName && <p className="text-sm text-rose-500">{state.errors.studentName[0]}</p>}
+                            </div>
                         </div>
-                        <div>
-                            <h3 className="text-2xl font-bold tracking-tight mb-4 font-headline">Key Dates & Deadlines</h3>
-                             <ul className="space-y-3 text-muted-foreground text-lg">
-                                <li><strong>Fall Semester Applications Open:</strong> April 1st</li>
-                                <li><strong>Fall Semester Application Deadline:</strong> July 15th</li>
-                                <li><strong>Decision Notification:</strong> August 1st</li>
-                            </ul>
+                        <div className="grid md:grid-cols-2 gap-6">
+                             <div className="space-y-2">
+                                <Label htmlFor="email" className="text-slate-300">Email Address</Label>
+                                <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                                {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="phone" className="text-slate-300">Phone Number</Label>
+                                <Input id="phone" name="phone" type="tel" placeholder="+977-..." required />
+                                {state.errors?.phone && <p className="text-sm text-rose-500">{state.errors.phone[0]}</p>}
+                            </div>
                         </div>
-                    </div>
-
-                    <Card className="glass-card sticky top-24 p-2">
-                        <CardHeader>
-                            <CardTitle className="text-3xl font-headline">Request Information</CardTitle>
-                            <CardDescription>
-                                Complete this form to begin your journey with SARC.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label htmlFor="parentName">Parent/Guardian Full Name</Label>
-                                    <Input id="parentName" name="parentName" placeholder="e.g. Jane Doe" required />
-                                    {state.errors?.parentName && <p className="text-sm text-destructive">{state.errors.parentName[0]}</p>}
-                                </div>
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                     <div className="space-y-2">
-                                        <Label htmlFor="studentName">Student's Full Name</Label>
-                                        <Input id="studentName" name="studentName" placeholder="e.g. John Doe" required />
-                                        {state.errors?.studentName && <p className="text-sm text-destructive">{state.errors.studentName[0]}</p>}
-                                    </div>
-                                     <div className="space-y-2">
-                                        <Label htmlFor="studentAge">Student's Age</Label>
-                                        <Input id="studentAge" name="studentAge" type="number" placeholder="e.g. 16" required />
-                                        {state.errors?.studentAge && <p className="text-sm text-destructive">{state.errors.studentAge[0]}</p>}
-                                    </div>
-                                </div>
-                                 <div className="space-y-2">
-                                    <Label htmlFor="email">Email Address</Label>
-                                    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-                                    {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="program">Program of Interest</Label>
-                                    <Select name="program">
-                                      <SelectTrigger id="program">
-                                        <SelectValue placeholder="Select a program" />
-                                      </SelectTrigger>
-                                      <SelectContent>
-                                        {curriculumDetails.map(p => (
-                                          <SelectItem key={p.id} value={p.id}>{p.title} - {p.summary}</SelectItem>
-                                        ))}
-                                      </SelectContent>
-                                    </Select>
-                                    {state.errors?.program && <p className="text-sm text-destructive">{state.errors.program[0]}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="message">Message (Optional)</Label>
-                                    <Textarea id="message" name="message" placeholder="Any questions you have for us?" />
-                                </div>
-                                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            Submitting...
-                                        </>
-                                     ) : 'Submit Inquiry'}
-                                </Button>
-                                {state.success && state.message && (
-                                    <Alert variant="default" className="mt-4 bg-green-500/10 border-green-500/30 text-green-300">
-                                      <CheckCircle className="h-4 w-4 !text-green-400" />
-                                      <AlertTitle className="font-semibold">Success!</AlertTitle>
-                                      <AlertDescription>
-                                        {state.message}
-                                      </AlertDescription>
-                                    </Alert>
-                                )}
-                                {state.message && !state.success && (
-                                    <Alert variant="destructive" className="mt-4">
-                                      <AlertTitle>Error</AlertTitle>
-                                      <AlertDescription>
-                                        {state.message}
-                                      </AlertDescription>
-                                    </Alert>
-                                )}
-                            </form>
-                        </CardContent>
-                    </Card>
+                        <div className="space-y-2">
+                            <Label htmlFor="gradeLevel" className="text-slate-300">Applying for Grade</Label>
+                            <Select name="gradeLevel">
+                              <SelectTrigger id="gradeLevel">
+                                <SelectValue placeholder="Select a grade" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="ecd">ECD</SelectItem>
+                                <SelectItem value="1-8">School Section (1-8)</SelectItem>
+                                <SelectItem value="9-10">School Section (9-10)</SelectItem>
+                                <SelectItem value="bridge">Bridge Course</SelectItem>
+                                <SelectItem value="+2-science">+2 Science</SelectItem>
+                                <SelectItem value="+2-management">+2 Management</SelectItem>
+                                <SelectItem value="+2-law">+2 Law</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {state.errors?.gradeLevel && <p className="text-sm text-rose-500">{state.errors.gradeLevel[0]}</p>}
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="message" className="text-slate-300">Message (Optional)</Label>
+                            <Textarea id="message" name="message" placeholder="Any questions you have for us?" />
+                        </div>
+                        <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" disabled={isSubmitting}>
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Submitting...
+                                </>
+                             ) : 'Submit Inquiry'}
+                        </Button>
+                        {state.success && state.message && (
+                            <Alert variant="default" className="mt-4 bg-emerald-500/10 border-emerald-500/30 text-emerald-300">
+                              <CheckCircle className="h-4 w-4 !text-emerald-400" />
+                              <AlertTitle className="font-semibold">Success!</AlertTitle>
+                              <AlertDescription>
+                                {state.message}
+                              </AlertDescription>
+                            </Alert>
+                        )}
+                         {state.message && !state.success && state.errors && (
+                            <Alert variant="destructive" className="mt-4">
+                              <AlertTitle>Error</AlertTitle>
+                              <AlertDescription>
+                                {Object.values(state.errors).flat().join(' ')}
+                              </AlertDescription>
+                            </Alert>
+                        )}
+                    </form>
                 </div>
-            </section>
+            </div>
         </div>
     );
 }

@@ -1,29 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 224 71% 4%; /* Deep Navy */
-    --foreground: 210 40% 98%; /* Light Gray */
-    --card: 224 71% 10%;
+    --background: 220 40% 5%; /* #020617 */
+    --foreground: 215 20% 65%; /* text-slate-400 */
+    
+    --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
+
+    --popover: 220 40% 5%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%; /* Vibrant Blue */
+
+    --primary: 222 47% 11%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 215 28% 17%; /* Dark Slate */
+
+    --secondary: 158 95% 31%; /* Emerald Green */
     --secondary-foreground: 210 40% 98%;
+    
     --muted: 215 28% 17%;
     --muted-foreground: 215 20% 65%;
-    --accent: 38 92% 50%; /* Gold */
-    --accent-foreground: 224 71% 4%;
+    
+    --accent: 215 28% 17%;
+    --accent-foreground: 210 40% 98%;
+
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 215 28% 22%;
-    --input: 215 28% 22%;
-    --ring: 217 91% 60%;
-    --radius: 0.75rem;
+
+    --border: 217 32% 21%;
+    --input: 217 32% 21%;
+    --ring: 158 95% 31%;
+    
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 220 40% 5%;
+    --foreground: 215 20% 65%;
+    
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 40% 5%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 158 95% 31%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 215 28% 17%;
+    --muted-foreground: 215 20% 65%;
+    
+    --accent: 215 28% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 21%;
+    --input: 217 32% 21%;
+    --ring: 158 95% 31%;
   }
 }
 
@@ -31,45 +72,95 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
+  }
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
-@layer components {
-  .glass-card {
-    @apply bg-card/40 backdrop-blur-lg border border-white/10 shadow-lg transition-all duration-300;
-  }
-  .glass-card:hover {
-    @apply bg-card/60 border-white/20 shadow-2xl;
+@layer utilities {
+  .glass-container {
+    @apply bg-slate-900/95 border border-slate-800 rounded-3xl backdrop-blur-sm;
   }
 
-  .animated-fade-in {
-    animation: fade-in-up 0.8s ease-in-out;
+  .cta-clip {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
   
-  .animated-float {
-    animation: float 6s ease-in-out infinite;
+  .text-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   }
 
-  @keyframes fade-in-up {
+  .animated-blobs {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+    filter: blur(120px);
+  }
+
+  .animated-blobs::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAALklEQVRoQ+3NMQEAAAgDoC25/z8DOjAq8e/eAQQQEBBQQAABHZAQEBBQQAABHZAQEBBQQAABeQE3aQCF82f3ogAAAABJRU5ErkJggg==');
+    opacity: 0.1;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    animation: move 25s infinite alternate;
+  }
+
+  .blob-1 {
+    width: 500px;
+    height: 500px;
+    background: rgba(139, 92, 246, 0.2);
+    top: -10%;
+    left: -20%;
+    animation-duration: 20s;
+  }
+
+  .blob-2 {
+    width: 400px;
+    height: 400px;
+    background: rgba(5, 150, 105, 0.2);
+    bottom: -5%;
+    right: -10%;
+    animation-duration: 30s;
+    animation-delay: -10s;
+  }
+  
+  .blob-3 {
+    width: 300px;
+    height: 300px;
+    background: rgba(236, 72, 153, 0.2);
+    top: 40%;
+    right: 30%;
+    animation-duration: 25s;
+    animation-delay: -5s;
+  }
+
+  @keyframes move {
     from {
-      opacity: 0;
-      transform: translateY(20px);
+      transform: translate(-100px, 50px) rotate(0deg);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translate(200px, -100px) rotate(360deg);
     }
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
-  }
-
-  .text-shadow {
-    text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
   }
 }
