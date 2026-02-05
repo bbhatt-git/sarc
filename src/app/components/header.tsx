@@ -2,22 +2,76 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-export default function Header() {
+const NavItem = ({ link }: { link: (typeof NAV_LINKS)[0] }) => {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  if (link.children) {
+    const isChildActive = link.children.some(child => pathname.startsWith(child.href));
+    return (
+      <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+        <button
+          className={cn(
+            'flex items-center gap-1 transition-colors text-sm font-medium',
+            isChildActive ? 'text-emerald-400' : 'text-slate-300 hover:text-white'
+          )}
+        >
+          {link.label}
+          <motion.div animate={{ rotate: isOpen ? 180 : 0 }} >
+             <ChevronDown className="h-4 w-4" />
+          </motion.div>
+        </button>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-20"
+            >
+              <div className="bg-slate-900/80 border-slate-700 text-slate-200 backdrop-blur-md rounded-xl shadow-lg p-2 min-w-[200px]">
+                {link.children.map((child) => (
+                  <Link
+                    key={child.label}
+                    href={child.href}
+                    className="block px-4 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded-md"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {child.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  const isActive = pathname === link.href;
+  return (
+    <Link
+      href={link.href}
+      className={cn(
+        'transition-colors text-sm font-medium',
+        isActive ? 'text-emerald-400' : 'text-slate-300 hover:text-white'
+      )}
+    >
+      {link.label}
+    </Link>
+  );
+};
+  
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,47 +83,6 @@ export default function Header() {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const NavItem = ({ link }: { link: (typeof NAV_LINKS)[0] }) => {
-    const isActive = pathname === link.href;
-    
-    if (link.children) {
-      const isChildActive = link.children.some(child => pathname.startsWith(child.href));
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button
-              className={cn(
-                'flex items-center gap-1 transition-colors',
-                isChildActive ? 'text-emerald-500' : 'text-slate-300 hover:text-white'
-              )}
-            >
-              {link.label}
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-slate-900/80 border-slate-700 text-slate-200 backdrop-blur-md">
-            {link.children.map((child) => (
-              <DropdownMenuItem key={child.label} asChild>
-                <Link href={child.href}>{child.label}</Link>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    }
-
-    return (
-      <Link
-        href={link.href}
-        className={cn(
-          'transition-colors',
-          isActive ? 'text-emerald-500' : 'text-slate-300 hover:text-white'
-        )}
-      >
-        {link.label}
-      </Link>
-    );
-  };
   
   return (
     <>

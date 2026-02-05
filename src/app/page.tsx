@@ -1,13 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, GraduationCap, Building, Users, Briefcase } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { FACILITIES, NEWS_ITEMS, STATS, TESTIMONIALS } from '@/lib/constants';
+import { FACILITIES, TESTIMONIALS, STATS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
+import Marquee from './components/marquee';
 
 const SpotlightCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,35 +39,6 @@ const SpotlightCard = ({ children, className }: { children: React.ReactNode, cla
   );
 };
 
-
-const Marquee = ({ children, direction = 'left' }: { children: React.ReactNode, direction?: 'left' | 'right' }) => {
-    const marqueeVariants = {
-        animate: {
-            x: direction === 'left' ? [0, '-50%'] : ['-50%', 0],
-            transition: {
-                x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: 40,
-                    ease: "linear",
-                },
-            },
-        },
-    };
-
-    return (
-        <div className="w-full overflow-hidden">
-            <motion.div
-                className="flex whitespace-nowrap"
-                variants={marqueeVariants}
-                animate="animate"
-            >
-                {children}{children}
-            </motion.div>
-        </div>
-    );
-};
-
 const TextReveal = ({ text }: { text: string }) => {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -89,16 +61,53 @@ const TextReveal = ({ text }: { text: string }) => {
     );
 };
 
-export default function Home() {
-  const facilitiesRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: facilitiesRef,
-    offset: ['start end', 'end start']
-  });
+const CardStack = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start start', 'end end'],
+    });
 
-  const card1Y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const card2Y = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const card3Y = useTransform(scrollYProgress, [0, 1], [0, -150]);
+    return (
+        <div ref={containerRef} className="relative h-[250vh] mt-16 md:hidden">
+            <div className="sticky top-28 flex flex-col items-center">
+                {FACILITIES.map((card, index) => {
+                    const scale = useTransform(scrollYProgress,
+                        [index / FACILITIES.length, (index + 0.5) / FACILITIES.length],
+                        [1, 1 - ((FACILITIES.length - index) * 0.1)]
+                    );
+                    const y = useTransform(scrollYProgress,
+                        [index / FACILITIES.length, (index + 0.5) / FACILITIES.length],
+                        [0, -40 * (FACILITIES.length - 1 - index)]
+                    );
+
+                    return (
+                        <motion.div
+                            key={card.title}
+                            className="absolute w-full px-4"
+                            style={{
+                                transformOrigin: 'top center',
+                                scale,
+                                y,
+                                top: `${index * 2}rem`
+                            }}
+                        >
+                            <SpotlightCard className="text-center h-full">
+                                <div className="mb-4 inline-block bg-slate-800 p-4 rounded-full border border-slate-700">
+                                    <card.icon className="w-8 h-8 text-emerald-500" />
+                                </div>
+                                <h3 className="text-xl font-bold text-white">{card.title}</h3>
+                                <p className="text-slate-400 mt-2 text-sm">{card.desc}</p>
+                            </SpotlightCard>
+                        </motion.div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+
+export default function Home() {
 
   return (
     <motion.div 
@@ -264,12 +273,7 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-           <div className="md:hidden mt-16 space-y-8" ref={facilitiesRef}>
-              <motion.div style={{ y: card1Y }}><SpotlightCard>{FACILITIES[0].title}</SpotlightCard></motion.div>
-              <motion.div style={{ y: card2Y }}><SpotlightCard>{FACILITIES[1].title}</SpotlightCard></motion.div>
-              <motion.div style={{ y: card3Y }}><SpotlightCard>{FACILITIES[2].title}</SpotlightCard></motion.div>
-              <SpotlightCard>{FACILITIES[3].title}</SpotlightCard>
-           </div>
+          <CardStack />
         </div>
       </section>
       

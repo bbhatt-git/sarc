@@ -194,3 +194,34 @@ export const WHY_US_ITEMS = [
         description: "Connect with a global network of experienced professionals and alumni for guidance and support."
     }
 ];
+
+export const GALLERY_CATEGORIES = [
+    'Campus Life',
+    'Academics',
+    'Events',
+    'Sports',
+    'Community',
+];
+
+export const GALLERY_IMAGES = [
+    { src: 'https://picsum.photos/seed/301/600/400', category: 'Campus Life', hint: 'students studying' },
+    { src: 'https://picsum.photos/seed/302/500/700', category: 'Events', hint: 'college event' },
+    { src: 'https://picsum.photos/seed/303/600/400', category: 'Academics', hint: 'science lab' },
+    { src: 'https://picsum.photos/seed/304/600/800', category: 'Sports', hint: 'basketball game' },
+    { src: 'https://picsum.photos/seed/305/600/400', category: 'Campus Life', hint: 'library books' },
+    { src: 'https://picsum.photos/seed/306/500/300', category: 'Community', hint: 'group discussion' },
+    { src: 'https://picsum.photos/seed/307/600/400', category: 'Events', hint: 'award ceremony' },
+    { src: 'https://picsum.photos/seed/308/800/600', category: 'Academics', hint: 'lecture hall' },
+    { src: 'https://picsum.photos/seed/309/600/400', category: 'Sports', hint: 'soccer field' },
+    { src: 'https://picsum.photos/seed/310/500/700', category: 'Campus Life', hint: 'student collaboration' },
+    { src: 'https://picsum.photos/seed/311/600/400', category: 'Community', hint: 'volunteer work' },
+    { src: 'https://picsum.photos/seed/312/600/800', category: 'Events', hint: 'music performance' },
+    { src: 'https://picsum.photos/seed/313/600/400', category: 'Academics', hint: 'classroom setting' },
+    { src: 'https://picsum.photos/seed/314/500/300', category: 'Sports', hint: 'running track' },
+    { src: 'https://picsum.photos/seed/315/800/600', category: 'Campus Life', hint: 'campus view' },
+    { src: 'https://picsum.photos/seed/316/600/400', category: 'Events', hint: 'guest speaker' },
+    { src: 'https://picsum.photos/seed/317/600/400', category: 'Academics', hint: 'students computer' },
+    { src: 'https://picsum.photos/seed/318/500/700', category: 'Sports', hint: 'trophy award' },
+    { src: 'https://picsum.photos/seed/319/600/800', category: 'Community', hint: 'group project' },
+    { src: 'https://picsum.photos/seed/320/600/400', category: 'Campus Life', hint: 'friends talking' },
+];
