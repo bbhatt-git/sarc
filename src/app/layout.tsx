@@ -7,6 +7,7 @@ import Footer from '@/app/components/footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { Poppins } from 'next/font/google';
 import BackgroundBlobs from './components/background-blobs';
+import { ThemeProvider } from './components/theme-provider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -71,19 +72,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(poppins.variable)}>
+    <html lang="en" className={cn(poppins.variable)} suppressHydrationWarning>
       <body
         className={cn(
           'font-sans antialiased min-h-screen flex flex-col bg-background relative'
         )}
       >
-        <BackgroundBlobs />
-        <FirebaseClientProvider>
-          <Header />
-          <main className="flex-grow z-10 pt-28">{children}</main>
-          <Footer />
-          <Toaster />
-        </FirebaseClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <BackgroundBlobs />
+          <FirebaseClientProvider>
+            <Header />
+            <main className="flex-grow z-10 pt-28">{children}</main>
+            <Footer />
+            <Toaster />
+          </FirebaseClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

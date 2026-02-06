@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { ThemeToggle } from './theme-toggle';
 
 const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], pathname: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
         <button
           className={cn(
             'flex items-center gap-1.5 uppercase text-[12px] tracking-wider font-bold transition-colors',
-            isChildActive ? 'text-sarc-green' : 'text-sarc-main hover:text-sarc-green'
+            isChildActive ? 'text-sarc-green' : 'text-sarc-main dark:text-slate-300 hover:text-sarc-green'
           )}
         >
           {link.label}
@@ -37,7 +38,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
               transition={{ duration: 0.3, ease: 'easeOut' }}
               className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20"
             >
-              <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-2xl shadow-xl rounded-2xl border border-white/20 w-80">
+              <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-2xl shadow-xl rounded-2xl border border-white/20">
                  <ul className="space-y-1 p-2">
                   {link.children.map((child) => (
                     <li key={child.label}>
@@ -71,7 +72,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
       href={link.href}
       className={cn(
         'uppercase text-[12px] tracking-wider font-bold transition-colors',
-        isActive ? 'text-sarc-green' : 'text-sarc-main hover:text-sarc-green'
+        isActive ? 'text-sarc-green' : 'text-sarc-main dark:text-slate-300 hover:text-sarc-green'
       )}
     >
       {link.label}
@@ -174,6 +175,7 @@ export default function Header() {
               </div>
 
               <div className="flex items-center gap-2">
+                <ThemeToggle />
                 <Button asChild className='hidden lg:flex rounded-full bg-sarc-main dark:bg-white text-white dark:text-sarc-main uppercase text-xs font-bold tracking-widest transition-transform hover:-translate-y-0.5'>
                   <Link href="/admissions">Admissions</Link>
                 </Button>
@@ -209,9 +211,12 @@ export default function Header() {
                 <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} />
                 </Link>
-                <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-slate-600 dark:text-slate-300'>
-                  <X />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-slate-600 dark:text-slate-300'>
+                    <X />
+                  </Button>
+                </div>
               </div>
               <nav className="flex flex-col gap-6">
                 {NAV_LINKS.map(link => (
