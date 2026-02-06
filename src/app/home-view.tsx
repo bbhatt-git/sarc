@@ -35,10 +35,10 @@ export default function HomeView() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col items-center"
+      className="flex flex-col items-center mt-[-7rem]"
     >
       {/* Hero Section */}
-      <section className="relative w-full h-[calc(100vh-80px)] text-white overflow-hidden">
+      <section className="relative w-full h-screen text-white overflow-hidden">
         <AnimatePresence>
             <motion.div
                 key={currentImageIndex}
