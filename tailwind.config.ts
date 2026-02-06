@@ -20,6 +20,8 @@ export default {
         sans: ['var(--font-poppins)', 'sans-serif'],
       },
       colors: {
+        'sarc-main': '#0f172a',
+        'sarc-green': '#059669',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -83,12 +85,15 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'marquee-scroll': 'marquee-scroll 80s linear infinite',
+        'marquee-scroll': 'marquee-scroll 120s linear infinite',
       },
       textShadow: {
         sm: '0 1px 2px var(--tw-shadow-color)',
         DEFAULT: '0 2px 4px var(--tw-shadow-color)',
         lg: '0 8px 16px var(--tw-shadow-color)',
+      },
+      transitionTimingFunction: {
+        'heavy-out': 'cubic-bezier(0.25, 1, 0.5, 1)',
       },
     },
   },
