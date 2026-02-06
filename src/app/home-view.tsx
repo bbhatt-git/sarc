@@ -35,10 +35,10 @@ export default function HomeView() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col items-center mt-[-7rem]"
+      className="flex flex-col items-center"
     >
       {/* Hero Section */}
-      <section className="relative w-full h-screen text-white overflow-hidden -mt-12">
+      <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
         <AnimatePresence>
             <motion.div
                 key={currentImageIndex}
@@ -78,12 +78,9 @@ export default function HomeView() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-shadow-lg max-w-4xl">
             Welcome to SARC Education Foundation
           </h1>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-slate-200 mt-4 text-shadow-md max-w-3xl">
-            Leading the way in Science & Management education in Far-West Nepal.
+          <h2 className="text-xl md:text-2xl font-semibold text-slate-200 mt-4 text-shadow-md max-w-3xl">
+            Leading the way in Science & Management education in Far-West Nepal. Fostering academic excellence, moral integrity, and global competence since 2017.
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-200">
-            Fostering academic excellence, moral integrity, and global competence since 2017.
-          </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-900/30 transition-transform hover:scale-105'>
               <Link href="/about/why-us">Explore Programs</Link>
