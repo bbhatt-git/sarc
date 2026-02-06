@@ -16,18 +16,18 @@ export const NAV_LINKS = [
   { 
     label: 'Academics',
     children: [
-      { href: '#', label: 'Academic Programs', description: 'Explore our comprehensive range of programs.', icon: BookOpen },
-      { href: '#', label: 'Services', description: 'Discover the support services we offer.', icon: Briefcase },
-      { href: '#', label: 'Faculties', description: 'Meet our experienced and dedicated faculties.', icon: Users },
-      { href: '#', label: 'Achievements', description: 'Celebrate the accomplishments of our students.', icon: Award },
+      { href: '/academics/programs', label: 'Academic Programs', description: 'Explore our comprehensive range of programs.', icon: BookOpen },
+      { href: '/academics/services', label: 'Services', description: 'Discover the support services we offer.', icon: Briefcase },
+      { href: '/academics/faculties', label: 'Faculties', description: 'Meet our experienced and dedicated faculties.', icon: Users },
+      { href: '/academics/achievements', label: 'Achievements', description: 'Celebrate the accomplishments of our students.', icon: Award },
     ],
   },
     { 
     label: 'Notice',
     children: [
-      { href: '#', label: 'General Notice', description: 'Stay updated with general announcements.', icon: Bell },
-      { href: '#', label: 'Holiday Notice', description: 'View our academic calendar and holidays.', icon: CalendarDays },
-      { href: '#', label: 'Exam & Results', description: 'Find exam schedules and check results.', icon: FileText },
+      { href: '/notice/general', label: 'General Notice', description: 'Stay updated with general announcements.', icon: Bell },
+      { href: '/notice/holidays', label: 'Holiday Notice', description: 'View our academic calendar and holidays.', icon: CalendarDays },
+      { href: '/notice/exams', label: 'Exam & Results', description: 'Find exam schedules and check results.', icon: FileText },
     ],
   },
   { href: '/gallery', label: 'Gallery' },

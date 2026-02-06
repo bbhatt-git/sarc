@@ -13,7 +13,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about/staffs',
     '/about/founder',
     '/about/history',
-    '/about/why-us'
+    '/about/why-us',
+    '/academics/programs',
+    '/academics/services',
+    '/academics/faculties',
+    '/academics/achievements',
+    '/notice/general',
+    '/notice/holidays',
+    '/notice/exams'
   ].map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: new Date(),
