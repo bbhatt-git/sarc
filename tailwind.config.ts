@@ -83,7 +83,7 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'marquee-scroll': 'marquee-scroll 40s linear infinite',
+        'marquee-scroll': 'marquee-scroll 80s linear infinite',
       },
       textShadow: {
         sm: '0 1px 2px var(--tw-shadow-color)',
