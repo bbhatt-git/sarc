@@ -43,10 +43,19 @@ export default function HomeView() {
             <motion.div
                 key={currentImageIndex}
                 className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5, ease: 'easeInOut' }}
+                initial={{ opacity: 0, scale: 1 }}
+                animate={{
+                    opacity: 1,
+                    scale: 1.05,
+                    transition: {
+                        opacity: { duration: 1.5, ease: "easeOut" },
+                        scale: { duration: 7, ease: "linear" },
+                    },
+                }}
+                exit={{
+                    opacity: 0,
+                    transition: { duration: 1.5, ease: "easeIn" },
+                }}
             >
                 <Image
                     src={HERO_IMAGES[currentImageIndex].src}
@@ -165,13 +174,13 @@ export default function HomeView() {
             <Marquee>
                 {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
                     <div key={i} className="glass-card w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 rounded-3xl relative whitespace-normal">
-                        <Quote className="absolute top-3 left-3 w-8 h-8 text-emerald-600/10" strokeWidth={1.5} />
+                        <Quote className="absolute top-2 left-2 w-6 h-6 text-emerald-600/10" strokeWidth={1.5} />
                         <div className="relative z-10 flex flex-col h-full">
-                            <p className="text-slate-600 text-sm font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-3 mt-3 pt-3 border-t border-slate-200/50'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />
+                            <p className="text-slate-600 text-xs font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-2 mt-2 pt-2 border-t border-slate-200/50'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={32} height={32} className="rounded-full border-2 border-white/50" />
                                 <div>
-                                    <h4 className="font-semibold text-slate-800 text-sm">{testimonial.author}</h4>
+                                    <h4 className="font-semibold text-slate-800 text-xs">{testimonial.author}</h4>
                                     <p className='text-xs text-slate-500'>{testimonial.role}</p>
                                 </div>
                             </div>
@@ -182,13 +191,13 @@ export default function HomeView() {
             <Marquee direction="right">
                 {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
                      <div key={i} className="glass-card w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 rounded-3xl relative whitespace-normal">
-                        <Quote className="absolute top-3 left-3 w-8 h-8 text-emerald-600/10" strokeWidth={1.5} />
+                        <Quote className="absolute top-2 left-2 w-6 h-6 text-emerald-600/10" strokeWidth={1.5} />
                         <div className="relative z-10 flex flex-col h-full">
-                            <p className="text-slate-600 text-sm font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-3 mt-3 pt-3 border-t border-slate-200/50'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />
+                            <p className="text-slate-600 text-xs font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-2 mt-2 pt-2 border-t border-slate-200/50'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={32} height={32} className="rounded-full border-2 border-white/50" />
                                 <div>
-                                    <h4 className="font-semibold text-slate-800 text-sm">{testimonial.author}</h4>
+                                    <h4 className="font-semibold text-slate-800 text-xs">{testimonial.author}</h4>
                                     <p className='text-xs text-slate-500'>{testimonial.role}</p>
                                 </div>
                             </div>
