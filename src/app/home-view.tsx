@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -78,7 +79,7 @@ export default function HomeView() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-shadow-lg max-w-4xl">
             Welcome to SARC Education Foundation
           </h1>
-          <h2 className="text-xl md:text-2xl font-semibold text-slate-200 mt-4 text-shadow-md max-w-3xl">
+          <h2 className="text-xl md:text-2xl text-slate-200 mt-4 text-shadow-md max-w-3xl">
             Leading the way in Science & Management education in Far-West Nepal. Fostering academic excellence, moral integrity, and global competence since 2017.
           </h2>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
