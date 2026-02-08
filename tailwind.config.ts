@@ -80,12 +80,27 @@ export default {
         },
         'marquee-scroll': {
           to: { transform: 'translateX(-50%)' },
-        }
+        },
+        'blob': {
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(30vw, -40vh) scale(1.2)',
+          },
+          '66%': {
+            transform: 'translate(-20vw, 20vh) scale(0.8)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'marquee-scroll': 'marquee-scroll 120s linear infinite',
+        'blob': 'blob 25s infinite alternate ease-in-out',
       },
       textShadow: {
         sm: '0 1px 2px var(--tw-shadow-color)',

@@ -1,41 +1,24 @@
 'use client';
-import { useTheme } from 'next-themes';
-import FloatingLines from './FloatingLines';
-import { useEffect, useState } from 'react';
 
 export function BackgroundController() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div className="fixed inset-0 z-[-1]" />;
-  }
-
-  const isDark = resolvedTheme === 'dark';
-  // From globals.css:
-  // light: --background: 0 0% 98%; -> #fafafa
-  // dark: --background: 224 71% 4%; -> #02041a
-  const backgroundColor = isDark ? '#02041a' : '#fafafa';
-
   return (
-    <div className="fixed inset-0 z-[-1]">
-        <FloatingLines 
-            enabledWaves={["top","middle","bottom"]}
-            lineCount={6}
-            lineDistance={2}
-            bendRadius={5}
-            bendStrength={-2}
-            interactive={true}
-            parallax={true}
-            linesGradient={['#059669', '#0ea5e9', '#64748b']}
-            animationSpeed={0.3}
-            mixBlendMode={isDark ? "screen" : "multiply"}
-            backgroundColor={backgroundColor}
-        />
+    <div className="fixed inset-0 -z-10 overflow-hidden">
+      <div className="relative h-full w-full bg-background">
+        <div className="absolute h-full w-full mix-blend-multiply dark:mix-blend-color-dodge">
+          <div
+            className="animate-blob absolute -top-1/4 -left-1/4 h-1/2 w-1/2 rounded-full bg-emerald-300 opacity-50 filter blur-3xl"
+            style={{ animationDuration: '30s' }}
+          ></div>
+          <div
+            className="animate-blob absolute -bottom-1/4 -right-1/4 h-1/2 w-1/2 rounded-full bg-sky-300 opacity-50 filter blur-3xl"
+            style={{ animationDelay: '5s', animationDuration: '35s' }}
+          ></div>
+          <div
+            className="animate-blob absolute -bottom-1/4 left-1/4 h-1/3 w-1/3 rounded-full bg-slate-300 opacity-50 filter blur-3xl"
+            style={{ animationDelay: '10s', animationDuration: '40s' }}
+          ></div>
+        </div>
+      </div>
     </div>
   );
 }
