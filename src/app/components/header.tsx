@@ -32,27 +32,39 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
               className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20"
             >
-              <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-2xl shadow-xl rounded-2xl border border-white/20">
-                 <ul className="space-y-1 p-2">
+              <div 
+                className={cn(
+                    "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl shadow-2xl rounded-2xl border border-slate-200/50 dark:border-white/20",
+                    link.children.length > 3 ? "w-[40rem]" : "w-[22rem]"
+                )}
+              >
+                 <ul 
+                    className={cn(
+                        "p-4",
+                        link.children.length > 3 ? "grid grid-cols-2 gap-4" : "space-y-2"
+                    )}
+                >
                   {link.children.map((child) => (
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="flex items-start gap-4 p-3 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+                        className="group/navlink block p-4 rounded-xl transition-all duration-300 hover:bg-slate-100/70 dark:hover:bg-white/10"
                         onClick={() => setIsOpen(false)}
                       >
-                        <div className='bg-sarc-green/10 text-sarc-green p-2 rounded-md'>
-                            <child.icon className="w-5 h-5 flex-shrink-0" />
-                        </div>
-                        <div>
-                          <span className="font-bold text-sarc-main dark:text-white">{child.label}</span>
-                          <p className="text-sm text-slate-500 dark:text-slate-400">{child.description}</p>
+                        <div className="flex items-start gap-4">
+                            <div className='flex-shrink-0 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 p-3 rounded-lg transition-colors duration-300 group-hover/navlink:bg-emerald-500 group-hover/navlink:text-white'>
+                                <child.icon className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <span className="font-bold text-sarc-main dark:text-white">{child.label}</span>
+                              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{child.description}</p>
+                            </div>
                         </div>
                       </Link>
                     </li>
