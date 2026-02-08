@@ -2,14 +2,24 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 
-// This is a CSS-only implementation for a seamless marquee.
-const Marquee = ({ children, direction = 'left', className }: { children: React.ReactNode, direction?: 'left' | 'right', className?: string }) => {
+const Marquee = ({
+    children,
+    direction = 'left',
+    className,
+    paused = false
+}: {
+    children: React.ReactNode;
+    direction?: 'left' | 'right';
+    className?: string;
+    paused?: boolean;
+}) => {
     return (
         <div className={cn("w-full overflow-hidden", className)}>
             <div
                 className={cn(
                     'flex w-max animate-marquee-scroll',
-                    direction === 'right' ? '[animation-direction:reverse]' : ''
+                    direction === 'right' ? '[animation-direction:reverse]' : '',
+                    paused ? '[animation-play-state:paused]' : ''
                 )}
             >
                 <div className="flex-shrink-0 flex">{children}</div>
