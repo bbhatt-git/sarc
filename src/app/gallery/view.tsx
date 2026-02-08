@@ -18,8 +18,6 @@ export default function GalleryView() {
     setMounted(true);
   }, []);
 
-  const overlayColor = mounted && resolvedTheme === 'light' ? '#f9fafb' : '#060010';
-
   if (!mounted) {
     // Render a placeholder during SSR to avoid hydration mismatch
     return <div style={{ width: '100%', height: 'calc(100vh - 112px)' }} />;
@@ -35,7 +33,6 @@ export default function GalleryView() {
         segments={34}
         dragDampening={2}
         grayscale={false}
-        overlayBlurColor={overlayColor}
       />
     </div>
   );
