@@ -169,7 +169,7 @@ export default function HomeView() {
         <div className="mt-16 space-y-8">
             <Marquee>
                 {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                    <div key={i} className="glass-card w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 rounded-3xl relative whitespace-normal dark:bg-slate-800/50 dark:border-slate-700">
+                    <div key={i} className="w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 whitespace-normal glass-card">
                         <Quote className="absolute top-2 left-2 w-6 h-6 text-emerald-600/10" strokeWidth={1.5} />
                         <div className="relative z-10 flex flex-col h-full">
                             <p className="text-slate-600 dark:text-slate-300 text-xs font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
@@ -186,7 +186,7 @@ export default function HomeView() {
             </Marquee>
             <Marquee direction="right">
                 {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                     <div key={i} className="glass-card w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 rounded-3xl relative whitespace-normal dark:bg-slate-800/50 dark:border-slate-700">
+                     <div key={i} className="w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 whitespace-normal glass-card">
                         <Quote className="absolute top-2 left-2 w-6 h-6 text-emerald-600/10" strokeWidth={1.5} />
                         <div className="relative z-10 flex flex-col h-full">
                             <p className="text-slate-600 dark:text-slate-300 text-xs font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
