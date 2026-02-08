@@ -170,15 +170,15 @@ export default function HomeView() {
         <div className="mt-16 space-y-8">
             <Marquee>
                 {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                    <div key={i} className="w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 whitespace-normal glass-card">
-                        <Quote className="absolute top-2 left-2 w-6 h-6 text-emerald-600/10" strokeWidth={1.5} />
+                    <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal glass-card p-6">
+                        <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
                         <div className="relative z-10 flex flex-col h-full">
-                            <p className="text-slate-600 dark:text-slate-300 text-xs font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-2 mt-2 pt-2 border-t border-slate-200/50 dark:border-slate-700/50'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={32} height={32} className="rounded-full border-2 border-white/50" />
+                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-3 mt-4 pt-4 border-t border-slate-200/20 dark:border-white/10'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />
                                 <div>
-                                    <h4 className="font-semibold text-slate-800 dark:text-white text-xs">{testimonial.author}</h4>
-                                    <p className='text-xs text-slate-500 dark:text-slate-400'>{testimonial.role}</p>
+                                    <h4 className="font-semibold text-slate-800 dark:text-white">{testimonial.author}</h4>
+                                    <p className='text-sm text-slate-500 dark:text-slate-400'>{testimonial.role}</p>
                                 </div>
                             </div>
                         </div>
@@ -187,15 +187,15 @@ export default function HomeView() {
             </Marquee>
             <Marquee direction="right">
                 {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                     <div key={i} className="w-[90vw] max-w-xs sm:max-w-sm mx-6 flex-shrink-0 p-4 whitespace-normal glass-card">
-                        <Quote className="absolute top-2 left-2 w-6 h-6 text-emerald-600/10" strokeWidth={1.5} />
+                     <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal glass-card p-6">
+                        <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
                         <div className="relative z-10 flex flex-col h-full">
-                            <p className="text-slate-600 dark:text-slate-300 text-xs font-medium leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-2 mt-2 pt-2 border-t border-slate-200/50 dark:border-slate-700/50'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={32} height={32} className="rounded-full border-2 border-white/50" />
+                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>
+                            <div className='flex items-center gap-3 mt-4 pt-4 border-t border-slate-200/20 dark:border-white/10'>
+                                <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />
                                 <div>
-                                    <h4 className="font-semibold text-slate-800 dark:text-white text-xs">{testimonial.author}</h4>
-                                    <p className='text-xs text-slate-500 dark:text-slate-400'>{testimonial.role}</p>
+                                    <h4 className="font-semibold text-slate-800 dark:text-white">{testimonial.author}</h4>
+                                    <p className='text-sm text-slate-500 dark:text-slate-400'>{testimonial.role}</p>
                                 </div>
                             </div>
                         </div>

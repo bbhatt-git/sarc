@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 98%;
     --foreground: 224 71.4% 4.1%;
 
     --card: 0 0% 100%;
@@ -90,6 +90,11 @@
     inset 0 0 22px 11px rgba(255, 255, 255, 1.1);
   position: relative;
   overflow: hidden;
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.4); /* Based on slate-800, with 40% opacity */
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .glass-card::before {
