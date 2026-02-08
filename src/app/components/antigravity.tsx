@@ -1,6 +1,6 @@
 'use client';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import React, { useMemo, useRef, FC } from 'react';
+import React, { useMemo, useRef, FC, useEffect } from 'react';
 import * as THREE from 'three';
 
 interface AntigravityProps {
@@ -39,8 +39,24 @@ const AntigravityInner: FC<AntigravityProps> = ({
   fieldStrength = 10
 }) => {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const { viewport } = useThree();
+  const { viewport, size } = useThree();
   const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  const mouse = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      if (size.width > 0 && size.height > 0) {
+        mouse.current.x = (event.clientX / size.width) * 2 - 1;
+        mouse.current.y = -(event.clientY / size.height) * 2 + 1;
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [size.width, size.height]);
+
 
   const lastMousePos = useRef({ x: 0, y: 0 });
   const lastMouseMoveTime = useRef(0);
@@ -91,7 +107,8 @@ const AntigravityInner: FC<AntigravityProps> = ({
     const mesh = meshRef.current;
     if (!mesh) return;
 
-    const { viewport: v, pointer: m } = state;
+    const v = viewport;
+    const m = mouse.current;
 
     const mouseDist = Math.sqrt(Math.pow(m.x - lastMousePos.current.x, 2) + Math.pow(m.y - lastMousePos.current.y, 2));
 
