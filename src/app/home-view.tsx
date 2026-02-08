@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import Marquee from './components/marquee';
+import TiltedCard from './components/tilted-card';
 
 export default function HomeView() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -129,16 +130,18 @@ export default function HomeView() {
                 <Link href="/about/us">Learn More <ArrowRight className="ml-2" /></Link>
               </Button>
             </motion.div>
-            <motion.div
-              {...fadeIn}
-              className="relative h-[450px] rounded-2xl overflow-hidden shadow-2xl"
-            >
-              <Image
-                src="https://picsum.photos/seed/homepage/800/600"
-                alt="Students collaborating"
-                fill
-                className="object-cover"
-              />
+            <motion.div {...fadeIn}>
+                <TiltedCard
+                    imageSrc="https://picsum.photos/seed/homepage/800/600"
+                    altText="Students collaborating"
+                    containerHeight="450px"
+                    containerWidth="100%"
+                    imageHeight="450px"
+                    imageWidth="100%"
+                    scaleOnHover={1.05}
+                    rotateAmplitude={8}
+                    showTooltip={false}
+                />
             </motion.div>
           </div>
         </div>
