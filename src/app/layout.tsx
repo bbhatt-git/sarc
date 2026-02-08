@@ -85,21 +85,21 @@ export default function RootLayout({
         >
           <div className="fixed inset-0 -z-10 bg-background">
             <Antigravity
-              count={300}
-              magnetRadius={30}
-              ringRadius={30}
-              waveSpeed={0.4}
-              waveAmplitude={1}
-              particleSize={1.5}
-              lerpSpeed={0.05}
+              count={5000}
+              magnetRadius={5}
+              ringRadius={11}
+              waveSpeed={1.6}
+              waveAmplitude={0.6}
+              particleSize={0.2}
+              lerpSpeed={0.09}
               color="#10b981"
               autoAnimate
               particleVariance={1}
               rotationSpeed={0}
-              depthFactor={1}
-              pulseSpeed={3}
-              particleShape="capsule"
-              fieldStrength={10}
+              depthFactor={2.8}
+              pulseSpeed={7.4}
+              particleShape="sphere"
+              fieldStrength={13.1}
             />
           </div>
           <FirebaseClientProvider>
