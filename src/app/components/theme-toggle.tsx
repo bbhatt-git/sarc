@@ -15,14 +15,14 @@ export function ThemeToggle() {
 
   if (!mounted) {
     // To prevent layout shift, render a placeholder of the same size.
-    return <div className="w-[68px] h-9" />
+    return <div className="w-16 h-9" />
   }
   
   const isLight = resolvedTheme === "light";
 
   return (
     <div
-      className="relative flex items-center w-[68px] h-9 rounded-full p-1 bg-slate-200/70 dark:bg-slate-800/90 border border-white/20 cursor-pointer"
+      className="relative flex items-center w-16 h-9 rounded-full p-1 bg-slate-200/70 dark:bg-slate-800/90 border border-white/20 cursor-pointer"
       onClick={() => setTheme(isLight ? 'dark' : 'light')}
       aria-label="Toggle theme"
     >
@@ -31,7 +31,7 @@ export function ThemeToggle() {
         layout
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
         style={{
-          left: isLight ? "4px" : "36px",
+          left: isLight ? "4px" : "32px",
         }}
       />
       <div className="relative z-10 flex w-full justify-around items-center">
