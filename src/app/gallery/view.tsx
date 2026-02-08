@@ -2,14 +2,20 @@
 import SectionTitle from '@/app/components/section-title';
 import { GALLERY_IMAGES } from '@/lib/constants';
 import Marquee from '@/app/components/marquee';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { X } from 'lucide-react';
 
+type GalleryImage = {
+    src: string;
+    hint: string;
+    category: string;
+};
+
 export default function GalleryView() {
     const [pausedRow, setPausedRow] = useState<number | null>(null);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
     const rows = [
         { images: GALLERY_IMAGES.slice(0, 10), direction: 'left' as const },
@@ -18,14 +24,31 @@ export default function GalleryView() {
         { images: GALLERY_IMAGES.slice(30, 40), direction: 'right' as const },
     ];
 
-    const handleImageClick = (imageSrc: string) => {
-        setSelectedImage(imageSrc);
-        setPausedRow(null); // Unpause any paused row when modal opens
+    const handleImageClick = (image: GalleryImage) => {
+        setSelectedImage(image);
+        setPausedRow(null);
     };
     
     const handleClose = () => {
         setSelectedImage(null);
     };
+
+    useEffect(() => {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        if (selectedImage) {
+            header.style.display = 'none';
+        } else {
+            header.style.display = 'flex';
+        }
+        
+        return () => {
+            if (header) {
+                header.style.display = 'flex';
+            }
+        };
+    }, [selectedImage]);
 
     return (
         <div className="pt-24 pb-20">
@@ -40,18 +63,21 @@ export default function GalleryView() {
                     >
                         <Marquee direction={row.direction} paused={pausedRow === (rowIndex + 1) || !!selectedImage}>
                             {row.images.map((image, i) => (
-                                <button
+                                <motion.div
+                                    layoutId={image.src}
                                     key={`marquee-${rowIndex}-${i}`}
-                                    className="relative mx-2 flex-shrink-0 w-80 h-56 focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl overflow-hidden"
-                                    onClick={() => handleImageClick(image.src)}
+                                    className="relative mx-2 flex-shrink-0 w-80 h-56 rounded-2xl overflow-hidden shadow-md cursor-pointer"
+                                    onClick={() => handleImageClick(image)}
+                                    whileHover={{ scale: 1.05, filter: 'brightness(1.1)' }}
+                                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                                 >
                                     <Image
                                         src={image.src}
                                         alt={image.hint}
                                         fill
-                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                        className="object-cover"
                                     />
-                                </button>
+                                </motion.div>
                             ))}
                         </Marquee>
                     </div>
@@ -68,28 +94,28 @@ export default function GalleryView() {
                         onClick={handleClose}
                     >
                         <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.8, opacity: 0 }}
-                            transition={{ type: 'spring', damping: 20, stiffness: 150 }}
+                            layoutId={selectedImage.src}
                             className="relative"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <Image 
-                                src={selectedImage}
-                                alt="Selected gallery image"
+                                src={selectedImage.src}
+                                alt={selectedImage.hint}
                                 width={1200}
                                 height={800}
                                 className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
                             />
-                            <button 
-                                onClick={handleClose}
-                                className="absolute -top-4 -right-4 bg-white rounded-full p-2 text-slate-800 hover:bg-slate-200 transition-colors shadow-lg z-10"
-                                aria-label="Close image view"
-                            >
-                                <X className="w-6 h-6" />
-                            </button>
                         </motion.div>
+                         <motion.button 
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1, transition: { delay: 0.3 } }}
+                            exit={{ opacity: 0, scale: 0.5 }}
+                            onClick={handleClose}
+                            className="absolute top-6 right-6 bg-white/20 backdrop-blur-sm text-white rounded-full p-2 hover:bg-white/30 transition-colors z-10"
+                            aria-label="Close image view"
+                        >
+                            <X className="w-6 h-6" />
+                        </motion.button>
                     </motion.div>
                 )}
             </AnimatePresence>

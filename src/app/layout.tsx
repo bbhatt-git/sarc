@@ -7,7 +7,6 @@ import Footer from '@/app/components/footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { Poppins } from 'next/font/google';
 import { ThemeProvider } from './components/theme-provider';
-import { AnimatedBackground } from './components/AnimatedBackground';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -83,7 +82,6 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <AnimatedBackground />
           <FirebaseClientProvider>
             <Header />
             <main className="flex-grow z-10 pt-28">{children}</main>
