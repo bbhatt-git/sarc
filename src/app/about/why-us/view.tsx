@@ -17,7 +17,7 @@ export default function WhyUsView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="bg-white rounded-lg shadow-md p-8 flex items-start gap-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                            className="testimonial-card p-8 flex items-start gap-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full"
                         >
                             <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
                                 <item.icon className="w-8 h-8 text-emerald-600" />

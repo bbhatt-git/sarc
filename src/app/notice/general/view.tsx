@@ -23,7 +23,7 @@ export default function GeneralNoticeView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="bg-white rounded-lg shadow-md p-6 border-l-4 border-emerald-500"
+                            className="testimonial-card border-l-4 border-emerald-500"
                         >
                             <div className="flex items-start gap-4">
                                 <notice.icon className="w-6 h-6 text-emerald-600 mt-1" />

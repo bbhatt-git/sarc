@@ -35,8 +35,8 @@ export function ThemeToggle() {
         }}
       />
       <div className="relative z-10 flex w-full justify-around items-center">
-        <Sun className={`w-5 h-5 transition-colors ${isLight ? 'text-slate-900' : 'text-slate-400'}`} />
-        <Moon className={`w-5 h-5 transition-colors ${!isLight ? 'text-white' : 'text-slate-500'}`} />
+        <Sun className={`w-4 h-4 transition-colors ${isLight ? 'text-slate-900' : 'text-slate-400'}`} />
+        <Moon className={`w-4 h-4 transition-colors ${!isLight ? 'text-white' : 'text-slate-500'}`} />
       </div>
     </div>
   )

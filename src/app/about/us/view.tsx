@@ -41,7 +41,7 @@ export default function AboutUsView() {
                 <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Unique Features</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {WHY_US_ITEMS.map((item, index) => (
-                         <div key={item.title} className="bg-white rounded-lg shadow-md p-8 text-center transition-transform hover:-translate-y-2">
+                         <div key={item.title} className="testimonial-card p-8 text-center transition-transform hover:-translate-y-2 h-full">
                             <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <item.icon className="w-8 h-8" />
                             </div>

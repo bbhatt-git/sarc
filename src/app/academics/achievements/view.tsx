@@ -25,7 +25,7 @@ export default function AchievementsView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="bg-white rounded-lg shadow-md p-6 flex items-start gap-6"
+                            className="testimonial-card flex items-start gap-6 h-full"
                         >
                             <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
                                 <item.icon className="w-8 h-8 text-emerald-600" />
