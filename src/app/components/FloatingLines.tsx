@@ -55,6 +55,7 @@ uniform vec2 parallaxOffset;
 
 uniform vec3 lineGradient[8];
 uniform int lineGradientCount;
+uniform bool uTransparent;
 
 const vec3 BLACK = vec3(0.0);
 const vec3 PINK  = vec3(233.0, 71.0, 245.0) / 255.0;
@@ -192,7 +193,14 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     }
   }
 
-  fragColor = vec4(col, 1.0);
+  if (uTransparent) {
+    float alpha = length(col);
+    alpha = smoothstep(0.0, 0.1, alpha);
+    alpha = min(alpha, 1.0);
+    fragColor = vec4(col, alpha);
+  } else {
+    fragColor = vec4(col, 1.0);
+  }
 }
 
 void main() {
@@ -201,6 +209,7 @@ void main() {
   gl_FragColor = color;
 }
 `;
+
 const MAX_GRADIENT_STOPS = 8;
 
 type WavePosition = {
@@ -225,6 +234,7 @@ type FloatingLinesProps = {
   parallax?: boolean;
   parallaxStrength?: number;
   mixBlendMode?: React.CSSProperties['mixBlendMode'];
+  transparent?: boolean;
 };
 
 function hexToVec3(hex: string): Vector3 {
@@ -266,7 +276,8 @@ export default function FloatingLines({
   mouseDamping = 0.05,
   parallax = true,
   parallaxStrength = 0.2,
-  mixBlendMode = 'screen'
+  mixBlendMode = 'screen',
+  transparent = true
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
@@ -306,11 +317,15 @@ export default function FloatingLines({
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
     camera.position.z = 1;
 
-    const renderer = new WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new WebGLRenderer({ antialias: true, alpha: transparent });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     containerRef.current.appendChild(renderer.domElement);
+
+    if (transparent) {
+        renderer.setClearColor(0x000000, 0);
+    }
 
     const uniforms = {
       iTime: { value: 0 },
@@ -360,7 +375,8 @@ export default function FloatingLines({
       lineGradient: {
         value: Array.from({ length: MAX_GRADIENT_STOPS }, () => new Vector3(1, 1, 1))
       },
-      lineGradientCount: { value: 0 }
+      lineGradientCount: { value: 0 },
+      uTransparent: { value: transparent }
     };
 
     if (linesGradient && linesGradient.length > 0) {
@@ -376,7 +392,8 @@ export default function FloatingLines({
     const material = new ShaderMaterial({
       uniforms,
       vertexShader,
-      fragmentShader
+      fragmentShader,
+      transparent: transparent,
     });
 
     const geometry = new PlaneGeometry(2, 2);
@@ -486,7 +503,8 @@ export default function FloatingLines({
     bendStrength,
     mouseDamping,
     parallax,
-    parallaxStrength
+    parallaxStrength,
+    transparent
   ]);
 
   return (
