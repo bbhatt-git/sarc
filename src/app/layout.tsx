@@ -86,10 +86,10 @@ export default function RootLayout({
           <div className="fixed inset-0 -z-10 bg-background">
             <Antigravity
               count={300}
-              magnetRadius={75}
-              ringRadius={30}
+              magnetRadius={30}
+              ringRadius={10}
               waveSpeed={0.4}
-              waveAmplitude={10}
+              waveAmplitude={1}
               particleSize={1.5}
               lerpSpeed={0.05}
               color="#10b981"
@@ -99,7 +99,7 @@ export default function RootLayout({
               depthFactor={1}
               pulseSpeed={3}
               particleShape="capsule"
-              fieldStrength={1}
+              fieldStrength={10}
             />
           </div>
           <FirebaseClientProvider>
