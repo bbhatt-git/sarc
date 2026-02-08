@@ -94,7 +94,7 @@ export default function HomeView() {
       </section>
 
       {/* Stats Section */}
-      <section className="w-full py-20 lg:py-24 bg-slate-50 dark:bg-slate-900">
+      <section className="w-full py-20 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {STATS.map((stat, index) => (
@@ -102,8 +102,9 @@ export default function HomeView() {
                 key={stat.label}
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
+                className="glass-card p-8"
               >
-                <p className="text-4xl lg:text-5xl font-bold text-emerald-600">{stat.number}</p>
+                <p className="text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
                 <p className="text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </motion.div>
             ))}
@@ -140,7 +141,7 @@ export default function HomeView() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="w-full py-20 lg:py-28 bg-slate-50 dark:bg-slate-900">
+      <section className="w-full py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <SectionTitle title="Why Choose SARC?" subtitle="OUR COMMITMENT" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
@@ -150,9 +151,9 @@ export default function HomeView() {
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
-                <div className="bg-white dark:bg-slate-800 text-center h-full p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-emerald-500/10 rounded-lg shadow-md dark:shadow-black/20">
-                  <div className="mb-4 inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full">
-                    <item.icon className="w-8 h-8" />
+                <div className="glass-card text-center h-full p-8 transition-all duration-300 hover:-translate-y-2">
+                  <div className="mb-4 inline-block bg-emerald-100/50 dark:bg-emerald-900/50 p-4 rounded-full">
+                    <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <h3 className="text-xl font-bold text-slate-800 dark:text-white">{item.title}</h3>
                   <p className="text-slate-600 dark:text-slate-300 mt-2 text-sm">{item.description}</p>
