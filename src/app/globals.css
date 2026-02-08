@@ -137,11 +137,11 @@
 }
 
 .nav-glass {
-  background: linear-gradient(135deg, hsla(158, 95%, 31%, 0.4), hsla(158, 95%, 21%, 0.3));
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  background: linear-gradient(135deg, hsla(158, 95%, 31%, 0.8), hsla(158, 95%, 21%, 0.7));
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
 }
 
 .dark .nav-glass {
-  background: linear-gradient(135deg, hsla(158, 80%, 45%, 0.4), hsla(158, 80%, 35%, 0.3));
+  background: linear-gradient(135deg, hsla(158, 80%, 45%, 0.8), hsla(158, 80%, 35%, 0.7));
 }
