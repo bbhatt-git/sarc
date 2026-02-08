@@ -41,7 +41,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
             >
               <div
                 className={cn(
-                  'w-80',
+                  'w-64',
                   'bg-white/80 dark:bg-slate-800/80 backdrop-blur-2xl shadow-2xl rounded-2xl border border-white/20 dark:border-white/10'
                 )}
               >
@@ -165,7 +165,7 @@ export default function Header() {
             <nav className={cn(
                 "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
                 scrolled 
-                    ? 'rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]' 
+                    ? 'rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-200/60 dark:border-slate-700/60 shadow-lg' 
                     : 'rounded-none bg-white/40 dark:bg-slate-900/40 border-b border-white/20 dark:border-slate-700'
             )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
