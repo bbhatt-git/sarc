@@ -16,6 +16,8 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
 
   if (link.children) {
     const isChildActive = link.children.some(child => pathname.startsWith(child.href));
+    const useGrid = link.children.length > 3;
+
     return (
       <div className="relative group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
         <button
@@ -40,16 +42,19 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
             >
               <div
                 className={cn(
-                  'w-64',
-                  'bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl shadow-2xl rounded-2xl border border-slate-200/50 dark:border-slate-700/50'
+                  useGrid ? 'w-[32rem]' : 'w-64',
+                  'bg-white/50 dark:bg-slate-900/50 backdrop-blur-2xl shadow-2xl rounded-2xl border border-white/20 dark:border-white/10'
                 )}
               >
-                <ul className="p-4 space-y-2">
+                <ul className={cn(
+                  "p-2",
+                  useGrid ? "grid grid-cols-2 gap-2" : "space-y-1"
+                )}>
                   {link.children.map((child) => (
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="group/navlink block p-3 rounded-xl transition-all duration-300 hover:bg-slate-500/10"
+                        className="group/navlink block p-3 rounded-xl transition-all duration-300 hover:bg-primary/10"
                         onClick={() => setIsOpen(false)}
                       >
                         <div className="flex items-start gap-4">
@@ -211,7 +216,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)]"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/50 dark:bg-slate-900/50 backdrop-blur-2xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
