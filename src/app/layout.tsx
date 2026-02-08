@@ -74,7 +74,7 @@ export default function RootLayout({
     <html lang="en" className={cn(poppins.variable)} suppressHydrationWarning>
       <body
         className={cn(
-          'font-sans antialiased min-h-screen flex flex-col bg-background relative'
+          'font-sans antialiased min-h-screen flex flex-col bg-background'
         )}
       >
         <ThemeProvider

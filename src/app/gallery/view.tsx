@@ -27,11 +27,11 @@ export default function GalleryView() {
     <div style={{ width: '100%', height: 'calc(100vh - 112px)' }}>
       <DomeGallery
         images={galleryImages}
-        fit={0.8}
-        minRadius={600}
+        fit={1}
+        minRadius={300}
         maxVerticalRotationDeg={0}
         segments={34}
-        dragDampening={2}
+        dragDampening={1.6}
         grayscale={false}
       />
     </div>
