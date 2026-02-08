@@ -21,7 +21,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
         <button
           className={cn(
             'flex items-center gap-1.5 uppercase text-[12px] tracking-wider font-bold transition-colors',
-            isChildActive ? 'text-sarc-green' : 'text-sarc-main dark:text-slate-300 hover:text-sarc-green'
+            isChildActive ? 'text-primary' : 'text-slate-700 dark:text-slate-300 hover:text-primary'
           )}
         >
           {link.label}
@@ -38,33 +38,28 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
               transition={{ duration: 0.2, ease: 'easeOut' }}
               className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20"
             >
-              <div 
+              <div
                 className={cn(
-                    "w-[22rem]",
-                    "bg-white/60 dark:bg-slate-900/80 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/20 dark:border-slate-700/80"
+                  'w-64',
+                  'bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl shadow-2xl rounded-2xl border border-slate-200/50 dark:border-slate-700/50'
                 )}
               >
-                 <ul 
-                    className={cn(
-                        "p-4",
-                        "space-y-2"
-                    )}
-                >
+                <ul className="p-4 space-y-2">
                   {link.children.map((child) => (
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="group/navlink block p-3 rounded-xl transition-all duration-300 hover:bg-slate-100/70 dark:hover:bg-white/10"
+                        className="group/navlink block p-3 rounded-xl transition-all duration-300 hover:bg-slate-500/10"
                         onClick={() => setIsOpen(false)}
                       >
                         <div className="flex items-start gap-4">
-                            <div className='flex-shrink-0 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-lg transition-colors duration-300 group-hover/navlink:bg-emerald-500 group-hover/navlink:text-white'>
-                                <child.icon className="w-5 h-5" />
-                            </div>
-                            <div>
-                              <span className="font-bold text-sarc-main dark:text-white">{child.label}</span>
-                              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{child.description}</p>
-                            </div>
+                          <div className='flex-shrink-0 bg-primary/10 text-primary p-2.5 rounded-lg transition-colors duration-300 group-hover/navlink:bg-primary group-hover/navlink:text-white'>
+                            <child.icon className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <span className="font-bold text-slate-800 dark:text-white">{child.label}</span>
+                            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{child.description}</p>
+                          </div>
                         </div>
                       </Link>
                     </li>
@@ -84,7 +79,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
       href={link.href}
       className={cn(
         'uppercase text-[12px] tracking-wider font-bold transition-colors',
-        isActive ? 'text-sarc-green' : 'text-sarc-main dark:text-slate-300 hover:text-sarc-green'
+        isActive ? 'text-primary' : 'text-slate-700 dark:text-slate-300 hover:text-primary'
       )}
     >
       {link.label}
@@ -95,7 +90,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
 const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, isOpen: boolean, onToggle: () => void }) => {
   if (!link.children) {
     return (
-      <Link href={link.href} className="text-slate-700 dark:text-slate-200 hover:text-sarc-green text-lg font-semibold" onClick={closeMenu}>
+      <Link href={link.href} className="text-slate-700 dark:text-slate-200 hover:text-primary text-lg font-semibold" onClick={closeMenu}>
         {link.label}
       </Link>
     );
@@ -119,7 +114,7 @@ const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }: { link: (typeof NA
       >
         <div className='flex flex-col gap-4 pl-4 border-l-2 border-slate-200 dark:border-slate-700'>
           {link.children.map((child: any) => (
-            <Link key={child.label} href={child.href} className="text-slate-600 dark:text-slate-400 hover:text-sarc-green" onClick={closeMenu}>
+            <Link key={child.label} href={child.href} className="text-slate-600 dark:text-slate-400 hover:text-primary" onClick={closeMenu}>
                 <span className='font-medium text-slate-700 dark:text-slate-300'>{child.label}</span>
                 <p className='text-sm'>{child.description}</p>
             </Link>
@@ -175,8 +170,8 @@ export default function Header() {
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
                   <div className="flex flex-col">
-                      <span className="font-extrabold text-sarc-green leading-tight">SARC EDU.</span>
-                      <span className="text-xs text-sarc-main dark:text-slate-300 tracking-[0.2em] font-medium">FOUNDATION</span>
+                      <span className="font-extrabold text-primary leading-tight">SARC EDU.</span>
+                      <span className="text-xs text-slate-700 dark:text-slate-300 tracking-[0.2em] font-medium">FOUNDATION</span>
                   </div>
               </Link>
               
@@ -188,11 +183,11 @@ export default function Header() {
 
               <div className="flex items-center gap-2">
                 <ThemeToggle />
-                <Button asChild className='hidden lg:flex rounded-full bg-sarc-main dark:bg-white text-white dark:text-sarc-main uppercase text-xs font-bold tracking-widest transition-transform hover:-translate-y-0.5'>
+                <Button asChild className='hidden lg:flex rounded-full bg-slate-800 dark:bg-white text-white dark:text-slate-800 uppercase text-xs font-bold tracking-widest transition-transform hover:-translate-y-0.5'>
                   <Link href="/admissions">Admissions</Link>
                 </Button>
                 <div className="lg:hidden">
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className="text-sarc-main dark:text-white">
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className="text-slate-800 dark:text-white">
                     <Menu />
                   </Button>
                 </div>
@@ -216,7 +211,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)]"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)]"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
@@ -241,7 +236,7 @@ export default function Header() {
                   />
                 ))}
               </nav>
-              <Button asChild className="w-full mt-12 bg-sarc-main text-white uppercase text-sm font-bold tracking-widest" size="lg">
+              <Button asChild className="w-full mt-12 bg-slate-800 text-white uppercase text-sm font-bold tracking-widest" size="lg">
                 <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Admissions</Link>
               </Button>
             </motion.div>
