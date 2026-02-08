@@ -137,11 +137,11 @@
 }
 
 .nav-glass {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(48px);
+  -webkit-backdrop-filter: blur(48px);
 }
 
 .dark .nav-glass {
-  background: rgba(30, 41, 59, 0.5);
+  background: rgba(30, 41, 59, 0.9);
 }
