@@ -44,18 +44,14 @@ export default function HomeView() {
             <motion.div
                 key={currentImageIndex}
                 className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.05 }}
+                initial={{ opacity: 0, scale: 1.1 }}
                 animate={{
                     opacity: 1,
                     scale: 1,
-                    transition: {
-                        opacity: { duration: 1.5, ease: "easeOut" },
-                        scale: { duration: 7, ease: "easeIn" },
-                    },
+                    transition: { duration: 7, ease: [0.25, 0.46, 0.45, 0.94] },
                 }}
                 exit={{
                     opacity: 0,
-                    scale: 1.05,
                     transition: { duration: 1.5, ease: "easeOut" },
                 }}
             >
@@ -76,6 +72,14 @@ export default function HomeView() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4"
         >
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="mb-4 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20"
+          >
+            <p className="text-sm font-medium text-slate-200">Your Partner For Education</p>
+          </motion.div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-shadow-lg max-w-4xl">
             Welcome to SARC Education Foundation
           </h1>

@@ -41,7 +41,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
             >
               <div
                 className={cn(
-                  'w-64',
+                  'w-60', // Made dropdown narrower
                   'bg-white/80 dark:bg-slate-800/80 backdrop-blur-2xl shadow-2xl rounded-2xl border border-white/20 dark:border-white/10'
                 )}
               >
@@ -50,16 +50,16 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="group/navlink block p-3 rounded-xl transition-all duration-300 hover:bg-primary/10"
+                        className="group/navlink block p-2 rounded-lg transition-all duration-300 hover:bg-primary/10"
                         onClick={() => setIsOpen(false)}
                       >
-                        <div className="flex items-start gap-4">
-                          <div className='flex-shrink-0 bg-primary/10 text-primary p-2.5 rounded-lg transition-colors duration-300 group-hover/navlink:bg-primary group-hover/navlink:text-white'>
-                            <child.icon className="w-5 h-5" />
+                        <div className="flex items-center gap-3">
+                          <div className='flex-shrink-0 bg-primary/10 text-primary p-2 rounded-md transition-colors duration-300 group-hover/navlink:bg-primary group-hover/navlink:text-white'>
+                            <child.icon className="w-4 h-4" />
                           </div>
                           <div>
-                            <span className="font-bold text-slate-800 dark:text-white">{child.label}</span>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{child.description}</p>
+                            <span className="font-bold text-sm text-slate-800 dark:text-white">{child.label}</span>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{child.description}</p>
                           </div>
                         </div>
                       </Link>
@@ -165,7 +165,7 @@ export default function Header() {
             <nav className={cn(
                 "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
                 scrolled 
-                    ? 'rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-200/60 dark:border-slate-700/60 shadow-lg' 
+                    ? 'rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-lg' 
                     : 'rounded-none bg-white/40 dark:bg-slate-900/40 border-b border-white/20 dark:border-slate-700'
             )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
@@ -204,7 +204,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/30 lg:hidden"
+            className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
           >
             <motion.div
