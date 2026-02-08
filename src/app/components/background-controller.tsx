@@ -16,9 +16,13 @@ export function BackgroundController() {
   }
 
   const isDark = resolvedTheme === 'dark';
+  // From globals.css:
+  // light: --background: 0 0% 98%; -> #fafafa
+  // dark: --background: 224 71% 4%; -> #02041a
+  const backgroundColor = isDark ? '#02041a' : '#fafafa';
 
   return (
-    <div className="fixed inset-0 z-[-1] transition-opacity duration-300" style={{ opacity: isDark ? 1 : 0.5 }}>
+    <div className="fixed inset-0 z-[-1]">
         <FloatingLines 
             enabledWaves={["top","middle","bottom"]}
             lineCount={6}
@@ -30,6 +34,7 @@ export function BackgroundController() {
             linesGradient={['#059669', '#0ea5e9', '#64748b']}
             animationSpeed={0.3}
             mixBlendMode={isDark ? "screen" : "multiply"}
+            backgroundColor={backgroundColor}
         />
     </div>
   );
