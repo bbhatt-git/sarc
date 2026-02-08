@@ -40,7 +40,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
             >
               <div 
                 className={cn(
-                    "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl shadow-2xl rounded-2xl border border-slate-200/50 dark:border-white/20",
+                    "bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg shadow-2xl rounded-2xl border border-white/20",
                     link.children.length > 3 ? "w-[40rem]" : "w-[22rem]"
                 )}
               >
@@ -216,7 +216,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/90 dark:bg-slate-900/90 backdrop-blur-3xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)]"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)]"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
