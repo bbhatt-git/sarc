@@ -135,3 +135,13 @@
     rgba(255, 255, 255, 0.05)
   );
 }
+
+.nav-glass {
+  background: linear-gradient(135deg, hsla(158, 95%, 31%, 0.15), hsla(158, 95%, 31%, 0.1));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.dark .nav-glass {
+  background: linear-gradient(135deg, hsla(158, 80%, 45%, 0.2), hsla(158, 80%, 45%, 0.15));
+}

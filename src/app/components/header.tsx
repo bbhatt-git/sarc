@@ -163,10 +163,10 @@ export default function Header() {
             scrolled ? 'w-[96%] md:w-[95%] lg:w-[80%]' : 'w-full'
         )}>
             <nav className={cn(
-                "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
+                "nav-glass flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
                 scrolled 
-                    ? 'rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-lg' 
-                    : 'rounded-none bg-white/40 dark:bg-slate-900/40 border-b border-white/20 dark:border-slate-700'
+                    ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg' 
+                    : 'rounded-none border-b border-slate-200/20 dark:border-white/10'
             )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
