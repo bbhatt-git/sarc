@@ -11,12 +11,14 @@ export function BackgroundController() {
     setMounted(true);
   }, []);
 
-  if (!mounted || resolvedTheme !== 'dark') {
-    return null;
+  if (!mounted) {
+    return <div className="fixed inset-0 z-[-1]" />;
   }
 
+  const isDark = resolvedTheme === 'dark';
+
   return (
-    <div className="fixed inset-0 z-[-1]">
+    <div className="fixed inset-0 z-[-1] transition-opacity duration-300" style={{ opacity: isDark ? 1 : 0.5 }}>
         <FloatingLines 
             enabledWaves={["top","middle","bottom"]}
             lineCount={6}
@@ -25,9 +27,9 @@ export function BackgroundController() {
             bendStrength={-2}
             interactive={true}
             parallax={true}
-            linesGradient={["#1E293B", "#334155", "#475569"]}
+            linesGradient={['#059669', '#0ea5e9', '#64748b']}
             animationSpeed={0.3}
-            mixBlendMode="screen"
+            mixBlendMode={isDark ? "screen" : "multiply"}
         />
     </div>
   );
