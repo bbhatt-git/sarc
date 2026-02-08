@@ -18,7 +18,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
     const isChildActive = link.children.some(child => pathname.startsWith(child.href));
 
     return (
-      <div className="relative group isolate" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+      <div className="relative group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
         <button
           className={cn(
             'flex items-center gap-1.5 uppercase text-[12px] tracking-wider font-bold transition-colors',
@@ -37,7 +37,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20 isolate"
+              className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20"
             >
               <div
                 className={cn(
