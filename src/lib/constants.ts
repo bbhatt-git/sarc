@@ -5,11 +5,9 @@ export const NAV_LINKS = [
   { 
     label: 'About',
     children: [
-      { href: '/about/us', label: 'Our School', description: 'Discover our campus and educational approach', icon: Building },
-      { href: '/about/vision', label: 'Vision, Mission & Values', description: 'The principles that guide us', icon: Target },
+      { href: '/about/us', label: 'About Us', description: 'Our story, vision, and commitment', icon: Building },
       { href: '/about/staffs', label: 'Our Staff', description: 'Meet our dedicated team', icon: Users },
       { href: '/about/founder', label: 'Our Founder', description: 'The visionary behind SARC', icon: User },
-      { href: '/about/history', label: 'Our History', description: 'Journey & achievements', icon: History },
       { href: '/about/why-us', label: 'Why Choose SARC?', description: 'Our commitment to your success', icon: HeartHandshake },
     ],
   },
