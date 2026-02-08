@@ -102,7 +102,7 @@ export default function HomeView() {
                 key={stat.label}
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
-                className="glass-card p-8"
+                className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg"
               >
                 <p className="text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
                 <p className="text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
@@ -151,8 +151,8 @@ export default function HomeView() {
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
-                <div className="glass-card text-center h-full p-8 transition-all duration-300 hover:-translate-y-2">
-                  <div className="mb-4 inline-block bg-emerald-100/50 dark:bg-emerald-900/50 p-4 rounded-full">
+                <div className="bg-white dark:bg-slate-800 text-center h-full p-8 transition-all duration-300 hover:-translate-y-2 rounded-2xl shadow-lg">
+                  <div className="mb-4 inline-block bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full">
                     <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <h3 className="text-xl font-bold text-slate-800 dark:text-white">{item.title}</h3>
