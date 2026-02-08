@@ -37,7 +37,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20"
+              className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20 isolate"
             >
               <div
                 className={cn(
@@ -171,10 +171,10 @@ export default function Header() {
         )}>
             <nav className={cn(
                 "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
-                "bg-white/80 dark:bg-slate-900/70 backdrop-blur-2xl",
+                "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl",
                 hasScrolled
                     ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
-                    : 'rounded-none border-b border-slate-200/20 dark:border-white/10'
+                    : 'rounded-none border-b border-transparent'
             )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
