@@ -40,26 +40,26 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
             >
               <div 
                 className={cn(
-                    "bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg shadow-2xl rounded-2xl border border-white/20",
-                    link.children.length > 3 ? "w-[40rem]" : "w-[22rem]"
+                    "w-[22rem]",
+                    "bg-white/60 dark:bg-slate-900/80 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/20 dark:border-slate-700/80"
                 )}
               >
                  <ul 
                     className={cn(
                         "p-4",
-                        link.children.length > 3 ? "grid grid-cols-2 gap-4" : "space-y-2"
+                        "space-y-2"
                     )}
                 >
                   {link.children.map((child) => (
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="group/navlink block p-4 rounded-xl transition-all duration-300 hover:bg-slate-100/70 dark:hover:bg-white/10"
+                        className="group/navlink block p-3 rounded-xl transition-all duration-300 hover:bg-slate-100/70 dark:hover:bg-white/10"
                         onClick={() => setIsOpen(false)}
                       >
                         <div className="flex items-start gap-4">
-                            <div className='flex-shrink-0 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 p-3 rounded-lg transition-colors duration-300 group-hover/navlink:bg-emerald-500 group-hover/navlink:text-white'>
-                                <child.icon className="w-6 h-6" />
+                            <div className='flex-shrink-0 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-lg transition-colors duration-300 group-hover/navlink:bg-emerald-500 group-hover/navlink:text-white'>
+                                <child.icon className="w-5 h-5" />
                             </div>
                             <div>
                               <span className="font-bold text-sarc-main dark:text-white">{child.label}</span>

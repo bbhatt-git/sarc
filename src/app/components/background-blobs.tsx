@@ -57,9 +57,9 @@ export default function BackgroundBlobs() {
          <div className="absolute inset-0 bg-background/30 backdrop-blur-sm" />
          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:6rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
 
-        <Blob x={blob1X} y={blob1Y} rotate={blob1Rotate} colorClass="bg-emerald-300" />
-        <Blob x={blob2X} y={blob2Y} rotate={blob2Rotate} colorClass="bg-violet-300" />
-        <Blob x={blob3X} y={blob3Y} rotate={blob3Rotate} colorClass="bg-rose-300" />
+        <Blob x={blob1X} y={blob1Y} rotate={blob1Rotate} colorClass="bg-emerald-400" />
+        <Blob x={blob2X} y={blob2Y} rotate={blob2Rotate} colorClass="bg-sky-400" />
+        <Blob x={blob3X} y={blob3Y} rotate={blob3Rotate} colorClass="bg-violet-400" />
       </div>
     </div>
   );
