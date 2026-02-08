@@ -6,7 +6,7 @@ import Header from '@/app/components/header';
 import Footer from '@/app/components/footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { Poppins } from 'next/font/google';
-import BackgroundBlobs from './components/background-blobs';
+import Antigravity from './components/antigravity';
 import { ThemeProvider } from './components/theme-provider';
 
 const poppins = Poppins({
@@ -83,7 +83,25 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <BackgroundBlobs />
+          <div className="fixed inset-0 -z-10 bg-background">
+            <Antigravity
+              count={300}
+              magnetRadius={50}
+              ringRadius={7}
+              waveSpeed={0.4}
+              waveAmplitude={1}
+              particleSize={1.5}
+              lerpSpeed={0.05}
+              color="#5227FF"
+              autoAnimate
+              particleVariance={1}
+              rotationSpeed={0}
+              depthFactor={1}
+              pulseSpeed={3}
+              particleShape="capsule"
+              fieldStrength={10}
+            />
+          </div>
           <FirebaseClientProvider>
             <Header />
             <main className="flex-grow z-10 pt-28">{children}</main>
