@@ -3,23 +3,41 @@
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-
-import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    // To prevent layout shift, render a placeholder of the same size.
+    return <div className="w-[68px] h-9" />
+  }
+  
+  const isLight = resolvedTheme === "light";
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-sarc-main dark:text-white rounded-full"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+    <div
+      className="relative flex items-center w-[68px] h-9 rounded-full p-1 bg-slate-200/70 dark:bg-slate-800/90 border border-white/20 cursor-pointer"
+      onClick={() => setTheme(isLight ? 'dark' : 'light')}
       aria-label="Toggle theme"
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+      <motion.div
+        className="absolute h-7 w-7 bg-white dark:bg-slate-950 rounded-full shadow-md"
+        layout
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        style={{
+          left: isLight ? "4px" : "36px",
+        }}
+      />
+      <div className="relative z-10 flex w-full justify-around items-center">
+        <Sun className={`w-5 h-5 transition-colors ${isLight ? 'text-slate-900' : 'text-slate-400'}`} />
+        <Moon className={`w-5 h-5 transition-colors ${!isLight ? 'text-white' : 'text-slate-500'}`} />
+      </div>
+    </div>
   )
 }

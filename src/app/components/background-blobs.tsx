@@ -1,5 +1,5 @@
 'use client';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
 import { useEffect } from 'react';
 
 const Blob = ({ x, y, rotate, colorClass, blurClass = 'blur-[120px]' }) => (
@@ -18,6 +18,7 @@ const Blob = ({ x, y, rotate, colorClass, blurClass = 'blur-[120px]' }) => (
 );
 
 export default function BackgroundBlobs() {
+  const { scrollY } = useScroll();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -31,10 +32,12 @@ export default function BackgroundBlobs() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const springConfig = { damping: 100, stiffness: 20, mass: 5 };
+  // Make mouse following more responsive
+  const springConfig = { damping: 50, stiffness: 80, mass: 2 };
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
+  // Blob 1 & 2 follow mouse
   const blob1X = useTransform(smoothMouseX, [0, 1000], [-100, 300]);
   const blob1Y = useTransform(smoothMouseY, [0, 1000], [-100, 300]);
   const blob1Rotate = useTransform(smoothMouseY, [0, 1000], [0, 180]);
@@ -43,9 +46,10 @@ export default function BackgroundBlobs() {
   const blob2Y = useTransform(smoothMouseY, [0, 1000], [100, -300]);
   const blob2Rotate = useTransform(smoothMouseX, [0, 1000], [0, 180]);
   
+  // Blob 3 follows scroll with a parallax effect
   const blob3X = useTransform(smoothMouseX, [0, 1000], [-300, 100]);
-  const blob3Y = useTransform(smoothMouseY, [0, 1000], [300, -100]);
-  const blob3Rotate = useTransform(smoothMouseY, [0, 1000], [180, 0]);
+  const blob3Y = useTransform(scrollY, [0, 1000], [0, 400]); // Moves 400px for every 1000px scrolled
+  const blob3Rotate = useTransform(scrollY, [0, 1000], [0, 90]);
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-background">
