@@ -12,7 +12,7 @@ const notices = [
 
 export default function GeneralNoticeView() {
     return (
-        <div className="pt-24 pb-20 bg-slate-50">
+        <div className="pt-24 pb-20">
             <SectionTitle title="General Notices" subtitle="Stay Informed" />
             <div className="container mx-auto px-4 mt-16 max-w-4xl">
                 <div className="space-y-8">

@@ -105,7 +105,7 @@ export default function AdmissionsView() {
     }
 
     return (
-        <div className="pt-24 pb-20 bg-slate-50">
+        <div className="pt-24 pb-20">
             <SectionTitle title="Admissions" subtitle="Begin Your Journey at SARC" />
             <div className="container mx-auto px-4 max-w-4xl mt-16">
                  <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">

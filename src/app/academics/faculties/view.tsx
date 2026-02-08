@@ -6,7 +6,7 @@ import SectionTitle from '@/app/components/section-title';
 
 export default function FacultiesView() {
     return (
-        <div className="pt-24 pb-20 bg-slate-50">
+        <div className="pt-24 pb-20">
             <SectionTitle title="Our Faculties" subtitle="Expert Educators, Passionate Mentors" />
             <div className="container mx-auto px-4 mt-16">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -17,7 +17,7 @@ export default function FacultiesView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="bg-white rounded-lg shadow-md p-6 text-center group transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+                            className="testimonial-card p-6 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
                         >
                             <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden ring-4 ring-slate-200 group-hover:ring-emerald-500 transition-all duration-300">
                                 <Image

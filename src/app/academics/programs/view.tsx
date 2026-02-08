@@ -14,7 +14,7 @@ const programs = [
 
 export default function ProgramsView() {
     return (
-        <div className="pt-24 pb-20 bg-slate-50">
+        <div className="pt-24 pb-20">
             <SectionTitle title="Academic Programs" subtitle="Pathways to Your Future" />
             <div className="container mx-auto px-4 mt-16">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

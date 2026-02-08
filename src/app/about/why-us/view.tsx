@@ -5,7 +5,7 @@ import SectionTitle from '@/app/components/section-title';
 
 export default function WhyUsView() {
     return (
-        <div className="pt-24 pb-20 bg-slate-50">
+        <div className="pt-24 pb-20">
             <SectionTitle title="Why Choose SARC?" subtitle="Our Commitment to Your Success" />
 
             <div className="container mx-auto px-4 mt-16">
