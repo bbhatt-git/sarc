@@ -131,6 +131,11 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,21 +156,23 @@ export default function Header() {
       document.body.style.overflow = '';
     };
   }, [mobileMenuOpen]);
+  
+  const hasScrolled = mounted && scrolled;
 
   return (
     <>
       <header className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-heavy-out flex justify-center",
-          scrolled ? 'pt-2' : 'pt-0'
+          hasScrolled ? 'pt-2' : 'pt-0'
       )}>
         <div className={cn(
             "mx-auto transition-all duration-700 ease-heavy-out",
-            scrolled ? 'w-[96%] md:w-[95%] lg:w-[80%]' : 'w-full'
+            hasScrolled ? 'w-[96%] md:w-[95%] lg:w-[80%]' : 'w-full'
         )}>
             <nav className={cn(
                 "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
                 "bg-white/90 dark:bg-slate-900/90",
-                scrolled
+                hasScrolled
                     ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
                     : 'rounded-none border-b border-slate-200/20 dark:border-white/10'
             )}>
