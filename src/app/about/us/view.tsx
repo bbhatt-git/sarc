@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import SectionTitle from '@/app/components/section-title';
 import { Check } from 'lucide-react';
-import TiltedCard from '@/app/components/tilted-card';
 
 const milestones = [
     { year: 2017, event: "SARC Education Foundation was established with a vision for modern education." },
@@ -55,17 +54,12 @@ export default function AboutView() {
                             Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
                         </p>
                     </div>
-                    <div className="h-96">
-                        <TiltedCard
-                            imageSrc="https://picsum.photos/seed/about1/800/600"
-                            altText="SARC Campus"
-                            containerHeight="100%"
-                            containerWidth="100%"
-                            imageHeight="100%"
-                            imageWidth="100%"
-                            scaleOnHover={1.05}
-                            rotateAmplitude={8}
-                            showTooltip={false}
+                    <div className="relative h-96 overflow-hidden rounded-2xl shadow-lg">
+                        <Image
+                            src="https://picsum.photos/seed/about1/800/600"
+                            alt="SARC Campus"
+                            fill
+                            className="object-cover"
                         />
                     </div>
                 </div>
@@ -94,7 +88,7 @@ export default function AboutView() {
                         key={index} 
                         {...fadeIn}
                         transition={{...fadeIn.transition, delay: index * 0.1}}
-                        className={`testimonial-card flex items-start gap-4 border-l-4 ${item.color}`}>
+                        className={`testimonial-card flex items-start gap-4 p-6 border-l-4 ${item.color}`}>
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
                            <p className="text-slate-700 text-lg">{item.text}</p>
                        </motion.div>

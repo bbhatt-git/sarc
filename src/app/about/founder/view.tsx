@@ -2,7 +2,6 @@
 import SectionTitle from '@/app/components/section-title';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import TiltedCard from '@/app/components/tilted-card';
 
 export default function FounderView() {
     return (
@@ -21,15 +20,14 @@ export default function FounderView() {
                          transition={{ duration: 0.7, delay: 0.2 }}
                          className="md:col-span-1"
                     >
-                        <TiltedCard
-                            imageSrc="https://picsum.photos/seed/401/800/600"
-                            altText="SARC Founder"
-                            containerHeight="384px"
-                            containerWidth="100%"
-                            imageHeight="384px"
-                            imageWidth="100%"
-                            showTooltip={false}
-                        />
+                        <div className="relative w-full h-96 overflow-hidden rounded-2xl shadow-lg">
+                            <Image
+                                src="https://picsum.photos/seed/401/800/600"
+                                alt="SARC Founder"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
                     </motion.div>
                     <div className="space-y-6 md:col-span-2">
                         <h2 className="text-3xl font-bold text-slate-800">A Message from the Founder</h2>

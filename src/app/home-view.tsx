@@ -11,7 +11,6 @@ import { useState, useEffect } from 'react';
 import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import Marquee from './components/marquee';
-import TiltedCard from './components/tilted-card';
 
 export default function HomeView() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -130,17 +129,12 @@ export default function HomeView() {
                 <Link href="/about/us">Learn More <ArrowRight className="ml-2" /></Link>
               </Button>
             </motion.div>
-            <motion.div {...fadeIn}>
-                <TiltedCard
-                    imageSrc="https://picsum.photos/seed/homepage/800/600"
-                    altText="Students collaborating"
-                    containerHeight="450px"
-                    containerWidth="100%"
-                    imageHeight="450px"
-                    imageWidth="100%"
-                    scaleOnHover={1.05}
-                    rotateAmplitude={8}
-                    showTooltip={false}
+            <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg">
+                <Image
+                    src="https://picsum.photos/seed/homepage/800/600"
+                    alt="Students collaborating"
+                    fill
+                    className="object-cover"
                 />
             </motion.div>
           </div>
@@ -179,7 +173,7 @@ export default function HomeView() {
                 {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
                     <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal testimonial-card">
                         <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
-                        <div className="relative z-10 flex flex-col h-full">
+                        <div className="relative z-10 flex flex-col h-full p-6">
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>
                             <div className='flex items-center gap-3 mt-4 pt-4 border-t border-slate-200/20 dark:border-white/10'>
                                 <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />
@@ -196,7 +190,7 @@ export default function HomeView() {
                 {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
                      <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal testimonial-card">
                         <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
-                        <div className="relative z-10 flex flex-col h-full">
+                        <div className="relative z-10 flex flex-col h-full p-6">
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>
                             <div className='flex items-center gap-3 mt-4 pt-4 border-t border-slate-200/20 dark:border-white/10'>
                                 <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />

@@ -2,7 +2,6 @@
 import SectionTitle from '@/app/components/section-title';
 import { GALLERY_IMAGES } from '@/lib/constants';
 import Marquee from '@/app/components/marquee';
-import TiltedCard from '../components/tilted-card';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -43,19 +42,14 @@ export default function GalleryView() {
                             {row.images.map((image, i) => (
                                 <button
                                     key={`marquee-${rowIndex}-${i}`}
-                                    className="mx-2 flex-shrink-0 w-80 h-56 testimonial-card p-2 focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl"
+                                    className="relative mx-2 flex-shrink-0 w-80 h-56 focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl overflow-hidden"
                                     onClick={() => handleImageClick(image.src)}
                                 >
-                                    <TiltedCard
-                                        imageSrc={image.src}
-                                        altText={image.hint}
-                                        containerHeight="100%"
-                                        containerWidth="100%"
-                                        imageHeight="100%"
-                                        imageWidth="100%"
-                                        scaleOnHover={1.1}
-                                        rotateAmplitude={6}
-                                        showTooltip={false}
+                                    <Image
+                                        src={image.src}
+                                        alt={image.hint}
+                                        fill
+                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
                                     />
                                 </button>
                             ))}

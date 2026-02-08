@@ -3,7 +3,6 @@ import { STAFF_MEMBERS } from '@/lib/constants';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import SectionTitle from '@/app/components/section-title';
-import TiltedCard from '@/app/components/tilted-card';
 
 export default function FacultiesView() {
     return (
@@ -20,16 +19,12 @@ export default function FacultiesView() {
                             viewport={{ once: true, amount: 0.3 }}
                             className="testimonial-card p-6 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
                         >
-                            <div className="mx-auto flex justify-center">
-                                <TiltedCard
-                                    imageSrc={staff.image}
-                                    altText={staff.name}
-                                    containerHeight="128px"
-                                    containerWidth="128px"
-                                    imageHeight="128px"
-                                    imageWidth="128px"
-                                    scaleOnHover={1.15}
-                                    showTooltip={false}
+                            <div className="relative w-32 h-32 mx-auto">
+                                <Image
+                                    src={staff.image}
+                                    alt={staff.name}
+                                    fill
+                                    className="rounded-full object-cover"
                                 />
                             </div>
                             <h3 className="text-xl font-bold text-slate-800 mt-4">{staff.name}</h3>
