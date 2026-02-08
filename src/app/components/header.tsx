@@ -18,7 +18,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
     const isChildActive = link.children.some(child => pathname.startsWith(child.href));
 
     return (
-      <div className="relative group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+      <div className="relative group isolate" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
         <button
           className={cn(
             'flex items-center gap-1.5 uppercase text-[12px] tracking-wider font-bold transition-colors',
@@ -171,7 +171,7 @@ export default function Header() {
         )}>
             <nav className={cn(
                 "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
-                "bg-white/90 dark:bg-slate-900/90",
+                "bg-white/80 dark:bg-slate-900/70 backdrop-blur-2xl",
                 hasScrolled
                     ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
                     : 'rounded-none border-b border-slate-200/20 dark:border-white/10'
