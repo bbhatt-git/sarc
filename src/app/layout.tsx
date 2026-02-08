@@ -87,7 +87,7 @@ export default function RootLayout({
             <Antigravity
               count={300}
               magnetRadius={30}
-              ringRadius={10}
+              ringRadius={30}
               waveSpeed={0.4}
               waveAmplitude={1}
               particleSize={1.5}
