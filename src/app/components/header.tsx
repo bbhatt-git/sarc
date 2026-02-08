@@ -41,7 +41,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
             >
               <div
                 className={cn(
-                  'w-60', // Made dropdown narrower
+                  'w-60',
                   'bg-white/80 dark:bg-slate-800/80 backdrop-blur-2xl shadow-2xl rounded-2xl border border-white/20 dark:border-white/10'
                 )}
               >
@@ -163,7 +163,8 @@ export default function Header() {
             scrolled ? 'w-[96%] md:w-[95%] lg:w-[80%]' : 'w-full'
         )}>
             <nav className={cn(
-                "nav-glass flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
+                "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
+                "bg-white/50 dark:bg-slate-900/70 backdrop-blur-2xl",
                 scrolled 
                     ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg' 
                     : 'rounded-none border-b border-slate-200/20 dark:border-white/10'
@@ -212,7 +213,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-800/80 backdrop-blur-2xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
