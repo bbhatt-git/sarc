@@ -43,8 +43,8 @@ export default function AboutView() {
     const timelineData = milestones.map(item => ({
         title: item.year.toString(),
         content: (
-            <div className="bg-card border shadow-sm rounded-lg p-6 relative overflow-hidden">
-                <h3 className="text-xl font-semibold text-foreground mt-1">{item.event}</h3>
+            <div className="bg-card/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-xl p-6 relative overflow-hidden">
+                <h3 className="text-xl font-bold text-foreground">{item.event}</h3>
             </div>
         )
     }));

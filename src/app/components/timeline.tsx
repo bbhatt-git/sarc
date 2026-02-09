@@ -43,16 +43,19 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             transition={{ duration: 0.6, delay: index * 0.1 }}
             className="flex justify-start pt-10 md:pt-20 md:gap-10"
           >
-            <div className="sticky flex flex-col md:flex-row z-10 items-center top-40 self-start w-full">
-               <div className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-background ring-4 ring-background left-2 md:left-[5px]">
-                 <div className="h-4 w-4 rounded-full bg-muted border border-border p-2" />
+            <div className="sticky flex-col md:flex-row z-10 items-center top-40 self-start hidden md:flex md:w-40">
+               <div className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-background ring-4 ring-background -left-5">
+                 <div className="h-4 w-4 rounded-full bg-muted border border-border" />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-muted-foreground ">
+              <h3 className="text-5xl font-bold text-muted-foreground text-right w-full pr-8">
                 {item.title}
               </h3>
             </div>
 
-            <div className="relative pl-20 pr-4 md:pl-0 w-full">
+            <div className="relative pl-12 pr-4 md:pl-0 w-full">
+              <div className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-background ring-4 ring-background -left-5 md:hidden">
+                 <div className="h-4 w-4 rounded-full bg-muted border border-border" />
+              </div>
               <h3 className="md:hidden block text-2xl mb-2 text-left font-bold text-muted-foreground">
                 {item.title}
               </h3>
@@ -64,7 +67,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: height > 0 ? height + 'px' : 'auto',
           }}
-          className="absolute md:left-[18px] left-[18px] top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-border to-transparent to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
+          className="absolute left-[1px] top-0 overflow-hidden w-[2px] bg-border/20 [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
         >
           <motion.div
             style={{
