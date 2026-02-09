@@ -3,7 +3,7 @@
 import PageHeader from '@/app/components/page-header';
 import { ThreeDMarquee } from '@/app/components/3d-marquee';
 
-const galleryImages = Array.from({ length: 41 }, (_, i) => `/images/gallery/${i}.jpg`);
+const galleryImages = Array.from({ length: 33 }, (_, i) => `/images/gallery/${i + 1}.jpg`);
 
 export default function GalleryView() {
   return (
