@@ -1,10 +1,9 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Autoplay from "embla-carousel-autoplay"
 
@@ -125,7 +124,11 @@ export default function HomeView() {
             </div>
           </motion.div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 z-10 text-background leading-none">
+          <svg preserveAspectRatio="none" viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M0,50 C240,90 480,30 720,50 C960,70 1200,10 1440,50 L1440,100 L0,100 Z"></path>
+          </svg>
+        </div>
       </section>
 
       {/* Stats Section */}

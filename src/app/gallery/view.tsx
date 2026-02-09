@@ -32,6 +32,10 @@ export default function GalleryView() {
                   hidden: { opacity: 0, y: 50 },
                   visible: { opacity: 1, y: 0 }
               }}
+              transition={{
+                duration: 0.6,
+                ease: [0.25, 1, 0.5, 1]
+              }}
               className="overflow-hidden rounded-2xl shadow-lg break-inside-avoid group"
             >
               <Image
