@@ -2,7 +2,6 @@
 import { WHY_US_ITEMS } from '@/lib/constants';
 import { motion } from 'framer-motion';
 import SectionTitle from '@/app/components/section-title';
-import { BorderBeam } from '@/app/components/BorderBeam';
 
 export default function WhyUsView() {
     return (
@@ -20,7 +19,6 @@ export default function WhyUsView() {
                             viewport={{ once: true, amount: 0.3 }}
                             className="testimonial-card p-8 flex items-start gap-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full"
                         >
-                            <BorderBeam />
                             <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
                                 <item.icon className="w-8 h-8 text-emerald-600" />
                             </div>

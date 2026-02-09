@@ -2,7 +2,6 @@
 import SectionTitle from '@/app/components/section-title';
 import { motion } from 'framer-motion';
 import { Library, Bus, Utensils, HeartHandshake, Computer, Microscope } from 'lucide-react';
-import { BorderBeam } from '@/app/components/BorderBeam';
 
 const services = [
     { title: 'Resourceful Library', icon: Library, description: 'Access a vast collection of books, journals, and digital resources to support your academic journey.' },
@@ -28,7 +27,6 @@ export default function ServicesView() {
                             viewport={{ once: true, amount: 0.3 }}
                             className="testimonial-card p-8 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full"
                         >
-                            <BorderBeam />
                             <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <service.icon className="w-8 h-8" />
                             </div>

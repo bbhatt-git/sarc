@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import SectionTitle from '@/app/components/section-title';
 import { Check } from 'lucide-react';
-import { BorderBeam } from '@/app/components/BorderBeam';
 
 const milestones = [
     { year: 2017, event: "SARC Education Foundation was established with a vision for modern education." },
@@ -56,7 +55,6 @@ export default function AboutView() {
                         </p>
                     </div>
                     <div className="relative h-96 overflow-hidden rounded-2xl shadow-lg">
-                        <BorderBeam />
                         <Image
                             src="https://picsum.photos/seed/about1/800/600"
                             alt="SARC Campus"
@@ -72,7 +70,6 @@ export default function AboutView() {
                 className="container mx-auto px-4 mt-24"
             >
                 <div className="testimonial-card p-12 text-center relative overflow-hidden">
-                    <BorderBeam />
                     <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
                     <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
                         To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
@@ -92,7 +89,6 @@ export default function AboutView() {
                         {...fadeIn}
                         transition={{...fadeIn.transition, delay: index * 0.1}}
                         className={`testimonial-card flex items-start gap-4 p-6 border-l-4 ${item.color}`}>
-                           <BorderBeam />
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
                            <p className="text-foreground text-lg">{item.text}</p>
                        </motion.div>
@@ -122,7 +118,6 @@ export default function AboutView() {
                                     <Check className="w-5 h-5 text-white" />
                                 </div>
                                 <div className="testimonial-card p-6 ml-4">
-                                    <BorderBeam />
                                     <p className="text-lg font-bold text-emerald-600">{item.year}</p>
                                     <h3 className="text-xl font-semibold text-foreground mt-1">{item.event}</h3>
                                 </div>
@@ -140,7 +135,6 @@ export default function AboutView() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {WHY_US_ITEMS.map((item, index) => (
                          <div key={item.title} className="testimonial-card p-8 text-center transition-transform hover:-translate-y-2 h-full">
-                            <BorderBeam />
                             <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <item.icon className="w-8 h-8" />
                             </div>
@@ -163,7 +157,6 @@ export default function AboutView() {
                             {...fadeIn}
                             transition={{...fadeIn.transition, delay: index * 0.1}}
                             className="testimonial-card flex items-center gap-3 p-4">
-                            <BorderBeam />
                             <Check className="w-5 h-5 text-emerald-500 shrink-0" />
                             <p className="text-foreground">{goal}</p>
                         </motion.div>
@@ -179,7 +172,6 @@ export default function AboutView() {
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
                     {['School (ECD-10)', 'Bridge Course', '+2 Science', '+2 Management', '+2 Law', 'CTEVT Programs'].map(program => (
                         <div key={program} className="testimonial-card p-4">
-                            <BorderBeam />
                             <p className="text-foreground font-semibold">{program}</p>
                         </div>
                     ))}

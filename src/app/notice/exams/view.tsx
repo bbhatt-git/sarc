@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { FileText, ClipboardCheck, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BorderBeam } from '@/app/components/BorderBeam';
 
 const examNotices = [
     { title: 'Mid-Term Exam Routine - Grade 11 & 12', date: '2081-04-10', type: 'Routine', link: '#' },
@@ -19,7 +18,6 @@ export default function ExamsView() {
             <SectionTitle title="Exams & Results" subtitle="Schedules and Outcomes" />
             <div className="container mx-auto px-4 mt-16 max-w-5xl">
                 <Card className="shadow-lg relative overflow-hidden">
-                    <BorderBeam />
                     <CardHeader>
                         <CardTitle>Examination Notices</CardTitle>
                         <CardDescription>Find all exam-related announcements, routines, and results here.</CardDescription>

@@ -2,7 +2,6 @@
 import SectionTitle from '@/app/components/section-title';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { BorderBeam } from '@/app/components/BorderBeam';
 
 export default function FounderView() {
     return (
@@ -22,7 +21,6 @@ export default function FounderView() {
                          className="md:col-span-1"
                     >
                         <div className="relative w-full h-96 overflow-hidden rounded-2xl shadow-lg">
-                            <BorderBeam />
                             <Image
                                 src="https://picsum.photos/seed/401/800/600"
                                 alt="SARC Founder"

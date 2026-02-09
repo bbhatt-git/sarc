@@ -2,7 +2,6 @@
 import SectionTitle from '@/app/components/section-title';
 import { motion } from 'framer-motion';
 import { Award, Star, Trophy, Medal } from 'lucide-react';
-import { BorderBeam } from '@/app/components/BorderBeam';
 
 const achievements = [
     { title: 'District Topper in +2 Science', year: 2023, icon: Trophy, description: 'Our student, Anish Shrestha, secured the top position in the district in the NEB +2 Science examinations.' },
@@ -28,7 +27,6 @@ export default function AchievementsView() {
                             viewport={{ once: true, amount: 0.3 }}
                             className="testimonial-card flex items-start gap-6 h-full"
                         >
-                            <BorderBeam />
                             <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
                                 <item.icon className="w-8 h-8 text-emerald-600" />
                             </div>

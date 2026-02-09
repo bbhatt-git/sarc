@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,6 @@ import { motion } from 'framer-motion';
 import { TESTIMONIALS, STATS, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
-import { BorderBeam } from './components/BorderBeam';
 import { cn } from '@/lib/utils';
 import { ThreeDMarquee } from '@/app/components/3d-marquee';
 
@@ -122,7 +120,6 @@ export default function HomeView() {
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
                 className="testimonial-card p-8"
               >
-                <BorderBeam />
                 <p className="text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
                 <p className="text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </motion.div>
@@ -145,7 +142,6 @@ export default function HomeView() {
               </Button>
             </motion.div>
             <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg">
-                <BorderBeam />
                 <img
                     src="https://picsum.photos/seed/homepage/800/600"
                     alt="Students collaborating"
@@ -168,7 +164,6 @@ export default function HomeView() {
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
                 <div className="testimonial-card text-center h-full p-8 transition-all duration-300 hover:-translate-y-2">
-                  <BorderBeam />
                   <div className="mb-4 inline-block bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full">
                     <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
@@ -191,22 +186,22 @@ export default function HomeView() {
                     transform: "translateX(-100px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)",
                 }}
             >
-                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
+                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
                     {firstRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
                     ))}
                 </Marquee>
-                <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
+                <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
                     {secondRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
                     ))}
                 </Marquee>
-                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden md:flex">
+                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden md:flex">
                      {thirdRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '3'} {...testimonial} />
                     ))}
                 </Marquee>
-                 <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden lg:flex">
+                 <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden lg:flex">
                     {fourthRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '4'} {...testimonial} />
                     ))}
