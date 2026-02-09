@@ -32,6 +32,7 @@ const TestimonialCard = ({
         "border-slate-200/50 bg-white/30 backdrop-blur-xl dark:border-slate-800/50 dark:bg-slate-900/30"
       )}
     >
+      <BorderBeam />
       <div className="flex flex-row items-center gap-2">
         <Image className="rounded-full" width="32" height="32" alt={author} src={image} />
         <div className="flex flex-col">
@@ -68,6 +69,8 @@ export default function HomeView() {
 
   const firstRow = TESTIMONIALS.slice(0, 3);
   const secondRow = TESTIMONIALS.slice(3, 6);
+  const thirdRow = TESTIMONIALS.slice(0, 3);
+  const fourthRow = TESTIMONIALS.slice(3, 6);
 
   return (
     <motion.div
@@ -217,23 +220,23 @@ export default function HomeView() {
                     transform: "translateX(0px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(0deg)",
                 }}
             >
-                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
+                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
                     {firstRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
                     ))}
                 </Marquee>
-                <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
+                <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
                     {secondRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
                     ))}
                 </Marquee>
-                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden md:flex">
-                     {firstRow.map((testimonial) => (
+                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden md:flex">
+                     {thirdRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '3'} {...testimonial} />
                     ))}
                 </Marquee>
-                 <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden lg:flex">
-                    {secondRow.map((testimonial) => (
+                 <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden lg:flex">
+                    {fourthRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '4'} {...testimonial} />
                     ))}
                 </Marquee>
