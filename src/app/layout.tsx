@@ -7,7 +7,7 @@ import Footer from '@/app/components/footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { Poppins } from 'next/font/google';
 import { ThemeProvider } from './components/theme-provider';
-import Aurora from './components/Aurora';
+import Prism from './components/Prism';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -85,12 +85,17 @@ export default function RootLayout({
         >
           <FirebaseClientProvider>
             <div className="fixed inset-0 -z-10 overflow-hidden">
-                <div className="absolute h-full w-full mix-blend-multiply dark:mix-blend-color-dodge">
-                    <Aurora
-                      colorStops={["#10b981", "#38bdf8", "#8b5cf6"]}
-                      blend={0.5}
-                      amplitude={1.0}
-                      speed={1}
+                <div className="absolute h-full w-full">
+                    <Prism
+                      animationType="rotate"
+                      timeScale={0.5}
+                      height={3.5}
+                      baseWidth={5.5}
+                      scale={3.6}
+                      hueShift={0}
+                      colorFrequency={1}
+                      noise={0}
+                      glow={1}
                     />
                 </div>
             </div>
