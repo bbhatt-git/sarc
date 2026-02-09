@@ -1,17 +1,13 @@
 'use client';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import SectionTitle from '@/app/components/section-title';
-import { FileText, ClipboardCheck, Download, Calendar as CalendarIcon } from 'lucide-react';
+import { FileText, ClipboardCheck, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
 
 const examNotices = [
     { title: 'Mid-Term Exam Routine - Grade 11 & 12', date: '2081-04-10', type: 'Routine', link: '#' },
@@ -21,8 +17,6 @@ const examNotices = [
 ];
 
 export default function ExamsView() {
-    const [date, setDate] = useState<Date>();
-
     return (
         <div className="pt-24 pb-20">
             <SectionTitle title="Exams & Results" subtitle="Schedules and Outcomes" />
@@ -62,29 +56,12 @@ export default function ExamsView() {
                                             <Input id="symbol" placeholder="e.g., 12345678" />
                                         </div>
                                         <div className="space-y-2">
-                                            <Label htmlFor="dob">Date of Birth</Label>
-                                            <Popover>
-                                                <PopoverTrigger asChild>
-                                                    <Button
-                                                        variant={"outline"}
-                                                        className={cn(
-                                                            "w-full justify-start text-left font-normal bg-transparent",
-                                                            !date && "text-muted-foreground"
-                                                        )}
-                                                    >
-                                                        <CalendarIcon className="mr-2 h-4 w-4" />
-                                                        {date ? format(date, "PPP") : <span>Pick a date</span>}
-                                                    </Button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="w-auto p-0 bg-popover/80 backdrop-blur-lg border-border">
-                                                    <Calendar
-                                                        mode="single"
-                                                        selected={date}
-                                                        onSelect={setDate}
-                                                        initialFocus
-                                                    />
-                                                </PopoverContent>
-                                            </Popover>
+                                            <Label htmlFor="year">Date of Birth (BS)</Label>
+                                            <div className="flex items-center gap-2">
+                                                <Input id="year" name="year" placeholder="YYYY" />
+                                                <Input id="month" name="month" placeholder="MM" />
+                                                <Input id="day" name="day" placeholder="DD" />
+                                            </div>
                                         </div>
                                     </div>
                                     <DialogFooter>
