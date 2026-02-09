@@ -21,10 +21,10 @@ export default function HomeView() {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === HERO_IMAGES.length - 1 ? 0 : prevIndex + 1
       );
-    }, 7000); // Change image every 7 seconds
+    }, 7000); // Change image every 7 seconds to allow for fade
     return () => clearInterval(timer);
   }, []);
-  
+
   const fadeIn = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
@@ -54,7 +54,7 @@ export default function HomeView() {
                 exit={{
                     opacity: 0,
                     scale: 1.05,
-                    transition: { duration: 4, ease: "easeIn" },
+                    transition: { duration: 3, ease: "easeIn" },
                 }}
             >
                 <Image
