@@ -32,41 +32,50 @@ const ResultDisplay = ({ result }: { result: Result }) => {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className={cn(
-                "mt-8 rounded-2xl p-px",
-                "bg-gradient-to-br",
-                isPass 
-                    ? "from-emerald-500/50 via-sky-500/50 to-emerald-500/50" 
-                    : "from-rose-500/50 via-red-500/50 to-rose-500/50"
-            )}
+            className="mt-8"
         >
-            <div className="rounded-[15px] bg-card/80 backdrop-blur-2xl p-6">
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-border/50 pb-4">
-                    <div>
-                        <h3 className="text-2xl font-bold text-foreground">{result.StudentName}</h3>
-                        <p className="text-sm text-muted-foreground">
-                            Symbol No: {result.SymbolNo} &nbsp;&middot;&nbsp; DOB: {result.DOB}
-                        </p>
+            <div
+                className={cn(
+                    "rounded-2xl p-px",
+                    "bg-gradient-to-br",
+                    isPass
+                        ? "from-emerald-500/50 via-sky-500/50 to-emerald-500/50"
+                        : "from-rose-500/50 via-red-500/50 to-rose-500/50"
+                )}
+            >
+                <div className="rounded-[15px] bg-card/80 backdrop-blur-2xl p-6 md:p-8 shadow-2xl">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-border/50 pb-4">
+                        <div>
+                            <h3 className={cn("text-xl md:text-2xl font-bold", isPass ? "text-emerald-400" : "text-rose-400")}>
+                                {isPass ? "Congratulations! Result: Pass" : "Result: Fail"}
+                            </h3>
+                            <p className="text-lg md:text-xl font-semibold text-foreground mt-1">{result.StudentName}</p>
+                        </div>
+                        <div className={cn(
+                            "flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-bold",
+                            isPass
+                                ? "bg-emerald-500/10 text-emerald-400"
+                                : "bg-rose-500/10 text-rose-400"
+                        )}>
+                            {isPass ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
+                            <span>{result.Remarks}</span>
+                        </div>
                     </div>
-                    <div className={cn(
-                        "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold",
-                        isPass 
-                            ? "bg-emerald-500/10 text-emerald-500" 
-                            : "bg-rose-500/10 text-rose-500"
-                    )}>
-                        {isPass ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
-                        <span>{result.Remarks}</span>
+                    
+                    <div className="text-sm text-muted-foreground mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                        <p><span className="font-semibold">Symbol No:</span> {result.SymbolNo}</p>
+                        <p><span className="font-semibold">Date of Birth:</span> {result.DOB}</p>
                     </div>
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center mt-6">
-                    <div className="bg-background/30 rounded-xl p-6">
-                        <p className="text-sm font-medium text-muted-foreground">Grade</p>
-                        <p className="text-6xl font-extrabold text-foreground tracking-tight">{result.Grade}</p>
-                    </div>
-                    <div className="bg-background/30 rounded-xl p-6">
-                        <p className="text-sm font-medium text-muted-foreground">GPA</p>
-                        <p className="text-6xl font-extrabold text-foreground tracking-tight">{result.GPA.toFixed(2)}</p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mt-6">
+                        <div className="bg-background/50 rounded-xl p-4 sm:p-6">
+                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">GPA</p>
+                            <p className="text-5xl sm:text-6xl font-extrabold text-foreground tracking-tight mt-1">{result.GPA.toFixed(2)}</p>
+                        </div>
+                        <div className="bg-background/50 rounded-xl p-4 sm:p-6">
+                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">Grade</p>
+                            <p className="text-5xl sm:text-6xl font-extrabold text-foreground tracking-tight mt-1">{result.Grade}</p>
+                        </div>
                     </div>
                 </div>
             </div>
