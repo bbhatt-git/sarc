@@ -66,6 +66,10 @@
   ::-webkit-scrollbar {
     display: none;
   }
+  
+  body.lightbox-open header {
+    display: none;
+  }
 }
 
 @layer components {

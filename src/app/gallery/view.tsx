@@ -4,7 +4,7 @@ import PageHeader from '@/app/components/page-header';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 const galleryImages = Array.from({ length: 33 }, (_, i) => `/images/gallery/${i + 1}.jpg`);
@@ -92,6 +92,18 @@ export default function GalleryView() {
     setSelectedImage(null);
   };
 
+  useEffect(() => {
+    if (selectedImage !== null) {
+      document.body.classList.add('lightbox-open');
+    } else {
+      document.body.classList.remove('lightbox-open');
+    }
+
+    return () => {
+      document.body.classList.remove('lightbox-open');
+    };
+  }, [selectedImage]);
+
   return (
     <div>
       <PageHeader
@@ -100,10 +112,10 @@ export default function GalleryView() {
         imageUrl="/images/hero/4.jpg"
       />
       <div className="flex flex-col py-20 overflow-hidden">
-          <MarqueeRow images={row1} reverse={true} duration="50s" onImageClick={handleImageClick} />
-          <MarqueeRow images={row2} reverse={false} duration="40s" onImageClick={handleImageClick} />
-          <MarqueeRow images={row3} reverse={true} duration="50s" onImageClick={handleImageClick} />
-          <MarqueeRow images={row4} reverse={false} duration="40s" onImageClick={handleImageClick} />
+          <MarqueeRow images={row1} reverse={false} duration="50s" onImageClick={handleImageClick} />
+          <MarqueeRow images={row2} reverse={true} duration="40s" onImageClick={handleImageClick} />
+          <MarqueeRow images={row3} reverse={false} duration="50s" onImageClick={handleImageClick} />
+          <MarqueeRow images={row4} reverse={true} duration="40s" onImageClick={handleImageClick} />
       </div>
       <AnimatePresence>
         {selectedImage !== null && (
