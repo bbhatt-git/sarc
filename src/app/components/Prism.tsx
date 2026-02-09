@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import { Renderer, Triangle, Program, Mesh } from 'ogl';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 type PrismProps = {
   height?: number;
@@ -38,6 +39,7 @@ const Prism: React.FC<PrismProps> = ({
   timeScale = 0.5
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -51,7 +53,12 @@ const Prism: React.FC<PrismProps> = ({
     const offX = offset?.x ?? 0;
     const offY = offset?.y ?? 0;
     const SAT = transparent ? 1.5 : 1;
-    const SCALE = Math.max(0.001, scale);
+    
+    const desktopScale = 5.0;
+    const mobileScale = scale;
+    const currentScale = isMobile ? mobileScale : desktopScale;
+    const SCALE = Math.max(0.001, currentScale);
+
     const HUE = hueShift || 0;
     const CFREQ = Math.max(0.0, colorFrequency || 1);
     const BLOOM = Math.max(0.0, bloom || 1);
@@ -449,7 +456,8 @@ const Prism: React.FC<PrismProps> = ({
     hoverStrength,
     inertia,
     bloom,
-    suspendWhenOffscreen
+    suspendWhenOffscreen,
+    isMobile
   ]);
 
   return <div className="w-full h-full relative" ref={containerRef} />;
