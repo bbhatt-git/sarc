@@ -76,6 +76,10 @@
   .testimonial-card:hover {
     @apply -translate-y-1 shadow-2xl border-primary/20;
   }
+  .marquee-column {
+    @apply flex flex-col;
+    animation: marquee-vertical-3d var(--duration) linear infinite;
+  }
 }
 
 @layer utilities {
@@ -83,5 +87,10 @@
     syntax: '<angle>';
     initial-value: 0deg;
     inherits: false;
+  }
+
+  @keyframes marquee-vertical-3d {
+    from { transform: translateY(0%); }
+    to { transform: translateY(-50%); }
   }
 }
