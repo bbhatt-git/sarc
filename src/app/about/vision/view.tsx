@@ -38,8 +38,8 @@ export default function VisionView() {
             >
                 <div className="bg-white shadow-lg rounded-2xl p-12 text-center relative overflow-hidden">
                     <BorderBeam />
-                    <h2 className="text-3xl font-bold text-slate-800 mb-4 relative">Our Vision</h2>
-                    <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed relative">
+                    <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
+                    <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
                         To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
                     </p>
                 </div>
@@ -49,7 +49,7 @@ export default function VisionView() {
                  {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Mission</h2>
+                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Mission</h2>
                 <div className="grid md:grid-cols-2 gap-8">
                    {missionItems.map((item, index) => (
                        <motion.div 
@@ -59,7 +59,7 @@ export default function VisionView() {
                         className={`bg-white shadow rounded-lg p-6 flex items-start gap-4 border-l-4 ${item.color} relative overflow-hidden`}>
                            <BorderBeam />
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
-                           <p className="text-slate-700 text-lg">{item.text}</p>
+                           <p className="text-foreground text-lg">{item.text}</p>
                        </motion.div>
                    ))}
                 </div>
@@ -69,7 +69,7 @@ export default function VisionView() {
                  {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Future Goals</h2>
+                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Future Goals</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {futureGoals.map((goal, index) => (
                         <motion.div 
@@ -79,7 +79,7 @@ export default function VisionView() {
                             className="flex items-center gap-3 bg-slate-100 p-4 rounded-lg border border-slate-200 relative overflow-hidden">
                             <BorderBeam />
                             <Check className="w-5 h-5 text-emerald-500 shrink-0" />
-                            <p className="text-slate-700">{goal}</p>
+                            <p className="text-foreground">{goal}</p>
                         </motion.div>
                     ))}
                 </div>

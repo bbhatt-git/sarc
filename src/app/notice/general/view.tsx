@@ -31,10 +31,10 @@ export default function GeneralNoticeView() {
                                 <notice.icon className="w-6 h-6 text-emerald-600 mt-1" />
                                 <div>
                                     <div className="flex justify-between items-center">
-                                        <h3 className="text-xl font-bold text-slate-800">{notice.title}</h3>
-                                        <span className="text-sm text-slate-500 bg-slate-100 px-2 py-1 rounded">{notice.date}</span>
+                                        <h3 className="text-xl font-bold text-foreground">{notice.title}</h3>
+                                        <span className="text-sm text-muted-foreground bg-slate-100 px-2 py-1 rounded">{notice.date}</span>
                                     </div>
-                                    <p className="text-slate-600 mt-2">{notice.summary}</p>
+                                    <p className="text-muted-foreground mt-2">{notice.summary}</p>
                                 </div>
                             </div>
                         </motion.div>

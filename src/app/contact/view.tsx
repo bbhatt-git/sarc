@@ -90,8 +90,8 @@ export default function ContactView() {
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
                     <div className="bg-white shadow-lg rounded-2xl p-8 md:p-12 relative overflow-hidden">
                         <BorderBeam />
-                        <h3 className="text-2xl font-bold mb-2 text-slate-800">Send Us a Message</h3>
-                        <p className="text-slate-600 mb-8">We'll get back to you as soon as possible.</p>
+                        <h3 className="text-2xl font-bold mb-2 text-foreground">Send Us a Message</h3>
+                        <p className="text-muted-foreground mb-8">We'll get back to you as soon as possible.</p>
                         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
@@ -159,11 +159,11 @@ const InfoCard = ({ icon: Icon, title, text, href }: { icon: React.ElementType, 
             <Icon className="w-5 h-5 text-emerald-600" />
         </div>
         <div>
-            <h4 className="font-semibold text-lg text-slate-800">{title}</h4>
+            <h4 className="font-semibold text-lg text-foreground">{title}</h4>
             {href ? (
-                 <a href={href} className="text-slate-600 hover:text-emerald-600 transition-colors">{text}</a>
+                 <a href={href} className="text-muted-foreground hover:text-emerald-600 transition-colors">{text}</a>
             ) : (
-                <p className="text-slate-600">{text}</p>
+                <p className="text-muted-foreground">{text}</p>
             )}
         </div>
     </div>

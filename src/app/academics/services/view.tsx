@@ -32,8 +32,8 @@ export default function ServicesView() {
                             <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <service.icon className="w-8 h-8" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">{service.title}</h3>
-                            <p className="text-slate-600">{service.description}</p>
+                            <h3 className="text-xl font-bold text-foreground mb-2">{service.title}</h3>
+                            <p className="text-muted-foreground">{service.description}</p>
                         </motion.div>
                     ))}
                 </div>

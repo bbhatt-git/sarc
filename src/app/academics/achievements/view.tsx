@@ -34,8 +34,8 @@ export default function AchievementsView() {
                             </div>
                             <div>
                                 <p className="font-semibold text-emerald-600">{item.year}</p>
-                                <h3 className="text-lg font-bold text-slate-800 mt-1">{item.title}</h3>
-                                <p className="text-slate-600 text-sm mt-2">{item.description}</p>
+                                <h3 className="text-lg font-bold text-foreground mt-1">{item.title}</h3>
+                                <p className="text-muted-foreground text-sm mt-2">{item.description}</p>
                             </div>
                         </motion.div>
                     ))}

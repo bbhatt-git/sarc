@@ -40,8 +40,8 @@ export default function ExamsView() {
                                             {notice.type === 'Result' ? <ClipboardCheck className="w-6 h-6 text-emerald-600" /> : <FileText className="w-6 h-6 text-sky-600" />}
                                         </div>
                                         <div>
-                                            <h3 className="font-bold text-slate-800">{notice.title}</h3>
-                                            <p className="text-sm text-slate-500">Published on: {notice.date}</p>
+                                            <h3 className="font-bold text-foreground">{notice.title}</h3>
+                                            <p className="text-sm text-muted-foreground">Published on: {notice.date}</p>
                                         </div>
                                     </div>
                                     <Button variant="outline" size="sm" asChild>

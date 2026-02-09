@@ -32,11 +32,11 @@ export default function FounderView() {
                         </div>
                     </motion.div>
                     <div className="space-y-6 md:col-span-2">
-                        <h2 className="text-3xl font-bold text-slate-800">A Message from the Founder</h2>
-                        <p className="text-slate-600 text-lg leading-relaxed">
+                        <h2 className="text-3xl font-bold text-foreground">A Message from the Founder</h2>
+                        <p className="text-muted-foreground text-lg leading-relaxed">
                             Since our inception, the goal has been to create more than just a school. We envisioned a vibrant community dedicated to nurturing not just academic brilliance, but also the character, values, and essential life skills that shape future leaders and responsible global citizens. 
                         </p>
-                        <p className="text-slate-600 text-lg leading-relaxed">
+                        <p className="text-muted-foreground text-lg leading-relaxed">
                             Our philosophy is rooted in providing an environment that encourages curiosity, fosters critical thinking, and ignites a lifelong passion for learning. We believe in empowering our students to explore their potential, to challenge conventions, and to dare to dream big. At SARC, we are not just preparing students for exams; we are preparing them for life.
                         </p>
                     </div>

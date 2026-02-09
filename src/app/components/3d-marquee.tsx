@@ -36,7 +36,6 @@ export const ThreeDMarquee = ({
                 transition={{
                   duration: colIndex % 2 === 0 ? 10 : 15,
                   repeat: Infinity,
-                  repeatType: "reverse",
                 }}
                 key={colIndex + "marquee"}
                 className="flex flex-col items-start gap-8"

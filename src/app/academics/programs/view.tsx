@@ -33,9 +33,9 @@ export default function ProgramsView() {
                                 <div className="bg-emerald-100 p-3 rounded-full">
                                     <program.icon className="w-6 h-6 text-emerald-600" />
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-800">{program.name}</h3>
+                                <h3 className="text-xl font-bold text-foreground">{program.name}</h3>
                             </div>
-                            <p className="text-slate-600">{program.description}</p>
+                            <p className="text-muted-foreground">{program.description}</p>
                         </motion.div>
                     ))}
                 </div>

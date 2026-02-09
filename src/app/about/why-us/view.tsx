@@ -25,8 +25,8 @@ export default function WhyUsView() {
                                 <item.icon className="w-8 h-8 text-emerald-600" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-slate-800 mb-2">{item.title}</h3>
-                                <p className="text-slate-600 text-lg">{item.description}</p>
+                                <h3 className="text-2xl font-bold text-foreground mb-2">{item.title}</h3>
+                                <p className="text-muted-foreground text-lg">{item.description}</p>
                             </div>
                         </motion.div>
                     ))}

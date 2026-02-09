@@ -26,7 +26,7 @@ export default function SectionTitle({ title, subtitle, align = 'center', classN
             )}
         >
             <p className="text-sm font-semibold text-emerald-600 tracking-widest uppercase bg-emerald-100 px-3 py-1 rounded-full">{subtitle}</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
                 {title}
             </h2>
         </motion.div>

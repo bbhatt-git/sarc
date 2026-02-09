@@ -29,10 +29,10 @@ export default function StaffsView() {
                                     className="rounded-full object-cover"
                                 />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-800 mt-4">{staff.name}</h3>
+                            <h3 className="text-xl font-bold text-foreground mt-4">{staff.name}</h3>
                             <p className="text-emerald-600 font-medium">{staff.role}</p>
-                            <p className="text-xs text-slate-500 mt-1">{staff.credentials}</p>
-                            <p className="text-sm text-slate-600 mt-4 italic">"{staff.philosophy}"</p>
+                            <p className="text-xs text-muted-foreground mt-1">{staff.credentials}</p>
+                            <p className="text-sm text-muted-foreground mt-4 italic">"{staff.philosophy}"</p>
                         </motion.div>
                     ))}
                 </div>

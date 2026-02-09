@@ -28,20 +28,20 @@ const TestimonialCard = ({
     <figure
       className={cn(
         "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-        "border-slate-200/50 bg-white/30 backdrop-blur-xl dark:border-slate-800/50 dark:bg-slate-900/30"
+        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
       )}
     >
-      <BorderBeam />
       <div className="flex flex-row items-center gap-2">
         <img className="rounded-full" width="32" height="32" alt={author} src={image} />
         <div className="flex flex-col">
-          <figcaption className="text-sm font-medium text-slate-800 dark:text-white">
+          <figcaption className="text-sm font-medium text-foreground">
             {author}
           </figcaption>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{role}</p>
+          <p className="text-xs font-medium text-muted-foreground">{role}</p>
         </div>
       </div>
-      <blockquote className="mt-2 text-sm text-slate-600 dark:text-slate-300">{text}</blockquote>
+      <blockquote className="mt-2 text-sm text-foreground">{text}</blockquote>
     </figure>
   );
 };
@@ -124,7 +124,7 @@ export default function HomeView() {
               >
                 <BorderBeam />
                 <p className="text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
-                <p className="text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
+                <p className="text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function HomeView() {
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div {...fadeIn}>
               <SectionTitle title="A Legacy of Educational Excellence" subtitle="WELCOME TO SARC" align='left' />
-              <p className="mt-6 text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="mt-6 text-muted-foreground leading-relaxed">
                 Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
               </p>
               <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white mt-8'>
@@ -172,8 +172,8 @@ export default function HomeView() {
                   <div className="mb-4 inline-block bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full">
                     <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-800 dark:text-white">{item.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-300 mt-2 text-sm">{item.description}</p>
+                  <h3 className="text-xl font-bold text-foreground">{item.title}</h3>
+                  <p className="text-muted-foreground mt-2 text-sm">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -184,29 +184,29 @@ export default function HomeView() {
       {/* Testimonials */}
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:800px]">
+        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px]">
             <div
                 className="flex flex-row items-center gap-4"
                 style={{
-                    transform: "translateX(0px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(0deg)",
+                    transform: "translateX(-100px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)",
                 }}
             >
-                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
+                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
                     {firstRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
                     ))}
                 </Marquee>
-                <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
+                <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
                     {secondRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
                     ))}
                 </Marquee>
-                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden md:flex">
+                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden md:flex">
                      {thirdRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '3'} {...testimonial} />
                     ))}
                 </Marquee>
-                 <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden lg:flex">
+                 <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden lg:flex">
                     {fourthRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '4'} {...testimonial} />
                     ))}

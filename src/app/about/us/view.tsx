@@ -50,8 +50,8 @@ export default function AboutView() {
             >
                 <div className="grid md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-6">
-                        <h2 className="text-3xl font-bold text-slate-800">Nurturing Future Leaders</h2>
-                        <p className="text-slate-600 text-lg leading-relaxed">
+                        <h2 className="text-3xl font-bold text-foreground">Nurturing Future Leaders</h2>
+                        <p className="text-muted-foreground text-lg leading-relaxed">
                             Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
                         </p>
                     </div>
@@ -73,8 +73,8 @@ export default function AboutView() {
             >
                 <div className="testimonial-card p-12 text-center relative overflow-hidden">
                     <BorderBeam />
-                    <h2 className="text-3xl font-bold text-slate-800 mb-4 relative">Our Vision</h2>
-                    <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed relative">
+                    <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
+                    <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
                         To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
                     </p>
                 </div>
@@ -84,7 +84,7 @@ export default function AboutView() {
                  {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Mission</h2>
+                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Mission</h2>
                 <div className="grid md:grid-cols-2 gap-8">
                    {missionItems.map((item, index) => (
                        <motion.div 
@@ -94,7 +94,7 @@ export default function AboutView() {
                         className={`testimonial-card flex items-start gap-4 p-6 border-l-4 ${item.color}`}>
                            <BorderBeam />
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
-                           <p className="text-slate-700 text-lg">{item.text}</p>
+                           <p className="text-foreground text-lg">{item.text}</p>
                        </motion.div>
                    ))}
                 </div>
@@ -106,7 +106,7 @@ export default function AboutView() {
                 transition={{ duration: 0.7 }}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our History: Journey & Achievements</h2>
+                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our History: Journey & Achievements</h2>
                 <div className="max-w-3xl mx-auto">
                     <div className="space-y-8 relative pl-8 border-l-2 border-slate-200">
                         {milestones.map((item, index) => (
@@ -124,7 +124,7 @@ export default function AboutView() {
                                 <div className="testimonial-card p-6 ml-4">
                                     <BorderBeam />
                                     <p className="text-lg font-bold text-emerald-600">{item.year}</p>
-                                    <h3 className="text-xl font-semibold text-slate-800 mt-1">{item.event}</h3>
+                                    <h3 className="text-xl font-semibold text-foreground mt-1">{item.event}</h3>
                                 </div>
                             </motion.div>
                         ))}
@@ -136,7 +136,7 @@ export default function AboutView() {
                 {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Unique Features</h2>
+                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Unique Features</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {WHY_US_ITEMS.map((item, index) => (
                          <div key={item.title} className="testimonial-card p-8 text-center transition-transform hover:-translate-y-2 h-full">
@@ -144,8 +144,8 @@ export default function AboutView() {
                             <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <item.icon className="w-8 h-8" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">{item.title}</h3>
-                            <p className="text-slate-600">{item.description}</p>
+                            <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
+                            <p className="text-muted-foreground">{item.description}</p>
                         </div>
                     ))}
                 </div>
@@ -155,7 +155,7 @@ export default function AboutView() {
                  {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Future Goals</h2>
+                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Future Goals</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {futureGoals.map((goal, index) => (
                         <motion.div 
@@ -165,7 +165,7 @@ export default function AboutView() {
                             className="testimonial-card flex items-center gap-3 p-4">
                             <BorderBeam />
                             <Check className="w-5 h-5 text-emerald-500 shrink-0" />
-                            <p className="text-slate-700">{goal}</p>
+                            <p className="text-foreground">{goal}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -175,12 +175,12 @@ export default function AboutView() {
                 {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                 <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">Our Programs</h2>
+                 <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Programs</h2>
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
                     {['School (ECD-10)', 'Bridge Course', '+2 Science', '+2 Management', '+2 Law', 'CTEVT Programs'].map(program => (
                         <div key={program} className="testimonial-card p-4">
                             <BorderBeam />
-                            <p className="text-slate-700 font-semibold">{program}</p>
+                            <p className="text-foreground font-semibold">{program}</p>
                         </div>
                     ))}
                  </div>

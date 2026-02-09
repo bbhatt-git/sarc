@@ -111,8 +111,8 @@ export default function AdmissionsView() {
             <div className="container mx-auto px-4 max-w-4xl mt-16">
                  <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 relative overflow-hidden">
                     <BorderBeam />
-                    <h3 className="text-2xl font-bold mb-2 text-slate-800">Online Admission Form</h3>
-                    <p className="text-slate-600 mb-8">Fill out the form below to start the admission process.</p>
+                    <h3 className="text-2xl font-bold mb-2 text-foreground">Online Admission Form</h3>
+                    <p className="text-muted-foreground mb-8">Fill out the form below to start the admission process.</p>
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">

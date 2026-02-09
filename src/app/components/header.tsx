@@ -22,7 +22,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
         <button
           className={cn(
             'flex items-center gap-1.5 uppercase text-[12px] tracking-wider font-bold transition-colors',
-            isChildActive ? 'text-primary' : 'text-slate-700 dark:text-slate-300 hover:text-primary'
+            isChildActive ? 'text-primary' : 'text-foreground hover:text-primary'
           )}
         >
           {link.label}
@@ -58,8 +58,8 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
                             <child.icon className="w-4 h-4" />
                           </div>
                           <div>
-                            <span className="font-bold text-sm text-slate-800 dark:text-white">{child.label}</span>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">{child.description}</p>
+                            <span className="font-bold text-sm text-foreground">{child.label}</span>
+                            <p className="text-xs text-muted-foreground">{child.description}</p>
                           </div>
                         </div>
                       </Link>
@@ -80,7 +80,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
       href={link.href}
       className={cn(
         'uppercase text-[12px] tracking-wider font-bold transition-colors',
-        isActive ? 'text-primary' : 'text-slate-700 dark:text-slate-300 hover:text-primary'
+        isActive ? 'text-primary' : 'text-foreground hover:text-primary'
       )}
     >
       {link.label}
@@ -91,7 +91,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
 const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, isOpen: boolean, onToggle: () => void }) => {
   if (!link.children) {
     return (
-      <Link href={link.href} className="text-slate-700 dark:text-slate-200 hover:text-primary text-lg font-semibold" onClick={closeMenu}>
+      <Link href={link.href} className="text-foreground hover:text-primary text-lg font-semibold" onClick={closeMenu}>
         {link.label}
       </Link>
     );
@@ -99,7 +99,7 @@ const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }: { link: (typeof NA
 
   return (
     <div className='overflow-hidden'>
-      <button onClick={onToggle} className="w-full flex justify-between items-center text-lg font-semibold text-slate-700 dark:text-slate-200">
+      <button onClick={onToggle} className="w-full flex justify-between items-center text-lg font-semibold text-foreground">
         <span>{link.label}</span>
         <ChevronDown className={cn('w-5 h-5 transition-transform', isOpen && 'rotate-180')} />
       </button>
@@ -115,8 +115,8 @@ const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }: { link: (typeof NA
       >
         <div className='flex flex-col gap-4 pl-4 border-l-2 border-slate-200 dark:border-slate-700'>
           {link.children.map((child: any) => (
-            <Link key={child.label} href={child.href} className="text-slate-600 dark:text-slate-400 hover:text-primary" onClick={closeMenu}>
-                <span className='font-medium text-slate-700 dark:text-slate-300'>{child.label}</span>
+            <Link key={child.label} href={child.href} className="text-muted-foreground hover:text-primary" onClick={closeMenu}>
+                <span className='font-medium text-foreground'>{child.label}</span>
                 <p className='text-sm'>{child.description}</p>
             </Link>
           ))}
@@ -180,7 +180,7 @@ export default function Header() {
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
                   <div className="flex flex-col">
                       <span className="font-extrabold text-primary leading-tight">SARC EDU.</span>
-                      <span className="text-xs text-slate-700 dark:text-slate-300 tracking-[0.2em] font-medium">FOUNDATION</span>
+                      <span className="text-xs text-foreground tracking-[0.2em] font-medium">FOUNDATION</span>
                   </div>
               </Link>
               
@@ -192,11 +192,11 @@ export default function Header() {
 
               <div className="flex items-center gap-2">
                 <ThemeToggle />
-                <Button asChild className='hidden lg:flex rounded-full bg-slate-800 dark:bg-white text-white dark:text-slate-800 uppercase text-xs font-bold tracking-widest transition-transform hover:-translate-y-0.5'>
+                <Button asChild className='hidden lg:flex rounded-full bg-foreground text-background uppercase text-xs font-bold tracking-widest transition-transform hover:-translate-y-0.5'>
                   <Link href="/admissions">Admissions</Link>
                 </Button>
                 <div className="lg:hidden">
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className="text-slate-800 dark:text-white">
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className="text-foreground">
                     <Menu />
                   </Button>
                 </div>
@@ -229,7 +229,7 @@ export default function Header() {
                 </Link>
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-slate-600 dark:text-slate-300'>
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-muted-foreground'>
                     <X />
                   </Button>
                 </div>
@@ -245,7 +245,7 @@ export default function Header() {
                   />
                 ))}
               </nav>
-              <Button asChild className="w-full mt-12 bg-slate-800 text-white uppercase text-sm font-bold tracking-widest" size="lg">
+              <Button asChild className="w-full mt-12 bg-foreground text-background uppercase text-sm font-bold tracking-widest" size="lg">
                 <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Admissions</Link>
               </Button>
             </motion.div>

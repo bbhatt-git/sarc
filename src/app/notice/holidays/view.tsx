@@ -20,7 +20,7 @@ export default function HolidayNoticeView() {
                 <Card className="bg-white/50 backdrop-blur-lg relative overflow-hidden">
                     <BorderBeam />
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-slate-800">
+                        <CardTitle className="flex items-center gap-2 text-foreground">
                             <Info className="w-5 h-5" />
                             Upcoming Holidays (2081 B.S.)
                         </CardTitle>
@@ -40,9 +40,9 @@ export default function HolidayNoticeView() {
                                         <CalendarDays className="w-6 h-6 text-rose-600" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-bold text-slate-800">{holiday.name}</h3>
+                                        <h3 className="text-lg font-bold text-foreground">{holiday.name}</h3>
                                         <p className="font-semibold text-rose-600">{holiday.date}</p>
-                                        <p className="text-sm text-slate-600 mt-1">{holiday.details}</p>
+                                        <p className="text-sm text-muted-foreground mt-1">{holiday.details}</p>
                                     </div>
                                 </motion.div>
                             ))}
