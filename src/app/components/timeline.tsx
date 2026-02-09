@@ -1,7 +1,6 @@
 'use client';
 import { useScroll, useTransform, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
-import { Check } from 'lucide-react';
 
 interface TimelineEntry {
   title: string;
@@ -45,8 +44,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             className="flex justify-start pt-10 md:pt-20 md:gap-10"
           >
             <div className="sticky flex flex-col md:flex-row z-10 items-center top-40 self-start w-full">
-              <div className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 ring-4 ring-background left-2 md:left-0">
-                <Check className="w-5 h-5 text-white" />
+               <div className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-background ring-4 ring-background left-2 md:left-[5px]">
+                 <div className="h-4 w-4 rounded-full bg-muted border border-border p-2" />
               </div>
               <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-muted-foreground ">
                 {item.title}
@@ -65,7 +64,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: height > 0 ? height + 'px' : 'auto',
           }}
-          className="absolute md:left-[18px] left-[18px] top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-slate-200 dark:via-slate-700 to-transparent to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
+          className="absolute md:left-[18px] left-[18px] top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-border to-transparent to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
         >
           <motion.div
             style={{
