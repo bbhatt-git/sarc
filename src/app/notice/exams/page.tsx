@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 export default function ExamsPage() {
   const examNotices = getExcelData('ExamNotices');
-  const examResults = getExcelData('Results');
   
-  return <ExamsView initialNotices={examNotices} initialResults={examResults} />;
+  return <ExamsView initialNotices={examNotices} />;
 }

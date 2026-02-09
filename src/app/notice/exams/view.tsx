@@ -2,12 +2,17 @@
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
 import PageHeader from '@/app/components/page-header';
-import { FileText, ClipboardCheck, Download } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { FileText, ClipboardCheck, Download, Search, Loader2, UserCheck, UserX } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useState, FormEvent } from 'react';
+import { checkResult } from '@/app/actions';
+import type { Result } from '@/app/actions';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-// Define types for the data coming from Excel
+// Notice type remains the same
 type Notice = {
   title: string;
   date: string;
@@ -15,20 +20,86 @@ type Notice = {
   link?: string;
 };
 
-type Result = {
-  StudentName: string;
-  SymbolNo: string;
-  Grade: string;
-  GPA: number;
-  Remarks: 'Pass' | 'Fail';
-};
-
 interface ExamsViewProps {
   initialNotices: Notice[];
-  initialResults: Result[];
 }
 
-export default function ExamsView({ initialNotices, initialResults }: ExamsViewProps) {
+// Result card component
+const ResultCard = ({ result }: { result: Result }) => (
+    <Card className="mt-6 border-emerald-500 bg-emerald-500/5">
+        <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
+                <UserCheck />
+                Result Found
+            </CardTitle>
+            <CardDescription>Result for Symbol No: {result.SymbolNo}</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <p className="font-semibold text-foreground">Student Name</p>
+                    <p className="text-muted-foreground">{result.StudentName}</p>
+                </div>
+                <div>
+                    <p className="font-semibold text-foreground">Symbol Number</p>
+                    <p className="text-muted-foreground">{result.SymbolNo}</p>
+                </div>
+                <div>
+                    <p className="font-semibold text-foreground">Grade</p>
+                    <p className="text-foreground font-bold text-lg">{result.Grade}</p>
+                </div>
+                <div>
+                    <p className="font-semibold text-foreground">GPA</p>
+                    <p className="text-foreground font-bold text-lg">{result.GPA.toFixed(2)}</p>
+                </div>
+                <div className="col-span-2">
+                    <p className="font-semibold text-foreground">Remarks</p>
+                    <p className={cn(
+                        "font-bold text-lg",
+                        result.Remarks === 'Pass' ? 'text-emerald-600' : 'text-rose-600'
+                    )}>
+                        {result.Remarks}
+                    </p>
+                </div>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+
+export default function ExamsView({ initialNotices }: ExamsViewProps) {
+    const [symbolNo, setSymbolNo] = useState('');
+    const [dob, setDob] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [result, setResult] = useState<Result | null>(null);
+
+    const handleResultCheck = async (e: FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError(null);
+        setResult(null);
+
+        if (!symbolNo || !dob) {
+            setError("Please enter both Symbol Number and Date of Birth.");
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const foundResult = await checkResult(symbolNo, dob);
+            if (foundResult) {
+                setResult(foundResult);
+            } else {
+                setError("No result found for the provided Symbol Number and Date of Birth. Please check your inputs and try again.");
+            }
+        } catch (e) {
+            setError("An error occurred while checking your result. Please try again later.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div>
             <PageHeader title="Exams & Results" subtitle="Schedules and Outcomes" imageUrl="/images/hero/3.jpg" />
@@ -87,35 +158,61 @@ export default function ExamsView({ initialNotices, initialResults }: ExamsViewP
                     viewport={{ once: true, amount: 0.3 }}
                     className="mt-16"
                 >
-                    <h2 className="text-2xl font-bold text-foreground mb-6">Exam Results</h2>
-                     <Card className="testimonial-card">
-                        <CardContent className="p-0">
-                            {initialResults && initialResults.length > 0 ? (
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Student Name</TableHead>
-                                            <TableHead>Symbol No.</TableHead>
-                                            <TableHead>Grade</TableHead>
-                                            <TableHead>GPA</TableHead>
-                                            <TableHead>Remarks</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {initialResults.map((result, index) => (
-                                            <TableRow key={index}>
-                                                <TableCell className="font-medium">{result.StudentName}</TableCell>
-                                                <TableCell>{result.SymbolNo}</TableCell>
-                                                <TableCell>{result.Grade}</TableCell>
-                                                <TableCell>{result.GPA}</TableCell>
-                                                <TableCell className={cn(result.Remarks === 'Pass' ? 'text-emerald-600' : 'text-rose-600')}>{result.Remarks}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            ) : (
-                                <p className="p-6 text-muted-foreground">No results found.</p>
-                            )}
+                    <Card className="testimonial-card">
+                        <CardHeader>
+                            <CardTitle>Check Your Exam Result</CardTitle>
+                            <CardDescription>Enter your symbol number and date of birth to view your result.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form onSubmit={handleResultCheck} className="space-y-4">
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="symbolNo">Symbol Number</Label>
+                                        <Input
+                                            id="symbolNo"
+                                            value={symbolNo}
+                                            onChange={(e) => setSymbolNo(e.target.value)}
+                                            placeholder="e.g., 12345A"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="dob">Date of Birth (YYYY-MM-DD)</Label>
+                                        <Input
+                                            id="dob"
+                                            value={dob}
+                                            onChange={(e) => setDob(e.target.value)}
+                                            placeholder="e.g., 2005-04-15"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <Button type="submit" className="w-full sm:w-auto" disabled={isLoading}>
+                                    {isLoading ? (
+                                        <>
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            Checking...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Search className="mr-2 h-4 w-4" />
+                                            Check Result
+                                        </>
+                                    )}
+                                </Button>
+                            </form>
+
+                            <div className="mt-6">
+                                {error && (
+                                    <Alert variant="destructive">
+                                        <UserX className="h-4 w-4" />
+                                        <AlertTitle>Error</AlertTitle>
+                                        <AlertDescription>{error}</AlertDescription>
+                                    </Alert>
+                                )}
+                                {result && <ResultCard result={result} />}
+                            </div>
+
                         </CardContent>
                     </Card>
                 </motion.div>
