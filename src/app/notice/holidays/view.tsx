@@ -4,14 +4,17 @@ import { motion } from 'framer-motion';
 import { CalendarDays, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const holidays = [
-    { name: 'Dashain Vacation', date: 'Kartik 4 - Kartik 14, 2081', details: 'The college will remain closed for the auspicious occasion of Dashain.' },
-    { name: 'Tihar Holiday', date: 'Kartik 25 - Kartik 29, 2081', details: 'Wishing all our students and staff a happy and prosperous Tihar.' },
-    { name: 'Chhath Parva Holiday', date: 'Mangsir 4, 2081', details: 'The college will be closed to observe Chhath Parva.' },
-    { name: 'Winter Break', date: 'Poush 15 - Magh 1, 2081', details: 'Enjoy the winter break. The college will resume from Magh 2.' },
-];
+type Holiday = {
+    name: string;
+    date: string;
+    details: string;
+};
 
-export default function HolidayNoticeView() {
+interface HolidayNoticeViewProps {
+  initialHolidays: Holiday[];
+}
+
+export default function HolidayNoticeView({ initialHolidays }: HolidayNoticeViewProps) {
     return (
         <div>
             <PageHeader title="Holiday Notices" subtitle="Academic Calendar & Breaks" imageUrl="/images/hero/0.jpg" />
@@ -24,27 +27,31 @@ export default function HolidayNoticeView() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="space-y-6">
-                            {holidays.map((holiday, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, x: -50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.15 }}
-                                    viewport={{ once: true, amount: 0.5 }}
-                                    className="flex items-start gap-4 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border"
-                                >
-                                    <div className="bg-rose-100 p-3 rounded-full">
-                                        <CalendarDays className="w-6 h-6 text-rose-600" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold text-foreground">{holiday.name}</h3>
-                                        <p className="font-semibold text-rose-600">{holiday.date}</p>
-                                        <p className="text-sm text-muted-foreground mt-1">{holiday.details}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
+                        {initialHolidays && initialHolidays.length > 0 ? (
+                            <div className="space-y-6">
+                                {initialHolidays.map((holiday, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, x: -50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.5, delay: index * 0.15 }}
+                                        viewport={{ once: true, amount: 0.5 }}
+                                        className="flex items-start gap-4 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border"
+                                    >
+                                        <div className="bg-rose-100 p-3 rounded-full">
+                                            <CalendarDays className="w-6 h-6 text-rose-600" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-lg font-bold text-foreground">{holiday.name}</h3>
+                                            <p className="font-semibold text-rose-600">{holiday.date}</p>
+                                            <p className="text-sm text-muted-foreground mt-1">{holiday.details}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        ) : (
+                             <p className="text-muted-foreground text-center">No holiday notices found.</p>
+                        )}
                     </CardContent>
                 </Card>
             </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import GeneralNoticeView from './view';
+import { getExcelData } from '@/lib/excel-data';
 
 export const metadata: Metadata = {
   title: 'General Notices',
@@ -7,5 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function GeneralNoticePage() {
-  return <GeneralNoticeView />;
+  const generalNotices = getExcelData('GeneralNotices');
+  return <GeneralNoticeView initialNotices={generalNotices} />;
 }
