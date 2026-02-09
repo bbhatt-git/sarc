@@ -55,8 +55,9 @@ export default function HomeView() {
     viewport: { once: true, amount: 0.2 }
   };
 
-  const firstRow = TESTIMONIALS.slice(0, 3);
-  const secondRow = TESTIMONIALS.slice(3, 6);
+  const firstRow = TESTIMONIALS.slice(0, 2);
+  const secondRow = TESTIMONIALS.slice(2, 4);
+  const thirdRow = TESTIMONIALS.slice(4, 6);
 
   return (
     <motion.div
@@ -207,6 +208,11 @@ export default function HomeView() {
             <Marquee pauseOnHover className="[--duration:60s]">
               {secondRow.map((testimonial) => (
                 <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
+              ))}
+            </Marquee>
+            <Marquee pauseOnHover reverse className="[--duration:60s]">
+              {thirdRow.map((testimonial) => (
+                <TestimonialCard key={testimonial.author + '3'} {...testimonial} />
               ))}
             </Marquee>
         </div>
