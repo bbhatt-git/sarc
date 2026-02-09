@@ -31,20 +31,20 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="testimonial-card w-80 p-6">
-      <div className="flex items-center gap-4">
-        <Avatar>
-          <AvatarImage src={image} alt={author} />
-          <AvatarFallback>{author.charAt(0)}</AvatarFallback>
-        </Avatar>
-        <div>
-          <p className="font-bold text-foreground">{author}</p>
-          <p className="text-sm text-muted-foreground">{role}</p>
+    <div className="w-80 p-6 testimonial-card">
+        <div className="flex items-center gap-4">
+            <Avatar>
+                <AvatarImage src={image} alt={author}/>
+                <AvatarFallback>{author.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div>
+                <p className="font-bold text-foreground">{author}</p>
+                <p className="text-sm text-muted-foreground">{role}</p>
+            </div>
         </div>
-      </div>
-      <blockquote className="mt-4 text-foreground/90 italic before:content-['“'] after:content-['”']">
-        {text}
-      </blockquote>
+        <blockquote className="mt-4 text-foreground/90 italic before:content-['“'] after:content-['”']">
+            {text}
+        </blockquote>
     </div>
   );
 };
@@ -72,7 +72,7 @@ export default function HomeView() {
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden">
         <Carousel
-            className="w-full h-full"
+            className="absolute inset-0 w-full h-full"
             plugins={[
                 Autoplay({
                     delay: 5000,
@@ -100,35 +100,31 @@ export default function HomeView() {
         
         <div className="absolute inset-0 bg-black/60 z-10" />
 
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4"
-        >
+        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="mb-4 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20"
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p className="text-sm font-medium text-slate-200">Your Partner For Education</p>
+            <div className="mb-4 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 inline-block">
+              <p className="text-sm font-medium text-slate-200">Your Partner For Education</p>
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-shadow-lg max-w-4xl">
+              Welcome to SARC Education Foundation
+            </h1>
+            <h2 className="text-xl md:text-2xl text-slate-200 mt-4 text-shadow-md max-w-3xl">
+              Leading the way in Science & Management education in Far-West Nepal. Fostering academic excellence, moral integrity, and global competence since 2017.
+            </h2>
+            <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+              <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition-transform hover:scale-105'>
+                <Link href="/about/us">Learn More</Link>
+              </Button>
+              <Button asChild size="lg" className='rounded-full bg-sky-500/10 backdrop-blur-sm border border-sky-400/50 text-white hover:bg-emerald-600 hover:border-emerald-600 transition-all duration-300 hover:scale-105'>
+                <Link href="/admissions">Apply Now</Link>
+              </Button>
+            </div>
           </motion.div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-shadow-lg max-w-4xl">
-            Welcome to SARC Education Foundation
-          </h1>
-          <h2 className="text-xl md:text-2xl text-slate-200 mt-4 text-shadow-md max-w-3xl">
-            Leading the way in Science & Management education in Far-West Nepal. Fostering academic excellence, moral integrity, and global competence since 2017.
-          </h2>
-          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-900/30 transition-transform hover:scale-105'>
-              <Link href="/about/us">Learn More</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className='rounded-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-transform hover:scale-105'>
-              <Link href="/admissions">Apply Now</Link>
-            </Button>
-          </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Stats Section */}
