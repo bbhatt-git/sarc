@@ -37,6 +37,7 @@ export const HERO_IMAGES = [
     { src: '/images/hero/1.jpg', alt: 'Students in a modern classroom' },
     { src: '/images/hero/2.jpg', alt: 'A state-of-the-art science laboratory' },
     { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' },
+    { src: '/images/hero/4.jpg', alt: 'SARC students in the library' },
 ];
 
 export const STATS = [
