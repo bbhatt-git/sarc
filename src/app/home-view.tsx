@@ -153,7 +153,7 @@ export default function HomeView() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="w-full py-20 lg:py-28">
+      <section className="w-full py-20 lg:py-28 bg-transparent">
         <div className="container mx-auto px-4">
           <SectionTitle title="Why Choose SARC?" subtitle="OUR COMMITMENT" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
@@ -179,13 +179,8 @@ export default function HomeView() {
       {/* Testimonials */}
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <div
-                className="flex flex-row items-center gap-4"
-                style={{
-                    transform: "translateX(-100px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)",
-                }}
-            >
+        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
+            <div className="flex flex-row items-center gap-4">
                 <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
                     {firstRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
