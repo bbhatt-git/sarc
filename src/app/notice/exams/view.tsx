@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
 import PageHeader from '@/app/components/page-header';
-import { FileText, ClipboardCheck, Download, Search, Loader2, UserX, CheckCircle, XCircle } from 'lucide-react';
+import { FileText, ClipboardCheck, Download, Search, Loader2, UserX } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,7 +24,6 @@ interface ExamsViewProps {
   initialNotices: Notice[];
 }
 
-// Result card component
 const ResultDisplay = ({ result }: { result: Result }) => {
     const isPass = result.Remarks === 'Pass';
 
@@ -35,52 +34,38 @@ const ResultDisplay = ({ result }: { result: Result }) => {
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="mt-8"
         >
-            <Card className={cn(
-                "relative overflow-hidden border-2 shadow-lg",
-                isPass ? "border-emerald-500/50 bg-emerald-500/5 dark:bg-emerald-900/10" : "border-rose-500/50 bg-rose-500/5 dark:bg-rose-900/10"
+            <div className={cn(
+                "relative overflow-hidden rounded-2xl border p-6 shadow-lg backdrop-blur-md",
+                isPass 
+                    ? "border-emerald-500/30 bg-emerald-500/10" 
+                    : "border-rose-500/30 bg-rose-500/10"
             )}>
-                 <div className={cn(
-                    "absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-20",
-                    isPass ? "bg-emerald-500" : "bg-rose-500"
-                 )}></div>
-                <CardHeader>
-                    <div className="flex items-center gap-3">
-                        {isPass ? <CheckCircle className="h-8 w-8 text-emerald-500" /> : <XCircle className="h-8 w-8 text-rose-500" />}
-                        <div>
-                            <CardTitle className="text-xl">Result for {result.SymbolNo}</CardTitle>
-                            <CardDescription>
-                                {isPass ? `Congratulations, ${result.StudentName}!` : `Result details for ${result.StudentName}.`}
-                            </CardDescription>
-                        </div>
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+                    <div>
+                        <h3 className="text-xl font-bold text-foreground">{result.StudentName}</h3>
+                        <p className="text-sm text-muted-foreground">Symbol No: {result.SymbolNo} | DOB: {result.DOB}</p>
                     </div>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div className="bg-background/30 backdrop-blur-sm rounded-lg p-4 border">
-                            <p className="text-sm font-medium text-muted-foreground">Grade</p>
-                            <p className="text-3xl font-bold text-foreground">{result.Grade}</p>
-                        </div>
-                        <div className="bg-background/30 backdrop-blur-sm rounded-lg p-4 border">
-                            <p className="text-sm font-medium text-muted-foreground">GPA</p>
-                            <p className="text-3xl font-bold text-foreground">{result.GPA.toFixed(2)}</p>
-                        </div>
-                        <div className="bg-background/30 backdrop-blur-sm rounded-lg p-4 border col-span-2">
-                             <p className="text-sm font-medium text-muted-foreground">Remarks</p>
-                             <p className={cn(
-                                "text-3xl font-bold",
-                                isPass ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
-                            )}>
-                                {result.Remarks}
-                            </p>
-                        </div>
+                    <div className={cn(
+                        "rounded-md px-4 py-1 text-center font-bold text-white text-lg", 
+                        isPass ? "bg-emerald-600" : "bg-rose-600"
+                    )}>
+                        {result.Remarks}
                     </div>
-                     <div className="text-sm text-muted-foreground pt-4 border-t space-y-1">
-                        <p><span className='font-semibold text-foreground'>Student Name:</span> {result.StudentName}</p>
-                        <p><span className='font-semibold text-foreground'>Symbol Number:</span> {result.SymbolNo}</p>
-                        <p><span className='font-semibold text-foreground'>Date of Birth:</span> {result.DOB}</p>
+                </div>
+                
+                <div className="my-6 h-px bg-border/50" />
+
+                <div className="grid grid-cols-2 gap-4 text-center">
+                    <div className="rounded-lg bg-background/30 p-4">
+                        <p className="text-sm font-medium text-muted-foreground">Grade</p>
+                        <p className="text-5xl font-bold text-foreground">{result.Grade}</p>
                     </div>
-                </CardContent>
-            </Card>
+                    <div className="rounded-lg bg-background/30 p-4">
+                        <p className="text-sm font-medium text-muted-foreground">GPA</p>
+                        <p className="text-5xl font-bold text-foreground">{result.GPA.toFixed(2)}</p>
+                    </div>
+                </div>
+            </div>
         </motion.div>
     );
 };
@@ -131,36 +116,34 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
                     viewport={{ once: true, amount: 0.3 }}
                     className="mb-16"
                 >
-                    <Card className="testimonial-card">
-                        <CardHeader>
+                    <Card className="testimonial-card p-6">
+                        <CardHeader className="p-0 mb-6">
                             <CardTitle>Check Your Exam Result</CardTitle>
                             <CardDescription>Enter your symbol number and date of birth to view your result.</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <form onSubmit={handleResultCheck} className="space-y-4">
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="symbolNo">Symbol Number</Label>
-                                        <Input
-                                            id="symbolNo"
-                                            value={symbolNo}
-                                            onChange={(e) => setSymbolNo(e.target.value)}
-                                            placeholder="e.g., 12345A"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="dob">Date of Birth (YYYY-MM-DD)</Label>
-                                        <Input
-                                            id="dob"
-                                            value={dob}
-                                            onChange={(e) => setDob(e.target.value)}
-                                            placeholder="e.g., 2005-04-15"
-                                            required
-                                        />
-                                    </div>
+                        <CardContent className="p-0">
+                             <form onSubmit={handleResultCheck} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                                <div className="space-y-2 w-full md:col-span-1">
+                                    <Label htmlFor="symbolNo">Symbol Number</Label>
+                                    <Input
+                                        id="symbolNo"
+                                        value={symbolNo}
+                                        onChange={(e) => setSymbolNo(e.target.value)}
+                                        placeholder="e.g., 12345A"
+                                        required
+                                    />
                                 </div>
-                                <Button type="submit" className="w-full sm:w-auto" disabled={isLoading}>
+                                <div className="space-y-2 w-full md:col-span-1">
+                                    <Label htmlFor="dob">Date of Birth (YYYY-MM-DD)</Label>
+                                    <Input
+                                        id="dob"
+                                        value={dob}
+                                        onChange={(e) => setDob(e.target.value)}
+                                        placeholder="e.g., 2005-04-15"
+                                        required
+                                    />
+                                </div>
+                                <Button type="submit" className="w-full md:col-span-1" disabled={isLoading}>
                                     {isLoading ? (
                                         <>
                                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -239,3 +222,4 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
         </div>
     );
 }
+    
