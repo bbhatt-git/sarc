@@ -57,9 +57,9 @@ export default function HomeView() {
     viewport: { once: true, amount: 0.2 }
   };
   
-  const testimonialsRow1 = [...TESTIMONIALS.slice(0, 2), ...TESTIMONIALS.slice(0, 2), ...TESTIMONIALS.slice(0, 2)];
-  const testimonialsRow2 = [...TESTIMONIALS.slice(2, 4), ...TESTIMONIALS.slice(2, 4), ...TESTIMONIALS.slice(2, 4)];
-  const testimonialsRow3 = [...TESTIMONIALS.slice(4, 6), ...TESTIMONIALS.slice(4, 6), ...TESTIMONIALS.slice(4, 6)];
+  const testimonialsRow1 = [...TESTIMONIALS, ...TESTIMONIALS];
+  const testimonialsRow2 = [...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3), ...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3)];
+  const testimonialsRow3 = [...[...TESTIMONIALS].reverse(), ...[...TESTIMONIALS].reverse()];
 
   return (
     <motion.div
@@ -70,12 +70,7 @@ export default function HomeView() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden">
-        <div className="absolute inset-0 w-full h-full"
-            style={{
-                maskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
-            }}
-        >
+        <div className="absolute inset-0 w-full h-full">
         <Carousel
             className="absolute inset-0 w-full h-full"
             plugins={[
@@ -104,7 +99,7 @@ export default function HomeView() {
         </Carousel>
         </div>
         
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black/60 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/20 to-black/60 z-10" />
 
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
           <motion.div
@@ -132,7 +127,7 @@ export default function HomeView() {
           </motion.div>
         </div>
         <div 
-          className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent z-20"
+          className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-20"
           style={{
             maskImage: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="black" d="M0,192L48,176C96,160,192,128,288,133.3C384,139,480,181,576,186.7C672,192,768,160,864,138.7C960,117,1056,107,1152,112C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>\')',
             maskRepeat: 'no-repeat',
@@ -221,19 +216,19 @@ export default function HomeView() {
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
          <div className="relative mt-16 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <Marquee pauseOnHover reverse className="[--duration:120s]">
+            <Marquee pauseOnHover reverse className="[--duration:180s]">
               {testimonialsRow1.map((testimonial, index) => (
-                <TestimonialCard key={`${testimonial.author}-${index}`} {...testimonial} />
+                <TestimonialCard key={`row1-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee pauseOnHover className="[--duration:120s]">
+            <Marquee pauseOnHover className="[--duration:180s]">
               {testimonialsRow2.map((testimonial, index) => (
-                <TestimonialCard key={`${testimonial.author}-${index}`} {...testimonial} />
+                <TestimonialCard key={`row2-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee pauseOnHover reverse className="[--duration:120s]">
+            <Marquee pauseOnHover reverse className="[--duration:180s]">
               {testimonialsRow3.map((testimonial, index) => (
-                <TestimonialCard key={`${testimonial.author}-${index}`} {...testimonial} />
+                <TestimonialCard key={`row3-${index}`} {...testimonial} />
               ))}
             </Marquee>
         </div>
