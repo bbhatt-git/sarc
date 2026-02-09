@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
 import PageHeader from '@/app/components/page-header';
-import { FileText, ClipboardCheck, Download, Search, Loader2, UserX } from 'lucide-react';
+import { FileText, ClipboardCheck, Download, Search, Loader2, UserX, CheckCircle, XCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -34,38 +34,42 @@ const ResultDisplay = ({ result }: { result: Result }) => {
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="mt-8"
         >
-            <Card className={cn(
-                "overflow-hidden border-2",
-                isPass ? "border-primary" : "border-destructive"
+            <div className={cn(
+                "rounded-2xl border p-6 shadow-2xl shadow-black/10 backdrop-blur-xl",
+                isPass 
+                    ? "bg-primary/10 border-primary/20" 
+                    : "bg-destructive/10 border-destructive/20"
             )}>
-                <CardHeader className={cn(
-                    "p-4",
-                    isPass ? "bg-primary/10" : "bg-destructive/10"
+                <div className={cn(
+                    "flex flex-col sm:flex-row justify-between items-start gap-4 border-b pb-4",
+                     isPass ? "border-primary/20" : "border-destructive/20"
                 )}>
-                    <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
-                        <div>
-                            <CardTitle className="text-xl">{result.StudentName}</CardTitle>
-                            <CardDescription className="pt-1">Symbol No: {result.SymbolNo} | DOB: {result.DOB}</CardDescription>
-                        </div>
-                        <div className={cn(
-                            "rounded-full px-3 py-1 text-xs font-bold", 
-                            isPass ? "bg-primary text-primary-foreground" : "bg-destructive text-destructive-foreground"
-                        )}>
-                            {result.Remarks}
-                        </div>
-                    </div>
-                </CardHeader>
-                <CardContent className="p-6 grid grid-cols-2 gap-4 text-center">
                     <div>
-                        <p className="text-sm font-medium text-muted-foreground">Grade</p>
-                        <p className="text-5xl font-bold text-foreground">{result.Grade}</p>
+                        <h3 className="text-2xl font-bold text-foreground">{result.StudentName}</h3>
+                        <p className="text-sm text-muted-foreground">Symbol No: {result.SymbolNo} | DOB: {result.DOB}</p>
                     </div>
-                    <div>
-                        <p className="text-sm font-medium text-muted-foreground">GPA</p>
-                        <p className="text-5xl font-bold text-foreground">{result.GPA.toFixed(2)}</p>
+                    <div className={cn(
+                        "flex items-center gap-2 rounded-full px-4 py-1 text-base font-bold",
+                        isPass 
+                            ? "bg-primary text-primary-foreground" 
+                            : "bg-destructive text-destructive-foreground"
+                    )}>
+                        {isPass ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
+                        <span>{result.Remarks}</span>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
+                    <div className="rounded-xl bg-background/50 p-6">
+                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Grade</p>
+                        <p className="text-6xl font-extrabold text-foreground mt-1">{result.Grade}</p>
+                    </div>
+                    <div className="rounded-xl bg-background/50 p-6">
+                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">GPA</p>
+                        <p className="text-6xl font-extrabold text-foreground mt-1">{result.GPA.toFixed(2)}</p>
+                    </div>
+                </div>
+            </div>
         </motion.div>
     );
 };
@@ -116,7 +120,7 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
                     viewport={{ once: true, amount: 0.3 }}
                     className="mb-16"
                 >
-                    <Card className="testimonial-card p-6">
+                    <Card className="bg-card/50 backdrop-blur-lg border-border/30 rounded-2xl shadow-xl p-8">
                         <CardHeader className="p-0 mb-6">
                             <CardTitle>Check Your Exam Result</CardTitle>
                             <CardDescription>Enter your symbol number and date of birth to view your result.</CardDescription>
