@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Marquee } from '@/app/components/marquee';
+import { cn } from '@/lib/utils';
 
 const galleryImages = Array.from({ length: 33 }, (_, i) => `/images/gallery/${i + 1}.jpg`);
 
@@ -21,6 +21,42 @@ const MarqueeImage = ({ src, onImageClick }: { src: string; onImageClick: () => 
                 fill
                 className="object-cover transition-all duration-300 hover:scale-110"
             />
+        </div>
+    );
+};
+
+const MarqueeRow = ({ images, reverse, duration, onImageClick }: { images: string[], reverse: boolean, duration: string, onImageClick: (src: string) => void }) => {
+    return (
+        <div className="group flex flex-row overflow-hidden p-2 [--gap:1rem]">
+            <div
+                style={{ '--duration': duration } as React.CSSProperties}
+                className={cn(
+                    'flex shrink-0 animate-marquee justify-around [gap:var(--gap)]',
+                    {
+                        'group-hover:[animation-play-state:paused]': true,
+                        '[animation-direction:reverse]': reverse,
+                    }
+                )}
+            >
+                {images.map((src) => (
+                    <MarqueeImage key={src} src={src} onImageClick={() => onImageClick(src)} />
+                ))}
+            </div>
+            <div
+                aria-hidden="true"
+                style={{ '--duration': duration } as React.CSSProperties}
+                className={cn(
+                    'flex shrink-0 animate-marquee justify-around [gap:var(--gap)]',
+                    {
+                        'group-hover:[animation-play-state:paused]': true,
+                        '[animation-direction:reverse]': reverse,
+                    }
+                )}
+            >
+                {images.map((src) => (
+                    <MarqueeImage key={`${src}-clone`} src={src} onImageClick={() => onImageClick(src)} />
+                ))}
+            </div>
         </div>
     );
 };
@@ -63,19 +99,11 @@ export default function GalleryView() {
         subtitle="Moments of Discovery and Community at SARC"
         imageUrl="/images/hero/4.jpg"
       />
-      <div className="flex flex-col gap-4 py-20 overflow-hidden">
-          <Marquee pauseOnHover reverse className="[--duration:50s]">
-              {row1.map((src) => <MarqueeImage key={src} src={src} onImageClick={() => handleImageClick(src)} />)}
-          </Marquee>
-          <Marquee pauseOnHover className="[--duration:40s]">
-              {row2.map((src) => <MarqueeImage key={src} src={src} onImageClick={() => handleImageClick(src)} />)}
-          </Marquee>
-          <Marquee pauseOnHover reverse className="[--duration:50s]">
-              {row3.map((src) => <MarqueeImage key={src} src={src} onImageClick={() => handleImageClick(src)} />)}
-          </Marquee>
-          <Marquee pauseOnHover className="[--duration:40s]">
-              {row4.map((src) => <MarqueeImage key={src} src={src} onImageClick={() => handleImageClick(src)} />)}
-          </Marquee>
+      <div className="flex flex-col py-20 overflow-hidden">
+          <MarqueeRow images={row1} reverse={true} duration="50s" onImageClick={handleImageClick} />
+          <MarqueeRow images={row2} reverse={false} duration="40s" onImageClick={handleImageClick} />
+          <MarqueeRow images={row3} reverse={true} duration="50s" onImageClick={handleImageClick} />
+          <MarqueeRow images={row4} reverse={false} duration="40s" onImageClick={handleImageClick} />
       </div>
       <AnimatePresence>
         {selectedImage !== null && (
