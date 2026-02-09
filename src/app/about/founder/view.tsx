@@ -22,7 +22,7 @@ export default function FounderView() {
                     >
                         <div className="relative w-full h-96 overflow-hidden rounded-2xl shadow-lg">
                             <Image
-                                src="https://picsum.photos/seed/401/800/600"
+                                src="/images/founder.png"
                                 alt="Laxman Basnet, Founder of SARC"
                                 fill
                                 className="object-cover"

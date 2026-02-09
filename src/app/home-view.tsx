@@ -6,10 +6,12 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-import { TESTIMONIALS, STATS, WHY_US_ITEMS } from '@/lib/constants';
+import { TESTIMONIALS, STATS, WHY_US_ITEMS, HERO_IMAGES } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
 import { cn } from '@/lib/utils';
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const TestimonialCard = ({
   image,
@@ -44,11 +46,6 @@ const TestimonialCard = ({
   );
 };
 
-const galleryImages = Array.from(
-  { length: 30 },
-  (_, i) => `/images/gallery/${i}.jpg`
-);
-
 
 export default function HomeView() {
   const fadeIn = {
@@ -60,8 +57,6 @@ export default function HomeView() {
 
   const firstRow = TESTIMONIALS.slice(0, 3);
   const secondRow = TESTIMONIALS.slice(3, 6);
-  const thirdRow = TESTIMONIALS.slice(0, 3);
-  const fourthRow = TESTIMONIALS.slice(3, 6);
 
   return (
     <motion.div
@@ -72,6 +67,33 @@ export default function HomeView() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
+        <Carousel
+          className="absolute inset-0 w-full h-full"
+          plugins={[
+            Autoplay({
+              delay: 5000,
+              stopOnInteraction: false,
+            }),
+          ]}
+          opts={{
+            loop: true,
+          }}
+        >
+          <CarouselContent className="-ml-0">
+            {HERO_IMAGES.map((image, index) => (
+              <CarouselItem key={index} className="pl-0">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+        
         <div className="absolute inset-0 bg-black/60 z-10" />
 
         <motion.div
@@ -96,7 +118,7 @@ export default function HomeView() {
           </h2>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-900/30 transition-transform hover:scale-105'>
-              <Link href="/about/why-us">Explore Programs</Link>
+              <Link href="/academics/programs">Explore Programs</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className='rounded-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-transform hover:scale-105'>
               <Link href="/admissions">Online Admission</Link>
@@ -139,10 +161,10 @@ export default function HomeView() {
             </motion.div>
             <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg">
                 <Image
-                    src="https://picsum.photos/seed/homepage/800/600"
-                    alt="Students collaborating in a modern classroom at SARC"
+                    src="/images/hero/3.jpg"
+                    alt="Students collaborating on a project"
                     fill
-                    className="object-cover w-full h-full"
+                    className="object-cover"
                 />
             </motion.div>
           </div>
@@ -177,28 +199,16 @@ export default function HomeView() {
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
          <div className="relative mt-16 flex h-96 w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <div className="flex flex-row items-center justify-center gap-4">
-                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
-                    {firstRow.map((testimonial) => (
-                        <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
-                    ))}
-                </Marquee>
-                <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
-                    {secondRow.map((testimonial) => (
-                        <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
-                    ))}
-                </Marquee>
-                <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden md:flex">
-                     {thirdRow.map((testimonial) => (
-                        <TestimonialCard key={testimonial.author + '3'} {...testimonial} />
-                    ))}
-                </Marquee>
-                 <Marquee reverse pauseOnHover vertical className="[--duration:30s] [--gap:1rem] hidden lg:flex">
-                    {fourthRow.map((testimonial) => (
-                        <TestimonialCard key={testimonial.author + '4'} {...testimonial} />
-                    ))}
-                </Marquee>
-            </div>
+            <Marquee pauseOnHover reverse className="[--duration:60s]">
+              {firstRow.map((testimonial) => (
+                <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
+              ))}
+            </Marquee>
+            <Marquee pauseOnHover className="[--duration:60s]">
+              {secondRow.map((testimonial) => (
+                <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
+              ))}
+            </Marquee>
         </div>
       </section>
 

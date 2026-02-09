@@ -66,7 +66,7 @@ export default function AboutView() {
                     </div>
                     <div className="relative h-96 overflow-hidden rounded-2xl shadow-lg">
                         <Image
-                            src="https://picsum.photos/seed/about1/800/600"
+                            src="/images/hero/0.jpg"
                             alt="SARC Campus"
                             fill
                             className="object-cover"
