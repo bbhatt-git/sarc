@@ -4,12 +4,12 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 import { TESTIMONIALS, STATS, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
 import { cn } from '@/lib/utils';
-import { ThreeDMarquee } from '@/app/components/3d-marquee';
 
 const TestimonialCard = ({
   image,
@@ -31,7 +31,7 @@ const TestimonialCard = ({
       )}
     >
       <div className="flex flex-row items-center gap-2">
-        <img className="rounded-full" width="32" height="32" alt={author} src={image} />
+        <Image className="rounded-full" width="32" height="32" alt={author} src={image} />
         <div className="flex flex-col">
           <figcaption className="text-sm font-medium text-foreground">
             {author}
@@ -72,17 +72,13 @@ export default function HomeView() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
-        <ThreeDMarquee
-          images={galleryImages}
-          className="pointer-events-none absolute inset-0 h-full w-full"
-        />
-        <div className="absolute inset-0 bg-black/80" />
+        <div className="absolute inset-0 bg-black/60 z-10" />
 
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4"
+          className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4"
         >
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -142,9 +138,10 @@ export default function HomeView() {
               </Button>
             </motion.div>
             <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg">
-                <img
+                <Image
                     src="https://picsum.photos/seed/homepage/800/600"
-                    alt="Students collaborating"
+                    alt="Students collaborating in a modern classroom at SARC"
+                    fill
                     className="object-cover w-full h-full"
                 />
             </motion.div>
@@ -179,8 +176,8 @@ export default function HomeView() {
       {/* Testimonials */}
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <div className="flex flex-row items-center gap-4">
+         <div className="relative mt-16 flex h-96 w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
+            <div className="flex flex-row items-center justify-center gap-4">
                 <Marquee pauseOnHover vertical className="[--duration:30s] [--gap:1rem]">
                     {firstRow.map((testimonial) => (
                         <TestimonialCard key={testimonial.author + '1'} {...testimonial} />

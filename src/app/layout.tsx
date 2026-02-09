@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'SARC Education Foundation',
     images: [
       {
-        url: '/images/hero/0.jpg',
+        url: '/images/sarc.png',
         width: 1200,
         height: 630,
         alt: 'SARC Education Foundation Campus',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'SARC Education Foundation | Pioneering Futures',
     description: 'Join SARC for a holistic education experience in Kathmandu. Discover our +2 programs in Science, Management, and Law.',
-    images: ['/images/hero/0.jpg'],
+    images: ['/images/sarc.png'],
   },
   robots: {
     index: true,
@@ -91,11 +91,11 @@ export default function RootLayout({
                       timeScale={0.5}
                       height={3.5}
                       baseWidth={5.5}
-                      scale={3.6}
                       hueShift={0}
                       colorFrequency={1}
                       noise={0}
                       glow={1}
+                      suspendWhenOffscreen={true}
                     />
                 </div>
             </div>

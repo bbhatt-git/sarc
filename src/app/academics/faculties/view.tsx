@@ -17,12 +17,12 @@ export default function FacultiesView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="testimonial-card p-6 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+                            className="bg-card/50 backdrop-blur-sm border rounded-2xl shadow-lg overflow-hidden p-6 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
                         >
                             <div className="relative w-32 h-32 mx-auto">
                                 <Image
                                     src={staff.image}
-                                    alt={staff.name}
+                                    alt={`Portrait of ${staff.name}`}
                                     fill
                                     className="rounded-full object-cover"
                                 />

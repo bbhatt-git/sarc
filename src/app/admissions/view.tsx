@@ -19,6 +19,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 const admissionSchema = z.object({
   parentName: z.string().min(2, "Parent's name is too short"),
   studentName: z.string().min(2, "Student's name is too short"),
+  studentAge: z.preprocess((val) => Number(val), z.number().min(3, "Student's age must be at least 3")),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(10, "Invalid phone number"),
   gradeLevel: z.string().min(1, "Please select a grade level"),
@@ -68,7 +69,6 @@ export default function AdmissionsView() {
         
         const inquiryData = {
           ...validatedFields.data,
-          studentAge: Number(validatedFields.data.studentAge),
           createdAt: serverTimestamp(),
         };
 
@@ -124,35 +124,42 @@ export default function AdmissionsView() {
                                 {state.errors?.studentName && <p className="text-sm text-rose-500">{state.errors.studentName[0]}</p>}
                             </div>
                         </div>
-                        <div className="grid md:grid-cols-2 gap-6">
+                         <div className="grid md:grid-cols-2 gap-6">
                              <div className="space-y-2">
+                                <Label htmlFor="studentAge">Student's Age</Label>
+                                <Input id="studentAge" name="studentAge" type="number" placeholder="e.g. 16" required />
+                                {state.errors?.studentAge && <p className="text-sm text-rose-500">{state.errors.studentAge[0]}</p>}
+                            </div>
+                            <div className="space-y-2">
                                 <Label htmlFor="email">Email Address</Label>
                                 <Input id="email" name="email" type="email" placeholder="you@example.com" required />
                                 {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
                             </div>
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <Label htmlFor="phone">Phone Number</Label>
                                 <Input id="phone" name="phone" type="tel" placeholder="+977-..." required />
                                 {state.errors?.phone && <p className="text-sm text-rose-500">{state.errors.phone[0]}</p>}
                             </div>
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="gradeLevel">Applying for Grade</Label>
-                            <Select name="gradeLevel">
-                              <SelectTrigger id="gradeLevel">
-                                <SelectValue placeholder="Select a grade" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="ecd">ECD</SelectItem>
-                                <SelectItem value="1-8">School Section (1-8)</SelectItem>
-                                <SelectItem value="9-10">School Section (9-10)</SelectItem>
-                                <SelectItem value="bridge">Bridge Course</SelectItem>
-                                <SelectItem value="+2-science">+2 Science</SelectItem>
-                                <SelectItem value="+2-management">+2 Management</SelectItem>
-                                <SelectItem value="+2-law">+2 Law</SelectItem>
-                              </SelectContent>
-                            </Select>
-                            {state.errors?.gradeLevel && <p className="text-sm text-rose-500">{state.errors.gradeLevel[0]}</p>}
+                             <div className="space-y-2">
+                                <Label htmlFor="gradeLevel">Applying for Grade</Label>
+                                <Select name="gradeLevel">
+                                  <SelectTrigger id="gradeLevel">
+                                    <SelectValue placeholder="Select a grade" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="ecd">ECD</SelectItem>
+                                    <SelectItem value="1-8">School Section (1-8)</SelectItem>
+                                    <SelectItem value="9-10">School Section (9-10)</SelectItem>
+                                    <SelectItem value="bridge">Bridge Course</SelectItem>
+                                    <SelectItem value="+2-science">+2 Science</SelectItem>
+                                    <SelectItem value="+2-management">+2 Management</SelectItem>
+                                    <SelectItem value="+2-law">+2 Law</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                {state.errors?.gradeLevel && <p className="text-sm text-rose-500">{state.errors.gradeLevel[0]}</p>}
+                            </div>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="message">Message (Optional)</Label>
