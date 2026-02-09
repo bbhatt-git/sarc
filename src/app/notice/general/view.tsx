@@ -1,5 +1,5 @@
 'use client';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { Bell, FileText, Calendar } from 'lucide-react';
 
@@ -12,9 +12,9 @@ const notices = [
 
 export default function GeneralNoticeView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="General Notices" subtitle="Stay Informed" />
-            <div className="container mx-auto px-4 mt-16 max-w-4xl">
+        <div>
+            <PageHeader title="General Notices" subtitle="Stay Informed" imageUrl="/images/hero/4.jpg" />
+            <div className="container mx-auto px-4 py-20 max-w-4xl">
                 <div className="space-y-8">
                     {notices.map((notice, index) => (
                         <motion.div

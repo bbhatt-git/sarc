@@ -1,5 +1,5 @@
 'use client';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { Timeline } from '@/app/components/timeline';
 
@@ -23,13 +23,17 @@ export default function HistoryView() {
     }));
 
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Our History" subtitle="Journey & Achievements" />
+        <div>
+            <PageHeader 
+                title="Our History" 
+                subtitle="Journey & Achievements" 
+                imageUrl="/images/hero/2.jpg" 
+            />
             <motion.section
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
-                className="container mx-auto px-4"
+                className="container mx-auto px-4 py-20"
             >
                 <Timeline data={timelineData} />
             </motion.section>

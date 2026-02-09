@@ -2,9 +2,9 @@
 import { WHY_US_ITEMS } from '@/lib/constants';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import SectionTitle from '@/app/components/section-title';
 import { Check } from 'lucide-react';
 import { Timeline } from '@/app/components/timeline';
+import PageHeader from '@/app/components/page-header';
 
 const milestones = [
     { year: 2017, event: "SARC Education Foundation was established with a vision for modern education." },
@@ -50,12 +50,12 @@ export default function AboutView() {
     }));
 
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="About Us" subtitle="Our Story, Vision, and Commitment" />
+        <div>
+            <PageHeader title="About Us" subtitle="Our Story, Vision, and Commitment" imageUrl="/images/hero/4.jpg" />
             
             <motion.section 
                 {...fadeIn}
-                className="container mx-auto px-4 mt-16"
+                className="container mx-auto px-4 py-20"
             >
                 <div className="grid md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-6">
@@ -77,7 +77,7 @@ export default function AboutView() {
 
             <motion.section 
                 {...fadeIn}
-                className="container mx-auto px-4 mt-24"
+                className="container mx-auto px-4"
             >
                 <div className="bg-card/50 backdrop-blur-sm border p-12 text-center relative overflow-hidden rounded-2xl">
                     <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
@@ -152,7 +152,7 @@ export default function AboutView() {
 
              <motion.section 
                 {...fadeIn}
-                className="container mx-auto px-4 mt-24"
+                className="container mx-auto px-4 mt-24 pb-12"
             >
                  <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Programs</h2>
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">

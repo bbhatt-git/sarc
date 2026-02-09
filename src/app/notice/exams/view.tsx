@@ -2,7 +2,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import { FileText, ClipboardCheck, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,9 +19,9 @@ const examNotices = [
 
 export default function ExamsView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Exams & Results" subtitle="Schedules and Outcomes" />
-            <div className="container mx-auto px-4 mt-16 max-w-5xl">
+        <div>
+            <PageHeader title="Exams & Results" subtitle="Schedules and Outcomes" imageUrl="/images/hero/3.jpg" />
+            <div className="container mx-auto px-4 py-20 max-w-5xl">
                 {/* Result Checker Card - making it more prominent */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

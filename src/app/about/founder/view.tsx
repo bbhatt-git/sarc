@@ -1,17 +1,21 @@
 'use client';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function FounderView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Our Founder" subtitle="The Visionary Behind SARC" />
+        <div>
+            <PageHeader 
+                title="Our Founder" 
+                subtitle="The Visionary Behind SARC" 
+                imageUrl="/images/hero/1.jpg" 
+            />
             <motion.section 
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
-                className="container mx-auto px-4 mt-16"
+                className="container mx-auto px-4 py-20"
             >
                 <div className="grid md:grid-cols-3 gap-12 items-center">
                     <motion.div 

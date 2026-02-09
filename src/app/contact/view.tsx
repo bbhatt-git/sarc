@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import SectionTitle from '../components/section-title';
+import PageHeader from '../components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
 
@@ -77,14 +77,14 @@ export default function ContactView() {
     }
 
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Contact Us" subtitle="Get In Touch With SARC" />
+        <div>
+            <PageHeader title="Contact Us" subtitle="Get In Touch With SARC" imageUrl="/images/hero/2.jpg" />
 
             <motion.section 
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="container mx-auto px-4 mt-16"
+                className="container mx-auto px-4 py-20"
             >
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
                     <div className="bg-card/50 backdrop-blur-sm shadow-lg rounded-2xl p-8 md:p-12 relative overflow-hidden">

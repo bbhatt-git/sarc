@@ -1,6 +1,6 @@
 
 'use client';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { Library, Bus, Utensils, HeartHandshake, Computer, Microscope } from 'lucide-react';
 
@@ -15,9 +15,9 @@ const services = [
 
 export default function ServicesView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Student Services" subtitle="Supporting Your Journey" />
-            <div className="container mx-auto px-4 mt-16">
+        <div>
+            <PageHeader title="Student Services" subtitle="Supporting Your Journey" imageUrl="/images/hero/0.jpg" />
+            <div className="container mx-auto px-4 py-20">
                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {services.map((service, index) => (
                          <motion.div

@@ -2,13 +2,13 @@
 import { STAFF_MEMBERS } from '@/lib/constants';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 
 export default function FacultiesView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Our Faculties" subtitle="Expert Educators, Passionate Mentors" />
-            <div className="container mx-auto px-4 mt-16">
+        <div>
+            <PageHeader title="Our Faculties" subtitle="Expert Educators, Passionate Mentors" imageUrl="/images/hero/3.jpg" />
+            <div className="container mx-auto px-4 py-20">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {STAFF_MEMBERS.map((staff, index) => (
                         <motion.div 

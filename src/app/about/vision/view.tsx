@@ -1,7 +1,7 @@
 'use client';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 
 const futureGoals = [
     "Upgrade all labs with state-of-the-art equipment.",
@@ -28,58 +28,60 @@ export default function VisionView() {
     };
     
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Vision, Mission & Values" subtitle="The principles that guide us" />
+        <div>
+            <PageHeader title="Vision, Mission & Values" subtitle="The principles that guide us" imageUrl="/images/hero/0.jpg" />
             
-            <motion.section 
-                {...fadeIn}
-                className="container mx-auto px-4 mt-16"
-            >
-                <div className="bg-card/50 backdrop-blur-sm shadow-lg rounded-2xl p-12 text-center relative overflow-hidden">
-                    <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
-                    <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
-                        To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
-                    </p>
-                </div>
-            </motion.section>
+            <div className="py-20">
+                <motion.section 
+                    {...fadeIn}
+                    className="container mx-auto px-4"
+                >
+                    <div className="bg-card/50 backdrop-blur-sm shadow-lg rounded-2xl p-12 text-center relative overflow-hidden">
+                        <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
+                        <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
+                            To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
+                        </p>
+                    </div>
+                </motion.section>
 
-            <motion.section 
-                 {...fadeIn}
-                className="container mx-auto px-4 mt-24"
-            >
-                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Mission</h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                   {missionItems.map((item, index) => (
-                       <motion.div 
-                        key={index} 
-                        {...fadeIn}
-                        transition={{...fadeIn.transition, delay: index * 0.1}}
-                        className={`bg-card/50 backdrop-blur-sm shadow rounded-lg p-6 flex items-start gap-4 border-l-4 ${item.color} relative overflow-hidden`}>
-                           <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
-                           <p className="text-foreground text-lg">{item.text}</p>
-                       </motion.div>
-                   ))}
-                </div>
-            </motion.section>
-
-            <motion.section 
-                 {...fadeIn}
-                className="container mx-auto px-4 mt-24"
-            >
-                <h2 className="text-3xl font-bold text-foreground text-center mb-12">Future Goals</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {futureGoals.map((goal, index) => (
-                        <motion.div 
+                <motion.section 
+                     {...fadeIn}
+                    className="container mx-auto px-4 mt-24"
+                >
+                    <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Mission</h2>
+                    <div className="grid md:grid-cols-2 gap-8">
+                       {missionItems.map((item, index) => (
+                           <motion.div 
                             key={index} 
                             {...fadeIn}
                             transition={{...fadeIn.transition, delay: index * 0.1}}
-                            className="flex items-center gap-3 bg-card/50 backdrop-blur-sm p-4 rounded-lg border border-border relative overflow-hidden">
-                            <Check className="w-5 h-5 text-emerald-500 shrink-0" />
-                            <p className="text-foreground">{goal}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </motion.section>
+                            className={`bg-card/50 backdrop-blur-sm shadow rounded-lg p-6 flex items-start gap-4 border-l-4 ${item.color} relative overflow-hidden`}>
+                               <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
+                               <p className="text-foreground text-lg">{item.text}</p>
+                           </motion.div>
+                       ))}
+                    </div>
+                </motion.section>
+
+                <motion.section 
+                     {...fadeIn}
+                    className="container mx-auto px-4 mt-24"
+                >
+                    <h2 className="text-3xl font-bold text-foreground text-center mb-12">Future Goals</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {futureGoals.map((goal, index) => (
+                            <motion.div 
+                                key={index} 
+                                {...fadeIn}
+                                transition={{...fadeIn.transition, delay: index * 0.1}}
+                                className="flex items-center gap-3 bg-card/50 backdrop-blur-sm p-4 rounded-lg border border-border relative overflow-hidden">
+                                <Check className="w-5 h-5 text-emerald-500 shrink-0" />
+                                <p className="text-foreground">{goal}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.section>
+            </div>
         </div>
     )
 }

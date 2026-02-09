@@ -1,5 +1,5 @@
 'use client';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { Award, Star, Trophy, Medal } from 'lucide-react';
 
@@ -14,9 +14,9 @@ const achievements = [
 
 export default function AchievementsView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Our Achievements" subtitle="A Legacy of Excellence" />
-            <div className="container mx-auto px-4 mt-16">
+        <div>
+            <PageHeader title="Our Achievements" subtitle="A Legacy of Excellence" imageUrl="/images/hero/2.jpg" />
+            <div className="container mx-auto px-4 py-20">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {achievements.map((item, index) => (
                         <motion.div

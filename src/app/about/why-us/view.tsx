@@ -2,14 +2,14 @@
 'use client';
 import { WHY_US_ITEMS } from '@/lib/constants';
 import { motion } from 'framer-motion';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 
 export default function WhyUsView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Why Choose SARC?" subtitle="Our Commitment to Your Success" />
+        <div>
+            <PageHeader title="Why Choose SARC?" subtitle="Our Commitment to Your Success" imageUrl="/images/hero/1.jpg" />
 
-            <div className="container mx-auto px-4 mt-16">
+            <div className="container mx-auto px-4 py-20">
                 <div className="grid md:grid-cols-2 gap-8">
                     {WHY_US_ITEMS.map((item, index) => (
                         <motion.div

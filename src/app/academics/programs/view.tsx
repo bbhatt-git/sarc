@@ -1,6 +1,6 @@
 
 'use client';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { BookOpen, FlaskConical, Landmark, Briefcase, GraduationCap, Home } from 'lucide-react';
 
@@ -15,9 +15,9 @@ const programs = [
 
 export default function ProgramsView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Academic Programs" subtitle="Pathways to Your Future" />
-            <div className="container mx-auto px-4 mt-16">
+        <div>
+            <PageHeader title="Academic Programs" subtitle="Pathways to Your Future" imageUrl="/images/hero/4.jpg" />
+            <div className="container mx-auto px-4 py-20">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {programs.map((program, index) => (
                         <motion.div

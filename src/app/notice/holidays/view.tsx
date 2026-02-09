@@ -1,5 +1,5 @@
 'use client';
-import SectionTitle from '@/app/components/section-title';
+import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { CalendarDays, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,9 +13,9 @@ const holidays = [
 
 export default function HolidayNoticeView() {
     return (
-        <div className="pt-24 pb-20">
-            <SectionTitle title="Holiday Notices" subtitle="Academic Calendar & Breaks" />
-            <div className="container mx-auto px-4 mt-16 max-w-4xl">
+        <div>
+            <PageHeader title="Holiday Notices" subtitle="Academic Calendar & Breaks" imageUrl="/images/hero/0.jpg" />
+            <div className="container mx-auto px-4 py-20 max-w-4xl">
                 <Card className="bg-card/50 backdrop-blur-lg relative overflow-hidden">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-foreground">

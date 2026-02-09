@@ -4,14 +4,19 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import Autoplay from "embla-carousel-autoplay"
 
 import { TESTIMONIALS, STATS, WHY_US_ITEMS, HERO_IMAGES } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
 
 
 const TestimonialCard = ({
@@ -53,15 +58,6 @@ export default function HomeView() {
     viewport: { once: true, amount: 0.2 }
   };
   
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   const firstRow = TESTIMONIALS.slice(0, 2);
   const secondRow = TESTIMONIALS.slice(2, 4);
   const thirdRow = TESTIMONIALS.slice(4, 6);
@@ -75,24 +71,32 @@ export default function HomeView() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={currentImage}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 2, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full h-full"
-          >
-            <Image
-              src={HERO_IMAGES[currentImage].src}
-              alt={HERO_IMAGES[currentImage].alt}
-              fill
-              className="object-cover"
-              priority={currentImage === 0}
-            />
-          </motion.div>
-        </AnimatePresence>
+        <Carousel
+            className="w-full h-full"
+            plugins={[
+                Autoplay({
+                    delay: 5000,
+                    stopOnInteraction: false,
+                }),
+            ]}
+            opts={{
+                loop: true,
+            }}
+        >
+            <CarouselContent className="h-full">
+                {HERO_IMAGES.map((image, index) => (
+                    <CarouselItem key={index} className="relative h-full">
+                        <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            className="object-cover"
+                            priority={index === 0}
+                        />
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+        </Carousel>
         
         <div className="absolute inset-0 bg-black/60 z-10" />
 
