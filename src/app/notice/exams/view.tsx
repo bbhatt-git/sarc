@@ -34,38 +34,38 @@ const ResultDisplay = ({ result }: { result: Result }) => {
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="mt-8"
         >
-            <div className={cn(
-                "relative overflow-hidden rounded-2xl border p-6 shadow-lg backdrop-blur-md",
-                isPass 
-                    ? "border-emerald-500/30 bg-emerald-500/10" 
-                    : "border-rose-500/30 bg-rose-500/10"
+            <Card className={cn(
+                "overflow-hidden border-2",
+                isPass ? "border-primary" : "border-destructive"
             )}>
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+                <CardHeader className={cn(
+                    "p-4",
+                    isPass ? "bg-primary/10" : "bg-destructive/10"
+                )}>
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
+                        <div>
+                            <CardTitle className="text-xl">{result.StudentName}</CardTitle>
+                            <CardDescription className="pt-1">Symbol No: {result.SymbolNo} | DOB: {result.DOB}</CardDescription>
+                        </div>
+                        <div className={cn(
+                            "rounded-full px-3 py-1 text-xs font-bold", 
+                            isPass ? "bg-primary text-primary-foreground" : "bg-destructive text-destructive-foreground"
+                        )}>
+                            {result.Remarks}
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="p-6 grid grid-cols-2 gap-4 text-center">
                     <div>
-                        <h3 className="text-xl font-bold text-foreground">{result.StudentName}</h3>
-                        <p className="text-sm text-muted-foreground">Symbol No: {result.SymbolNo} | DOB: {result.DOB}</p>
-                    </div>
-                    <div className={cn(
-                        "rounded-md px-4 py-1 text-center font-bold text-white text-lg", 
-                        isPass ? "bg-emerald-600" : "bg-rose-600"
-                    )}>
-                        {result.Remarks}
-                    </div>
-                </div>
-                
-                <div className="my-6 h-px bg-border/50" />
-
-                <div className="grid grid-cols-2 gap-4 text-center">
-                    <div className="rounded-lg bg-background/30 p-4">
                         <p className="text-sm font-medium text-muted-foreground">Grade</p>
                         <p className="text-5xl font-bold text-foreground">{result.Grade}</p>
                     </div>
-                    <div className="rounded-lg bg-background/30 p-4">
+                    <div>
                         <p className="text-sm font-medium text-muted-foreground">GPA</p>
                         <p className="text-5xl font-bold text-foreground">{result.GPA.toFixed(2)}</p>
                     </div>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </motion.div>
     );
 };
