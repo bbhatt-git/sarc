@@ -7,7 +7,7 @@ import Footer from '@/app/components/footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { Poppins } from 'next/font/google';
 import { ThemeProvider } from './components/theme-provider';
-import { BackgroundController } from './components/background-controller';
+import Aurora from './components/Aurora';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -84,7 +84,16 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
-            <BackgroundController />
+            <div className="fixed inset-0 -z-10 overflow-hidden">
+                <div className="absolute h-full w-full mix-blend-multiply dark:mix-blend-color-dodge">
+                    <Aurora
+                      colorStops={["#50c878","#14e6d8","#d58bd3"]}
+                      blend={0.5}
+                      amplitude={1.0}
+                      speed={1}
+                    />
+                </div>
+            </div>
             <Header />
             <main className="flex-grow pt-28 relative z-10">{children}</main>
             <Footer />
