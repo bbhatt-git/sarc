@@ -6,7 +6,8 @@ export function getExcelData(sheetName: string): any[] {
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', 'notice.xlsx');
     const file = fs.readFileSync(filePath);
-    const workbook = XLSX.read(file, { type: 'buffer' });
+    // Use cellDates: true to parse dates as JS Date objects
+    const workbook = XLSX.read(file, { type: 'buffer', cellDates: true });
     
     const sheet = workbook.Sheets[sheetName];
     if (!sheet) {
@@ -14,8 +15,27 @@ export function getExcelData(sheetName: string): any[] {
       return [];
     }
     
-    const data = XLSX.utils.sheet_to_json(sheet);
-    return data;
+    const data: any[] = XLSX.utils.sheet_to_json(sheet);
+
+    // Sanitize data: convert Date objects to strings and ensure plain objects
+    const sanitizedData = data.map(row => {
+      const newRow: { [key: string]: any } = {};
+      for (const key in row) {
+        if (Object.prototype.hasOwnProperty.call(row, key)) {
+          const value = row[key];
+          if (value instanceof Date) {
+            // Format date to 'YYYY-MM-DD' to make it a plain string
+            newRow[key] = value.toISOString().split('T')[0];
+          } else {
+            newRow[key] = value;
+          }
+        }
+      }
+      return newRow;
+    });
+
+    return sanitizedData;
+
   } catch (error: any) {
     if (error.code === 'ENOENT') {
       console.error('Error: The file /public/data/notice.xlsx could not be found.');
