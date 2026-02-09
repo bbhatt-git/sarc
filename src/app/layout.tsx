@@ -87,7 +87,7 @@ export default function RootLayout({
           <FirebaseClientProvider>
             <BackgroundController />
             <Header />
-            <main className="flex-grow pt-28 relative z-10">{children}</main>
+            <main className="flex-grow relative z-10">{children}</main>
             <Footer />
             <Toaster />
           </FirebaseClientProvider>

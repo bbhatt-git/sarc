@@ -70,7 +70,7 @@ export default function HomeView() {
       className="flex flex-col items-center"
     >
       {/* Hero Section */}
-      <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
+      <section className="relative w-full h-screen text-white overflow-hidden">
         <Carousel
             className="w-full h-full"
             plugins={[
@@ -122,10 +122,10 @@ export default function HomeView() {
           </h2>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-900/30 transition-transform hover:scale-105'>
-              <Link href="/academics/programs">Explore Programs</Link>
+              <Link href="/about/us">Learn More</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className='rounded-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-transform hover:scale-105'>
-              <Link href="/admissions">Online Admission</Link>
+              <Link href="/admissions">Apply Now</Link>
             </Button>
           </div>
         </motion.div>
