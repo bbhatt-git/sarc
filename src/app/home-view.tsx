@@ -79,9 +79,9 @@ export default function HomeView() {
             loop: true,
           }}
         >
-          <CarouselContent className="-ml-0">
+          <CarouselContent className="-ml-0 h-full">
             {HERO_IMAGES.map((image, index) => (
-              <CarouselItem key={index} className="pl-0 relative">
+              <CarouselItem key={index} className="pl-0 relative h-full">
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -172,7 +172,7 @@ export default function HomeView() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="w-full py-20 lg:py-28 bg-transparent">
+      <section className="w-full py-20 lg:py-28 bg-card/20">
         <div className="container mx-auto px-4">
           <SectionTitle title="Why Choose SARC?" subtitle="OUR COMMITMENT" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
