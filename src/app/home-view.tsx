@@ -46,7 +46,7 @@ const TestimonialCard = ({
 
 const galleryImages = Array.from(
   { length: 30 },
-  (_, i) => `/images/gallery/${i + 1}.jpg`
+  (_, i) => `/images/gallery/${i}.jpg`
 );
 
 
@@ -179,7 +179,7 @@ export default function HomeView() {
       {/* Testimonials */}
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px]">
+        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
             <div
                 className="flex flex-row items-center gap-4"
                 style={{
@@ -207,9 +207,6 @@ export default function HomeView() {
                     ))}
                 </Marquee>
             </div>
-
-            <div className="from-background pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b"></div>
-            <div className="from-background pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t"></div>
         </div>
       </section>
 
