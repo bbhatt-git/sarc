@@ -81,7 +81,7 @@ export default function HomeView() {
         >
           <CarouselContent className="-ml-0">
             {HERO_IMAGES.map((image, index) => (
-              <CarouselItem key={index} className="pl-0">
+              <CarouselItem key={index} className="pl-0 relative">
                 <Image
                   src={image.src}
                   alt={image.alt}
