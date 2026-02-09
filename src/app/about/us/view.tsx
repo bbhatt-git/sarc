@@ -79,7 +79,7 @@ export default function AboutView() {
                 {...fadeIn}
                 className="container mx-auto px-4 mt-24"
             >
-                <div className="bg-card border p-12 text-center relative overflow-hidden rounded-2xl">
+                <div className="bg-card/50 backdrop-blur-sm border p-12 text-center relative overflow-hidden rounded-2xl">
                     <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
                     <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
                         To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
@@ -98,7 +98,7 @@ export default function AboutView() {
                         key={index} 
                         {...fadeIn}
                         transition={{...fadeIn.transition, delay: index * 0.1}}
-                        className={`bg-card flex items-start gap-4 p-6 border-l-4 ${item.color}`}>
+                        className={`bg-card/50 backdrop-blur-sm flex items-start gap-4 p-6 border-l-4 ${item.color}`}>
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
                            <p className="text-foreground text-lg">{item.text}</p>
                        </motion.div>
@@ -120,7 +120,7 @@ export default function AboutView() {
                 <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Unique Features</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {WHY_US_ITEMS.map((item, index) => (
-                         <div key={item.title} className="bg-card border p-8 text-center transition-transform hover:-translate-y-2 h-full rounded-2xl">
+                         <div key={item.title} className="bg-card/50 backdrop-blur-sm border p-8 text-center transition-transform hover:-translate-y-2 h-full rounded-2xl">
                             <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <item.icon className="w-8 h-8" />
                             </div>
@@ -142,7 +142,7 @@ export default function AboutView() {
                             key={index} 
                             {...fadeIn}
                             transition={{...fadeIn.transition, delay: index * 0.1}}
-                            className="bg-card border flex items-center gap-3 p-4 rounded-2xl">
+                            className="bg-card/50 backdrop-blur-sm border flex items-center gap-3 p-4 rounded-2xl">
                             <Check className="w-5 h-5 text-emerald-500 shrink-0" />
                             <p className="text-foreground">{goal}</p>
                         </motion.div>
@@ -157,7 +157,7 @@ export default function AboutView() {
                  <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Programs</h2>
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
                     {['School (ECD-10)', 'Bridge Course', '+2 Science', '+2 Management', '+2 Law', 'CTEVT Programs'].map(program => (
-                        <div key={program} className="bg-card border p-4 rounded-2xl">
+                        <div key={program} className="bg-card/50 backdrop-blur-sm border p-4 rounded-2xl">
                             <p className="text-foreground font-semibold">{program}</p>
                         </div>
                     ))}

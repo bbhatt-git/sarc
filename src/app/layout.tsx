@@ -87,7 +87,7 @@ export default function RootLayout({
             <div className="fixed inset-0 -z-10 overflow-hidden">
                 <div className="absolute h-full w-full mix-blend-multiply dark:mix-blend-color-dodge">
                     <Aurora
-                      colorStops={["#50c878","#14e6d8","#d58bd3"]}
+                      colorStops={["#10b981", "#38bdf8", "#8b5cf6"]}
                       blend={0.5}
                       amplitude={1.0}
                       speed={1}

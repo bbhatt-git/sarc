@@ -16,7 +16,7 @@ export default function HolidayNoticeView() {
         <div className="pt-24 pb-20">
             <SectionTitle title="Holiday Notices" subtitle="Academic Calendar & Breaks" />
             <div className="container mx-auto px-4 mt-16 max-w-4xl">
-                <Card className="bg-white/50 backdrop-blur-lg relative overflow-hidden">
+                <Card className="bg-card/50 backdrop-blur-lg relative overflow-hidden">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-foreground">
                             <Info className="w-5 h-5" />
@@ -32,7 +32,7 @@ export default function HolidayNoticeView() {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.15 }}
                                     viewport={{ once: true, amount: 0.5 }}
-                                    className="flex items-start gap-4 p-4 rounded-lg bg-slate-50 border border-slate-200"
+                                    className="flex items-start gap-4 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border"
                                 >
                                     <div className="bg-rose-100 p-3 rounded-full">
                                         <CalendarDays className="w-6 h-6 text-rose-600" />

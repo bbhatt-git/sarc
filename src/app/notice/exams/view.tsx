@@ -17,7 +17,7 @@ export default function ExamsView() {
         <div className="pt-24 pb-20">
             <SectionTitle title="Exams & Results" subtitle="Schedules and Outcomes" />
             <div className="container mx-auto px-4 mt-16 max-w-5xl">
-                <Card className="shadow-lg relative overflow-hidden">
+                <Card className="shadow-lg relative overflow-hidden bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Examination Notices</CardTitle>
                         <CardDescription>Find all exam-related announcements, routines, and results here.</CardDescription>
@@ -31,7 +31,7 @@ export default function ExamsView() {
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.4, delay: index * 0.1 }}
                                     viewport={{ once: true, amount: 0.5 }}
-                                    className="flex items-center justify-between p-4 rounded-lg bg-slate-50 border border-slate-200"
+                                    className="flex items-center justify-between p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border"
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className={`p-3 rounded-full ${notice.type === 'Result' ? 'bg-emerald-100' : 'bg-sky-100'}`}>

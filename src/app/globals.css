@@ -69,6 +69,6 @@
 
 @layer components {
   .testimonial-card {
-    @apply relative bg-card border rounded-2xl shadow-lg overflow-hidden;
+    @apply relative bg-card/50 backdrop-blur-sm border rounded-2xl shadow-lg overflow-hidden;
   }
 }
