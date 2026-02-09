@@ -1,39 +1,50 @@
 'use client';
 
-import DomeGallery from '@/app/components/DomeGallery';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import PageHeader from '@/app/components/page-header';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const galleryImages = Array.from({ length: 41 }, (_, i) => ({
   src: `/images/gallery/${i}.jpg`,
   alt: `SARC gallery image ${i + 1}`,
 }));
 
-
 export default function GalleryView() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Render a placeholder during SSR to avoid hydration mismatch
-    return <div style={{ width: '100%', height: 'calc(100vh - 112px)' }} />;
-  }
-
   return (
-    <div style={{ width: '100%', height: 'calc(100vh - 112px)' }}>
-      <DomeGallery
-        images={galleryImages}
-        fit={1}
-        minRadius={300}
-        maxVerticalRotationDeg={0}
-        segments={34}
-        dragDampening={1.6}
-        grayscale={false}
+    <div>
+      <PageHeader
+        title="Our Gallery"
+        subtitle="Moments of Discovery and Community at SARC"
+        imageUrl="/images/hero/4.jpg"
       />
+      <div className="container mx-auto px-4 py-20">
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ staggerChildren: 0.05 }}
+            className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"
+        >
+          {galleryImages.map((image, index) => (
+            <motion.div
+              key={index}
+              variants={{
+                  hidden: { opacity: 0, y: 50 },
+                  visible: { opacity: 1, y: 0 }
+              }}
+              className="overflow-hidden rounded-2xl shadow-lg break-inside-avoid group"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={500}
+                height={500}
+                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }
