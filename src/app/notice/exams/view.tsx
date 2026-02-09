@@ -29,44 +29,44 @@ const ResultDisplay = ({ result }: { result: Result }) => {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="mt-8"
-        >
-            <div className={cn(
-                "rounded-2xl border p-6 shadow-2xl shadow-black/10 backdrop-blur-xl",
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className={cn(
+                "mt-8 rounded-2xl p-px",
+                "bg-gradient-to-br",
                 isPass 
-                    ? "bg-primary/10 border-primary/20" 
-                    : "bg-destructive/10 border-destructive/20"
-            )}>
-                <div className={cn(
-                    "flex flex-col sm:flex-row justify-between items-start gap-4 border-b pb-4",
-                     isPass ? "border-primary/20" : "border-destructive/20"
-                )}>
+                    ? "from-emerald-500/50 via-sky-500/50 to-emerald-500/50" 
+                    : "from-rose-500/50 via-red-500/50 to-rose-500/50"
+            )}
+        >
+            <div className="rounded-[15px] bg-card/80 backdrop-blur-2xl p-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-border/50 pb-4">
                     <div>
                         <h3 className="text-2xl font-bold text-foreground">{result.StudentName}</h3>
-                        <p className="text-sm text-muted-foreground">Symbol No: {result.SymbolNo} | DOB: {result.DOB}</p>
+                        <p className="text-sm text-muted-foreground">
+                            Symbol No: {result.SymbolNo} &nbsp;&middot;&nbsp; DOB: {result.DOB}
+                        </p>
                     </div>
                     <div className={cn(
-                        "flex items-center gap-2 rounded-full px-4 py-1 text-base font-bold",
+                        "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold",
                         isPass 
-                            ? "bg-primary text-primary-foreground" 
-                            : "bg-destructive text-destructive-foreground"
+                            ? "bg-emerald-500/10 text-emerald-500" 
+                            : "bg-rose-500/10 text-rose-500"
                     )}>
                         {isPass ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
                         <span>{result.Remarks}</span>
                     </div>
                 </div>
-
-                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
-                    <div className="rounded-xl bg-background/50 p-6">
-                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Grade</p>
-                        <p className="text-6xl font-extrabold text-foreground mt-1">{result.Grade}</p>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center mt-6">
+                    <div className="bg-background/30 rounded-xl p-6">
+                        <p className="text-sm font-medium text-muted-foreground">Grade</p>
+                        <p className="text-6xl font-extrabold text-foreground tracking-tight">{result.Grade}</p>
                     </div>
-                    <div className="rounded-xl bg-background/50 p-6">
-                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">GPA</p>
-                        <p className="text-6xl font-extrabold text-foreground mt-1">{result.GPA.toFixed(2)}</p>
+                    <div className="bg-background/30 rounded-xl p-6">
+                        <p className="text-sm font-medium text-muted-foreground">GPA</p>
+                        <p className="text-6xl font-extrabold text-foreground tracking-tight">{result.GPA.toFixed(2)}</p>
                     </div>
                 </div>
             </div>
@@ -120,7 +120,7 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
                     viewport={{ once: true, amount: 0.3 }}
                     className="mb-16"
                 >
-                    <Card className="bg-card/50 backdrop-blur-lg border-border/30 rounded-2xl shadow-xl p-8">
+                    <Card className="testimonial-card p-6 md:p-8 bg-card/70 backdrop-blur-xl">
                         <CardHeader className="p-0 mb-6">
                             <CardTitle>Check Your Exam Result</CardTitle>
                             <CardDescription>Enter your symbol number and date of birth to view your result.</CardDescription>
@@ -226,4 +226,3 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
         </div>
     );
 }
-    
