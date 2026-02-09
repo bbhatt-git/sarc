@@ -3,16 +3,15 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
+import { TESTIMONIALS, STATS, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
 import { BorderBeam } from './components/BorderBeam';
 import { cn } from '@/lib/utils';
+import { ThreeDMarquee } from '@/app/components/3d-marquee';
 
 const TestimonialCard = ({
   image,
@@ -34,7 +33,7 @@ const TestimonialCard = ({
     >
       <BorderBeam />
       <div className="flex flex-row items-center gap-2">
-        <Image className="rounded-full" width="32" height="32" alt={author} src={image} />
+        <img className="rounded-full" width="32" height="32" alt={author} src={image} />
         <div className="flex flex-col">
           <figcaption className="text-sm font-medium text-slate-800 dark:text-white">
             {author}
@@ -47,19 +46,13 @@ const TestimonialCard = ({
   );
 };
 
+const galleryImages = Array.from(
+  { length: 30 },
+  (_, i) => `/images/gallery/${i + 1}.jpg`
+);
+
 
 export default function HomeView() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === HERO_IMAGES.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 7000);
-    return () => clearInterval(timer);
-  }, []);
-
   const fadeIn = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
@@ -81,32 +74,11 @@ export default function HomeView() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
-        <AnimatePresence initial={false}>
-            <motion.div
-                key={currentImageIndex}
-                className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{
-                    opacity: 1,
-                    scale: 1,
-                    transition: { duration: 4, ease: "easeOut" },
-                }}
-                exit={{
-                    opacity: 0,
-                    scale: 1.05,
-                    transition: { duration: 3, ease: "easeIn" },
-                }}
-            >
-                <Image
-                    src={HERO_IMAGES[currentImageIndex].src}
-                    alt={HERO_IMAGES[currentImageIndex].alt}
-                    fill
-                    className="object-cover"
-                    priority={currentImageIndex === 0}
-                />
-            </motion.div>
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-slate-900/60" />
+        <ThreeDMarquee
+          images={galleryImages}
+          className="pointer-events-none absolute inset-0 h-full w-full"
+        />
+        <div className="absolute inset-0 bg-black/80" />
 
         <motion.div
           initial={{ y: 20, opacity: 0 }}
@@ -174,11 +146,10 @@ export default function HomeView() {
             </motion.div>
             <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg">
                 <BorderBeam />
-                <Image
+                <img
                     src="https://picsum.photos/seed/homepage/800/600"
                     alt="Students collaborating"
-                    fill
-                    className="object-cover"
+                    className="object-cover w-full h-full"
                 />
             </motion.div>
           </div>

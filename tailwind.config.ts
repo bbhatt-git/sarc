@@ -130,5 +130,12 @@ export default {
         { values: theme('textShadow') }
       )
     },
+    function ({ addUtilities }: { addUtilities: any }) {
+      addUtilities({
+        '.transform-3d': {
+          'transform-style': 'preserve-3d',
+        },
+      })
+    },
   ],
 } satisfies Config;
