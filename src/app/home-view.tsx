@@ -2,7 +2,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Quote } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,8 +10,42 @@ import { useState, useEffect } from 'react';
 
 import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
-import Marquee from './components/marquee';
+import { Marquee } from './components/marquee';
 import { BorderBeam } from './components/BorderBeam';
+import { cn } from '@/lib/utils';
+
+const TestimonialCard = ({
+  image,
+  author,
+  role,
+  text,
+}: {
+  image: string;
+  author: string;
+  role: string;
+  text: string;
+}) => {
+  return (
+    <figure
+      className={cn(
+        "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+        "border-slate-200/50 bg-white/30 backdrop-blur-xl dark:border-slate-800/50 dark:bg-slate-900/30"
+      )}
+    >
+      <div className="flex flex-row items-center gap-2">
+        <Image className="rounded-full" width="32" height="32" alt={author} src={image} />
+        <div className="flex flex-col">
+          <figcaption className="text-sm font-medium text-slate-800 dark:text-white">
+            {author}
+          </figcaption>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{role}</p>
+        </div>
+      </div>
+      <blockquote className="mt-2 text-sm text-slate-600 dark:text-slate-300">{text}</blockquote>
+    </figure>
+  );
+};
+
 
 export default function HomeView() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -21,7 +55,7 @@ export default function HomeView() {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === HERO_IMAGES.length - 1 ? 0 : prevIndex + 1
       );
-    }, 7000); // Change image every 7 seconds to allow for fade
+    }, 7000);
     return () => clearInterval(timer);
   }, []);
 
@@ -31,6 +65,9 @@ export default function HomeView() {
     transition: { duration: 0.7, ease: 'easeOut' },
     viewport: { once: true, amount: 0.2 }
   };
+
+  const firstRow = TESTIMONIALS.slice(0, 3);
+  const secondRow = TESTIMONIALS.slice(3, 6);
 
   return (
     <motion.div
@@ -171,47 +208,42 @@ export default function HomeView() {
       </section>
       
       {/* Testimonials */}
-      <section className="w-full py-20 lg:py-28 overflow-hidden">
+      <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-        <div className="mt-16 space-y-8">
-            <Marquee>
-                {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                    <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal testimonial-card">
-                        <BorderBeam />
-                        <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
-                        <div className="relative z-10 flex flex-col h-full p-6">
-                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-3 mt-4 pt-4 border-t border-slate-200/20 dark:border-white/10'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />
-                                <div>
-                                    <h4 className="font-semibold text-slate-800 dark:text-white">{testimonial.author}</h4>
-                                    <p className='text-sm text-slate-500 dark:text-slate-400'>{testimonial.role}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </Marquee>
-            <Marquee direction="right">
-                {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
-                     <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal testimonial-card">
-                        <BorderBeam />
-                        <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
-                        <div className="relative z-10 flex flex-col h-full p-6">
-                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>
-                            <div className='flex items-center gap-3 mt-4 pt-4 border-t border-slate-200/20 dark:border-white/10'>
-                                <Image src={testimonial.image} alt={testimonial.author} width={40} height={40} className="rounded-full border-2 border-white/50" />
-                                <div>
-                                    <h4 className="font-semibold text-slate-800 dark:text-white">{testimonial.author}</h4>
-                                    <p className='text-sm text-slate-500 dark:text-slate-400'>{testimonial.role}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </Marquee>
+        <div className="relative mt-16 flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:800px]">
+            <div
+                className="flex flex-row items-center gap-4"
+                style={{
+                    transform: "translateX(0px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(0deg)",
+                }}
+            >
+                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
+                    {firstRow.map((testimonial) => (
+                        <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
+                    ))}
+                </Marquee>
+                <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem]">
+                    {secondRow.map((testimonial) => (
+                        <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
+                    ))}
+                </Marquee>
+                <Marquee pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden md:flex">
+                     {firstRow.map((testimonial) => (
+                        <TestimonialCard key={testimonial.author + '3'} {...testimonial} />
+                    ))}
+                </Marquee>
+                 <Marquee reverse pauseOnHover vertical className="[--duration:60s] [--gap:1rem] hidden lg:flex">
+                    {secondRow.map((testimonial) => (
+                        <TestimonialCard key={testimonial.author + '4'} {...testimonial} />
+                    ))}
+                </Marquee>
+            </div>
+
+            <div className="from-background pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b"></div>
+            <div className="from-background pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t"></div>
         </div>
       </section>
+
 
        {/* CTA Footer */}
       <section className="w-full mt-20">

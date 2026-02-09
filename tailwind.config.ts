@@ -78,8 +78,13 @@ export default {
             height: '0',
           },
         },
-        'marquee-scroll': {
-          to: { transform: 'translateX(-50%)' },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
         },
         'blob': {
           '0%': {
@@ -99,7 +104,8 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'marquee-scroll': 'marquee-scroll 120s linear infinite',
+        'marquee': 'marquee var(--duration) linear infinite',
+        'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
         'blob': 'blob 25s infinite alternate ease-in-out',
       },
       textShadow: {
