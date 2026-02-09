@@ -73,31 +73,8 @@
     @apply relative bg-card/50 backdrop-blur-sm border rounded-2xl shadow-lg overflow-hidden transition-all duration-300;
   }
 
-  .testimonial-card::before,
-  .testimonial-card::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: conic-gradient(from var(--angle, 0deg), hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.8), hsl(var(--primary) / 0.3));
-    z-index: -1;
-    border-radius: inherit;
-    animation: 3s linear 0s infinite rotate;
-    opacity: 0;
-    transition: opacity 0.4s ease-out;
-  }
-
-  .testimonial-card::after {
-    filter: blur(10px);
-  }
-
   .testimonial-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px hsl(var(--primary) / 0.1), 0 8px 10px -6px hsl(var(--primary) / 0.1);
-  }
-  
-  .testimonial-card:hover::before,
-  .testimonial-card:hover::after {
-    opacity: 1;
+    @apply -translate-y-1 shadow-2xl border-primary/20;
   }
 }
 
@@ -106,11 +83,5 @@
     syntax: '<angle>';
     initial-value: 0deg;
     inherits: false;
-  }
-
-  @keyframes rotate {
-    to {
-      --angle: 360deg;
-    }
   }
 }
