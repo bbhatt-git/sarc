@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ExamsView from './view';
+import { getExcelData } from '@/lib/excel-data';
 
 export const metadata: Metadata = {
   title: 'Exams & Results',
@@ -7,5 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default function ExamsPage() {
-  return <ExamsView />;
+  const examNotices = getExcelData('Notices');
+  const examResults = getExcelData('Results');
+  
+  return <ExamsView initialNotices={examNotices} initialResults={examResults} />;
 }
