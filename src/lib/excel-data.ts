@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 
 export function getExcelData(sheetName: string): any[] {
   try {
-    const filePath = path.join(process.cwd(), 'data', 'school_data.xlsx');
+    const filePath = path.join(process.cwd(), 'public', 'data', 'notice.xlsx');
     const file = fs.readFileSync(filePath);
     const workbook = XLSX.read(file, { type: 'buffer' });
     
@@ -18,7 +18,7 @@ export function getExcelData(sheetName: string): any[] {
     return data;
   } catch (error: any) {
     if (error.code === 'ENOENT') {
-      console.error('Error: The file /data/school_data.xlsx could not be found.');
+      console.error('Error: The file /public/data/notice.xlsx could not be found.');
     } else {
       console.error('An error occurred while reading the Excel file:', error);
     }
