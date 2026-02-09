@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Autoplay from "embla-carousel-autoplay"
 
@@ -72,6 +72,10 @@ export default function HomeView() {
       <section className="relative w-full h-screen text-white overflow-hidden">
         <Carousel
             className="absolute inset-0 w-full h-full"
+            style={{
+                maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+            }}
             plugins={[
                 Autoplay({
                     delay: 5000,
@@ -115,7 +119,7 @@ export default function HomeView() {
               Leading the way in Science & Management education in Far-West Nepal. Fostering academic excellence, moral integrity, and global competence since 2017.
             </h2>
             <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-              <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition-transform hover:scale-105'>
+               <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition-transform hover:scale-105'>
                 <Link href="/about/us">Learn More</Link>
               </Button>
               <Button asChild size="lg" className='rounded-full bg-sky-500/10 backdrop-blur-sm border border-sky-400/50 text-white hover:bg-emerald-600 hover:border-emerald-600 transition-all duration-300 hover:scale-105'>
@@ -123,11 +127,6 @@ export default function HomeView() {
               </Button>
             </div>
           </motion.div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 z-10 text-background leading-none">
-          <svg preserveAspectRatio="none" viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M0,50 C240,90 480,30 720,50 C960,70 1200,10 1440,50 L1440,100 L0,100 Z"></path>
-          </svg>
         </div>
       </section>
 
@@ -142,8 +141,9 @@ export default function HomeView() {
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
                 className="testimonial-card p-8"
               >
-                <p className="text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
-                <p className="text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
+                <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                <p className="relative text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
+                <p className="relative text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -163,12 +163,13 @@ export default function HomeView() {
                 <Link href="/about/us">Learn More <ArrowRight className="ml-2" /></Link>
               </Button>
             </motion.div>
-            <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg">
+            <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg group">
+                <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
                 <Image
                     src="/images/hero/3.jpg"
                     alt="Students collaborating on a project"
                     fill
-                    className="object-cover"
+                    className="object-cover relative rounded-[11px]"
                 />
             </motion.div>
           </div>
@@ -187,11 +188,12 @@ export default function HomeView() {
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
                 <div className="testimonial-card text-center h-full p-8">
-                  <div className="mb-4 inline-block bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full">
+                   <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                  <div className="relative mb-4 inline-block bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full">
                     <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground mt-2 text-sm">{item.description}</p>
+                  <h3 className="relative text-xl font-bold text-foreground">{item.title}</h3>
+                  <p className="relative text-muted-foreground mt-2 text-sm">{item.description}</p>
                 </div>
               </motion.div>
             ))}
