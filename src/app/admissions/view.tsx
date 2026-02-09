@@ -15,6 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import SectionTitle from '../components/section-title';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { BorderBeam } from '../components/BorderBeam';
 
 const admissionSchema = z.object({
   parentName: z.string().min(2, "Parent's name is too short"),
@@ -108,7 +109,8 @@ export default function AdmissionsView() {
         <div className="pt-24 pb-20">
             <SectionTitle title="Admissions" subtitle="Begin Your Journey at SARC" />
             <div className="container mx-auto px-4 max-w-4xl mt-16">
-                 <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+                 <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 relative overflow-hidden">
+                    <BorderBeam />
                     <h3 className="text-2xl font-bold mb-2 text-slate-800">Online Admission Form</h3>
                     <p className="text-slate-600 mb-8">Fill out the form below to start the admission process.</p>
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">

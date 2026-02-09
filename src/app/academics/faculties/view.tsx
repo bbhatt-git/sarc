@@ -3,6 +3,7 @@ import { STAFF_MEMBERS } from '@/lib/constants';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import SectionTitle from '@/app/components/section-title';
+import { BorderBeam } from '@/app/components/BorderBeam';
 
 export default function FacultiesView() {
     return (
@@ -19,6 +20,7 @@ export default function FacultiesView() {
                             viewport={{ once: true, amount: 0.3 }}
                             className="testimonial-card p-6 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
                         >
+                            <BorderBeam />
                             <div className="relative w-32 h-32 mx-auto">
                                 <Image
                                     src={staff.image}

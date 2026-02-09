@@ -15,6 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import SectionTitle from '../components/section-title';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
+import { BorderBeam } from '../components/BorderBeam';
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Name is too short"),
@@ -87,7 +88,8 @@ export default function ContactView() {
                 className="container mx-auto px-4 mt-16"
             >
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
-                    <div className="bg-white shadow-lg rounded-2xl p-8 md:p-12">
+                    <div className="bg-white shadow-lg rounded-2xl p-8 md:p-12 relative overflow-hidden">
+                        <BorderBeam />
                         <h3 className="text-2xl font-bold mb-2 text-slate-800">Send Us a Message</h3>
                         <p className="text-slate-600 mb-8">We'll get back to you as soon as possible.</p>
                         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">

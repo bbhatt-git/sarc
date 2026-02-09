@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { TESTIMONIALS, STATS, HERO_IMAGES, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import Marquee from './components/marquee';
+import { BorderBeam } from './components/BorderBeam';
 
 export default function HomeView() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -22,7 +23,7 @@ export default function HomeView() {
       );
     }, 7000); // Change image every 7 seconds
     return () => clearInterval(timer);
-  }, [HERO_IMAGES.length]);
+  }, []);
   
   const fadeIn = {
     initial: { opacity: 0, y: 30 },
@@ -40,19 +41,20 @@ export default function HomeView() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
             <motion.div
                 key={currentImageIndex}
                 className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.1 }}
+                initial={{ opacity: 0, scale: 1.05 }}
                 animate={{
                     opacity: 1,
                     scale: 1,
-                    transition: { duration: 3, ease: "easeOut" },
+                    transition: { duration: 4, ease: "easeOut" },
                 }}
                 exit={{
                     opacity: 0,
-                    transition: { duration: 3, ease: "easeIn" },
+                    scale: 1.05,
+                    transition: { duration: 4, ease: "easeIn" },
                 }}
             >
                 <Image
@@ -60,7 +62,7 @@ export default function HomeView() {
                     alt={HERO_IMAGES[currentImageIndex].alt}
                     fill
                     className="object-cover"
-                    priority
+                    priority={currentImageIndex === 0}
                 />
             </motion.div>
         </AnimatePresence>
@@ -108,6 +110,7 @@ export default function HomeView() {
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
                 className="testimonial-card p-8"
               >
+                <BorderBeam />
                 <p className="text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
                 <p className="text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </motion.div>
@@ -130,6 +133,7 @@ export default function HomeView() {
               </Button>
             </motion.div>
             <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg">
+                <BorderBeam />
                 <Image
                     src="https://picsum.photos/seed/homepage/800/600"
                     alt="Students collaborating"
@@ -153,6 +157,7 @@ export default function HomeView() {
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
                 <div className="testimonial-card text-center h-full p-8 transition-all duration-300 hover:-translate-y-2">
+                  <BorderBeam />
                   <div className="mb-4 inline-block bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full">
                     <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
@@ -172,6 +177,7 @@ export default function HomeView() {
             <Marquee>
                 {TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
                     <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal testimonial-card">
+                        <BorderBeam />
                         <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
                         <div className="relative z-10 flex flex-col h-full p-6">
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>
@@ -189,6 +195,7 @@ export default function HomeView() {
             <Marquee direction="right">
                 {TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2)).map((testimonial, i) => (
                      <div key={i} className="w-[90vw] max-w-sm mx-6 flex-shrink-0 whitespace-normal testimonial-card">
+                        <BorderBeam />
                         <Quote className="absolute top-4 left-4 w-10 h-10 text-emerald-600/10 dark:text-white/10" strokeWidth={1} />
                         <div className="relative z-10 flex flex-col h-full p-6">
                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed flex-grow italic">"{testimonial.text}"</p>

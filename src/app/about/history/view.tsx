@@ -2,6 +2,7 @@
 import SectionTitle from '@/app/components/section-title';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { BorderBeam } from '@/app/components/BorderBeam';
 
 const milestones = [
     { year: 2017, event: "SARC Education Foundation was established with a vision for modern education." },
@@ -36,7 +37,8 @@ export default function HistoryView() {
                                 <div className="absolute -left-12 top-1 flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 ring-4 ring-white">
                                     <Check className="w-5 h-5 text-white" />
                                 </div>
-                                <div className="bg-white border border-slate-200 shadow-sm rounded-lg p-6 ml-4">
+                                <div className="bg-white border border-slate-200 shadow-sm rounded-lg p-6 ml-4 relative overflow-hidden">
+                                    <BorderBeam />
                                     <p className="text-lg font-bold text-emerald-600">{item.year}</p>
                                     <h3 className="text-xl font-semibold text-slate-800 mt-1">{item.event}</h3>
                                 </div>

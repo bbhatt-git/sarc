@@ -2,6 +2,7 @@
 import SectionTitle from '@/app/components/section-title';
 import { motion } from 'framer-motion';
 import { BookOpen, FlaskConical, Landmark, Briefcase, GraduationCap, Home } from 'lucide-react';
+import { BorderBeam } from '@/app/components/BorderBeam';
 
 const programs = [
     { name: '+2 Science', icon: FlaskConical, description: 'A rigorous program focusing on scientific principles and research, preparing students for careers in medicine, engineering, and technology.' },
@@ -27,6 +28,7 @@ export default function ProgramsView() {
                             viewport={{ once: true, amount: 0.3 }}
                             className="testimonial-card p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full"
                         >
+                            <BorderBeam />
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="bg-emerald-100 p-3 rounded-full">
                                     <program.icon className="w-6 h-6 text-emerald-600" />

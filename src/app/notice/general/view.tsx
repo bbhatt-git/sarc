@@ -2,6 +2,7 @@
 import SectionTitle from '@/app/components/section-title';
 import { motion } from 'framer-motion';
 import { Bell, FileText, Calendar } from 'lucide-react';
+import { BorderBeam } from '@/app/components/BorderBeam';
 
 const notices = [
     { title: 'Admission Open for +2 Programs 2081', date: '2081-04-15', icon: Bell, summary: 'Admissions are now open for +2 Science, Management, and Law streams for the academic year 2081. Apply online or visit the college administration.' },
@@ -25,6 +26,7 @@ export default function GeneralNoticeView() {
                             viewport={{ once: true, amount: 0.3 }}
                             className="testimonial-card border-l-4 border-emerald-500"
                         >
+                            <BorderBeam />
                             <div className="flex items-start gap-4">
                                 <notice.icon className="w-6 h-6 text-emerald-600 mt-1" />
                                 <div>

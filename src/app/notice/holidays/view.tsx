@@ -3,6 +3,7 @@ import SectionTitle from '@/app/components/section-title';
 import { motion } from 'framer-motion';
 import { CalendarDays, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BorderBeam } from '@/app/components/BorderBeam';
 
 const holidays = [
     { name: 'Dashain Vacation', date: 'Kartik 4 - Kartik 14, 2081', details: 'The college will remain closed for the auspicious occasion of Dashain.' },
@@ -16,7 +17,8 @@ export default function HolidayNoticeView() {
         <div className="pt-24 pb-20">
             <SectionTitle title="Holiday Notices" subtitle="Academic Calendar & Breaks" />
             <div className="container mx-auto px-4 mt-16 max-w-4xl">
-                <Card className="bg-white/50 backdrop-blur-lg">
+                <Card className="bg-white/50 backdrop-blur-lg relative overflow-hidden">
+                    <BorderBeam />
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-slate-800">
                             <Info className="w-5 h-5" />

@@ -2,6 +2,7 @@
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SectionTitle from '@/app/components/section-title';
+import { BorderBeam } from '@/app/components/BorderBeam';
 
 const futureGoals = [
     "Upgrade all labs with state-of-the-art equipment.",
@@ -36,6 +37,7 @@ export default function VisionView() {
                 className="container mx-auto px-4 mt-16"
             >
                 <div className="bg-white shadow-lg rounded-2xl p-12 text-center relative overflow-hidden">
+                    <BorderBeam />
                     <h2 className="text-3xl font-bold text-slate-800 mb-4 relative">Our Vision</h2>
                     <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed relative">
                         To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
@@ -54,7 +56,8 @@ export default function VisionView() {
                         key={index} 
                         {...fadeIn}
                         transition={{...fadeIn.transition, delay: index * 0.1}}
-                        className={`bg-white shadow rounded-lg p-6 flex items-start gap-4 border-l-4 ${item.color}`}>
+                        className={`bg-white shadow rounded-lg p-6 flex items-start gap-4 border-l-4 ${item.color} relative overflow-hidden`}>
+                           <BorderBeam />
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
                            <p className="text-slate-700 text-lg">{item.text}</p>
                        </motion.div>
@@ -73,7 +76,8 @@ export default function VisionView() {
                             key={index} 
                             {...fadeIn}
                             transition={{...fadeIn.transition, delay: index * 0.1}}
-                            className="flex items-center gap-3 bg-slate-100 p-4 rounded-lg border border-slate-200">
+                            className="flex items-center gap-3 bg-slate-100 p-4 rounded-lg border border-slate-200 relative overflow-hidden">
+                            <BorderBeam />
                             <Check className="w-5 h-5 text-emerald-500 shrink-0" />
                             <p className="text-slate-700">{goal}</p>
                         </motion.div>
