@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about/staffs',
     '/about/founder',
     '/about/why-us',
+    '/about/vision',
+    '/about/history',
     '/academics/programs',
     '/academics/services',
     '/academics/faculties',

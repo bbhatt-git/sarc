@@ -162,15 +162,15 @@ export default function Header() {
   return (
     <>
       <header className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-heavy-out flex justify-center",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           hasScrolled ? 'pt-2' : 'pt-0'
       )}>
         <div className={cn(
-            "mx-auto transition-all duration-700 ease-heavy-out",
+            "mx-auto transition-all duration-300",
             hasScrolled ? 'w-[96%] md:w-[95%] lg:w-[80%]' : 'w-full'
         )}>
             <nav className={cn(
-                "flex items-center justify-between p-4 transition-all duration-700 ease-heavy-out",
+                "flex items-center justify-between p-4 transition-all duration-300",
                 "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl",
                 hasScrolled
                     ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'

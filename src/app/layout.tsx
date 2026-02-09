@@ -7,7 +7,7 @@ import Footer from '@/app/components/footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { Poppins } from 'next/font/google';
 import { ThemeProvider } from './components/theme-provider';
-import Prism from './components/Prism';
+import { BackgroundController } from './components/background-controller';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -84,21 +84,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
-            <div className="fixed inset-0 -z-10 overflow-hidden">
-                <div className="absolute h-full w-full">
-                    <Prism
-                      animationType="rotate"
-                      timeScale={0.5}
-                      height={3.5}
-                      baseWidth={5.5}
-                      hueShift={0}
-                      colorFrequency={1}
-                      noise={0}
-                      glow={1}
-                      suspendWhenOffscreen={true}
-                    />
-                </div>
-            </div>
+            <BackgroundController />
             <Header />
             <main className="flex-grow pt-28 relative z-10">{children}</main>
             <Footer />
