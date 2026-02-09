@@ -1,17 +1,18 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 import { TESTIMONIALS, STATS, WHY_US_ITEMS, HERO_IMAGES } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
-import { cn } from '@/lib/utils';
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 
 const TestimonialCard = ({
   image,
@@ -25,24 +26,21 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <figure
-      className={cn(
-        "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
-      )}
-    >
-      <div className="flex flex-row items-center gap-2">
-        <Image className="rounded-full" width="32" height="32" alt={author} src={image} />
-        <div className="flex flex-col">
-          <figcaption className="text-sm font-medium text-foreground">
-            {author}
-          </figcaption>
-          <p className="text-xs font-medium text-muted-foreground">{role}</p>
+    <div className="testimonial-card w-80 p-6">
+      <div className="flex items-center gap-4">
+        <Avatar>
+          <AvatarImage src={image} alt={author} />
+          <AvatarFallback>{author.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="font-bold text-foreground">{author}</p>
+          <p className="text-sm text-muted-foreground">{role}</p>
         </div>
       </div>
-      <blockquote className="mt-2 text-sm text-foreground">{text}</blockquote>
-    </figure>
+      <blockquote className="mt-4 text-foreground/90 italic before:content-['“'] after:content-['”']">
+        {text}
+      </blockquote>
+    </div>
   );
 };
 
@@ -54,6 +52,15 @@ export default function HomeView() {
     transition: { duration: 0.7, ease: 'easeOut' },
     viewport: { once: true, amount: 0.2 }
   };
+  
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const firstRow = TESTIMONIALS.slice(0, 2);
   const secondRow = TESTIMONIALS.slice(2, 4);
@@ -68,32 +75,24 @@ export default function HomeView() {
     >
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden -mt-28">
-        <Carousel
-          className="absolute inset-0 w-full h-full"
-          plugins={[
-            Autoplay({
-              delay: 5000,
-              stopOnInteraction: false,
-            }),
-          ]}
-          opts={{
-            loop: true,
-          }}
-        >
-          <CarouselContent className="-ml-0 h-full">
-            {HERO_IMAGES.map((image, index) => (
-              <CarouselItem key={index} className="pl-0 relative h-full">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentImage}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full h-full"
+          >
+            <Image
+              src={HERO_IMAGES[currentImage].src}
+              alt={HERO_IMAGES[currentImage].alt}
+              fill
+              className="object-cover"
+              priority={currentImage === 0}
+            />
+          </motion.div>
+        </AnimatePresence>
         
         <div className="absolute inset-0 bg-black/60 z-10" />
 
@@ -183,7 +182,7 @@ export default function HomeView() {
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
-                <div className="testimonial-card text-center h-full p-8 transition-all duration-300 hover:-translate-y-2">
+                <div className="testimonial-card text-center h-full p-8">
                   <div className="mb-4 inline-block bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full">
                     <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
@@ -199,7 +198,7 @@ export default function HomeView() {
       {/* Testimonials */}
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-         <div className="relative mt-16 flex h-96 w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
+         <div className="relative mt-16 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
             <Marquee pauseOnHover reverse className="[--duration:60s]">
               {firstRow.map((testimonial) => (
                 <TestimonialCard key={testimonial.author + '1'} {...testimonial} />
@@ -210,7 +209,7 @@ export default function HomeView() {
                 <TestimonialCard key={testimonial.author + '2'} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee pauseOnHover reverse className="[--duration:60s]">
+             <Marquee pauseOnHover reverse className="[--duration:60s]">
               {thirdRow.map((testimonial) => (
                 <TestimonialCard key={testimonial.author + '3'} {...testimonial} />
               ))}

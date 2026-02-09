@@ -1,3 +1,4 @@
+
 'use client';
 import SectionTitle from '@/app/components/section-title';
 import { motion } from 'framer-motion';
@@ -25,7 +26,7 @@ export default function ServicesView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="testimonial-card p-8 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full"
+                            className="testimonial-card p-8 text-center h-full"
                         >
                             <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
                                 <service.icon className="w-8 h-8" />
