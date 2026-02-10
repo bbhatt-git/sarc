@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save } from 'lucide-react';
+import { Loader2, Save, PlusCircle } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -56,16 +56,35 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
     updatedGridData[rowIndex][colIndex] = value;
     setGridData(updatedGridData);
   };
+  
+  const handleAddNewRow = () => {
+    const numCols = gridData[0]?.length || 1;
+    const newRow = Array(numCols).fill('');
+    setGridData([...gridData, newRow]);
+  };
 
   const handleSaveChanges = async () => {
     if (!workbook || !activeSheetName) return;
 
     setIsSaving(true);
     try {
-      const newWorkbook = { ...workbook };
-      const newWorksheet = XLSX.utils.aoa_to_sheet(gridData);
-      newWorkbook.Sheets[activeSheetName] = newWorksheet;
-      
+      // Create a new workbook object to avoid mutation issues
+      const newWorkbook: XLSX.WorkBook = {
+        SheetNames: [...workbook.SheetNames],
+        Sheets: {}
+      };
+
+      // Copy all sheets from the old workbook to the new one
+      workbook.SheetNames.forEach(sheetName => {
+        if (sheetName === activeSheetName) {
+          // If it's the active sheet, use the updated gridData
+          newWorkbook.Sheets[sheetName] = XLSX.utils.aoa_to_sheet(gridData);
+        } else {
+          // Otherwise, copy the original sheet
+          newWorkbook.Sheets[sheetName] = workbook.Sheets[sheetName];
+        }
+      });
+
       const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
       const result = await saveExcelFile(newBase64);
 
@@ -89,6 +108,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
     }
   };
 
+
   const sheetNames = useMemo(() => workbook?.SheetNames || [], [workbook]);
 
   if (!workbook) {
@@ -107,10 +127,16 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 <CardTitle className="text-2xl">Excel Content Editor</CardTitle>
                 <CardDescription>Edit the content of `public/data/notice.xlsx` directly.</CardDescription>
             </div>
-          <Button onClick={handleSaveChanges} disabled={isSaving}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-            Save Changes
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button onClick={handleAddNewRow} variant="outline">
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Row
+            </Button>
+            <Button onClick={handleSaveChanges} disabled={isSaving}>
+                {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                Save Changes
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
@@ -136,11 +162,11 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 <TableBody>
                   {gridData.map((row, rowIndex) => (
                     <TableRow key={rowIndex}>
-                      {row.map((cell, colIndex) => (
+                      {Array.from({ length: gridData[0]?.length || 0 }).map((_, colIndex) => (
                         <TableCell key={colIndex} className="border p-0">
                           <Input
                             type="text"
-                            value={cell || ''}
+                            value={row[colIndex] || ''}
                             onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
                             className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-ring"
                           />
