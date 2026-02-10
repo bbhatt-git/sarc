@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Star } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Footer() {
@@ -35,7 +35,7 @@ export default function Footer() {
                 </li>
                  <li className='flex items-start gap-3'>
                     <MapPin size={16} className='mt-1 shrink-0 text-emerald-600' />
-                    <span>Bagbazar, Kathmandu, Nepal</span>
+                    <span>Bhimdatta-06, Kanchanpur</span>
                 </li>
               </ul>
             </div>
@@ -54,6 +54,14 @@ export default function Footer() {
 
           <div className="border-t border-slate-200/50 mt-12 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; {new Date().getFullYear()} SARC Education Foundation. All Rights Reserved.</p>
+            <p className="mt-2 flex items-center justify-center gap-1.5 text-xs">
+                <Star className="w-3 h-3 text-amber-500" />
+                Designed & Crafted by
+                <a href="https://bbhatt.com.np" target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-emerald-600 transition-colors">
+                    Bhupesh Bhatt
+                </a>
+                <Star className="w-3 h-3 text-amber-500" />
+            </p>
           </div>
         </div>
       </div>

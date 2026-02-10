@@ -127,19 +127,11 @@ export default function ContactView() {
                     </div>
 
                     <div className="space-y-8">
-                        <div className="rounded-lg overflow-hidden border border-slate-200 shadow-md">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.391735118744!2d85.31633887546813!3d27.705417076184245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18e2c9a7ab33%3A0x26f1a4c90353a44!2sPadma%20Kanya%20Multiple%20Campus!5e0!3m2!1sen!2snp!4v1720272097723!5m2!1sen!2snp" 
-                                width="100%" 
-                                height="300" 
-                                style={{border: 0}} 
-                                allowFullScreen={false} 
-                                loading="lazy" 
-                                referrerPolicy="no-referrer-when-downgrade"
-                            ></iframe>
+                        <div className="rounded-lg overflow-hidden border border-slate-200 shadow-md relative bg-muted h-[300px] flex items-center justify-center">
+                            <p className="text-muted-foreground">Map Coming Soon</p>
                         </div>
                         <div className="space-y-6">
-                            <InfoCard icon={MapPin} title="Address" text="Padma Kanya Multiple Campus, Bagbazar, KTM" />
+                            <InfoCard icon={MapPin} title="Address" text="Bhimdatta-06, Kanchanpur" />
                             <InfoCard icon={Phone} title="Phone" text="+977-1-4242424" href="tel:+97714242424"/>
                             <InfoCard icon={Mail} title="Email" text="info@sarc.edu.np" href="mailto:info@sarc.edu.np"/>
                             <InfoCard icon={Clock} title="Working Hours" text="Sun - Fri: 9:00 AM - 5:00 PM"/>

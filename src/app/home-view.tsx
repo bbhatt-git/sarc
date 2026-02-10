@@ -203,17 +203,17 @@ export default function HomeView() {
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
          <div className="relative mt-16 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <Marquee pauseOnHover reverse className="[--duration:180s]">
+            <Marquee reverse className="[--duration:180s]">
               {testimonialsRow1.map((testimonial, index) => (
                 <TestimonialCard key={`row1-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee pauseOnHover className="[--duration:180s]">
+            <Marquee className="[--duration:180s]">
               {testimonialsRow2.map((testimonial, index) => (
                 <TestimonialCard key={`row2-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee pauseOnHover reverse className="[--duration:180s]">
+            <Marquee reverse className="[--duration:180s]">
               {testimonialsRow3.map((testimonial, index) => (
                 <TestimonialCard key={`row3-${index}`} {...testimonial} />
               ))}
@@ -234,7 +234,7 @@ export default function HomeView() {
                 </motion.p>
                 <motion.div {...fadeIn} transition={{...fadeIn.transition, delay: 0.2}}>
                     <Button asChild size="lg" className="mt-10 bg-white text-slate-800 hover:bg-slate-200 hover:scale-105 transition-all duration-300 rounded-full font-semibold">
-                        <Link href="/admissions">Apply for Admissions <ArrowRight className="ml-2" /></Link>
+                        <Link href="/admissions">Apply Now <ArrowRight className="ml-2" /></Link>
                     </Button>
                 </motion.div>
             </div>
