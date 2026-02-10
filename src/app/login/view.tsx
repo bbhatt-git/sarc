@@ -3,16 +3,15 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/firebase';
-import {
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, AlertCircle } from 'lucide-react';
+import { Loader2, AlertCircle, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function LoginView() {
   const auth = useAuth();
@@ -68,6 +67,14 @@ export default function LoginView() {
                 </Button>
             </form>
         </CardContent>
+        <CardFooter>
+            <Button asChild variant="outline" className="w-full">
+              <Link href="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Go Back Home
+              </Link>
+            </Button>
+        </CardFooter>
       </Card>
     </div>
   );
