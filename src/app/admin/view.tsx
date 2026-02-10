@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2 } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -107,6 +107,14 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
         toast({ title: 'Row Added', description: 'A new row has been added to the end of the sheet.' });
     };
 
+    const handleRemoveRow = (rowIndexToRemove: number) => {
+        // The gridData includes the header row, bodyData is gridData.slice(1).
+        // The rowIndex is from bodyData.map, so the actual index in gridData is rowIndex + 1.
+        const updatedGridData = gridData.filter((_, index) => index !== rowIndexToRemove + 1);
+        setGridData(updatedGridData);
+        toast({ title: 'Row Removed', description: `Row ${rowIndexToRemove + 1} has been removed. Save your changes to make it permanent.` });
+    };
+
     const handleSaveChanges = async () => {
         if (!workbook || !activeSheetName) return;
 
@@ -144,11 +152,11 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
 
     return (
         <>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-                <div>
-                    <CardDescription>Edit content from `public/data/notice.xlsx`. Changes are saved per sheet.</CardDescription>
-                </div>
-                <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                <p className="text-sm text-muted-foreground flex-1">
+                    Note: The changes you commit here will be saved in the <code>public/data/notice.xlsx</code> file.
+                </p>
+                <div className="flex items-center gap-2 flex-shrink-0">
                     <Button onClick={handleAddNewRow} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />Add Row</Button>
                     <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
                         {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
@@ -171,6 +179,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                                 {headers.map((header, colIndex) => (
                                     <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap">{header}</TableHead>
                                 ))}
+                                <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -187,6 +196,17 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                                             />
                                         </TableCell>
                                     ))}
+                                    <TableCell className="sticky right-0 z-10 p-1 bg-card">
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
+                                            onClick={() => handleRemoveRow(rowIndex)}
+                                            aria-label="Remove row"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
