@@ -2,16 +2,26 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as XLSX from 'xlsx';
 
-export function getExcelData(sheetName: string): any[] {
+export function getExcelData(sheetIdentifier: string): any[] {
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', 'notice.xlsx');
     const file = fs.readFileSync(filePath);
     // Use cellDates: true to have xlsx parse Excel date cells into JS Date objects
     const workbook = XLSX.read(file, { type: 'buffer', cellDates: true });
     
-    const sheet = workbook.Sheets[sheetName];
+    // Find the sheet with some flexibility
+    const targetName = sheetIdentifier.toLowerCase();
+    let sheetName = workbook.SheetNames.find(name => name.toLowerCase() === targetName);
+
+    if (!sheetName) {
+      // If exact match fails, try to find a sheet that contains the identifier
+      sheetName = workbook.SheetNames.find(name => name.toLowerCase().includes(targetName));
+    }
+    
+    const sheet = sheetName ? workbook.Sheets[sheetName] : undefined;
+    
     if (!sheet) {
-      console.warn(`Sheet "${sheetName}" not found in the Excel file.`);
+      console.warn(`Sheet matching "${sheetIdentifier}" not found in the Excel file.`);
       return [];
     }
     

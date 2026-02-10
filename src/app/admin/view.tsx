@@ -97,6 +97,11 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
         return { sheetNames, headers, bodyData };
     }, [workbook, gridData]);
 
+    const isGeneralSheet = useMemo(() => {
+        const lowerCaseHeaders = headers.map(h => String(h).toLowerCase());
+        return lowerCaseHeaders.includes('icon') && lowerCaseHeaders.includes('summary');
+    }, [headers]);
+
     const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
         const updatedGridData = [...gridData];
         const actualRowIndex = rowIndex + 1;
@@ -290,7 +295,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                                     <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
                                     {headers.map((header, colIndex) => {
                                         const headerName = String(header).toLowerCase();
-                                        const isGeneralNoticeIconColumn = activeSheetName === 'General' && headerName === 'icon';
+                                        const isGeneralNoticeIconColumn = isGeneralSheet && headerName === 'icon';
 
                                         return (
                                             <TableCell key={colIndex} className="p-0 border-r">
@@ -670,7 +675,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 </CardHeader>
                 <CardContent>
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full h-auto grid-cols-1 rounded-lg md:h-12 md:grid-cols-3 md:rounded-full max-w-lg mx-auto">
+                        <TabsList className="grid w-full h-auto grid-cols-1 rounded-lg sm:h-12 sm:grid-cols-3 sm:rounded-full max-w-lg mx-auto">
                             <TabsTrigger value="admissions">Admissions</TabsTrigger>
                             <TabsTrigger value="contact">Contact Messages</TabsTrigger>
                             <TabsTrigger value="notice">Notice Editor</TabsTrigger>
