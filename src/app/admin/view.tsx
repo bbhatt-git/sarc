@@ -288,7 +288,7 @@ type Inquiry = {
     permanentAddress: string;
     district: string;
     province: string;
-    applyingFor: string;
+    applyingFor?: string;
     previousSchool: string;
     lastClassCompleted: string;
     gpa: string;
@@ -353,7 +353,10 @@ const AdmissionsTab = () => {
         );
     }
     
-    const formatApplyingFor = (value: string) => value.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+    const formatApplyingFor = (value?: string) => {
+        if (!value) return 'Not Specified';
+        return value.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
 
     return (
         <>
@@ -367,14 +370,14 @@ const AdmissionsTab = () => {
                         className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
                         onClick={() => setSelectedInquiry(inquiry)}
                     >
-                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2 border-b">
                             <CardTitle className="text-base font-semibold">{inquiry.firstName} {inquiry.lastName}</CardTitle>
                              <div className="text-xs text-muted-foreground text-right shrink-0 ml-2">
                                 <div>{formatDate(inquiry.createdAt)}</div>
                                 <div className='text-gray-400'>{formatTime(inquiry.createdAt)}</div>
                             </div>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-4">
                             <div className="text-sm text-muted-foreground">
                                 Applying for: <span className="font-medium text-foreground/80">{formatApplyingFor(inquiry.applyingFor)}</span>
                             </div>
@@ -480,14 +483,14 @@ const ContactTab = () => {
                         className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
                         onClick={() => setSelectedMessage(msg)}
                     >
-                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2 border-b">
                             <CardTitle className="text-base font-semibold">{msg.fullName}</CardTitle>
                             <div className="text-xs text-muted-foreground text-right shrink-0 ml-2">
                                 <div>{formatDate(msg.createdAt)}</div>
                                 <div className='text-gray-400'>{formatTime(msg.createdAt)}</div>
                             </div>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-4">
                             <p className="text-sm text-muted-foreground truncate" title={msg.subject}>
                                 Subject: <span className="font-medium text-foreground/80">{msg.subject}</span>
                             </p>
@@ -564,5 +567,3 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
         </div>
     );
 }
-
-    
