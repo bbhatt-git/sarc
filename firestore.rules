@@ -2,18 +2,18 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     // Allow anyone to create an admission inquiry.
-    // Allow authenticated users to read inquiries.
+    // Allow authenticated users WITH an admin claim to read inquiries.
     match /admissionInquiries/{inquiryId} {
       allow create: if true;
-      allow read: if request.auth != null;
+      allow read: if request.auth.token.admin == true;
       allow update, delete: if false;
     }
 
     // Allow anyone to create a contact message.
-    // Allow authenticated users to read messages.
+    // Allow authenticated users WITH an admin claim to read messages.
     match /messages/{messageId} {
         allow create: if true;
-        allow read: if request.auth != null;
+        allow read: if request.auth.token.admin == true;
         allow update, delete: if false;
     }
   }
