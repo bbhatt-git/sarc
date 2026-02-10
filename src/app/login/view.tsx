@@ -30,7 +30,7 @@ export default function LoginView() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/admin');
-    } catch (e: any) => {
+    } catch (e: any) {
       setError(e.message);
       setIsLoading(false);
     }
