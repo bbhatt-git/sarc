@@ -309,72 +309,82 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
                     ))}
                 </TabsList>
 
-                <div className="mt-6 relative max-h-[65vh] overflow-auto border rounded-lg">
-                    <Table>
-                        <TableHeader className="sticky top-0 z-20 bg-muted/80 backdrop-blur-sm">
-                            <TableRow>
-                                <TableHead className="sticky left-0 z-30 w-16 border-r bg-muted/95 text-center font-bold">#</TableHead>
-                                {headers.map((header, colIndex) => (
-                                    <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap border-r">{header}</TableHead>
-                                ))}
-                                <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {bodyData.map((row, rowIndex) => (
-                                <TableRow key={rowIndex}>
-                                    <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
-                                    {headers.map((header, colIndex) => {
-                                        const headerName = String(header).toLowerCase();
-                                        const isGeneralNoticeIconColumn = isGeneralSheet && headerName === 'icon';
-
-                                        return (
-                                            <TableCell key={colIndex} className="p-0 border-r">
-                                                {isGeneralNoticeIconColumn ? (
-                                                    <Select
-                                                        value={row[colIndex] || ''}
-                                                        onValueChange={(value) => handleCellChange(rowIndex, colIndex, value)}
-                                                    >
-                                                        <SelectTrigger className="w-full h-full p-2 border-none rounded-none focus:ring-1 focus:ring-primary/50 bg-transparent text-sm">
-                                                            <SelectValue placeholder="Select icon..." />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            {iconOptions.map(opt => (
-                                                                <SelectItem key={opt.value} value={opt.value}>
-                                                                    <div className="flex items-center gap-2">
-                                                                        {opt.icon}
-                                                                        <span>{opt.value}</span>
-                                                                    </div>
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                ) : (
-                                                    <Input
-                                                        type="text"
-                                                        value={row[colIndex] || ''}
-                                                        onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
-                                                        className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-primary/50 bg-transparent"
-                                                    />
-                                                )}
-                                            </TableCell>
-                                        )
-                                    })}
-                                    <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
-                                        <Button 
-                                            variant="ghost" 
-                                            size="icon" 
-                                            className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
-                                            onClick={() => triggerRemoveRow(rowIndex)}
-                                            aria-label="Remove row"
-                                        >
-                                            <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </TableCell>
+                <div className="mt-6 relative">
+                    {isSaving && (
+                        <div className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center z-40 rounded-lg">
+                            <div className="flex items-center gap-2 text-foreground">
+                                <Loader2 className="h-5 w-5 animate-spin" />
+                                <span className="font-medium text-lg">Saving...</span>
+                            </div>
+                        </div>
+                    )}
+                    <div className="max-h-[65vh] overflow-auto border rounded-lg">
+                        <Table>
+                            <TableHeader className="sticky top-0 z-20 bg-muted/80 backdrop-blur-sm">
+                                <TableRow>
+                                    <TableHead className="sticky left-0 z-30 w-16 border-r bg-muted/95 text-center font-bold">#</TableHead>
+                                    {headers.map((header, colIndex) => (
+                                        <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap border-r">{header}</TableHead>
+                                    ))}
+                                    <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHeader>
+                            <TableBody>
+                                {bodyData.map((row, rowIndex) => (
+                                    <TableRow key={rowIndex}>
+                                        <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
+                                        {headers.map((header, colIndex) => {
+                                            const headerName = String(header).toLowerCase();
+                                            const isGeneralNoticeIconColumn = isGeneralSheet && headerName === 'icon';
+
+                                            return (
+                                                <TableCell key={colIndex} className="p-0 border-r">
+                                                    {isGeneralNoticeIconColumn ? (
+                                                        <Select
+                                                            value={row[colIndex] || ''}
+                                                            onValueChange={(value) => handleCellChange(rowIndex, colIndex, value)}
+                                                        >
+                                                            <SelectTrigger className="w-full h-full p-2 border-none rounded-none focus:ring-1 focus:ring-primary/50 bg-transparent text-sm">
+                                                                <SelectValue placeholder="Select icon..." />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                {iconOptions.map(opt => (
+                                                                    <SelectItem key={opt.value} value={opt.value}>
+                                                                        <div className="flex items-center gap-2">
+                                                                            {opt.icon}
+                                                                            <span>{opt.value}</span>
+                                                                        </div>
+                                                                    </SelectItem>
+                                                                ))}
+                                                            </SelectContent>
+                                                        </Select>
+                                                    ) : (
+                                                        <Input
+                                                            type="text"
+                                                            value={row[colIndex] || ''}
+                                                            onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
+                                                            className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-primary/50 bg-transparent"
+                                                        />
+                                                    )}
+                                                </TableCell>
+                                            )
+                                        })}
+                                        <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
+                                            <Button 
+                                                variant="ghost" 
+                                                size="icon" 
+                                                className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
+                                                onClick={() => triggerRemoveRow(rowIndex)}
+                                                aria-label="Remove row"
+                                            >
+                                                <Trash2 className="h-4 w-4" />
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </div>
                 
                 {activeSheetName === 'Results' && (

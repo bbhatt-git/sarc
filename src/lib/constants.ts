@@ -1,4 +1,4 @@
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2 } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -39,6 +39,45 @@ export const HERO_IMAGES = [
     { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' },
     { src: '/images/hero/4.jpg', alt: 'SARC students in the library' },
 ];
+
+export const GALLERY_CATEGORIES = ['All', 'Campus Life', 'Events', 'Academics', 'Sports'];
+
+export const GALLERY_IMAGES = [
+  { src: '/images/gallery/1.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/2.jpg', category: 'Events' },
+  { src: '/images/gallery/3.jpg', category: 'Academics' },
+  { src: '/images/gallery/4.jpg', category: 'Sports' },
+  { src: '/images/gallery/5.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/6.jpg', category: 'Events' },
+  { src: '/images/gallery/7.jpg', category: 'Academics' },
+  { src: '/images/gallery/8.jpg', category: 'Sports' },
+  { src: '/images/gallery/9.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/10.jpg', category: 'Events' },
+  { src: '/images/gallery/11.jpg', category: 'Academics' },
+  { src: '/images/gallery/12.jpg', category: 'Sports' },
+  { src: '/images/gallery/13.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/14.jpg', category: 'Events' },
+  { src: '/images/gallery/15.jpg', category: 'Academics' },
+  { src: '/images/gallery/16.jpg', category: 'Sports' },
+  { src: '/images/gallery/17.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/18.jpg', category: 'Events' },
+  { src: '/images/gallery/19.jpg', category: 'Academics' },
+  { src: '/images/gallery/20.jpg', category: 'Sports' },
+  { src: '/images/gallery/21.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/22.jpg', category: 'Events' },
+  { src: '/images/gallery/23.jpg', category: 'Academics' },
+  { src: '/images/gallery/24.jpg', category: 'Sports' },
+  { src: '/images/gallery/25.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/26.jpg', category: 'Events' },
+  { src: '/images/gallery/27.jpg', category: 'Academics' },
+  { src: '/images/gallery/28.jpg', category: 'Sports' },
+  { src: '/images/gallery/29.jpg', category: 'Campus Life' },
+  { src: '/images/gallery/30.jpg', category: 'Events' },
+  { src: '/images/gallery/31.jpg', category: 'Academics' },
+  { src: '/images/gallery/32.jpg', category: 'Sports' },
+  { src: '/images/gallery/33.jpg', category: 'Campus Life' },
+];
+
 
 export const STATS = [
     { number: '2017', label: 'Established' },

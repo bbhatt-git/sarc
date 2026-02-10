@@ -2,7 +2,7 @@
 
 import { useState, useRef, FormEvent, useEffect } from 'react';
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle, Loader2, User, Phone, GraduationCap, Users2 } from 'lucide-react';
+import { CheckCircle, Loader2, User, Phone, GraduationCap, Users2, Send } from 'lucide-react';
 import { z } from "zod";
 import { useFirestore } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -118,6 +118,15 @@ export default function AdmissionsView() {
         }
     }, [dobYear, dobMonth, dobDay]);
 
+    const resetForm = () => {
+        formRef.current?.reset();
+        setState({ message: null, errors: null, success: false });
+        setSelectedProvince('');
+        setDobYear('');
+        setDobMonth('');
+        setDobDay('');
+    };
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!firestore) return;
@@ -159,7 +168,6 @@ export default function AdmissionsView() {
               errors: null,
               success: true
           });
-          formRef.current?.reset();
         }).catch((serverError) => {
           const permissionError = new FirestorePermissionError({
             path: collRef.path,
@@ -187,198 +195,205 @@ export default function AdmissionsView() {
         <div>
             <PageHeader title="Admissions" subtitle="Begin Your Journey at SARC" imageUrl="/images/hero/1.jpg" />
             <div className="container mx-auto px-4 max-w-4xl py-20">
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
-                    {/* Personal Information */}
-                    <FormSection icon={User} title="Personal Information" description="Please provide the student's personal details.">
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <FormField label="First Name" id="firstName" error={state.errors?.firstName}>
-                                <Input id="firstName" name="firstName" placeholder="e.g. John" required />
-                            </FormField>
-                            <FormField label="Last Name" id="lastName" error={state.errors?.lastName}>
-                                <Input id="lastName" name="lastName" placeholder="e.g. Doe" required />
-                            </FormField>
-                            <div className="space-y-2 md:col-span-2">
-                                <Label>Date of Birth (B.S.)</Label>
-                                <div className="grid grid-cols-3 gap-2">
-                                    <Select onValueChange={setDobYear}>
-                                        <SelectTrigger><SelectValue placeholder="YYYY" /></SelectTrigger>
-                                        <SelectContent>
-                                            {getNepaliYears().map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
-                                        </SelectContent>
-                                    </Select>
-                                    <Select onValueChange={setDobMonth}>
-                                        <SelectTrigger><SelectValue placeholder="MM" /></SelectTrigger>
-                                        <SelectContent>
-                                            {NEPALI_MONTHS.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
-                                        </SelectContent>
-                                    </Select>
-                                    <Select onValueChange={setDobDay}>
-                                        <SelectTrigger><SelectValue placeholder="DD" /></SelectTrigger>
-                                        <SelectContent>
-                                            {getDaysInMonth().map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
-                                        </SelectContent>
-                                    </Select>
+                {!state.success ? (
+                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
+                        {/* Personal Information */}
+                        <FormSection icon={User} title="Personal Information" description="Please provide the student's personal details.">
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <FormField label="First Name" id="firstName" error={state.errors?.firstName}>
+                                    <Input id="firstName" name="firstName" placeholder="e.g. John" required />
+                                </FormField>
+                                <FormField label="Last Name" id="lastName" error={state.errors?.lastName}>
+                                    <Input id="lastName" name="lastName" placeholder="e.g. Doe" required />
+                                </FormField>
+                                <div className="space-y-2 md:col-span-2">
+                                    <Label>Date of Birth (B.S.)</Label>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <Select onValueChange={setDobYear} name="dob_year">
+                                            <SelectTrigger><SelectValue placeholder="YYYY" /></SelectTrigger>
+                                            <SelectContent>
+                                                {getNepaliYears().map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                        <Select onValueChange={setDobMonth} name="dob_month">
+                                            <SelectTrigger><SelectValue placeholder="MM" /></SelectTrigger>
+                                            <SelectContent>
+                                                {NEPALI_MONTHS.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                        <Select onValueChange={setDobDay} name="dob_day">
+                                            <SelectTrigger><SelectValue placeholder="DD" /></SelectTrigger>
+                                            <SelectContent>
+                                                {getDaysInMonth().map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <input type="hidden" name="dob" value={dobValue} />
+                                    {state.errors?.dob && <p className="text-sm text-rose-500">{state.errors.dob[0]}</p>}
                                 </div>
-                                <input type="hidden" name="dob" value={dobValue} />
-                                {state.errors?.dob && <p className="text-sm text-rose-500">{state.errors.dob[0]}</p>}
+                                <FormField label="Gender" id="gender" error={state.errors?.gender}>
+                                    <Select name="gender">
+                                        <SelectTrigger><SelectValue placeholder="Select gender" /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="male">Male</SelectItem>
+                                            <SelectItem value="female">Female</SelectItem>
+                                            <SelectItem value="other">Other</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </FormField>
+                                <FormField label="Nationality" id="nationality" error={state.errors?.nationality}>
+                                    <Select name="nationality">
+                                        <SelectTrigger><SelectValue placeholder="Select nationality" /></SelectTrigger>
+                                        <SelectContent>
+                                            {NATIONALITIES.map(nat => <SelectItem key={nat} value={nat}>{nat}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                </FormField>
+                                <FormField label="Citizenship No. (Optional)" id="citizenshipNo" error={state.errors?.citizenshipNo}>
+                                    <Input id="citizenshipNo" name="citizenshipNo" placeholder="e.g. 12-34-56789" />
+                                </FormField>
                             </div>
-                             <FormField label="Gender" id="gender" error={state.errors?.gender}>
-                                <Select name="gender">
-                                    <SelectTrigger><SelectValue placeholder="Select gender" /></SelectTrigger>
+                        </FormSection>
+
+                        {/* Contact Information */}
+                        <FormSection icon={Phone} title="Contact Information" description="How can we get in touch with you?">
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <FormField label="Email Address" id="email" error={state.errors?.email}>
+                                    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                                </FormField>
+                                <FormField label="Phone Number" id="phone" error={state.errors?.phone}>
+                                    <Input id="phone" name="phone" type="tel" placeholder="+977-..." required />
+                                </FormField>
+                            </div>
+                            <div className="mt-6">
+                                <FormField label="Alternate Phone (Optional)" id="alternatePhone" error={state.errors?.alternatePhone}>
+                                    <Input id="alternatePhone" name="alternatePhone" type="tel" placeholder="+977-..." />
+                                </FormField>
+                            </div>
+                            <div className="mt-6">
+                                <FormField label="Permanent Address" id="permanentAddress" error={state.errors?.permanentAddress}>
+                                    <Textarea id="permanentAddress" name="permanentAddress" placeholder="Street, Ward No, Municipality/VDC" required />
+                                </FormField>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-6 mt-6">
+                                <FormField label="Province" id="province" error={state.errors?.province}>
+                                    <Select name="province" onValueChange={setSelectedProvince}>
+                                        <SelectTrigger><SelectValue placeholder="Select province" /></SelectTrigger>
+                                        <SelectContent>
+                                            {NEPAL_PROVINCES.map(prov => <SelectItem key={prov} value={prov}>{prov}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                </FormField>
+                                <FormField label="District" id="district" error={state.errors?.district}>
+                                    <Select name="district" disabled={!selectedProvince}>
+                                        <SelectTrigger><SelectValue placeholder="Select district" /></SelectTrigger>
+                                        <SelectContent>
+                                            {selectedProvince && NEPAL_DISTRICTS[selectedProvince] ? (
+                                                NEPAL_DISTRICTS[selectedProvince].map(dist => <SelectItem key={dist} value={dist}>{dist}</SelectItem>)
+                                            ) : (
+                                                <div className="p-2 text-center text-sm text-muted-foreground">Select a province first</div>
+                                            )}
+                                        </SelectContent>
+                                    </Select>
+                                </FormField>
+                            </div>
+                        </FormSection>
+
+                        {/* Academic Information */}
+                        <FormSection icon={GraduationCap} title="Academic Information" description="Tell us about the student's academic background.">
+                            <div className='grid md:grid-cols-2 gap-6'>
+                                <FormField label="Applying For" id="applyingFor" error={state.errors?.applyingFor}>
+                                    <Select name="applyingFor">
+                                    <SelectTrigger id="applyingFor"><SelectValue placeholder="Select a grade" /></SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="male">Male</SelectItem>
-                                        <SelectItem value="female">Female</SelectItem>
-                                        <SelectItem value="other">Other</SelectItem>
+                                        <SelectItem value="ecd">ECD</SelectItem>
+                                        <SelectItem value="1-8">School Section (1-8)</SelectItem>
+                                        <SelectItem value="9-10">School Section (9-10)</SelectItem>
+                                        <SelectItem value="bridge">Bridge Course</SelectItem>
+                                        <SelectItem value="+2-science">+2 Science</SelectItem>
+                                        <SelectItem value="+2-management">+2 Management</SelectItem>
                                     </SelectContent>
-                                </Select>
-                            </FormField>
-                            <FormField label="Nationality" id="nationality" error={state.errors?.nationality}>
-                                <Select name="nationality">
-                                    <SelectTrigger><SelectValue placeholder="Select nationality" /></SelectTrigger>
-                                    <SelectContent>
-                                        {NATIONALITIES.map(nat => <SelectItem key={nat} value={nat}>{nat}</SelectItem>)}
-                                    </SelectContent>
-                                </Select>
-                            </FormField>
-                             <FormField label="Citizenship No. (Optional)" id="citizenshipNo" error={state.errors?.citizenshipNo}>
-                                <Input id="citizenshipNo" name="citizenshipNo" placeholder="e.g. 12-34-56789" />
-                            </FormField>
+                                    </Select>
+                                </FormField>
+                                <FormField label="Previous School Name" id="previousSchool" error={state.errors?.previousSchool}>
+                                    <Input id="previousSchool" name="previousSchool" placeholder="e.g. ABC Secondary School" required />
+                                </FormField>
+                            </div>
+                            <div className='grid md:grid-cols-2 gap-6 mt-6'>
+                                <FormField label="Last Class Completed" id="lastClassCompleted" error={state.errors?.lastClassCompleted}>
+                                    <Input id="lastClassCompleted" name="lastClassCompleted" placeholder="e.g., Class 10" required />
+                                </FormField>
+                                <FormField label="GPA / Percentage" id="gpa" error={state.errors?.gpa}>
+                                    <Input id="gpa" name="gpa" placeholder="e.g., 3.8 GPA" required />
+                                </FormField>
+                            </div>
+                            <div className="mt-6">
+                                <FormField label="Academic Achievements / Awards (Optional)" id="achievements" error={state.errors?.achievements}>
+                                    <Textarea id="achievements" name="achievements" placeholder="List any awards, competitions, or distinctions" />
+                                </FormField>
+                            </div>
+                        </FormSection>
+
+                        {/* Parent/Guardian Information */}
+                        <FormSection icon={Users2} title="Parent/Guardian Information" description="Please provide details for emergency contacts.">
+                            {/* Father's Info */}
+                            <h4 className="font-semibold text-primary mb-4">Father's Information</h4>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <FormField label="Full Name" id="fatherName" error={state.errors?.fatherName}><Input id="fatherName" name="fatherName" required/></FormField>
+                                <FormField label="Phone Number" id="fatherPhone" error={state.errors?.fatherPhone}><Input id="fatherPhone" name="fatherPhone" type="tel" required/></FormField>
+                                <FormField label="Occupation" id="fatherOccupation" error={state.errors?.fatherOccupation}><Input id="fatherOccupation" name="fatherOccupation" required/></FormField>
+                                <FormField label="Email" id="fatherEmail" error={state.errors?.fatherEmail}><Input id="fatherEmail" name="fatherEmail" type="email" /></FormField>
+                            </div>
+
+                            {/* Mother's Info */}
+                            <h4 className="font-semibold text-primary mt-8 mb-4">Mother's Information</h4>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <FormField label="Full Name" id="motherName" error={state.errors?.motherName}><Input id="motherName" name="motherName" required /></FormField>
+                                <FormField label="Phone Number" id="motherPhone" error={state.errors?.motherPhone}><Input id="motherPhone" name="motherPhone" type="tel" required /></FormField>
+                                <FormField label="Occupation" id="motherOccupation" error={state.errors?.motherOccupation}><Input id="motherOccupation" name="motherOccupation" required /></FormField>
+                                <FormField label="Email" id="motherEmail" error={state.errors?.motherEmail}><Input id="motherEmail" name="motherEmail" type="email" /></FormField>
+                            </div>
+
+                            {/* Guardian's Info */}
+                            <h4 className="font-semibold text-primary mt-8 mb-4">Guardian's Information (If Applicable)</h4>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <FormField label="Full Name" id="guardianName" error={state.errors?.guardianName}><Input id="guardianName" name="guardianName" /></FormField>
+                                <FormField label="Phone Number" id="guardianPhone" error={state.errors?.guardianPhone}><Input id="guardianPhone" name="guardianPhone" type="tel" /></FormField>
+                                <FormField label="Relationship" id="guardianRelationship" error={state.errors?.guardianRelationship}><Input id="guardianRelationship" name="guardianRelationship" /></FormField>
+                                <FormField label="Email" id="guardianEmail" error={state.errors?.guardianEmail}><Input id="guardianEmail" name="guardianEmail" type="email" /></FormField>
+                            </div>
+                        </FormSection>
+
+                        <div className="flex flex-col items-center">
+                            <Button type="submit" className="w-full max-w-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold" size="lg" disabled={isSubmitting}>
+                                {isSubmitting ? (
+                                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>
+                                ) : 'Submit Application'}
+                            </Button>
+                            {state.message && !state.success && state.errors && (
+                                <Alert variant="destructive" className="mt-6">
+                                <AlertTitle>Error</AlertTitle>
+                                <AlertDescription>Please review the form and correct the highlighted errors.</AlertDescription>
+                                </Alert>
+                            )}
                         </div>
-                    </FormSection>
-
-                    {/* Contact Information */}
-                    <FormSection icon={Phone} title="Contact Information" description="How can we get in touch with you?">
-                         <div className="grid md:grid-cols-2 gap-6">
-                            <FormField label="Email Address" id="email" error={state.errors?.email}>
-                                <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-                            </FormField>
-                            <FormField label="Phone Number" id="phone" error={state.errors?.phone}>
-                                <Input id="phone" name="phone" type="tel" placeholder="+977-..." required />
-                            </FormField>
-                         </div>
-                         <div className="mt-6">
-                            <FormField label="Alternate Phone (Optional)" id="alternatePhone" error={state.errors?.alternatePhone}>
-                                <Input id="alternatePhone" name="alternatePhone" type="tel" placeholder="+977-..." />
-                            </FormField>
-                         </div>
-                         <div className="mt-6">
-                             <FormField label="Permanent Address" id="permanentAddress" error={state.errors?.permanentAddress}>
-                                <Textarea id="permanentAddress" name="permanentAddress" placeholder="Street, Ward No, Municipality/VDC" required />
-                            </FormField>
-                         </div>
-                         <div className="grid md:grid-cols-2 gap-6 mt-6">
-                             <FormField label="Province" id="province" error={state.errors?.province}>
-                                <Select name="province" onValueChange={setSelectedProvince}>
-                                    <SelectTrigger><SelectValue placeholder="Select province" /></SelectTrigger>
-                                    <SelectContent>
-                                        {NEPAL_PROVINCES.map(prov => <SelectItem key={prov} value={prov}>{prov}</SelectItem>)}
-                                    </SelectContent>
-                                </Select>
-                            </FormField>
-                            <FormField label="District" id="district" error={state.errors?.district}>
-                                <Select name="district" disabled={!selectedProvince}>
-                                    <SelectTrigger><SelectValue placeholder="Select district" /></SelectTrigger>
-                                    <SelectContent>
-                                        {selectedProvince && NEPAL_DISTRICTS[selectedProvince] ? (
-                                            NEPAL_DISTRICTS[selectedProvince].map(dist => <SelectItem key={dist} value={dist}>{dist}</SelectItem>)
-                                        ) : (
-                                            <div className="p-2 text-center text-sm text-muted-foreground">Select a province first</div>
-                                        )}
-                                    </SelectContent>
-                                </Select>
-                            </FormField>
-                         </div>
-                    </FormSection>
-
-                    {/* Academic Information */}
-                     <FormSection icon={GraduationCap} title="Academic Information" description="Tell us about the student's academic background.">
-                        <div className='grid md:grid-cols-2 gap-6'>
-                            <FormField label="Applying For" id="applyingFor" error={state.errors?.applyingFor}>
-                                <Select name="applyingFor">
-                                  <SelectTrigger id="applyingFor"><SelectValue placeholder="Select a grade" /></SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="ecd">ECD</SelectItem>
-                                    <SelectItem value="1-8">School Section (1-8)</SelectItem>
-                                    <SelectItem value="9-10">School Section (9-10)</SelectItem>
-                                    <SelectItem value="bridge">Bridge Course</SelectItem>
-                                    <SelectItem value="+2-science">+2 Science</SelectItem>
-                                    <SelectItem value="+2-management">+2 Management</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                            </FormField>
-                             <FormField label="Previous School Name" id="previousSchool" error={state.errors?.previousSchool}>
-                                <Input id="previousSchool" name="previousSchool" placeholder="e.g. ABC Secondary School" required />
-                            </FormField>
+                    </form>
+                ) : (
+                    <div className="text-center testimonial-card py-16 px-8">
+                        <div className="inline-block bg-emerald-100 p-4 rounded-full border-4 border-emerald-200">
+                            <CheckCircle className="w-16 h-16 text-emerald-600" />
                         </div>
-                         <div className='grid md:grid-cols-2 gap-6 mt-6'>
-                            <FormField label="Last Class Completed" id="lastClassCompleted" error={state.errors?.lastClassCompleted}>
-                                <Input id="lastClassCompleted" name="lastClassCompleted" placeholder="e.g., Class 10" required />
-                            </FormField>
-                            <FormField label="GPA / Percentage" id="gpa" error={state.errors?.gpa}>
-                                <Input id="gpa" name="gpa" placeholder="e.g., 3.8 GPA" required />
-                            </FormField>
-                         </div>
-                         <div className="mt-6">
-                            <FormField label="Academic Achievements / Awards (Optional)" id="achievements" error={state.errors?.achievements}>
-                                <Textarea id="achievements" name="achievements" placeholder="List any awards, competitions, or distinctions" />
-                            </FormField>
-                         </div>
-                    </FormSection>
-
-                    {/* Parent/Guardian Information */}
-                    <FormSection icon={Users2} title="Parent/Guardian Information" description="Please provide details for emergency contacts.">
-                        {/* Father's Info */}
-                        <h4 className="font-semibold text-primary mb-4">Father's Information</h4>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <FormField label="Full Name" id="fatherName" error={state.errors?.fatherName}><Input id="fatherName" name="fatherName" required/></FormField>
-                            <FormField label="Phone Number" id="fatherPhone" error={state.errors?.fatherPhone}><Input id="fatherPhone" name="fatherPhone" type="tel" required/></FormField>
-                            <FormField label="Occupation" id="fatherOccupation" error={state.errors?.fatherOccupation}><Input id="fatherOccupation" name="fatherOccupation" required/></FormField>
-                            <FormField label="Email" id="fatherEmail" error={state.errors?.fatherEmail}><Input id="fatherEmail" name="fatherEmail" type="email" /></FormField>
-                        </div>
-
-                         {/* Mother's Info */}
-                        <h4 className="font-semibold text-primary mt-8 mb-4">Mother's Information</h4>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <FormField label="Full Name" id="motherName" error={state.errors?.motherName}><Input id="motherName" name="motherName" required /></FormField>
-                            <FormField label="Phone Number" id="motherPhone" error={state.errors?.motherPhone}><Input id="motherPhone" name="motherPhone" type="tel" required /></FormField>
-                            <FormField label="Occupation" id="motherOccupation" error={state.errors?.motherOccupation}><Input id="motherOccupation" name="motherOccupation" required /></FormField>
-                            <FormField label="Email" id="motherEmail" error={state.errors?.motherEmail}><Input id="motherEmail" name="motherEmail" type="email" /></FormField>
-                        </div>
-
-                         {/* Guardian's Info */}
-                        <h4 className="font-semibold text-primary mt-8 mb-4">Guardian's Information (If Applicable)</h4>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <FormField label="Full Name" id="guardianName" error={state.errors?.guardianName}><Input id="guardianName" name="guardianName" /></FormField>
-                            <FormField label="Phone Number" id="guardianPhone" error={state.errors?.guardianPhone}><Input id="guardianPhone" name="guardianPhone" type="tel" /></FormField>
-                            <FormField label="Relationship" id="guardianRelationship" error={state.errors?.guardianRelationship}><Input id="guardianRelationship" name="guardianRelationship" /></FormField>
-                            <FormField label="Email" id="guardianEmail" error={state.errors?.guardianEmail}><Input id="guardianEmail" name="guardianEmail" type="email" /></FormField>
-                        </div>
-                    </FormSection>
-
-                    <div className="flex flex-col items-center">
-                        <Button type="submit" className="w-full max-w-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold" size="lg" disabled={isSubmitting}>
-                            {isSubmitting ? (
-                                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>
-                             ) : 'Submit Application'}
+                        <h2 className="text-3xl font-bold mt-8 text-foreground">Application Submitted!</h2>
+                        <p className="text-muted-foreground text-lg mt-4 max-w-prose mx-auto">
+                            {state.message}
+                        </p>
+                        <Button onClick={resetForm} className="mt-8" size="lg">
+                            <Send className="mr-2 h-4 w-4" />
+                            Submit Another Inquiry
                         </Button>
-                        {state.success && state.message && (
-                             <Alert variant="default" className="mt-6 bg-emerald-50 border-emerald-200 text-emerald-800">
-                              <CheckCircle className="h-4 w-4 !text-emerald-600" />
-                              <AlertTitle className="font-semibold">Success!</AlertTitle>
-                              <AlertDescription>{state.message}</AlertDescription>
-                            </Alert>
-                        )}
-                         {state.message && !state.success && state.errors && (
-                            <Alert variant="destructive" className="mt-6">
-                              <AlertTitle>Error</AlertTitle>
-                              <AlertDescription>Please review the form and correct the highlighted errors.</AlertDescription>
-                            </Alert>
-                        )}
                     </div>
-                </form>
+                )}
             </div>
         </div>
     );
 }
-
-    

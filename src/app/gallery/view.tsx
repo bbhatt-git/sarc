@@ -6,103 +6,62 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-
-const galleryImages = Array.from({ length: 33 }, (_, i) => `/images/gallery/${i + 1}.jpg`);
-
-const MarqueeImage = ({ src, onImageClick }: { src: string; onImageClick: () => void }) => {
-    return (
-        <div
-            className="relative aspect-video w-72 shrink-0 cursor-pointer overflow-hidden rounded-xl md:aspect-square md:w-80"
-            onClick={onImageClick}
-        >
-            <Image
-                src={src}
-                alt={`Gallery image`}
-                fill
-                className="object-cover transition-all duration-300 hover:scale-110"
-            />
-        </div>
-    );
-};
-
-const MarqueeRow = ({ images, reverse, duration, onImageClick }: { images: string[], reverse: boolean, duration: string, onImageClick: (src: string) => void }) => {
-    return (
-        <div className="group flex flex-row overflow-hidden p-2 [--gap:1rem]">
-            <div
-                style={{ '--duration': duration } as React.CSSProperties}
-                className={cn(
-                    'flex shrink-0 animate-marquee justify-around [gap:var(--gap)]',
-                    {
-                        'group-hover:[animation-play-state:paused]': true,
-                        '[animation-direction:reverse]': reverse,
-                    }
-                )}
-            >
-                {images.map((src) => (
-                    <MarqueeImage key={src} src={src} onImageClick={() => onImageClick(src)} />
-                ))}
-            </div>
-            <div
-                aria-hidden="true"
-                style={{ '--duration': duration } as React.CSSProperties}
-                className={cn(
-                    'flex shrink-0 animate-marquee justify-around [gap:var(--gap)]',
-                    {
-                        'group-hover:[animation-play-state:paused]': true,
-                        '[animation-direction:reverse]': reverse,
-                    }
-                )}
-            >
-                {images.map((src) => (
-                    <MarqueeImage key={`${src}-clone`} src={src} onImageClick={() => onImageClick(src)} />
-                ))}
-            </div>
-        </div>
-    );
-};
+import { GALLERY_IMAGES, GALLERY_CATEGORIES } from '@/lib/constants';
+import { Button } from '@/components/ui/button';
 
 export default function GalleryView() {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState('All');
 
-  const row1 = galleryImages.slice(0, 9);
-  const row2 = galleryImages.slice(9, 17);
-  const row3 = galleryImages.slice(17, 25);
-  const row4 = galleryImages.slice(25, 33);
+  const filteredImages = activeCategory === 'All'
+    ? GALLERY_IMAGES
+    : GALLERY_IMAGES.filter(img => img.category === activeCategory);
 
   const handleImageClick = (imageSrc: string) => {
-    const index = galleryImages.findIndex(src => src === imageSrc);
-    if (index !== -1) {
-        setSelectedImage(index);
+    const indexInFiltered = filteredImages.findIndex(img => img.src === imageSrc);
+    if (indexInFiltered !== -1) {
+        setSelectedImageIndex(indexInFiltered);
     }
   }
 
   const handleNext = () => {
-    if (selectedImage !== null) {
-      setSelectedImage((prev) => (prev! + 1) % galleryImages.length);
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((prev) => (prev! + 1) % filteredImages.length);
     }
   };
 
   const handlePrev = () => {
-    if (selectedImage !== null) {
-      setSelectedImage((prev) => (prev! - 1 + galleryImages.length) % galleryImages.length);
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((prev) => (prev! - 1 + filteredImages.length) % filteredImages.length);
     }
   };
 
   const handleClose = () => {
-    setSelectedImage(null);
+    setSelectedImageIndex(null);
   };
 
   useEffect(() => {
-    if (selectedImage !== null) {
+    if (selectedImageIndex !== null) {
       document.body.classList.add('lightbox-open');
     } else {
       document.body.classList.remove('lightbox-open');
     }
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (selectedImageIndex !== null) {
+            if (e.key === 'ArrowRight') handleNext();
+            if (e.key === 'ArrowLeft') handlePrev();
+            if (e.key === 'Escape') handleClose();
+        }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.body.classList.remove('lightbox-open');
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedImage]);
+  }, [selectedImageIndex]);
 
   return (
     <div>
@@ -111,14 +70,51 @@ export default function GalleryView() {
         subtitle="Moments of Discovery and Community at SARC"
         imageUrl="/images/hero/4.jpg"
       />
-      <div className="flex flex-col py-20 overflow-hidden">
-          <MarqueeRow images={row1} reverse={false} duration="50s" onImageClick={handleImageClick} />
-          <MarqueeRow images={row2} reverse={true} duration="40s" onImageClick={handleImageClick} />
-          <MarqueeRow images={row3} reverse={false} duration="50s" onImageClick={handleImageClick} />
-          <MarqueeRow images={row4} reverse={true} duration="40s" onImageClick={handleImageClick} />
+      <div className="container mx-auto px-4 py-20">
+        <div className="flex justify-center flex-wrap gap-2 mb-12">
+          {GALLERY_CATEGORIES.map(category => (
+            <Button
+              key={category}
+              variant={activeCategory === category ? 'default' : 'outline'}
+              onClick={() => setActiveCategory(category)}
+              className="rounded-full transition-all duration-300"
+            >
+              {category}
+            </Button>
+          ))}
+        </div>
+
+        <motion.div
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+        >
+          <AnimatePresence>
+            {filteredImages.map((image, index) => (
+              <motion.div
+                key={image.src}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                className="relative aspect-video w-full cursor-pointer overflow-hidden rounded-xl group testimonial-card"
+                onClick={() => handleImageClick(image.src)}
+              >
+                <Image
+                  src={image.src}
+                  alt={`Gallery image for ${image.category}`}
+                  fill
+                  className="object-cover transition-all duration-300 group-hover:scale-110"
+                />
+                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
+
       <AnimatePresence>
-        {selectedImage !== null && (
+        {selectedImageIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -128,13 +124,13 @@ export default function GalleryView() {
           >
             <button
               onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 transform rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75"
+              className="absolute left-4 top-1/2 -translate-y-1/2 transform rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75 z-10"
+              aria-label="Previous Image"
             >
               <ChevronLeft size={32} />
-              <span className="sr-only">Previous Image</span>
             </button>
             <motion.div
-              key={selectedImage}
+              key={selectedImageIndex}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -143,8 +139,8 @@ export default function GalleryView() {
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={galleryImages[selectedImage]}
-                alt={`Gallery image ${selectedImage + 1}`}
+                src={filteredImages[selectedImageIndex].src}
+                alt={`Gallery image ${selectedImageIndex + 1}`}
                 width={1200}
                 height={800}
                 className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
@@ -152,17 +148,17 @@ export default function GalleryView() {
             </motion.div>
             <button
               onClick={(e) => { e.stopPropagation(); handleNext(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 transform rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75"
+              className="absolute right-4 top-1/2 -translate-y-1/2 transform rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75 z-10"
+               aria-label="Next Image"
             >
               <ChevronRight size={32} />
-              <span className="sr-only">Next Image</span>
             </button>
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75"
+              className="absolute top-4 right-4 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75 z-10"
+              aria-label="Close"
             >
               <X size={24} />
-              <span className="sr-only">Close</span>
             </button>
           </motion.div>
         )}
