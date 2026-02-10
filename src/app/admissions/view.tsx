@@ -282,7 +282,7 @@ export default function AdmissionsView() {
                                         {selectedProvince && NEPAL_DISTRICTS[selectedProvince] ? (
                                             NEPAL_DISTRICTS[selectedProvince].map(dist => <SelectItem key={dist} value={dist}>{dist}</SelectItem>)
                                         ) : (
-                                            <SelectItem value="" disabled>Select a province first</SelectItem>
+                                            <div className="p-2 text-center text-sm text-muted-foreground">Select a province first</div>
                                         )}
                                     </SelectContent>
                                 </Select>
@@ -380,3 +380,5 @@ export default function AdmissionsView() {
         </div>
     );
 }
+
+    
