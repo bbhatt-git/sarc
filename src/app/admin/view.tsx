@@ -256,6 +256,15 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
     if (!workbook) {
         return <div className="flex h-64 w-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     }
+    
+    const formatSheetNameForDisplay = (name: string) => {
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes('general')) return 'General';
+        if (lowerName.includes('holiday')) return 'Holiday';
+        if (lowerName.includes('exam')) return 'Exams';
+        if (lowerName.includes('result')) return 'Results';
+        return name;
+    };
 
     return (
         <>
@@ -274,7 +283,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
             <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
                 <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-none sm:inline-flex sm:w-auto">
                     {sheetNames.map((name) => (
-                        <TabsTrigger key={name} value={name}>{name}</TabsTrigger>
+                        <TabsTrigger key={name} value={name}>{formatSheetNameForDisplay(name)}</TabsTrigger>
                     ))}
                 </TabsList>
 
