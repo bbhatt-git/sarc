@@ -194,19 +194,22 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                 const ws = wb.Sheets[wsname];
                 const importedData: GridData = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
 
-                if (!importedData || importedData.length === 0) {
+                if (!importedData || importedData.length < 2) {
                     toast({
                         variant: 'destructive',
                         title: 'Import Error',
-                        description: 'The selected file is empty or could not be read.',
+                        description: 'The selected file is empty or contains no data rows.',
                     });
                     return;
                 }
                 
-                setGridData(importedData);
+                const currentHeader = gridData[0] || [];
+                const importedBody = importedData.slice(1);
+
+                setGridData([currentHeader, ...importedBody]);
                 toast({
                     title: 'Import Successful',
-                    description: `Data from "${file.name}" has been loaded. Review and click "Save Changes" to make it permanent.`,
+                    description: `Data from "${file.name}" has been loaded, preserving the existing header. Review and save changes.`,
                 });
 
             } catch (error) {
