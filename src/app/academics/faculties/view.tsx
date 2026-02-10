@@ -1,36 +1,83 @@
 'use client';
-import { STAFF_MEMBERS } from '@/lib/constants';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import PageHeader from '@/app/components/page-header';
+import { FlaskConical, Briefcase, Leaf, Computer, BarChart, ShoppingCart } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+
+const faculties = [
+    {
+        name: 'Science Faculty',
+        icon: FlaskConical,
+        description: "Our Science Faculty is dedicated to fostering innovation and critical thinking, preparing students for careers in technology, research, and healthcare.",
+        streams: [
+            {
+                name: 'Bio Science',
+                description: 'For students aspiring to careers in medicine, dentistry, pharmacy, and other health sciences, with a focus on biology, zoology, and botany.',
+                icon: Leaf,
+            },
+            {
+                name: 'Computer Science',
+                description: 'For students aiming for careers in engineering, IT, and software development, with a focus on programming, algorithms, and mathematics.',
+                icon: Computer,
+            },
+        ],
+    },
+    {
+        name: 'Management Faculty',
+        icon: Briefcase,
+        description: "The Management Faculty equips students with the entrepreneurial and managerial skills needed to excel in the global business environment.",
+        streams: [
+            {
+                name: 'Business',
+                description: 'Focuses on core business principles including marketing, finance, and economics. Ideal for future entrepreneurs and corporate leaders.',
+                icon: BarChart,
+            },
+            {
+                name: 'Computer Commerce',
+                description: 'A modern blend of commerce and information technology, preparing students for tech-driven business roles and e-commerce.',
+                icon: ShoppingCart,
+            },
+        ],
+    },
+];
 
 export default function FacultiesView() {
     return (
         <div>
-            <PageHeader title="Our Faculties" subtitle="Expert Educators, Passionate Mentors" imageUrl="/images/hero/3.jpg" />
+            <PageHeader title="Our Faculties" subtitle="Expertise in Science & Management" imageUrl="/images/hero/3.jpg" />
             <div className="container mx-auto px-4 py-20">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {STAFF_MEMBERS.map((staff, index) => (
-                        <motion.div 
-                            key={staff.id}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+                    {faculties.map((faculty, index) => (
+                        <motion.div
+                            key={faculty.name}
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            className="bg-card/50 backdrop-blur-sm border rounded-2xl shadow-lg overflow-hidden p-6 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="h-full"
                         >
-                            <div className="relative w-32 h-32 mx-auto">
-                                <Image
-                                    src={staff.image}
-                                    alt={`Portrait of ${staff.name}`}
-                                    fill
-                                    className="rounded-full object-cover"
-                                />
-                            </div>
-                            <h3 className="text-xl font-bold text-foreground mt-4">{staff.name}</h3>
-                            <p className="text-emerald-600 font-medium">{staff.role}</p>
-                            <p className="text-xs text-muted-foreground mt-1">{staff.credentials}</p>
-                            <p className="text-sm text-muted-foreground mt-4 italic">"{staff.philosophy}"</p>
+                            <Card className="testimonial-card h-full flex flex-col">
+                                <CardHeader className="text-center items-center p-8">
+                                    <div className="p-4 bg-emerald-100 dark:bg-emerald-900/50 rounded-full inline-block mb-4">
+                                        <faculty.icon className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+                                    </div>
+                                    <CardTitle className="text-3xl">{faculty.name}</CardTitle>
+                                    <CardDescription className="pt-2 max-w-md mx-auto">{faculty.description}</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-6 p-8 flex-grow">
+                                    {faculty.streams.map((stream) => (
+                                        <div key={stream.name} className="flex items-start gap-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/70 hover:border-primary/50 transition-colors duration-300">
+                                             <div className="bg-sky-100 dark:bg-sky-900/50 p-3 rounded-full mt-1">
+                                                <stream.icon className="w-6 h-6 text-sky-600 dark:text-sky-400" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-lg text-foreground">{stream.name}</h4>
+                                                <p className="text-muted-foreground text-sm">{stream.description}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </CardContent>
+                            </Card>
                         </motion.div>
                     ))}
                 </div>

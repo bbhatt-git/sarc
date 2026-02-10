@@ -3,7 +3,7 @@ import FacultiesView from './view';
 
 export const metadata: Metadata = {
   title: 'Our Faculties',
-  description: 'Meet the experienced and dedicated faculties at SARC who are experts in their fields and committed to student success.',
+  description: 'Explore the Science and Management faculties at SARC, including specializations in biological science, computer science, business, and computer commerce.',
 };
 
 export default function FacultiesPage() {
