@@ -18,21 +18,39 @@ function getProperty(obj: any, key: string): any {
     return foundKey ? obj[foundKey] : undefined;
 }
 
+// Helper function to normalize DOB input
+function normalizeDate(dob: string): string {
+  // Remove all non-digit characters
+  const digitsOnly = dob.replace(/\D/g, '');
+  
+  // Check if it's in YYYYMMDD format
+  if (digitsOnly.length === 8) {
+    const year = digitsOnly.substring(0, 4);
+    const month = digitsOnly.substring(4, 6);
+    const day = digitsOnly.substring(6, 8);
+    return `${year}-${month}-${day}`;
+  }
+  
+  // Assume it's already in a delimited format like YYYY-MM-DD or YYYY/MM/DD
+  // Just replace slashes with dashes for consistency
+  return dob.replace(/\//g, '-');
+}
+
 
 export async function checkResult(symbolNo: string, dob: string): Promise<Result | null> {
   try {
     const resultsData: any[] = getExcelData('Results');
+    const normalizedDob = normalizeDate(dob);
     
     const studentResult = resultsData.find(
       (row) => {
         const rowSymbolNo = getProperty(row, 'SymbolNo');
         const rowDOB = getProperty(row, 'DOB');
 
-        // The DOB from Excel might be a Date object which was converted to YYYY-MM-DD
-        // The input from the form is also YYYY-MM-DD
+        // The DOB from Excel is already normalized to YYYY-MM-DD
         return rowSymbolNo && rowDOB &&
                String(rowSymbolNo).trim().toLowerCase() === symbolNo.trim().toLowerCase() && 
-               String(rowDOB) === dob;
+               String(rowDOB) === normalizedDob;
       }
     );
 

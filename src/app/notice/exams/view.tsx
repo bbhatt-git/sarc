@@ -29,52 +29,57 @@ const ResultDisplay = ({ result }: { result: Result }) => {
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="mt-8"
         >
-            <div
-                className={cn(
-                    "rounded-2xl p-px",
-                    "bg-gradient-to-br",
-                    isPass
-                        ? "from-emerald-500/50 via-sky-500/50 to-emerald-500/50"
-                        : "from-rose-500/50 via-red-500/50 to-rose-500/50"
-                )}
-            >
-                <div className="rounded-[15px] bg-card/80 backdrop-blur-2xl p-6 md:p-8 shadow-2xl">
-                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-border/50 pb-4">
+            <div className={cn(
+                "rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl overflow-hidden",
+                "transition-all duration-500"
+            )}>
+                {/* Header */}
+                <div className={cn(
+                    "p-6",
+                    isPass ? "bg-emerald-500/10" : "bg-rose-500/10"
+                )}>
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                         <div>
-                            <h3 className={cn("text-xl md:text-2xl font-bold", isPass ? "text-emerald-400" : "text-rose-400")}>
-                                {isPass ? "Congratulations! Result: Pass" : "Result: Fail"}
+                            <h3 className={cn(
+                                "text-xl font-bold",
+                                isPass ? "text-emerald-300" : "text-rose-300"
+                            )}>
+                                {isPass ? "Congratulations! Result: Pass" : "Sorry! Result: Fail"}
                             </h3>
-                            <p className="text-lg md:text-xl font-semibold text-foreground mt-1">{result.StudentName}</p>
+                            <p className="text-2xl font-semibold text-foreground mt-1">{result.StudentName}</p>
                         </div>
                         <div className={cn(
-                            "flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-bold",
-                            isPass
-                                ? "bg-emerald-500/10 text-emerald-400"
-                                : "bg-rose-500/10 text-rose-400"
+                            "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold",
+                            isPass ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"
                         )}>
                             {isPass ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
                             <span>{result.Remarks}</span>
                         </div>
                     </div>
-                    
-                    <div className="text-sm text-muted-foreground mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
-                        <p><span className="font-semibold">Symbol No:</span> {result.SymbolNo}</p>
-                        <p><span className="font-semibold">Date of Birth:</span> {result.DOB}</p>
+                </div>
+                
+                {/* Body */}
+                <div className="p-6 space-y-6">
+                    {/* Student Info */}
+                    <div className="text-muted-foreground grid grid-cols-1 md:grid-cols-2 gap-4 text-base">
+                        <p><span className="font-semibold text-foreground/80">Symbol No:</span> {result.SymbolNo}</p>
+                        <p><span className="font-semibold text-foreground/80">Date of Birth:</span> {result.DOB}</p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mt-6">
-                        <div className="bg-background/50 rounded-xl p-4 sm:p-6">
-                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">GPA</p>
-                            <p className="text-5xl sm:text-6xl font-extrabold text-foreground tracking-tight mt-1">{result.GPA.toFixed(2)}</p>
+                    {/* GPA and Grade */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                        <div className="rounded-xl bg-black/10 dark:bg-white/5 p-6 backdrop-blur-sm border border-white/10">
+                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">GPA</p>
+                            <p className="text-6xl font-extrabold text-foreground tracking-tight mt-2">{result.GPA.toFixed(2)}</p>
                         </div>
-                        <div className="bg-background/50 rounded-xl p-4 sm:p-6">
-                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">Grade</p>
-                            <p className="text-5xl sm:text-6xl font-extrabold text-foreground tracking-tight mt-1">{result.Grade}</p>
+                        <div className="rounded-xl bg-black/10 dark:bg-white/5 p-6 backdrop-blur-sm border border-white/10">
+                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Grade</p>
+                            <p className="text-6xl font-extrabold text-foreground tracking-tight mt-2">{result.Grade}</p>
                         </div>
                     </div>
                 </div>
@@ -147,12 +152,12 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
                                     />
                                 </div>
                                 <div className="space-y-2 w-full md:col-span-1">
-                                    <Label htmlFor="dob">Date of Birth (YYYY-MM-DD)</Label>
+                                    <Label htmlFor="dob">Date of Birth</Label>
                                     <Input
                                         id="dob"
                                         value={dob}
                                         onChange={(e) => setDob(e.target.value)}
-                                        placeholder="e.g., 2005-04-15"
+                                        placeholder="YYYY-MM-DD"
                                         required
                                     />
                                 </div>
