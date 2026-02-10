@@ -155,7 +155,6 @@ export default function AdmissionsView() {
                                     <SelectItem value="bridge">Bridge Course</SelectItem>
                                     <SelectItem value="+2-science">+2 Science</SelectItem>
                                     <SelectItem value="+2-management">+2 Management</SelectItem>
-                                    <SelectItem value="+2-law">+2 Law</SelectItem>
                                   </SelectContent>
                                 </Select>
                                 {state.errors?.gradeLevel && <p className="text-sm text-rose-500">{state.errors.gradeLevel[0]}</p>}

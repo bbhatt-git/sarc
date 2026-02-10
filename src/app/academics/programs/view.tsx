@@ -1,14 +1,11 @@
-
 'use client';
 import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
-import { BookOpen, FlaskConical, Landmark, Briefcase, GraduationCap, Home } from 'lucide-react';
+import { BookOpen, FlaskConical, Briefcase, Home } from 'lucide-react';
 
 const programs = [
     { name: '+2 Science', icon: FlaskConical, description: 'A rigorous program focusing on scientific principles and research, preparing students for careers in medicine, engineering, and technology.' },
     { name: '+2 Management', icon: Briefcase, description: 'Develop business acumen and leadership skills with our comprehensive management curriculum, covering finance, marketing, and economics.' },
-    { name: '+2 Law', icon: Landmark, description: 'Explore the foundations of legal systems and justice. This stream prepares students for a career in law and public policy.' },
-    { name: 'CTEVT Programs', icon: GraduationCap, description: 'Gain practical, job-oriented skills through our vocational programs, designed to meet industry demands.' },
     { name: 'Bridge Course', icon: BookOpen, description: 'Prepare for your +2 journey with our intensive bridge course, designed to strengthen your academic foundation.' },
     { name: 'School (ECD-10)', icon: Home, description: 'A nurturing environment for young learners, focusing on holistic development from early childhood to grade 10.' },
 ];

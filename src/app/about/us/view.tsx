@@ -155,8 +155,8 @@ export default function AboutView() {
                 className="container mx-auto px-4 mt-24 pb-12"
             >
                  <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Programs</h2>
-                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
-                    {['School (ECD-10)', 'Bridge Course', '+2 Science', '+2 Management', '+2 Law', 'CTEVT Programs'].map(program => (
+                 <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                    {['School (ECD-10)', 'Bridge Course', '+2 Science', '+2 Management'].map(program => (
                         <div key={program} className="bg-card/50 backdrop-blur-sm border p-4 rounded-2xl">
                             <p className="text-foreground font-semibold">{program}</p>
                         </div>
