@@ -17,7 +17,7 @@ export default function FacilitiesView() {
         <div>
             <PageHeader title="Our Facilities" subtitle="World-Class Infrastructure & Support" imageUrl="/images/hero/0.jpg" />
             <div className="container mx-auto px-4 py-20">
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {facilities.map((facility, index) => (
                         <motion.div
                             key={facility.title}
@@ -25,14 +25,14 @@ export default function FacilitiesView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="testimonial-card p-8 flex items-start gap-6 h-full"
+                            className="testimonial-card p-8 flex flex-col items-center text-center gap-4 h-full"
                         >
                             <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
                                 <facility.icon className="w-8 h-8 text-emerald-600" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-foreground mb-2">{facility.title}</h3>
-                                <p className="text-muted-foreground text-lg">{facility.description}</p>
+                                <h3 className="text-xl font-bold text-foreground mb-2">{facility.title}</h3>
+                                <p className="text-muted-foreground">{facility.description}</p>
                             </div>
                         </motion.div>
                     ))}
