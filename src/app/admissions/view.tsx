@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, FormEvent } from 'react';
+import { useState, useRef, FormEvent, useEffect } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, Loader2, User, Phone, GraduationCap, Users2 } from 'lucide-react';
 import { z } from "zod";
@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import PageHeader from '../components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { NATIONALITIES, NEPAL_PROVINCES, NEPAL_DISTRICTS, NEPALI_MONTHS, getNepaliYears, getDaysInMonth } from '@/lib/nepal-data';
 
 
 const admissionSchema = z.object({
@@ -24,7 +25,7 @@ const admissionSchema = z.object({
   lastName: z.string().min(2, "Last name is required"),
   dob: z.string().min(1, "Date of Birth is required"),
   gender: z.string().min(1, "Please select a gender"),
-  nationality: z.string().min(2, "Nationality is required"),
+  nationality: z.string().min(1, "Please select a nationality"),
   citizenshipNo: z.string().optional(),
   
   // Contact
@@ -32,7 +33,7 @@ const admissionSchema = z.object({
   phone: z.string().min(10, "A valid phone number is required"),
   alternatePhone: z.string().optional(),
   permanentAddress: z.string().min(5, "Permanent address is required"),
-  district: z.string().min(3, "District is required"),
+  district: z.string().min(1, "Please select a district"),
   province: z.string().min(1, "Please select a province"),
   
   // Academic
@@ -102,6 +103,20 @@ export default function AdmissionsView() {
     const { toast } = useToast();
     const formRef = useRef<HTMLFormElement>(null);
     const firestore = useFirestore();
+
+    const [selectedProvince, setSelectedProvince] = useState<string>('');
+    const [dobYear, setDobYear] = useState('');
+    const [dobMonth, setDobMonth] = useState('');
+    const [dobDay, setDobDay] = useState('');
+    const [dobValue, setDobValue] = useState('');
+
+    useEffect(() => {
+        if (dobYear && dobMonth && dobDay) {
+            setDobValue(`${dobYear}-${dobMonth}-${dobDay}`);
+        } else {
+            setDobValue('');
+        }
+    }, [dobYear, dobMonth, dobDay]);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -182,9 +197,31 @@ export default function AdmissionsView() {
                             <FormField label="Last Name" id="lastName" error={state.errors?.lastName}>
                                 <Input id="lastName" name="lastName" placeholder="e.g. Doe" required />
                             </FormField>
-                            <FormField label="Date of Birth" id="dob" error={state.errors?.dob}>
-                                <Input id="dob" name="dob" type="date" required />
-                            </FormField>
+                            <div className="space-y-2 md:col-span-2">
+                                <Label>Date of Birth (B.S.)</Label>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <Select onValueChange={setDobYear}>
+                                        <SelectTrigger><SelectValue placeholder="YYYY" /></SelectTrigger>
+                                        <SelectContent>
+                                            {getNepaliYears().map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                    <Select onValueChange={setDobMonth}>
+                                        <SelectTrigger><SelectValue placeholder="MM" /></SelectTrigger>
+                                        <SelectContent>
+                                            {NEPALI_MONTHS.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                    <Select onValueChange={setDobDay}>
+                                        <SelectTrigger><SelectValue placeholder="DD" /></SelectTrigger>
+                                        <SelectContent>
+                                            {getDaysInMonth().map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <input type="hidden" name="dob" value={dobValue} />
+                                {state.errors?.dob && <p className="text-sm text-rose-500">{state.errors.dob[0]}</p>}
+                            </div>
                              <FormField label="Gender" id="gender" error={state.errors?.gender}>
                                 <Select name="gender">
                                     <SelectTrigger><SelectValue placeholder="Select gender" /></SelectTrigger>
@@ -196,7 +233,12 @@ export default function AdmissionsView() {
                                 </Select>
                             </FormField>
                             <FormField label="Nationality" id="nationality" error={state.errors?.nationality}>
-                                <Input id="nationality" name="nationality" placeholder="e.g. Nepali" required />
+                                <Select name="nationality">
+                                    <SelectTrigger><SelectValue placeholder="Select nationality" /></SelectTrigger>
+                                    <SelectContent>
+                                        {NATIONALITIES.map(nat => <SelectItem key={nat} value={nat}>{nat}</SelectItem>)}
+                                    </SelectContent>
+                                </Select>
                             </FormField>
                              <FormField label="Citizenship No. (Optional)" id="citizenshipNo" error={state.errors?.citizenshipNo}>
                                 <Input id="citizenshipNo" name="citizenshipNo" placeholder="e.g. 12-34-56789" />
@@ -225,20 +267,23 @@ export default function AdmissionsView() {
                             </FormField>
                          </div>
                          <div className="grid md:grid-cols-2 gap-6 mt-6">
-                            <FormField label="District" id="district" error={state.errors?.district}>
-                                <Input id="district" name="district" placeholder="e.g. Kanchanpur" required />
-                            </FormField>
-                            <FormField label="Province" id="province" error={state.errors?.province}>
-                                <Select name="province">
+                             <FormField label="Province" id="province" error={state.errors?.province}>
+                                <Select name="province" onValueChange={setSelectedProvince}>
                                     <SelectTrigger><SelectValue placeholder="Select province" /></SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="Koshi">Koshi</SelectItem>
-                                        <SelectItem value="Madhesh">Madhesh</SelectItem>
-                                        <SelectItem value="Bagmati">Bagmati</SelectItem>
-                                        <SelectItem value="Gandaki">Gandaki</SelectItem>
-                                        <SelectItem value="Lumbini">Lumbini</SelectItem>
-                                        <SelectItem value="Karnali">Karnali</SelectItem>
-                                        <SelectItem value="Sudurpashchim">Sudurpashchim</SelectItem>
+                                        {NEPAL_PROVINCES.map(prov => <SelectItem key={prov} value={prov}>{prov}</SelectItem>)}
+                                    </SelectContent>
+                                </Select>
+                            </FormField>
+                            <FormField label="District" id="district" error={state.errors?.district}>
+                                <Select name="district" disabled={!selectedProvince}>
+                                    <SelectTrigger><SelectValue placeholder="Select district" /></SelectTrigger>
+                                    <SelectContent>
+                                        {selectedProvince && NEPAL_DISTRICTS[selectedProvince] ? (
+                                            NEPAL_DISTRICTS[selectedProvince].map(dist => <SelectItem key={dist} value={dist}>{dist}</SelectItem>)
+                                        ) : (
+                                            <SelectItem value="" disabled>Select a province first</SelectItem>
+                                        )}
                                     </SelectContent>
                                 </Select>
                             </FormField>
@@ -335,5 +380,3 @@ export default function AdmissionsView() {
         </div>
     );
 }
-
-    

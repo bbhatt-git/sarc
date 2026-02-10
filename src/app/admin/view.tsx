@@ -138,46 +138,66 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
         setRowToDelete(rowIndex);
     };
 
-    const confirmRemoveRow = () => {
-        if (rowToDelete === null) return;
-        
-        const updatedGridData = gridData.filter((_, index) => index !== rowToDelete + 1);
-        setGridData(updatedGridData);
-        toast({ 
-            title: 'Row Removed', 
-            description: `Row ${rowToDelete + 1} has been removed. Save your changes to make it permanent.` 
-        });
-        setRowToDelete(null);
-    };
-
-    const handleSaveChanges = async () => {
-        if (!workbook || !activeSheetName) return;
+    const commitGridData = async (newGridData: GridData) => {
+        if (!workbook || !activeSheetName) return { success: false, message: 'Workbook not ready.' };
 
         setIsSaving(true);
         try {
-            const newWorkbook: XLSX.WorkBook = { ...workbook };
-            newWorkbook.Sheets = { ...workbook.Sheets };
-
-            const newSheet = XLSX.utils.aoa_to_sheet(gridData, { dateNF: 'yyyy-mm-dd' });
+            const newWorkbook: XLSX.WorkBook = { ...workbook, Sheets: { ...workbook.Sheets } };
+            const newSheet = XLSX.utils.aoa_to_sheet(newGridData, { dateNF: 'yyyy-mm-dd' });
             newWorkbook.Sheets[activeSheetName] = newSheet;
 
             const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
             const result = await saveExcelFile(newBase64);
 
             if (result.success) {
-                toast({ title: 'Success!', description: result.message });
+                setWorkbook(newWorkbook);
+                setGridData(newGridData);
+                return { success: true, message: result.message };
             } else {
                 throw new Error(result.message);
             }
         } catch (error) {
             console.error("Failed to save Excel data:", error);
+            return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred.' };
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    const confirmRemoveRow = async () => {
+        if (rowToDelete === null) return;
+        
+        const updatedGridData = gridData.filter((_, index) => index !== rowToDelete + 1);
+        const result = await commitGridData(updatedGridData);
+
+        if (result.success) {
+            toast({ 
+                title: 'Row Removed', 
+                description: `Row ${rowToDelete + 1} has been successfully removed.` 
+            });
+        } else {
+            toast({
+                variant: 'destructive',
+                title: 'Error Deleting Row',
+                description: result.message,
+            });
+            // Revert state if save fails
+            setGridData(gridData);
+        }
+        setRowToDelete(null);
+    };
+
+    const handleSaveChanges = async () => {
+        const result = await commitGridData(gridData);
+        if (result.success) {
+            toast({ title: 'Success!', description: result.message });
+        } else {
             toast({
                 variant: 'destructive',
                 title: 'Error Saving File',
-                description: error instanceof Error ? error.message : 'An unknown error occurred.',
+                description: result.message,
             });
-        } finally {
-            setIsSaving(false);
         }
     };
     
