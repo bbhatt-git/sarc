@@ -6,7 +6,8 @@ export function getExcelData(sheetName: string): any[] {
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', 'notice.xlsx');
     const file = fs.readFileSync(filePath);
-    const workbook = XLSX.read(file, { type: 'buffer' });
+    // Use cellDates: true to have xlsx parse Excel date cells into JS Date objects
+    const workbook = XLSX.read(file, { type: 'buffer', cellDates: true });
     
     const sheet = workbook.Sheets[sheetName];
     if (!sheet) {
@@ -14,9 +15,27 @@ export function getExcelData(sheetName: string): any[] {
       return [];
     }
     
-    const data: any[] = XLSX.utils.sheet_to_json(sheet, { raw: false });
+    // This will produce an array of objects, with Date objects for date cells
+    const jsonData: any[] = XLSX.utils.sheet_to_json(sheet);
 
-    return data;
+    // To make the data serializable for Client Components, we need to convert Date objects to strings.
+    const serializableData = jsonData.map(row => {
+      const newRow: { [key: string]: any } = {};
+      for (const key in row) {
+        if (Object.prototype.hasOwnProperty.call(row, key)) {
+          const value = row[key];
+          if (value instanceof Date) {
+            // Format date to YYYY-MM-DD. This makes it a plain string.
+            newRow[key] = value.toISOString().split('T')[0];
+          } else {
+            newRow[key] = value;
+          }
+        }
+      }
+      return newRow;
+    });
+
+    return serializableData;
 
   } catch (error: any) {
     if (error.code === 'ENOENT') {
