@@ -5,34 +5,46 @@
       "description": "Represents an inquiry for admission submitted through the website form.",
       "type": "object",
       "properties": {
-        "parentName": {
-          "type": "string",
-          "description": "The name of the parent or guardian."
-        },
-        "studentName": {
-          "type": "string",
-          "description": "The name of the prospective student."
-        },
-        "studentAge": {
-          "type": "number",
-          "description": "The age of the prospective student."
-        },
-        "email": {
-          "type": "string",
-          "format": "email",
-          "description": "The contact email address."
-        },
-        "message": {
-          "type": "string",
-          "description": "An optional message from the inquirer."
-        },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "dob": { "type": "string" },
+        "gender": { "type": "string" },
+        "nationality": { "type": "string" },
+        "citizenshipNo": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "alternatePhone": { "type": "string" },
+        "permanentAddress": { "type": "string" },
+        "district": { "type": "string" },
+        "province": { "type": "string" },
+        "applyingFor": { "type": "string" },
+        "previousSchool": { "type": "string" },
+        "lastClassCompleted": { "type": "string" },
+        "gpa": { "type": "string" },
+        "achievements": { "type": "string" },
+        "fatherName": { "type": "string" },
+        "fatherPhone": { "type": "string" },
+        "fatherOccupation": { "type": "string" },
+        "fatherEmail": { "type": "string", "format": "email" },
+        "motherName": { "type": "string" },
+        "motherPhone": { "type": "string" },
+        "motherOccupation": { "type": "string" },
+        "motherEmail": { "type": "string", "format": "email" },
+        "guardianName": { "type": "string" },
+        "guardianPhone": { "type": "string" },
+        "guardianRelationship": { "type": "string" },
+        "guardianEmail": { "type": "string", "format": "email" },
         "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The timestamp when the inquiry was submitted."
+            "type": "string",
+            "format": "date-time"
         }
       },
-      "required": ["parentName", "studentName", "studentAge", "email", "createdAt"]
+      "required": [
+        "firstName", "lastName", "dob", "gender", "nationality", "email", "phone",
+        "permanentAddress", "district", "province", "applyingFor", "previousSchool",
+        "lastClassCompleted", "gpa", "fatherName", "fatherPhone", "fatherOccupation",
+        "motherName", "motherPhone", "motherOccupation", "createdAt"
+      ]
     },
     "message": {
       "title": "Contact Message",
@@ -83,3 +95,5 @@
     }
   }
 }
+
+    

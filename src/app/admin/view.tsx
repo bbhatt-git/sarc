@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2 } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -275,12 +275,63 @@ const formatTime = (timestamp: Timestamp | Date | undefined) => {
 }
 
 type Inquiry = {
-    id: string; parentName: string; studentName: string; studentAge: number; email: string; phone: string; gradeLevel: string; message?: string; createdAt: Timestamp;
+    id: string;
+    firstName: string;
+    lastName: string;
+    dob: string;
+    gender: string;
+    nationality: string;
+    citizenshipNo?: string;
+    email: string;
+    phone: string;
+    alternatePhone?: string;
+    permanentAddress: string;
+    district: string;
+    province: string;
+    applyingFor: string;
+    previousSchool: string;
+    lastClassCompleted: string;
+    gpa: string;
+    achievements?: string;
+    fatherName: string;
+    fatherPhone: string;
+    fatherOccupation: string;
+    fatherEmail?: string;
+    motherName: string;
+    motherPhone: string;
+    motherOccupation: string;
+    motherEmail?: string;
+    guardianName?: string;
+    guardianPhone?: string;
+    guardianRelationship?: string;
+    guardianEmail?: string;
+    createdAt: Timestamp;
 };
+
 
 type Message = {
     id: string; fullName: string; email: string; subject: string; message: string; createdAt: Timestamp;
 };
+
+const DetailItem = ({ label, value }: { label: string; value?: string }) => (
+    value ? (
+        <div className="grid grid-cols-[150px_1fr] items-start gap-4">
+            <Label className="text-right text-muted-foreground pt-1">{label}</Label>
+            <p className="font-medium text-foreground">{value}</p>
+        </div>
+    ) : null
+);
+
+const DetailSection = ({ icon: Icon, title, children }: { icon: React.ElementType, title: string, children: React.ReactNode }) => (
+    <div className="space-y-4">
+        <h4 className="flex items-center gap-3 font-semibold text-lg text-primary border-b pb-2">
+            <Icon className="w-5 h-5" />
+            <span>{title}</span>
+        </h4>
+        <div className="space-y-3 pl-2">{children}</div>
+    </div>
+);
+
 
 const AdmissionsTab = () => {
     const firestore = useFirestore();
@@ -301,26 +352,31 @@ const AdmissionsTab = () => {
             </div>
         );
     }
+    
+    const formatApplyingFor = (value: string) => value.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
 
     return (
         <>
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="border-b border-border/50 pb-4 mb-6">
+                <h3 className="text-lg font-semibold">Received Applications ({inquiries.length})</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {inquiries.map((inquiry) => (
                     <Card
                         key={inquiry.id}
                         className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
                         onClick={() => setSelectedInquiry(inquiry)}
                     >
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-base font-semibold">{inquiry.studentName}</CardTitle>
-                             <div className="text-xs text-muted-foreground text-right">
+                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+                            <CardTitle className="text-base font-semibold">{inquiry.firstName} {inquiry.lastName}</CardTitle>
+                             <div className="text-xs text-muted-foreground text-right shrink-0 ml-2">
                                 <div>{formatDate(inquiry.createdAt)}</div>
-                                <div>{formatTime(inquiry.createdAt)}</div>
+                                <div className='text-gray-400'>{formatTime(inquiry.createdAt)}</div>
                             </div>
                         </CardHeader>
                         <CardContent>
                             <div className="text-sm text-muted-foreground">
-                                Parent: {inquiry.parentName}
+                                Applying for: <span className="font-medium text-foreground/80">{formatApplyingFor(inquiry.applyingFor)}</span>
                             </div>
                         </CardContent>
                     </Card>
@@ -328,41 +384,61 @@ const AdmissionsTab = () => {
             </div>
             
             <Dialog open={!!selectedInquiry} onOpenChange={(isOpen) => !isOpen && setSelectedInquiry(null)}>
-                <DialogContent className="sm:max-w-[600px] bg-card/80 backdrop-blur-xl">
-                    <DialogHeader>
-                        <DialogTitle className="text-2xl">Admission Inquiry Details</DialogTitle>
+                <DialogContent className="sm:max-w-3xl bg-card/80 backdrop-blur-xl p-0">
+                    <DialogHeader className="p-6 pb-4">
+                        <DialogTitle className="text-2xl">Admission Inquiry</DialogTitle>
                         <DialogDescription>
-                            Submitted on {formatDate(selectedInquiry?.createdAt)} at {formatTime(selectedInquiry?.createdAt)}
+                            Submitted by {selectedInquiry?.firstName} {selectedInquiry?.lastName} on {formatDate(selectedInquiry?.createdAt)}
                         </DialogDescription>
                     </DialogHeader>
                     {selectedInquiry && (
-                        <div className="grid gap-6 py-4 text-sm">
-                            <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                                <Label htmlFor="student" className="text-right text-muted-foreground">Student Name</Label>
-                                <p id="student" className="font-semibold text-foreground">{selectedInquiry.studentName} (Age: {selectedInquiry.studentAge})</p>
-                            </div>
-                             <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                                <Label htmlFor="parent" className="text-right text-muted-foreground">Parent Name</Label>
-                                <p id="parent" className="text-foreground">{selectedInquiry.parentName}</p>
-                            </div>
-                            <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                                <Label htmlFor="email" className="text-right text-muted-foreground">Email</Label>
-                                <p id="email" className="text-foreground">{selectedInquiry.email}</p>
-                            </div>
-                             <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                                <Label htmlFor="phone" className="text-right text-muted-foreground">Phone</Label>
-                                <p id="phone" className="text-foreground">{selectedInquiry.phone}</p>
-                            </div>
-                            <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                                <Label htmlFor="grade" className="text-right text-muted-foreground">Applying for</Label>
-                                <p id="grade" className="text-foreground capitalize">{selectedInquiry.gradeLevel.replace('-', ' ')}</p>
-                            </div>
-                            {selectedInquiry.message && (
-                                <div className="grid grid-cols-[120px_1fr] items-start gap-4">
-                                    <Label htmlFor="message" className="text-right text-muted-foreground pt-1">Message</Label>
-                                    <p id="message" className="text-foreground bg-muted/50 p-3 rounded-md border">{selectedInquiry.message}</p>
-                                </div>
-                            )}
+                        <div className="grid gap-8 py-4 px-6 text-sm max-h-[75vh] overflow-y-auto">
+                            <DetailSection icon={User} title="Personal Information">
+                                <DetailItem label="Full Name" value={`${selectedInquiry.firstName} ${selectedInquiry.lastName}`} />
+                                <DetailItem label="Date of Birth" value={selectedInquiry.dob} />
+                                <DetailItem label="Gender" value={selectedInquiry.gender} />
+                                <DetailItem label="Nationality" value={selectedInquiry.nationality} />
+                                <DetailItem label="Citizenship No." value={selectedInquiry.citizenshipNo} />
+                            </DetailSection>
+
+                            <DetailSection icon={Phone} title="Contact Information">
+                                <DetailItem label="Email" value={selectedInquiry.email} />
+                                <DetailItem label="Phone" value={selectedInquiry.phone} />
+                                <DetailItem label="Alternate Phone" value={selectedInquiry.alternatePhone} />
+                                <DetailItem label="Address" value={`${selectedInquiry.permanentAddress}, ${selectedInquiry.district}, ${selectedInquiry.province}`} />
+                            </DetailSection>
+
+                            <DetailSection icon={GraduationCap} title="Academic Information">
+                                <DetailItem label="Applying For" value={formatApplyingFor(selectedInquiry.applyingFor)} />
+                                <DetailItem label="Previous School" value={selectedInquiry.previousSchool} />
+                                <DetailItem label="Last Class Completed" value={selectedInquiry.lastClassCompleted} />
+                                <DetailItem label="GPA / Percentage" value={selectedInquiry.gpa} />
+                                <DetailItem label="Achievements" value={selectedInquiry.achievements} />
+                            </DetailSection>
+                            
+                            <DetailSection icon={Users2} title="Parent/Guardian Information">
+                                <h5 className="font-semibold text-foreground/90 text-md">Father's Details</h5>
+                                <DetailItem label="Name" value={selectedInquiry.fatherName} />
+                                <DetailItem label="Phone" value={selectedInquiry.fatherPhone} />
+                                <DetailItem label="Occupation" value={selectedInquiry.fatherOccupation} />
+                                <DetailItem label="Email" value={selectedInquiry.fatherEmail} />
+
+                                <h5 className="font-semibold text-foreground/90 text-md pt-4 mt-4 border-t border-border/50">Mother's Details</h5>
+                                <DetailItem label="Name" value={selectedInquiry.motherName} />
+                                <DetailItem label="Phone" value={selectedInquiry.motherPhone} />
+                                <DetailItem label="Occupation" value={selectedInquiry.motherOccupation} />
+                                <DetailItem label="Email" value={selectedInquiry.motherEmail} />
+
+                                {selectedInquiry.guardianName && (
+                                    <>
+                                    <h5 className="font-semibold text-foreground/90 text-md pt-4 mt-4 border-t border-border/50">Guardian's Details</h5>
+                                    <DetailItem label="Name" value={selectedInquiry.guardianName} />
+                                    <DetailItem label="Relationship" value={selectedInquiry.guardianRelationship} />
+                                    <DetailItem label="Phone" value={selectedInquiry.guardianPhone} />
+                                    <DetailItem label="Email" value={selectedInquiry.guardianEmail} />
+                                    </>
+                                )}
+                            </DetailSection>
                         </div>
                     )}
                 </DialogContent>
@@ -394,23 +470,26 @@ const ContactTab = () => {
     
     return (
         <>
-             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="border-b border-border/50 pb-4 mb-6">
+                <h3 className="text-lg font-semibold">Received Messages ({messages.length})</h3>
+            </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {messages.map((msg) => (
                     <Card
                         key={msg.id}
                         className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
                         onClick={() => setSelectedMessage(msg)}
                     >
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
                             <CardTitle className="text-base font-semibold">{msg.fullName}</CardTitle>
-                            <div className="text-xs text-muted-foreground text-right">
+                            <div className="text-xs text-muted-foreground text-right shrink-0 ml-2">
                                 <div>{formatDate(msg.createdAt)}</div>
-                                <div>{formatTime(msg.createdAt)}</div>
+                                <div className='text-gray-400'>{formatTime(msg.createdAt)}</div>
                             </div>
                         </CardHeader>
                         <CardContent>
                             <p className="text-sm text-muted-foreground truncate" title={msg.subject}>
-                                Subject: {msg.subject}
+                                Subject: <span className="font-medium text-foreground/80">{msg.subject}</span>
                             </p>
                         </CardContent>
                     </Card>
@@ -452,7 +531,7 @@ const ContactTab = () => {
 }
 
 export default function AdminView({ initialBase64Data }: { initialBase64Data: string }) {
-    const [activeTab, setActiveTab] = useState("notice");
+    const [activeTab, setActiveTab] = useState("admissions");
 
     return (
         <div className="container mx-auto px-4">
@@ -466,18 +545,18 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 <CardContent>
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                         <TabsList className="grid w-full grid-cols-3 max-w-lg">
-                            <TabsTrigger value="notice">Notice Editor</TabsTrigger>
                             <TabsTrigger value="admissions">Admissions</TabsTrigger>
                             <TabsTrigger value="contact">Contact Messages</TabsTrigger>
+                            <TabsTrigger value="notice">Notice Editor</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="notice">
-                           <ExcelEditor initialBase64Data={initialBase64Data} />
-                        </TabsContent>
-                        <TabsContent value="admissions">
+                        <TabsContent value="admissions" className='mt-6'>
                            <AdmissionsTab />
                         </TabsContent>
-                        <TabsContent value="contact">
+                        <TabsContent value="contact" className='mt-6'>
                            <ContactTab />
+                        </TabsContent>
+                         <TabsContent value="notice" className='mt-6'>
+                           <ExcelEditor initialBase64Data={initialBase64Data} />
                         </TabsContent>
                     </Tabs>
                 </CardContent>
@@ -485,3 +564,5 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
         </div>
     );
 }
+
+    
