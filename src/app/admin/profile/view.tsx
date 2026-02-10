@@ -2,7 +2,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useUser } from '@/firebase';
-import { updateProfile, updatePassword } from 'firebase/auth';
+import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,6 +18,7 @@ export default function ProfileView() {
   const [displayName, setDisplayName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   
+  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isPasswordSaving, setIsPasswordSaving] = useState(false);
@@ -59,7 +60,7 @@ export default function ProfileView() {
 
   const handlePasswordSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!user) {
+    if (!user || !user.email) {
       toast({
         variant: 'destructive',
         title: 'Error',
@@ -68,6 +69,15 @@ export default function ProfileView() {
       return;
     }
     
+    if (!currentPassword) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Please enter your current password.',
+      });
+      return;
+    }
+
     if (newPassword.length < 6) {
         toast({
             variant: 'destructive',
@@ -88,18 +98,30 @@ export default function ProfileView() {
 
     setIsPasswordSaving(true);
     try {
+      const credential = EmailAuthProvider.credential(user.email, currentPassword);
+      await reauthenticateWithCredential(user, credential);
+      
       await updatePassword(user, newPassword);
+
       toast({
         title: 'Success!',
         description: 'Your password has been changed successfully.',
       });
+      setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
     } catch (error: any) {
+      let description = 'An unknown error occurred. Please try again.';
+      if (error.code === 'auth/wrong-password') {
+        description = 'The current password you entered is incorrect. Please try again.';
+      } else if (error.code === 'auth/requires-recent-login') {
+        description = 'This is a sensitive operation. Please log in again before retrying.';
+      }
+      
       toast({
         variant: 'destructive',
         title: 'Error changing password',
-        description: 'This is a sensitive operation. Please log in again before retrying.',
+        description,
       });
     } finally {
       setIsPasswordSaving(false);
@@ -155,10 +177,21 @@ export default function ProfileView() {
       <Card className="testimonial-card max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle>Change Password</CardTitle>
-          <CardDescription>Enter a new password for your account.</CardDescription>
+          <CardDescription>Enter your current and new password to update it.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handlePasswordSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="currentPassword">Current Password</Label>
+              <Input
+                id="currentPassword"
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+              />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="newPassword">New Password</Label>
               <Input
@@ -167,6 +200,7 @@ export default function ProfileView() {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="••••••••"
+                required
               />
             </div>
             <div className="space-y-2">
@@ -177,6 +211,7 @@ export default function ProfileView() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
+                required
               />
             </div>
             <div className="flex justify-end">
