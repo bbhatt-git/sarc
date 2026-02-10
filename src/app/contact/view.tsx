@@ -132,8 +132,8 @@ export default function ContactView() {
                         </div>
                         <div className="space-y-6">
                             <InfoCard icon={MapPin} title="Address" text="Bhimdatta-06, Kanchanpur" />
-                            <InfoCard icon={Phone} title="Phone" text="+977-1-4242424" href="tel:+97714242424"/>
-                            <InfoCard icon={Mail} title="Email" text="info@sarc.edu.np" href="mailto:info@sarc.edu.np"/>
+                            <InfoCard icon={Phone} title="Phone" text="099525271" href="tel:099525271"/>
+                            <InfoCard icon={Mail} title="Email" text="contact@sarc.edu.np" href="mailto:contact@sarc.edu.np"/>
                             <InfoCard icon={Clock} title="Working Hours" text="Sun - Fri: 9:00 AM - 5:00 PM"/>
                         </div>
                     </div>

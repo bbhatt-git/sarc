@@ -1,8 +1,14 @@
 'use client'
 
 import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
+import { Facebook, Instagram, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+
+const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} viewBox="0 0 28 28" fill="currentColor">
+      <path d="M22.99 6.42a6.38 6.38 0 0 1-5.1-6.4v12.22a7.1 7.1 0 1 1-7.09-7.1h3.29v3.09h-3.29a4 4 0 1 0 4 4V0H20.9a6.38 6.38 0 0 1 2.09 6.42Z"/>
+    </svg>
+);
 
 export default function Footer() {
   return (
@@ -27,11 +33,11 @@ export default function Footer() {
                <ul className="space-y-3 text-sm text-muted-foreground">
                 <li className='flex items-center gap-3'>
                   <Phone size={16} className='shrink-0 text-emerald-600'/>
-                  <a href="tel:+97714242424" className="hover:text-emerald-600 transition-colors">+977-1-4242424</a>
+                  <a href="tel:099525271" className="hover:text-emerald-600 transition-colors">099525271</a>
                 </li>
                 <li className='flex items-center gap-3'>
                   <Mail size={16} className='shrink-0 text-emerald-600'/>
-                  <a href="mailto:info@sarc.edu.np" className="hover:text-emerald-600 transition-colors">info@sarc.edu.np</a>
+                  <a href="mailto:contact@sarc.edu.np" className="hover:text-emerald-600 transition-colors">contact@sarc.edu.np</a>
                 </li>
                  <li className='flex items-start gap-3'>
                     <MapPin size={16} className='mt-1 shrink-0 text-emerald-600' />
@@ -44,10 +50,9 @@ export default function Footer() {
              <div className="space-y-4">
                  <h3 className="font-semibold text-foreground mb-2 uppercase tracking-wider text-sm">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <Link href="#" className="text-muted-foreground hover:text-emerald-600 transition-colors"><Facebook size={22} /></Link>
-                  <Link href="#" className="text-muted-foreground hover:text-emerald-600 transition-colors"><Twitter size={22} /></Link>
+                  <Link href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-emerald-600 transition-colors"><Facebook size={22} /></Link>
                   <Link href="#" className="text-muted-foreground hover:text-emerald-600 transition-colors"><Instagram size={22} /></Link>
-                  <Link href="#" className="text-muted-foreground hover:text-emerald-600 transition-colors"><Linkedin size={22} /></Link>
+                  <Link href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-emerald-600 transition-colors"><TikTokIcon className="h-[22px] w-[22px]" /></Link>
                 </div>
              </div>
           </div>
