@@ -39,7 +39,7 @@ function normalizeDate(dob: string): string {
 
 export async function checkResult(symbolNo: string, dob: string): Promise<Result | null> {
   try {
-    const resultsData: any[] = getExcelData('Results');
+    const resultsData: any[] = await getExcelData('Results');
     const normalizedDob = normalizeDate(dob);
     
     const studentResult = resultsData.find(
