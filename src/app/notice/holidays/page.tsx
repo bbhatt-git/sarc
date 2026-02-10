@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function HolidayNoticePage() {
-  const holidayNotices = getExcelData('Holidays');
+  const holidayNotices = getExcelData('Holiday');
   return <HolidayNoticeView initialHolidays={holidayNotices} />;
 }

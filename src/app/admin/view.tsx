@@ -270,7 +270,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                                     <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
                                     {headers.map((header, colIndex) => {
                                         const headerName = String(header).toLowerCase();
-                                        const isGeneralNoticeIconColumn = activeSheetName === 'GeneralNotices' && headerName === 'icon';
+                                        const isGeneralNoticeIconColumn = activeSheetName === 'General' && headerName === 'icon';
 
                                         return (
                                             <TableCell key={colIndex} className="p-0 border-r">

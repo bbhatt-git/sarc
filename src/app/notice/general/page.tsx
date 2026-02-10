@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function GeneralNoticePage() {
-  const generalNotices = getExcelData('GeneralNotices');
+  const generalNotices = getExcelData('General');
   return <GeneralNoticeView initialNotices={generalNotices} />;
 }
