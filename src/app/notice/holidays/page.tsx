@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'View the academic calendar and information about upcoming holidays and breaks at SARC.',
 };
 
-export default function HolidayNoticePage() {
-  const holidayNotices = getExcelData('Holiday');
+export default async function HolidayNoticePage() {
+  const holidayNotices = await getExcelData('Holiday');
   return <HolidayNoticeView initialHolidays={holidayNotices} />;
 }

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Stay updated with the latest announcements, news, and general notices from SARC Education Foundation.',
 };
 
-export default function GeneralNoticePage() {
-  const generalNotices = getExcelData('General');
+export default async function GeneralNoticePage() {
+  const generalNotices = await getExcelData('General');
   return <GeneralNoticeView initialNotices={generalNotices} />;
 }

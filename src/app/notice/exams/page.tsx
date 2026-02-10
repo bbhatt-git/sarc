@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   description: 'Find important information about examination schedules, routines, and results at SARC Education Foundation.',
 };
 
-export default function ExamsPage() {
-  const examNotices = getExcelData('Exams');
+export default async function ExamsPage() {
+  const examNotices = await getExcelData('Exams');
   
   return <ExamsView initialNotices={examNotices} />;
 }

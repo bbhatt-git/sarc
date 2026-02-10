@@ -1,58 +1,86 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import * as XLSX from 'xlsx';
 
-export function getExcelData(sheetIdentifier: string): any[] {
+async function fetchExcelFromGithub(): Promise<Buffer | null> {
+  const owner = process.env.GITHUB_REPO_OWNER;
+  const repo = process.env.GITHUB_REPO_NAME;
+  const path = process.env.GITHUB_FILE_PATH;
+  const token = process.env.GITHUB_TOKEN;
+
+  if (!owner || !repo || !path || !token) {
+    console.error('GitHub environment variables for Excel data are not set.');
+    return null;
+  }
+
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
   try {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'notice.xlsx');
-    const file = fs.readFileSync(filePath);
-    // Use cellDates: true to have xlsx parse Excel date cells into JS Date objects
-    const workbook = XLSX.read(file, { type: 'buffer', cellDates: true });
-    
-    // Find the sheet with some flexibility
-    const targetName = sheetIdentifier.toLowerCase();
-    let sheetName = workbook.SheetNames.find(name => name.toLowerCase() === targetName);
-
-    if (!sheetName) {
-      // If exact match fails, try to find a sheet that contains the identifier
-      sheetName = workbook.SheetNames.find(name => name.toLowerCase().includes(targetName));
-    }
-    
-    const sheet = sheetName ? workbook.Sheets[sheetName] : undefined;
-    
-    if (!sheet) {
-      console.warn(`Sheet matching "${sheetIdentifier}" not found in the Excel file.`);
-      return [];
-    }
-    
-    // This will produce an array of objects, with Date objects for date cells
-    const jsonData: any[] = XLSX.utils.sheet_to_json(sheet);
-
-    // To make the data serializable for Client Components, we need to convert Date objects to strings.
-    const serializableData = jsonData.map(row => {
-      const newRow: { [key: string]: any } = {};
-      for (const key in row) {
-        if (Object.prototype.hasOwnProperty.call(row, key)) {
-          const value = row[key];
-          if (value instanceof Date) {
-            // Format date to YYYY-MM-DD. This makes it a plain string.
-            newRow[key] = value.toISOString().split('T')[0];
-          } else {
-            newRow[key] = value;
-          }
-        }
-      }
-      return newRow;
+    const response = await fetch(apiUrl, {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+      next: { revalidate: 60 } // Revalidate every 60 seconds
     });
 
-    return serializableData;
-
-  } catch (error: any) {
-    if (error.code === 'ENOENT') {
-      console.error('Error: The file /public/data/notice.xlsx could not be found.');
-    } else {
-      console.error('An error occurred while reading the Excel file:', error);
+    if (!response.ok) {
+      console.error(`Failed to fetch from GitHub API: ${response.statusText}`);
+      return null;
     }
-    return [];
+
+    const fileData = await response.json();
+    if (fileData.content) {
+        const content = Buffer.from(fileData.content, 'base64');
+        return content;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching Excel file from GitHub:', error);
+    return null;
   }
+}
+
+export async function getExcelData(sheetIdentifier: string): Promise<any[]> {
+    const fileBuffer = await fetchExcelFromGithub();
+    if (!fileBuffer) {
+        return [];
+    }
+
+    try {
+        const workbook = XLSX.read(fileBuffer, { type: 'buffer', cellDates: true });
+        const targetName = sheetIdentifier.toLowerCase();
+        let sheetName = workbook.SheetNames.find(name => name.toLowerCase() === targetName);
+
+        if (!sheetName) {
+            sheetName = workbook.SheetNames.find(name => name.toLowerCase().includes(targetName));
+        }
+        
+        const sheet = sheetName ? workbook.Sheets[sheetName] : undefined;
+        
+        if (!sheet) {
+          console.warn(`Sheet matching "${sheetIdentifier}" not found in the Excel file.`);
+          return [];
+        }
+        
+        const jsonData: any[] = XLSX.utils.sheet_to_json(sheet);
+
+        const serializableData = jsonData.map(row => {
+          const newRow: { [key: string]: any } = {};
+          for (const key in row) {
+            if (Object.prototype.hasOwnProperty.call(row, key)) {
+              const value = row[key];
+              if (value instanceof Date) {
+                newRow[key] = value.toISOString().split('T')[0];
+              } else {
+                newRow[key] = value;
+              }
+            }
+          }
+          return newRow;
+        });
+
+        return serializableData;
+    } catch (error) {
+        console.error('An error occurred while parsing the Excel file:', error);
+        return [];
+    }
 }

@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -47,11 +47,12 @@ const calculateGradeFromGPA = (gpa: number): { grade: string; remarks: 'Pass' | 
     return { grade: 'NG', remarks: 'Fail' };
 };
 
-const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
+const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: string, initialSha: string }) => {
     const { toast } = useToast();
     const [workbook, setWorkbook] = useState<XLSX.WorkBook | null>(null);
     const [activeSheetName, setActiveSheetName] = useState<string>('');
     const [gridData, setGridData] = useState<GridData>([]);
+    const [sha, setSha] = useState(initialSha);
     const [isSaving, setIsSaving] = useState(false);
     const [rowToDelete, setRowToDelete] = useState<number | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -64,11 +65,28 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
 
     useEffect(() => {
         try {
-            const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: 'yyyy-mm-dd' });
-            setWorkbook(wb);
-            const firstSheetName = wb.SheetNames[0];
-            if (firstSheetName) {
-                setActiveSheetName(firstSheetName);
+            if (initialBase64Data) {
+                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: 'yyyy-mm-dd' });
+                setWorkbook(wb);
+                const firstSheetName = wb.SheetNames[0];
+                if (firstSheetName) {
+                    setActiveSheetName(firstSheetName);
+                }
+            } else {
+                 // If no data, create a workbook with default sheets
+                const wb = XLSX.utils.book_new();
+                const ws_general = XLSX.utils.aoa_to_sheet([["icon", "title", "summary", "date", "details"]]);
+                const ws_holiday = XLSX.utils.aoa_to_sheet([["name", "date", "details"]]);
+                const ws_exams = XLSX.utils.aoa_to_sheet([["title", "date", "type", "link"]]);
+                const ws_results = XLSX.utils.aoa_to_sheet([["SymbolNo", "StudentName", "DOB", "Grade", "GPA", "Remarks"]]);
+                
+                XLSX.utils.book_append_sheet(wb, ws_general, "General");
+                XLSX.utils.book_append_sheet(wb, ws_holiday, "Holiday");
+                XLSX.utils.book_append_sheet(wb, ws_exams, "Exams");
+                XLSX.utils.book_append_sheet(wb, ws_results, "Results");
+
+                setWorkbook(wb);
+                setActiveSheetName("General");
             }
         } catch (error) {
             console.error("Failed to parse Excel data:", error);
@@ -153,17 +171,21 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
             newWorkbook.Sheets[activeSheetName] = newSheet;
 
             const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
-            const result = await saveExcelFile(newBase64);
+            const result = await saveExcelFile(newBase64, sha);
 
-            if (result.success) {
+            if (result.success && result.newSha) {
                 setWorkbook(newWorkbook);
                 setGridData(newGridData);
+                setSha(result.newSha);
                 return { success: true, message: result.message };
             } else {
                 throw new Error(result.message);
             }
         } catch (error) {
             console.error("Failed to save Excel data:", error);
+            if (error instanceof Error && (error.message.includes('sha') || error.message.includes('409'))) {
+                return { success: false, message: 'File has been updated by someone else. Please refresh the page and try again.' };
+            }
             return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred.' };
         } finally {
             setIsSaving(false);
@@ -179,7 +201,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
         if (result.success) {
             toast({ 
                 title: 'Row Removed', 
-                description: `Row ${rowToDelete + 1} has been successfully removed.` 
+                description: `Row ${rowToDelete + 1} has been successfully removed and saved.` 
             });
         } else {
             toast({
@@ -270,7 +292,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
         <>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
                 <p className="text-sm text-muted-foreground flex-1">
-                    Note: The changes you commit here will be saved in the <code>public/data/notice.xlsx</code> file.
+                    Note: Changes are saved to your designated GitHub repository.
                 </p>
                 <div className="flex items-center gap-2 flex-shrink-0">
                     <Button onClick={handleAddNewRow} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />Add Row</Button>
@@ -376,7 +398,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This will permanently delete row {rowToDelete !== null ? rowToDelete + 1 : ''}. This action cannot be undone.
+                            This will permanently delete row {rowToDelete !== null ? rowToDelete + 1 : ''} and save the changes. This action cannot be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="bg-transparent pt-4">
@@ -670,7 +692,7 @@ const ContactTab = () => {
     );
 }
 
-export default function AdminView({ initialBase64Data }: { initialBase64Data: string }) {
+export default function AdminView({ initialBase64Data, initialSha }: { initialBase64Data: string, initialSha: string }) {
     const [activeTab, setActiveTab] = useState("admissions");
 
     return (
@@ -696,7 +718,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                            <ContactTab />
                         </TabsContent>
                          <TabsContent value="notice" className='mt-6'>
-                           <ExcelEditor initialBase64Data={initialBase64Data} />
+                           <ExcelEditor initialBase64Data={initialBase64Data} initialSha={initialSha} />
                         </TabsContent>
                     </Tabs>
                 </CardContent>
