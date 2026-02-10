@@ -38,7 +38,7 @@ export default function LoginView() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center p-4">
-      <Button asChild variant="ghost" className="absolute top-6 left-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-foreground hover:bg-white/20">
+      <Button asChild variant="ghost" className="absolute top-6 left-6 rounded-full bg-white/50 backdrop-blur-md border border-white/20 text-foreground hover:bg-white/70">
         <Link href="/">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
