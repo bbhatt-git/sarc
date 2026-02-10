@@ -12,6 +12,16 @@ import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, orderBy, query, Timestamp } from 'firebase/firestore';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 // Excel Editor Component
 type GridData = any[][];
@@ -34,6 +44,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
     const [activeSheetName, setActiveSheetName] = useState<string>('');
     const [gridData, setGridData] = useState<GridData>([]);
     const [isSaving, setIsSaving] = useState(false);
+    const [rowToDelete, setRowToDelete] = useState<number | null>(null);
 
     useEffect(() => {
         try {
@@ -106,13 +117,21 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
         setGridData([...gridData, newRow]);
         toast({ title: 'Row Added', description: 'A new row has been added to the end of the sheet.' });
     };
+    
+    const triggerRemoveRow = (rowIndex: number) => {
+        setRowToDelete(rowIndex);
+    };
 
-    const handleRemoveRow = (rowIndexToRemove: number) => {
-        // The gridData includes the header row, bodyData is gridData.slice(1).
-        // The rowIndex is from bodyData.map, so the actual index in gridData is rowIndex + 1.
-        const updatedGridData = gridData.filter((_, index) => index !== rowIndexToRemove + 1);
+    const confirmRemoveRow = () => {
+        if (rowToDelete === null) return;
+        
+        const updatedGridData = gridData.filter((_, index) => index !== rowToDelete + 1);
         setGridData(updatedGridData);
-        toast({ title: 'Row Removed', description: `Row ${rowIndexToRemove + 1} has been removed. Save your changes to make it permanent.` });
+        toast({ 
+            title: 'Row Removed', 
+            description: `Row ${rowToDelete + 1} has been removed. Save your changes to make it permanent.` 
+        });
+        setRowToDelete(null);
     };
 
     const handleSaveChanges = async () => {
@@ -201,7 +220,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                                             variant="ghost" 
                                             size="icon" 
                                             className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
-                                            onClick={() => handleRemoveRow(rowIndex)}
+                                            onClick={() => triggerRemoveRow(rowIndex)}
                                             aria-label="Remove row"
                                         >
                                             <Trash2 className="h-4 w-4" />
@@ -213,6 +232,24 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                     </Table>
                 </div>
             </Tabs>
+            <AlertDialog open={rowToDelete !== null} onOpenChange={(open) => !open && setRowToDelete(null)}>
+                <AlertDialogContent className="bg-card/60 backdrop-blur-xl border-border/50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This will permanently delete row {rowToDelete !== null ? rowToDelete + 1 : ''}. This action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="bg-transparent pt-4">
+                        <AlertDialogCancel onClick={() => setRowToDelete(null)}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction 
+                            onClick={confirmRemoveRow} 
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                            Delete Row
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </>
     );
 };
