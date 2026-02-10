@@ -192,7 +192,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                 </div>
             </div>
             <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
-                <TabsList>
+                <TabsList className="grid w-full h-auto grid-cols-2 sm:h-10 sm:inline-flex sm:w-auto">
                     {sheetNames.map((name) => (
                         <TabsTrigger key={name} value={name}>{name}</TabsTrigger>
                     ))}
@@ -223,7 +223,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                                             />
                                         </TableCell>
                                     ))}
-                                    <TableCell className="sticky right-0 z-10 p-1 bg-card">
+                                    <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
                                         <Button 
                                             variant="ghost" 
                                             size="icon" 
@@ -421,24 +421,30 @@ const AdmissionsTab = () => {
                             
                             <DetailSection icon={Users2} title="Parent/Guardian Information">
                                 <h5 className="font-semibold text-foreground/90 text-md">Father's Details</h5>
-                                <DetailItem label="Name" value={selectedInquiry.fatherName} />
-                                <DetailItem label="Phone" value={selectedInquiry.fatherPhone} />
-                                <DetailItem label="Occupation" value={selectedInquiry.fatherOccupation} />
-                                <DetailItem label="Email" value={selectedInquiry.fatherEmail} />
+                                <div className="border-l-2 border-border/30 pl-4 space-y-3">
+                                  <DetailItem label="Name" value={selectedInquiry.fatherName} />
+                                  <DetailItem label="Phone" value={selectedInquiry.fatherPhone} />
+                                  <DetailItem label="Occupation" value={selectedInquiry.fatherOccupation} />
+                                  <DetailItem label="Email" value={selectedInquiry.fatherEmail} />
+                                </div>
 
                                 <h5 className="font-semibold text-foreground/90 text-md pt-4 mt-4 border-t border-border/50">Mother's Details</h5>
-                                <DetailItem label="Name" value={selectedInquiry.motherName} />
-                                <DetailItem label="Phone" value={selectedInquiry.motherPhone} />
-                                <DetailItem label="Occupation" value={selectedInquiry.motherOccupation} />
-                                <DetailItem label="Email" value={selectedInquiry.motherEmail} />
+                                 <div className="border-l-2 border-border/30 pl-4 space-y-3">
+                                    <DetailItem label="Name" value={selectedInquiry.motherName} />
+                                    <DetailItem label="Phone" value={selectedInquiry.motherPhone} />
+                                    <DetailItem label="Occupation" value={selectedInquiry.motherOccupation} />
+                                    <DetailItem label="Email" value={selectedInquiry.motherEmail} />
+                                </div>
 
                                 {selectedInquiry.guardianName && (
                                     <>
                                     <h5 className="font-semibold text-foreground/90 text-md pt-4 mt-4 border-t border-border/50">Guardian's Details</h5>
-                                    <DetailItem label="Name" value={selectedInquiry.guardianName} />
-                                    <DetailItem label="Relationship" value={selectedInquiry.guardianRelationship} />
-                                    <DetailItem label="Phone" value={selectedInquiry.guardianPhone} />
-                                    <DetailItem label="Email" value={selectedInquiry.guardianEmail} />
+                                     <div className="border-l-2 border-border/30 pl-4 space-y-3">
+                                        <DetailItem label="Name" value={selectedInquiry.guardianName} />
+                                        <DetailItem label="Relationship" value={selectedInquiry.guardianRelationship} />
+                                        <DetailItem label="Phone" value={selectedInquiry.guardianPhone} />
+                                        <DetailItem label="Email" value={selectedInquiry.guardianEmail} />
+                                     </div>
                                     </>
                                 )}
                             </DetailSection>
@@ -547,7 +553,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 </CardHeader>
                 <CardContent>
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full h-auto grid-cols-1 rounded-lg sm:h-10 sm:grid-cols-3 sm:rounded-md max-w-lg mx-auto">
+                        <TabsList className="grid w-full h-auto grid-cols-1 rounded-lg md:h-12 md:grid-cols-3 md:rounded-md max-w-lg mx-auto">
                             <TabsTrigger value="admissions">Admissions</TabsTrigger>
                             <TabsTrigger value="contact">Contact Messages</TabsTrigger>
                             <TabsTrigger value="notice">Notice Editor</TabsTrigger>
