@@ -36,7 +36,7 @@
     }
   },
   "auth": {
-    "providers": []
+    "providers": ["google.com", "password"]
   },
   "firestore": {
     "/admissionInquiries/{inquiryId}": {
