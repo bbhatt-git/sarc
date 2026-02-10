@@ -547,7 +547,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 </CardHeader>
                 <CardContent>
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 max-w-lg">
+                        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 max-w-sm sm:max-w-lg mx-auto">
                             <TabsTrigger value="admissions">Admissions</TabsTrigger>
                             <TabsTrigger value="contact">Contact Messages</TabsTrigger>
                             <TabsTrigger value="notice">Notice Editor</TabsTrigger>
