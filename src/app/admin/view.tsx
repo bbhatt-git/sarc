@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -54,6 +54,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
     const [gridData, setGridData] = useState<GridData>([]);
     const [isSaving, setIsSaving] = useState(false);
     const [rowToDelete, setRowToDelete] = useState<number | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const iconOptions = [
         { value: 'Bell', icon: <Bell className="h-4 w-4" /> },
@@ -179,6 +180,50 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
             setIsSaving(false);
         }
     };
+    
+    const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = e.target?.result;
+                const wb = XLSX.read(data, { type: 'binary', cellDates: true, dateNF: 'yyyy-mm-dd' });
+                const wsname = wb.SheetNames[0];
+                const ws = wb.Sheets[wsname];
+                const importedData: GridData = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
+
+                if (!importedData || importedData.length === 0) {
+                    toast({
+                        variant: 'destructive',
+                        title: 'Import Error',
+                        description: 'The selected file is empty or could not be read.',
+                    });
+                    return;
+                }
+                
+                setGridData(importedData);
+                toast({
+                    title: 'Import Successful',
+                    description: `Data from "${file.name}" has been loaded. Review and click "Save Changes" to make it permanent.`,
+                });
+
+            } catch (error) {
+                console.error("Failed to import file:", error);
+                toast({
+                    variant: 'destructive',
+                    title: 'Import Error',
+                    description: 'Failed to read the file. Please ensure it is a valid Excel or CSV file.',
+                });
+            } finally {
+                if (event.target) {
+                    event.target.value = "";
+                }
+            }
+        };
+        reader.readAsBinaryString(file);
+    };
 
     if (!workbook) {
         return <div className="flex h-64 w-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
@@ -199,7 +244,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                 </div>
             </div>
             <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
-                <TabsList className="grid w-full h-auto grid-cols-2 sm:h-10 sm:grid-cols-none sm:inline-flex sm:w-auto">
+                <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-none sm:inline-flex sm:w-auto">
                     {sheetNames.map((name) => (
                         <TabsTrigger key={name} value={name}>{name}</TabsTrigger>
                     ))}
@@ -272,6 +317,22 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                         </TableBody>
                     </Table>
                 </div>
+                
+                {activeSheetName === 'Results' && (
+                    <div className="flex justify-start mt-4">
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={handleFileImport}
+                            className="hidden"
+                            accept=".xlsx, .xls, .csv"
+                        />
+                        <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
+                            <Upload className="mr-2 h-4 w-4" />
+                            Import Results
+                        </Button>
+                    </div>
+                )}
             </Tabs>
             <AlertDialog open={rowToDelete !== null} onOpenChange={(open) => !open && setRowToDelete(null)}>
                 <AlertDialogContent className="bg-card/60 backdrop-blur-xl border-border/50">
@@ -586,7 +647,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 </CardHeader>
                 <CardContent>
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full h-auto grid-cols-1 rounded-lg md:h-12 md:grid-cols-3 md:rounded-md max-w-lg mx-auto">
+                        <TabsList className="grid w-full h-auto grid-cols-1 rounded-lg md:h-12 md:grid-cols-3 md:rounded-full max-w-lg mx-auto">
                             <TabsTrigger value="admissions">Admissions</TabsTrigger>
                             <TabsTrigger value="contact">Contact Messages</TabsTrigger>
                             <TabsTrigger value="notice">Notice Editor</TabsTrigger>
