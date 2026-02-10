@@ -193,7 +193,7 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <ThemeToggle />
                 <Button asChild className='hidden lg:flex rounded-full bg-foreground text-background uppercase text-xs font-bold tracking-widest transition-transform hover:-translate-y-0.5'>
-                  <Link href="/admissions">Admissions</Link>
+                  <Link href="/admissions">Apply Now</Link>
                 </Button>
                 <div className="lg:hidden">
                   <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className="text-foreground">
@@ -246,7 +246,7 @@ export default function Header() {
                 ))}
               </nav>
               <Button asChild className="w-full mt-12 bg-foreground text-background uppercase text-sm font-bold tracking-widest" size="lg">
-                <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Admissions</Link>
+                <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
               </Button>
             </motion.div>
           </motion.div>
