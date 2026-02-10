@@ -1,13 +1,16 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import * as XLSX from 'xlsx';
+import { useAuth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle } from 'lucide-react';
+import { Loader2, Save, PlusCircle, LogOut } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -22,7 +25,7 @@ const calculateGradeFromGPA = (gpa: number): { grade: string; remarks: 'Pass' | 
     if (gpa >= 1.6) return { grade: 'C', remarks: 'Pass' };
     if (gpa >= 1.2) return { grade: 'D+', remarks: 'Pass' };
     if (gpa >= 0.8) return { grade: 'D', remarks: 'Pass' };
-    return { grade: 'E', remarks: 'Fail' };
+    return { grade: 'NG', remarks: 'Fail' };
 };
 
 export default function AdminView({ initialBase64Data }: { initialBase64Data: string }) {
@@ -31,10 +34,19 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
   const [activeSheetName, setActiveSheetName] = useState<string>('');
   const [gridData, setGridData] = useState<GridData>([]);
   const [isSaving, setIsSaving] = useState(false);
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    if (auth) {
+      await signOut(auth);
+      router.push('/login');
+    }
+  };
 
   useEffect(() => {
     try {
-      const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true });
+      const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: 'yyyy-mm-dd' });
       setWorkbook(wb);
       const firstSheetName = wb.SheetNames[0];
       if (firstSheetName) {
@@ -115,7 +127,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
       const newWorkbook: XLSX.WorkBook = { ...workbook };
       newWorkbook.Sheets = { ...workbook.Sheets };
       
-      const newSheet = XLSX.utils.aoa_to_sheet(gridData);
+      const newSheet = XLSX.utils.aoa_to_sheet(gridData, { dateNF: 'yyyy-mm-dd'});
       newWorkbook.Sheets[activeSheetName] = newSheet;
 
       const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
@@ -163,6 +175,9 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                     Save Changes
+                </Button>
+                 <Button onClick={handleLogout} variant="destructive" size="sm">
+                    <LogOut className="mr-2 h-4 w-4" /> Logout
                 </Button>
             </div>
           </div>
