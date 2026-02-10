@@ -22,6 +22,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
+} from "@/components/ui/dialog";
+import { Label } from '@/components/ui/label';
 
 // Excel Editor Component
 type GridData = any[][];
@@ -257,8 +265,22 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
 const formatDate = (timestamp: Timestamp | Date | undefined) => {
     if (!timestamp) return 'N/A';
     const date = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
-    return date.toLocaleDateString();
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+const formatTime = (timestamp: Timestamp | Date | undefined) => {
+    if (!timestamp) return '';
+    const date = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
+    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
+type Inquiry = {
+    id: string; parentName: string; studentName: string; studentAge: number; email: string; phone: string; gradeLevel: string; message?: string; createdAt: Timestamp;
+};
+
+type Message = {
+    id: string; fullName: string; email: string; subject: string; message: string; createdAt: Timestamp;
+};
 
 const AdmissionsTab = () => {
     const firestore = useFirestore();
@@ -266,9 +288,8 @@ const AdmissionsTab = () => {
         if (!firestore) return null;
         return query(collection(firestore, 'admissionInquiries'), orderBy('createdAt', 'desc'));
     }, [firestore]);
-    const { data: inquiries, loading } = useCollection<{
-        id: string; parentName: string; studentName: string; studentAge: number; email: string; phone: string; gradeLevel: string; message?: string; createdAt: Timestamp;
-    }>(inquiriesQuery);
+    const { data: inquiries, loading } = useCollection<Inquiry>(inquiriesQuery);
+    const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
 
     if (loading) return <div className="flex justify-center items-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     if (!inquiries || inquiries.length === 0) {
@@ -282,36 +303,71 @@ const AdmissionsTab = () => {
     }
 
     return (
-        <div className="mt-6 relative max-h-[70vh] overflow-auto border rounded-lg">
-            <Table>
-                <TableHeader className="sticky top-0 z-10 bg-muted/80 backdrop-blur-sm">
-                    <TableRow>
-                        <TableHead className="border-r">Submitted</TableHead>
-                        <TableHead className="border-r">Student Name</TableHead>
-                        <TableHead className="border-r">Age</TableHead>
-                        <TableHead className="border-r">Grade</TableHead>
-                        <TableHead className="border-r">Parent Name</TableHead>
-                        <TableHead className="border-r">Email</TableHead>
-                        <TableHead className="border-r">Phone</TableHead>
-                        <TableHead className="min-w-[200px]">Message</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {inquiries.map((inquiry) => (
-                        <TableRow key={inquiry.id}>
-                            <TableCell className="border-r">{formatDate(inquiry.createdAt)}</TableCell>
-                            <TableCell className="font-medium border-r">{inquiry.studentName}</TableCell>
-                            <TableCell className="border-r">{inquiry.studentAge}</TableCell>
-                            <TableCell className="border-r">{inquiry.gradeLevel}</TableCell>
-                            <TableCell className="border-r">{inquiry.parentName}</TableCell>
-                            <TableCell className="border-r">{inquiry.email}</TableCell>
-                            <TableCell className="border-r">{inquiry.phone}</TableCell>
-                            <TableCell>{inquiry.message || '-'}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
+        <>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {inquiries.map((inquiry) => (
+                    <Card
+                        key={inquiry.id}
+                        className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
+                        onClick={() => setSelectedInquiry(inquiry)}
+                    >
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-base font-semibold">{inquiry.studentName}</CardTitle>
+                             <div className="text-xs text-muted-foreground text-right">
+                                <div>{formatDate(inquiry.createdAt)}</div>
+                                <div>{formatTime(inquiry.createdAt)}</div>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-sm text-muted-foreground">
+                                Parent: {inquiry.parentName}
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+            
+            <Dialog open={!!selectedInquiry} onOpenChange={(isOpen) => !isOpen && setSelectedInquiry(null)}>
+                <DialogContent className="sm:max-w-[600px] bg-card/80 backdrop-blur-xl">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl">Admission Inquiry Details</DialogTitle>
+                        <DialogDescription>
+                            Submitted on {formatDate(selectedInquiry?.createdAt)} at {formatTime(selectedInquiry?.createdAt)}
+                        </DialogDescription>
+                    </DialogHeader>
+                    {selectedInquiry && (
+                        <div className="grid gap-6 py-4 text-sm">
+                            <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                                <Label htmlFor="student" className="text-right text-muted-foreground">Student Name</Label>
+                                <p id="student" className="font-semibold text-foreground">{selectedInquiry.studentName} (Age: {selectedInquiry.studentAge})</p>
+                            </div>
+                             <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                                <Label htmlFor="parent" className="text-right text-muted-foreground">Parent Name</Label>
+                                <p id="parent" className="text-foreground">{selectedInquiry.parentName}</p>
+                            </div>
+                            <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                                <Label htmlFor="email" className="text-right text-muted-foreground">Email</Label>
+                                <p id="email" className="text-foreground">{selectedInquiry.email}</p>
+                            </div>
+                             <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                                <Label htmlFor="phone" className="text-right text-muted-foreground">Phone</Label>
+                                <p id="phone" className="text-foreground">{selectedInquiry.phone}</p>
+                            </div>
+                            <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                                <Label htmlFor="grade" className="text-right text-muted-foreground">Applying for</Label>
+                                <p id="grade" className="text-foreground capitalize">{selectedInquiry.gradeLevel.replace('-', ' ')}</p>
+                            </div>
+                            {selectedInquiry.message && (
+                                <div className="grid grid-cols-[120px_1fr] items-start gap-4">
+                                    <Label htmlFor="message" className="text-right text-muted-foreground pt-1">Message</Label>
+                                    <p id="message" className="text-foreground bg-muted/50 p-3 rounded-md border">{selectedInquiry.message}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
+        </>
     );
 };
 
@@ -321,9 +377,9 @@ const ContactTab = () => {
         if (!firestore) return null;
         return query(collection(firestore, 'messages'), orderBy('createdAt', 'desc'));
     }, [firestore]);
-    const { data: messages, loading } = useCollection<{
-        id: string; fullName: string; email: string; subject: string; message: string; createdAt: Timestamp;
-    }>(messagesQuery);
+    const { data: messages, loading } = useCollection<Message>(messagesQuery);
+    const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+
 
     if (loading) return <div className="flex justify-center items-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     if (!messages || messages.length === 0) {
@@ -337,30 +393,61 @@ const ContactTab = () => {
     }
     
     return (
-        <div className="mt-6 relative max-h-[70vh] overflow-auto border rounded-lg">
-            <Table>
-                <TableHeader className="sticky top-0 z-10 bg-muted/80 backdrop-blur-sm">
-                    <TableRow>
-                        <TableHead className="border-r">Received</TableHead>
-                        <TableHead className="border-r">Name</TableHead>
-                        <TableHead className="border-r">Email</TableHead>
-                        <TableHead className="border-r">Subject</TableHead>
-                        <TableHead className="min-w-[300px]">Message</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {messages.map((msg) => (
-                        <TableRow key={msg.id}>
-                            <TableCell className="border-r">{formatDate(msg.createdAt)}</TableCell>
-                            <TableCell className="font-medium border-r">{msg.fullName}</TableCell>
-                            <TableCell className="border-r">{msg.email}</TableCell>
-                            <TableCell className="border-r">{msg.subject}</TableCell>
-                            <TableCell>{msg.message}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
+        <>
+             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {messages.map((msg) => (
+                    <Card
+                        key={msg.id}
+                        className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
+                        onClick={() => setSelectedMessage(msg)}
+                    >
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-base font-semibold">{msg.fullName}</CardTitle>
+                            <div className="text-xs text-muted-foreground text-right">
+                                <div>{formatDate(msg.createdAt)}</div>
+                                <div>{formatTime(msg.createdAt)}</div>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm text-muted-foreground truncate" title={msg.subject}>
+                                Subject: {msg.subject}
+                            </p>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+             <Dialog open={!!selectedMessage} onOpenChange={(isOpen) => !isOpen && setSelectedMessage(null)}>
+                <DialogContent className="sm:max-w-[600px] bg-card/80 backdrop-blur-xl">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl">Contact Message</DialogTitle>
+                        <DialogDescription>
+                            From {selectedMessage?.fullName} on {formatDate(selectedMessage?.createdAt)}
+                        </DialogDescription>
+                    </DialogHeader>
+                    {selectedMessage && (
+                        <div className="grid gap-6 py-4 text-sm">
+                            <div className="grid grid-cols-[100px_1fr] items-center gap-4">
+                                <Label htmlFor="name" className="text-right text-muted-foreground">From</Label>
+                                <p id="name" className="font-semibold text-foreground">{selectedMessage.fullName}</p>
+                            </div>
+                             <div className="grid grid-cols-[100px_1fr] items-center gap-4">
+                                <Label htmlFor="email" className="text-right text-muted-foreground">Email</Label>
+                                <p id="email" className="text-foreground">{selectedMessage.email}</p>
+                            </div>
+                            <div className="grid grid-cols-[100px_1fr] items-center gap-4">
+                                <Label htmlFor="subject" className="text-right text-muted-foreground">Subject</Label>
+                                <p id="subject" className="font-semibold text-foreground">{selectedMessage.subject}</p>
+                            </div>
+                            <div className="grid grid-cols-[100px_1fr] items-start gap-4">
+                                <Label htmlFor="message" className="text-right text-muted-foreground pt-1">Message</Label>
+                                <p id="message" className="text-foreground bg-muted/50 p-4 rounded-md border whitespace-pre-wrap">{selectedMessage.message}</p>
+                            </div>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }
 
