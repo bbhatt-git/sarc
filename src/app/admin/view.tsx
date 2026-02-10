@@ -286,26 +286,26 @@ const AdmissionsTab = () => {
             <Table>
                 <TableHeader className="sticky top-0 z-10 bg-muted/80 backdrop-blur-sm">
                     <TableRow>
-                        <TableHead>Submitted</TableHead>
-                        <TableHead>Student Name</TableHead>
-                        <TableHead>Age</TableHead>
-                        <TableHead>Grade</TableHead>
-                        <TableHead>Parent Name</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Phone</TableHead>
+                        <TableHead className="border-r">Submitted</TableHead>
+                        <TableHead className="border-r">Student Name</TableHead>
+                        <TableHead className="border-r">Age</TableHead>
+                        <TableHead className="border-r">Grade</TableHead>
+                        <TableHead className="border-r">Parent Name</TableHead>
+                        <TableHead className="border-r">Email</TableHead>
+                        <TableHead className="border-r">Phone</TableHead>
                         <TableHead className="min-w-[200px]">Message</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {inquiries.map((inquiry) => (
                         <TableRow key={inquiry.id}>
-                            <TableCell>{formatDate(inquiry.createdAt)}</TableCell>
-                            <TableCell className="font-medium">{inquiry.studentName}</TableCell>
-                            <TableCell>{inquiry.studentAge}</TableCell>
-                            <TableCell>{inquiry.gradeLevel}</TableCell>
-                            <TableCell>{inquiry.parentName}</TableCell>
-                            <TableCell>{inquiry.email}</TableCell>
-                            <TableCell>{inquiry.phone}</TableCell>
+                            <TableCell className="border-r">{formatDate(inquiry.createdAt)}</TableCell>
+                            <TableCell className="font-medium border-r">{inquiry.studentName}</TableCell>
+                            <TableCell className="border-r">{inquiry.studentAge}</TableCell>
+                            <TableCell className="border-r">{inquiry.gradeLevel}</TableCell>
+                            <TableCell className="border-r">{inquiry.parentName}</TableCell>
+                            <TableCell className="border-r">{inquiry.email}</TableCell>
+                            <TableCell className="border-r">{inquiry.phone}</TableCell>
                             <TableCell>{inquiry.message || '-'}</TableCell>
                         </TableRow>
                     ))}
@@ -341,20 +341,20 @@ const ContactTab = () => {
             <Table>
                 <TableHeader className="sticky top-0 z-10 bg-muted/80 backdrop-blur-sm">
                     <TableRow>
-                        <TableHead>Received</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Subject</TableHead>
+                        <TableHead className="border-r">Received</TableHead>
+                        <TableHead className="border-r">Name</TableHead>
+                        <TableHead className="border-r">Email</TableHead>
+                        <TableHead className="border-r">Subject</TableHead>
                         <TableHead className="min-w-[300px]">Message</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {messages.map((msg) => (
                         <TableRow key={msg.id}>
-                            <TableCell>{formatDate(msg.createdAt)}</TableCell>
-                            <TableCell className="font-medium">{msg.fullName}</TableCell>
-                            <TableCell>{msg.email}</TableCell>
-                            <TableCell>{msg.subject}</TableCell>
+                            <TableCell className="border-r">{formatDate(msg.createdAt)}</TableCell>
+                            <TableCell className="font-medium border-r">{msg.fullName}</TableCell>
+                            <TableCell className="border-r">{msg.email}</TableCell>
+                            <TableCell className="border-r">{msg.subject}</TableCell>
                             <TableCell>{msg.message}</TableCell>
                         </TableRow>
                     ))}
