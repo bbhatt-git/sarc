@@ -7,10 +7,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, orderBy, query, Timestamp } from 'firebase/firestore';
 import {
   AlertDialog,
@@ -30,6 +30,7 @@ import {
   DialogDescription
 } from "@/components/ui/dialog";
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // Excel Editor Component
 type GridData = any[][];
@@ -53,6 +54,12 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
     const [gridData, setGridData] = useState<GridData>([]);
     const [isSaving, setIsSaving] = useState(false);
     const [rowToDelete, setRowToDelete] = useState<number | null>(null);
+
+    const iconOptions = [
+        { value: 'Bell', icon: <Bell className="h-4 w-4" /> },
+        { value: 'FileText', icon: <FileText className="h-4 w-4" /> },
+        { value: 'Calendar', icon: <Calendar className="h-4 w-4" /> },
+    ];
 
     useEffect(() => {
         try {
@@ -192,7 +199,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                 </div>
             </div>
             <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
-                <TabsList className="grid w-full h-auto grid-cols-2 sm:h-10 sm:inline-flex sm:w-auto">
+                <TabsList className="grid w-full h-auto grid-cols-2 sm:h-10 sm:grid-cols-none sm:inline-flex sm:w-auto">
                     {sheetNames.map((name) => (
                         <TabsTrigger key={name} value={name}>{name}</TabsTrigger>
                     ))}
@@ -213,16 +220,42 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                             {bodyData.map((row, rowIndex) => (
                                 <TableRow key={rowIndex}>
                                     <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
-                                    {headers.map((_, colIndex) => (
-                                        <TableCell key={colIndex} className="p-0 border-r">
-                                            <Input
-                                                type="text"
-                                                value={row[colIndex] || ''}
-                                                onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
-                                                className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-primary/50 bg-transparent"
-                                            />
-                                        </TableCell>
-                                    ))}
+                                    {headers.map((header, colIndex) => {
+                                        const headerName = String(header).toLowerCase();
+                                        const isGeneralNoticeIconColumn = activeSheetName === 'GeneralNotices' && headerName === 'icon';
+
+                                        return (
+                                            <TableCell key={colIndex} className="p-0 border-r">
+                                                {isGeneralNoticeIconColumn ? (
+                                                    <Select
+                                                        value={row[colIndex] || ''}
+                                                        onValueChange={(value) => handleCellChange(rowIndex, colIndex, value)}
+                                                    >
+                                                        <SelectTrigger className="w-full h-full p-2 border-none rounded-none focus:ring-1 focus:ring-primary/50 bg-transparent text-sm">
+                                                            <SelectValue placeholder="Select icon..." />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {iconOptions.map(opt => (
+                                                                <SelectItem key={opt.value} value={opt.value}>
+                                                                    <div className="flex items-center gap-2">
+                                                                        {opt.icon}
+                                                                        <span>{opt.value}</span>
+                                                                    </div>
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                ) : (
+                                                    <Input
+                                                        type="text"
+                                                        value={row[colIndex] || ''}
+                                                        onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
+                                                        className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-primary/50 bg-transparent"
+                                                    />
+                                                )}
+                                            </TableCell>
+                                        )
+                                    })}
                                     <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
                                         <Button 
                                             variant="ghost" 
