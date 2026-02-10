@@ -8,7 +8,6 @@ const achievements = [
     { title: 'National Robotics Competition Winner', year: 2023, icon: Award, description: 'The SARC robotics club, "Innovate Nepal", won first place in the National Robotics Competition for their innovative drone project.' },
     { title: 'Best Debating Team in Valley', year: 2022, icon: Star, description: 'Our debate team was crowned the best in the Kathmandu Valley after a series of intense inter-college competitions.' },
     { title: 'Social Service Excellence Award', year: 2022, icon: Medal, description: 'Recognized for our extensive community service and outreach programs, including health camps and literacy drives.' },
-    { title: 'Top Law Entrance Exam Results', year: 2021, icon: Trophy, description: 'A record number of our law students secured top ranks in the university entrance examinations for LLB programs.' },
     { title: 'Regional Sports Championship', year: 2020, icon: Star, description: 'Our basketball team emerged as champions in the regional inter-college sports meet.' },
 ];
 
@@ -25,13 +24,13 @@ export default function AchievementsView() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="testimonial-card flex items-start gap-6 h-full"
+                            className="testimonial-card p-8 flex flex-col items-center text-center gap-4 h-full"
                         >
-                            <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
-                                <item.icon className="w-8 h-8 text-emerald-600" />
+                            <div className="bg-emerald-100 dark:bg-emerald-900/50 p-4 rounded-full border border-emerald-200 dark:border-emerald-800">
+                                <item.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                             </div>
                             <div>
-                                <p className="font-semibold text-emerald-600">{item.year}</p>
+                                <p className="font-semibold text-emerald-600 dark:text-emerald-400">{item.year}</p>
                                 <h3 className="text-lg font-bold text-foreground mt-1">{item.title}</h3>
                                 <p className="text-muted-foreground text-sm mt-2">{item.description}</p>
                             </div>
