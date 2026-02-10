@@ -15,7 +15,7 @@ export const NAV_LINKS = [
     label: 'Academics',
     children: [
       { href: '/academics/programs', label: 'Academic Programs', description: 'Explore our comprehensive range of programs.', icon: BookOpen },
-      { href: '/academics/services', label: 'Services', description: 'Discover the support services we offer.', icon: Briefcase },
+      { href: '/academics/services', label: 'Facilities', description: 'Explore our modern, world-class facilities.', icon: Briefcase },
       { href: '/academics/faculties', label: 'Faculties', description: 'Meet our experienced and dedicated faculties.', icon: Users },
       { href: '/academics/achievements', label: 'Achievements', description: 'Celebrate the accomplishments of our students.', icon: Award },
     ],

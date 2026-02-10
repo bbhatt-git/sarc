@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import ServicesView from './view';
+import FacilitiesView from './view';
 
 export const metadata: Metadata = {
-  title: 'Student Services',
-  description: 'Discover the support services SARC offers to ensure a holistic and enriching educational experience for every student.',
+  title: 'Our Facilities',
+  description: 'Explore the modern facilities and support services at SARC, designed for a world-class educational experience.',
 };
 
-export default function ServicesPage() {
-  return <ServicesView />;
+export default function FacilitiesPage() {
+  return <FacilitiesView />;
 }

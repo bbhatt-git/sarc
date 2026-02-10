@@ -1,10 +1,9 @@
-
 'use client';
 import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { Library, Bus, Utensils, HeartHandshake, Computer, Microscope } from 'lucide-react';
 
-const services = [
+const facilities = [
     { title: 'Resourceful Library', icon: Library, description: 'Access a vast collection of books, journals, and digital resources to support your academic journey.' },
     { title: 'Transportation', icon: Bus, description: 'Safe and reliable bus services covering various routes across Kathmandu valley for your convenience.' },
     { title: 'Hygienic Cafeteria', icon: Utensils, description: 'Enjoy healthy and delicious meals in our clean and welcoming cafeteria.' },
@@ -13,26 +12,28 @@ const services = [
     { title: 'E-Learning Platform', icon: Computer, description: 'Access course materials, assignments, and lectures anytime through our online portal.' },
 ];
 
-export default function ServicesView() {
+export default function FacilitiesView() {
     return (
         <div>
-            <PageHeader title="Student Services" subtitle="Supporting Your Journey" imageUrl="/images/hero/0.jpg" />
+            <PageHeader title="Our Facilities" subtitle="World-Class Infrastructure & Support" imageUrl="/images/hero/0.jpg" />
             <div className="container mx-auto px-4 py-20">
-                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service, index) => (
-                         <motion.div
-                            key={service.title}
+                <div className="grid md:grid-cols-2 gap-8">
+                    {facilities.map((facility, index) => (
+                        <motion.div
+                            key={facility.title}
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true, amount: 0.3 }}
-                            className="testimonial-card p-8 text-center h-full"
+                            className="testimonial-card p-8 flex items-start gap-6 h-full"
                         >
-                            <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
-                                <service.icon className="w-8 h-8" />
+                            <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
+                                <facility.icon className="w-8 h-8 text-emerald-600" />
                             </div>
-                            <h3 className="text-xl font-bold text-foreground mb-2">{service.title}</h3>
-                            <p className="text-muted-foreground">{service.description}</p>
+                            <div>
+                                <h3 className="text-2xl font-bold text-foreground mb-2">{facility.title}</h3>
+                                <p className="text-muted-foreground text-lg">{facility.description}</p>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
