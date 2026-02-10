@@ -157,7 +157,6 @@ export default function Header() {
     };
   }, [mobileMenuOpen]);
 
-  // Return null for admin/login pages after calling other hooks
   if (pathname.startsWith('/admin') || pathname === '/login') {
     return null;
   }
