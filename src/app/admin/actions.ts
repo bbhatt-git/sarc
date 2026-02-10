@@ -22,8 +22,12 @@ export async function saveExcelFile(base64Data: string): Promise<{ success: bool
     return { success: true, message: 'File saved successfully!' };
   } catch (error) {
     console.error('Error saving Excel file:', error);
-    if ((error as NodeJS.ErrnoException).code === 'EACCES') {
-        return { success: false, message: 'Permission denied. The server process does not have write access to the file.' };
+    const nodeError = error as NodeJS.ErrnoException;
+    if (nodeError.code === 'EACCES' || nodeError.code === 'EROFS') {
+        return { 
+            success: false, 
+            message: 'File system is read-only. This action is not supported in the current deployment environment. Please run the app locally to update this file.' 
+        };
     }
     return { success: false, message: 'Failed to save the file.' };
   }
