@@ -13,6 +13,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 type GridData = any[][];
 
+const calculateGradeFromGPA = (gpa: number): { grade: string; remarks: 'Pass' | 'Fail' } => {
+    if (gpa >= 3.6) return { grade: 'A+', remarks: 'Pass' };
+    if (gpa >= 3.2) return { grade: 'A', remarks: 'Pass' };
+    if (gpa >= 2.8) return { grade: 'B+', remarks: 'Pass' };
+    if (gpa >= 2.4) return { grade: 'B', remarks: 'Pass' };
+    if (gpa >= 2.0) return { grade: 'C+', remarks: 'Pass' };
+    if (gpa >= 1.6) return { grade: 'C', remarks: 'Pass' };
+    if (gpa >= 1.2) return { grade: 'D+', remarks: 'Pass' };
+    if (gpa >= 0.8) return { grade: 'D', remarks: 'Pass' };
+    return { grade: 'E', remarks: 'Fail' };
+};
+
 export default function AdminView({ initialBase64Data }: { initialBase64Data: string }) {
   const { toast } = useToast();
   const [workbook, setWorkbook] = useState<XLSX.WorkBook | null>(null);
@@ -42,19 +54,47 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
     if (workbook && activeSheetName) {
       const worksheet = workbook.Sheets[activeSheetName];
       if (worksheet) {
-        const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
+        const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
         setGridData(data);
       }
     }
   }, [workbook, activeSheetName]);
 
+  // Memoize derived data
+  const { sheetNames, headers, bodyData } = useMemo(() => {
+    const sheetNames = workbook?.SheetNames || [];
+    const headers = gridData[0] || [];
+    const bodyData = gridData.slice(1);
+    return { sheetNames, headers, bodyData };
+  }, [workbook, gridData]);
+
   const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
     const updatedGridData = [...gridData];
-    // rowIndex is from the bodyData, so add 1 to get the correct index in gridData
-    const actualRowIndex = rowIndex + 1;
+    const actualRowIndex = rowIndex + 1; // account for header row
+
     if (updatedGridData[actualRowIndex]) {
         const newRow = [...updatedGridData[actualRowIndex]];
         newRow[colIndex] = value;
+
+        // Automatic Grade/Remarks calculation for 'Results' sheet
+        if (activeSheetName === 'Results' && headers.length > 0) {
+            const gpaIndex = headers.findIndex(h => String(h).toLowerCase() === 'gpa');
+            const gradeIndex = headers.findIndex(h => String(h).toLowerCase() === 'grade');
+            const remarksIndex = headers.findIndex(h => String(h).toLowerCase() === 'remarks');
+
+            if (colIndex === gpaIndex && gpaIndex !== -1 && gradeIndex !== -1 && remarksIndex !== -1) {
+                const gpa = parseFloat(value);
+                if (!isNaN(gpa)) {
+                    const { grade, remarks } = calculateGradeFromGPA(gpa);
+                    newRow[gradeIndex] = grade;
+                    newRow[remarksIndex] = remarks;
+                } else {
+                    // Clear grade and remarks if GPA is not a number
+                    newRow[gradeIndex] = '';
+                    newRow[remarksIndex] = '';
+                }
+            }
+        }
         updatedGridData[actualRowIndex] = newRow;
         setGridData(updatedGridData);
     }
@@ -100,14 +140,6 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
       setIsSaving(false);
     }
   };
-
-  // Memoize derived data
-  const { sheetNames, headers, bodyData } = useMemo(() => {
-    const sheetNames = workbook?.SheetNames || [];
-    const headers = gridData[0] || [];
-    const bodyData = gridData.slice(1);
-    return { sheetNames, headers, bodyData };
-  }, [workbook, gridData]);
 
   if (!workbook) {
     return (
