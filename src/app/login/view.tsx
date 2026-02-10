@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -30,14 +30,20 @@ export default function LoginView() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/admin');
-    } catch (e: any) {
+    } catch (e: any) => {
       setError(e.message);
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
+    <div className="relative flex min-h-screen items-center justify-center p-4">
+      <Button asChild variant="outline" className="absolute top-6 left-6">
+        <Link href="/">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Go Back Home
+        </Link>
+      </Button>
       <Card className="w-full max-w-md testimonial-card">
         <CardHeader className="text-center">
             <Image src="/images/sarc.png" alt="SARC Logo" width={60} height={60} className="mx-auto"/>
@@ -67,14 +73,6 @@ export default function LoginView() {
                 </Button>
             </form>
         </CardContent>
-        <CardFooter>
-            <Button asChild variant="outline" className="w-full">
-              <Link href="/">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Go Back Home
-              </Link>
-            </Button>
-        </CardFooter>
       </Card>
     </div>
   );
