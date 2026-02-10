@@ -196,7 +196,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                             <TableRow>
                                 <TableHead className="sticky left-0 z-30 w-16 border-r bg-muted/95 text-center font-bold">#</TableHead>
                                 {headers.map((header, colIndex) => (
-                                    <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap">{header}</TableHead>
+                                    <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap border-r">{header}</TableHead>
                                 ))}
                                 <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
                             </TableRow>
@@ -206,7 +206,7 @@ const ExcelEditor = ({ initialBase64Data }: { initialBase64Data: string }) => {
                                 <TableRow key={rowIndex}>
                                     <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
                                     {headers.map((_, colIndex) => (
-                                        <TableCell key={colIndex} className="p-0">
+                                        <TableCell key={colIndex} className="p-0 border-r">
                                             <Input
                                                 type="text"
                                                 value={row[colIndex] || ''}
