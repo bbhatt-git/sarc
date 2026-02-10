@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Facebook, Instagram, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 
@@ -11,6 +12,12 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith('/admin') || pathname === '/login') {
+    return null;
+  }
+  
   return (
     <footer className="mt-20 z-10">
       <div className="container mx-auto px-4">

@@ -1,16 +1,13 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
 import * as XLSX from 'xlsx';
-import { useAuth } from '@/firebase';
-import { signOut } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, LogOut } from 'lucide-react';
+import { Loader2, Save, PlusCircle } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -34,15 +31,6 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
   const [activeSheetName, setActiveSheetName] = useState<string>('');
   const [gridData, setGridData] = useState<GridData>([]);
   const [isSaving, setIsSaving] = useState(false);
-  const auth = useAuth();
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    if (auth) {
-      await signOut(auth);
-      router.push('/login');
-    }
-  };
 
   useEffect(() => {
     try {
@@ -162,7 +150,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
   }
 
   return (
-    <div className="container mx-auto py-24 px-4">
+    <div className="container mx-auto px-4">
       <Card className="testimonial-card">
         <CardHeader>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -175,9 +163,6 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
                 <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                     Save Changes
-                </Button>
-                 <Button onClick={handleLogout} variant="destructive" size="sm">
-                    <LogOut className="mr-2 h-4 w-4" /> Logout
                 </Button>
             </div>
           </div>

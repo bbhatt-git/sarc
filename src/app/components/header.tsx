@@ -137,6 +137,10 @@ export default function Header() {
     setMounted(true);
   }, []);
 
+  if (pathname.startsWith('/admin') || pathname === '/login') {
+    return null;
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
