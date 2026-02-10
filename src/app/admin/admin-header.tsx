@@ -16,7 +16,7 @@ export default function AdminHeader() {
   const handleLogout = async () => {
     if (auth) {
       await signOut(auth);
-      router.push('/login');
+      router.push('/');
     }
   };
 
