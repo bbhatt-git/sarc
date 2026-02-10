@@ -3,6 +3,15 @@ import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
 import { Bell, FileText, Calendar } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+
 
 const iconMap = {
     Bell,
@@ -16,6 +25,7 @@ type Notice = {
     date: string;
     summary: string;
     icon: keyof typeof iconMap;
+    details?: string;
 };
 
 interface GeneralNoticeViewProps {
@@ -40,14 +50,14 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                     {initialNotices && initialNotices.length > 0 ? (
                         initialNotices.map((notice, index) => {
                             const IconComponent = iconMap[notice.icon] || iconMap.Default;
-                            return (
+                            
+                            const noticeCard = (
                                 <motion.div
-                                    key={index}
                                     initial={{ opacity: 0, y: 50 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                     viewport={{ once: true, amount: 0.3 }}
-                                    className="testimonial-card p-6"
+                                    className="testimonial-card p-6 w-full text-left"
                                 >
                                     <div className="flex items-start gap-5">
                                         <div className={cn('p-3 rounded-full', getIconColor(notice.icon))}>
@@ -60,7 +70,32 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                                         </div>
                                     </div>
                                 </motion.div>
-                            )
+                            );
+
+                            if (!notice.details) {
+                                return <div key={index}>{noticeCard}</div>;
+                            }
+
+                            return (
+                                <Dialog key={index}>
+                                    <DialogTrigger asChild>
+                                        <div className="cursor-pointer">
+                                            {noticeCard}
+                                        </div>
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-[625px] bg-card/80 backdrop-blur-xl">
+                                        <DialogHeader>
+                                            <DialogTitle className="text-2xl font-bold text-foreground">{notice.title}</DialogTitle>
+                                            <DialogDescription className="text-sm text-muted-foreground pt-2">
+                                                Published on: {notice.date}
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <div className="py-4 text-foreground/90 whitespace-pre-wrap max-h-[60vh] overflow-y-auto">
+                                            {notice.details}
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
+                            );
                         })
                     ) : (
                         <div className="testimonial-card text-center p-8">
