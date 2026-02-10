@@ -127,19 +127,21 @@ const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }: { link: (typeof NA
 }
 
 export default function Header() {
+  const pathname = usePathname();
+
+  // Return null for admin/login pages before calling other hooks
+  if (pathname.startsWith('/admin') || pathname === '/login') {
+    return null;
+  }
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  if (pathname.startsWith('/admin') || pathname === '/login') {
-    return null;
-  }
 
   useEffect(() => {
     const handleScroll = () => {
