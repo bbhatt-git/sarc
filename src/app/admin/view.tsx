@@ -42,7 +42,7 @@ export default function AdminView({ initialBase64Data }: { initialBase64Data: st
     if (workbook && activeSheetName) {
       const worksheet = workbook.Sheets[activeSheetName];
       if (worksheet) {
-        const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
         setGridData(data);
       }
     }
