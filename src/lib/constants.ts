@@ -1,3 +1,4 @@
+
 import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2 } from 'lucide-react';
 
 export const NAV_LINKS = [
@@ -180,24 +181,24 @@ export const STAFF_MEMBERS = [
   {
     id: 'dr-laxman-basnet',
     name: 'Dr. Laxman Basnet',
-    role: 'Founder / Principal',
-    credentials: 'PhD',
+    role: 'Founder / CEO',
+    credentials: 'Doctor of Philosophy',
     philosophy: 'Dedicated to fostering a vibrant learning environment for all students.',
     image: 'https://picsum.photos/seed/301/400/400'
   },
   {
     id: 'bhagwat-bhatt',
     name: 'Bhagwat Bhatt',
-    role: 'Faculty',
-    credentials: 'M.Phil',
+    role: 'Program Coordinator',
+    credentials: 'Master of Philosophy',
     philosophy: 'Committed to academic excellence and student success.',
     image: 'https://picsum.photos/seed/302/400/400'
   },
   {
     id: 'bed-prakash-bhatt',
     name: 'Bed Prakash Bhatt',
-    role: 'Faculty',
-    credentials: 'M.Sc',
+    role: 'Head of Science Department',
+    credentials: 'Master of Science',
     philosophy: 'Inspiring the next generation of scientists and thinkers.',
     image: 'https://picsum.photos/seed/303/400/400'
   },
@@ -205,7 +206,7 @@ export const STAFF_MEMBERS = [
     id: 'karan-singh-mahara',
     name: 'Karan Singh Mahara',
     role: 'Faculty',
-    credentials: 'M.Sc',
+    credentials: 'Master of Science',
     philosophy: 'Making science accessible and exciting for every student.',
     image: 'https://picsum.photos/seed/304/400/400'
   },
@@ -213,7 +214,7 @@ export const STAFF_MEMBERS = [
     id: 'bhupendra-chand',
     name: 'Bhupendra Chand',
     role: 'Faculty',
-    credentials: 'M.Sc',
+    credentials: 'Master of Science',
     philosophy: 'Fostering a love for learning and critical inquiry.',
     image: 'https://picsum.photos/seed/305/400/400'
   },
@@ -221,7 +222,7 @@ export const STAFF_MEMBERS = [
     id: 'bhuwan-chandra-bagati',
     name: 'Bhuwan Chandra Bagati',
     role: 'Faculty',
-    credentials: 'M.Sc',
+    credentials: 'Master of Science',
     philosophy: 'Guiding students to discover their potential through science.',
     image: 'https://picsum.photos/seed/306/400/400'
   },
@@ -229,7 +230,7 @@ export const STAFF_MEMBERS = [
     id: 'pushpa-raj-bhatt',
     name: 'Pushpa Raj Bhatt',
     role: 'Faculty',
-    credentials: 'M.Sc',
+    credentials: 'Master of Science',
     philosophy: 'Dedicated to creating an engaging and supportive classroom.',
     image: 'https://picsum.photos/seed/307/400/400'
   },
@@ -237,7 +238,7 @@ export const STAFF_MEMBERS = [
     id: 'narendra-awasthi',
     name: 'Narendra Awasthi',
     role: 'Faculty',
-    credentials: 'M.Sc',
+    credentials: 'Master of Science',
     philosophy: 'Empowering students with knowledge and practical skills.',
     image: 'https://picsum.photos/seed/308/400/400'
   },
@@ -245,15 +246,15 @@ export const STAFF_MEMBERS = [
     id: 'suraj-pant',
     name: 'Suraj Pant',
     role: 'Faculty',
-    credentials: 'M.Sc',
+    credentials: 'Master of Science',
     philosophy: 'Fostering curiosity and a passion for scientific discovery.',
     image: 'https://picsum.photos/seed/309/400/400'
   },
   {
     id: 'dipendra-joshi',
     name: 'Dipendra Joshi',
-    role: 'Faculty',
-    credentials: 'M.A. (Maths)',
+    role: 'Academic Coordinator',
+    credentials: 'Master of Arts (Mathematics)',
     philosophy: 'Making mathematics understandable and enjoyable for all.',
     image: 'https://picsum.photos/seed/310/400/400'
   },
@@ -261,7 +262,7 @@ export const STAFF_MEMBERS = [
     id: 'shiv-raj-bhatt',
     name: 'Shiv Raj Bhatt',
     role: 'Faculty',
-    credentials: 'M.A. (Maths)',
+    credentials: 'Master of Arts (Mathematics)',
     philosophy: 'Developing logical thinking and problem-solving skills in students.',
     image: 'https://picsum.photos/seed/311/400/400'
   },
@@ -269,7 +270,7 @@ export const STAFF_MEMBERS = [
     id: 'meen-bahadur-khadka',
     name: 'Meen Bahadur Khadka',
     role: 'Faculty',
-    credentials: 'M.Ed',
+    credentials: 'Master of Education',
     philosophy: 'Committed to holistic education and personal development.',
     image: 'https://picsum.photos/seed/312/400/400'
   },
@@ -277,7 +278,7 @@ export const STAFF_MEMBERS = [
     id: 'sudarsan-bhatt',
     name: 'Sudarsan Bhatt',
     role: 'Faculty',
-    credentials: 'M.Ed',
+    credentials: 'Master of Education',
     philosophy: 'Creating an inclusive and effective learning environment.',
     image: 'https://picsum.photos/seed/313/400/400'
   },
@@ -285,7 +286,7 @@ export const STAFF_MEMBERS = [
     id: 'gyan-dev-bhatt',
     name: 'Gyan Dev Bhatt',
     role: 'Faculty',
-    credentials: 'M.Ed',
+    credentials: 'Master of Education',
     philosophy: 'Nurturing lifelong learners and responsible citizens.',
     image: 'https://picsum.photos/seed/314/400/400'
   },
@@ -293,7 +294,7 @@ export const STAFF_MEMBERS = [
     id: 'pushpa-joshi',
     name: 'Pushpa Joshi',
     role: 'Faculty',
-    credentials: 'M.Ed',
+    credentials: 'Master of Education',
     philosophy: 'Dedicated to student growth and academic success.',
     image: 'https://picsum.photos/seed/315/400/400'
   },
@@ -301,7 +302,7 @@ export const STAFF_MEMBERS = [
     id: 'govind-giri',
     name: 'Govind Giri',
     role: 'Faculty',
-    credentials: 'M.Ed',
+    credentials: 'Master of Education',
     philosophy: 'Inspiring students to achieve their full potential.',
     image: 'https://picsum.photos/seed/316/400/400'
   },
@@ -309,7 +310,7 @@ export const STAFF_MEMBERS = [
     id: 'birendra-bir-chand',
     name: 'Birendra Bir Chand',
     role: 'Faculty',
-    credentials: 'M.Ed',
+    credentials: 'Master of Education',
     philosophy: 'Fostering a positive and challenging learning atmosphere.',
     image: 'https://picsum.photos/seed/317/400/400'
   },
@@ -317,7 +318,7 @@ export const STAFF_MEMBERS = [
     id: 'rajesh-datt-bhatt',
     name: 'Rajesh Datt Bhatt',
     role: 'Faculty',
-    credentials: 'MCA',
+    credentials: 'Master of Computer Applications',
     philosophy: 'Bridging technology and education for modern learners.',
     image: 'https://picsum.photos/seed/318/400/400'
   },
@@ -325,7 +326,7 @@ export const STAFF_MEMBERS = [
     id: 'rituraj-bhatt',
     name: 'Rituraj Bhatt',
     role: 'Faculty',
-    credentials: 'M.Com',
+    credentials: 'Master of Commerce',
     philosophy: 'Equipping students with practical business and commerce skills.',
     image: 'https://picsum.photos/seed/319/400/400'
   },
@@ -333,7 +334,7 @@ export const STAFF_MEMBERS = [
     id: 'dev-raj-paneru',
     name: 'Dev Raj Paneru',
     role: 'Faculty',
-    credentials: 'M.BS',
+    credentials: 'Master of Business Studies',
     philosophy: 'Cultivating business acumen and entrepreneurial spirit.',
     image: 'https://picsum.photos/seed/320/400/400'
   },
@@ -341,7 +342,7 @@ export const STAFF_MEMBERS = [
     id: 'jeewan-thapa',
     name: 'Jeewan Thapa',
     role: 'Faculty',
-    credentials: 'M.A. & B.Sc (B.E.)',
+    credentials: 'Master of Arts & Bachelor of Science',
     philosophy: 'Integrating diverse fields of knowledge for a complete education.',
     image: 'https://picsum.photos/seed/321/400/400'
   },
@@ -349,31 +350,31 @@ export const STAFF_MEMBERS = [
     id: 'dev-singh-bhandari',
     name: 'Dev Singh Bhandari',
     role: 'Faculty',
-    credentials: 'B.Sc',
+    credentials: 'Bachelor of Science',
     philosophy: 'Sharing the wonders of science with eager minds.',
     image: 'https://picsum.photos/seed/322/400/400'
   },
   {
     id: 'santosh-pandey',
     name: 'Santosh Pandey',
-    role: 'Faculty',
-    credentials: 'B.M.B',
+    role: 'Managing Director',
+    credentials: 'Bachelor of Business Management',
     philosophy: 'Laying the groundwork for future business leaders.',
     image: 'https://picsum.photos/seed/323/400/400'
   },
   {
     id: 'kokila-pant',
     name: 'Kokila Pant',
-    role: 'Staff',
-    credentials: 'B.BS',
+    role: 'Accountant',
+    credentials: 'Bachelor of Business Studies',
     philosophy: 'Ensuring a smooth and supportive environment for students.',
     image: 'https://picsum.photos/seed/324/400/400'
   },
   {
     id: 'saraswati-bist',
     name: 'Saraswati Bist',
-    role: 'Staff',
-    credentials: 'B.BA / MBA (Running)',
+    role: 'Receptionist',
+    credentials: 'BBA / MBA (Running)',
     philosophy: 'Dedicated to the efficient and caring administration of the institution.',
     image: 'https://picsum.photos/seed/325/400/400'
   },
@@ -381,7 +382,7 @@ export const STAFF_MEMBERS = [
     id: 'basanti-chand',
     name: 'Basanti Chand',
     role: 'Support Staff',
-    credentials: '+2',
+    credentials: '+2 Graduate',
     philosophy: 'Providing essential support to our faculty and students every day.',
     image: 'https://picsum.photos/seed/326/400/400'
   },
@@ -389,7 +390,7 @@ export const STAFF_MEMBERS = [
     id: 'dashrath-chand',
     name: 'Dashrath Chand',
     role: 'Support Staff',
-    credentials: 'S.L.C',
+    credentials: 'S.L.C Graduate',
     philosophy: 'Working behind the scenes to keep our campus at its best.',
     image: 'https://picsum.photos/seed/327/400/400'
   },
@@ -397,7 +398,7 @@ export const STAFF_MEMBERS = [
     id: 'puran-rana',
     name: 'Puran Rana',
     role: 'Support Staff',
-    credentials: 'S.L.C',
+    credentials: 'S.L.C Graduate',
     philosophy: 'A key part of the team that maintains our welcoming campus.',
     image: 'https://picsum.photos/seed/328/400/400'
   }
