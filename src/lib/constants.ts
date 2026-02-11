@@ -1,5 +1,5 @@
 
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2 } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2, Lightbulb } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -19,6 +19,7 @@ export const NAV_LINKS = [
       { href: '/academics/services', label: 'Facilities', description: 'Explore our modern, world-class facilities.', icon: Briefcase },
       { href: '/academics/faculties', label: 'Faculties', description: 'Meet our experienced and dedicated faculties.', icon: Users },
       { href: '/academics/achievements', label: 'Achievements', description: 'Celebrate the accomplishments of our students.', icon: Award },
+      { href: '/academics/innovation', label: 'Innovation & Learning', description: 'Discover our hands-on, practical approach.', icon: Lightbulb },
     ],
   },
     { 
@@ -468,9 +469,9 @@ export const WHY_US_ITEMS = [
         description: "Access well-equipped labs, smart classrooms, and a digital library to support your learning."
     },
     {
-        icon: Target,
-        title: "Student-Centered Learning",
-        description: "Our teaching approach fosters creativity, critical thinking, and problem-solving skills."
+        icon: School,
+        title: "Smart Classrooms",
+        description: "Interactive and tech-based learning with modern audio-visual aids to enhance engagement."
     },
      {
         icon: Briefcase,
@@ -491,5 +492,15 @@ export const WHY_US_ITEMS = [
         icon: Landmark,
         title: "Industry Partnerships",
         description: "Opportunities for internships and research through our partnerships with industry and universities."
-    }
+    },
+    {
+        icon: Target,
+        title: "Student-Centered Learning",
+        description: "Our teaching approach fosters creativity, critical thinking, and problem-solving skills."
+    },
+    {
+        icon: Gamepad2,
+        title: "Peaceful Learning Environment",
+        description: "A serene and conducive atmosphere for effective education and personal growth."
+    },
 ];

@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/academics/services',
     '/academics/faculties',
     '/academics/achievements',
+    '/academics/innovation',
     '/notice/general',
     '/notice/holidays',
     '/notice/exams'
