@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -168,6 +168,50 @@ export default function HomeView() {
                     fill
                     className="object-cover relative rounded-[11px]"
                 />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive AI Learning Section */}
+      <section className="w-full py-20 lg:py-28">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.2 }}>
+                <div className="inline-flex items-center gap-2 rounded-full bg-sky-100 dark:bg-sky-900/50 px-4 py-2 border border-sky-200/50 dark:border-sky-800/50 mb-6">
+                    <Sparkles className="w-5 h-5 text-sky-500" />
+                    <p className="font-semibold text-sm text-sky-600 dark:text-sky-400">Next-Gen AI Technology</p>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
+                    Interactive <span className="text-sky-500">AI</span><br />
+                    <span className="text-emerald-500">Learning</span>
+                </h2>
+                <p className="mt-6 text-muted-foreground leading-relaxed max-w-lg">
+                    Experience the future of AI-powered automation. Our voice agents and MVP solutions create immersive experiences that capture attention and drive conversions. Students learn through interactive AI companions, adaptive learning systems, and real-time personalized feedback.
+                </p>
+                <Button asChild size="lg" className="rounded-full bg-sky-500 hover:bg-sky-600 text-white mt-8 shadow-lg shadow-sky-500/20 transition-transform hover:scale-105">
+                    <Link href="#">Explore Our Solutions</Link>
+                </Button>
+            </motion.div>
+            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.4 }} className="relative w-full min-h-[450px]">
+                <div className="testimonial-card p-6 h-full flex items-center justify-center bg-slate-100/50 dark:bg-slate-900/50">
+                    <div className="relative w-full h-[400px]">
+                        <Image
+                            src="https://picsum.photos/seed/ai-robot/600/600"
+                            alt="Interactive AI Robot"
+                            fill
+                            className="object-contain"
+                            data-ai-hint="robot mascot"
+                        />
+                        <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-sm border border-white/10 shadow-lg">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            Alex talking...
+                        </div>
+                    </div>
+                </div>
             </motion.div>
           </div>
         </div>
