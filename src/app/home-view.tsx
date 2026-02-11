@@ -18,7 +18,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 
-const CodeRobot = dynamic(() => import('./components/code-robot').then(mod => mod.default), {
+const CssRobot = dynamic(() => import('./components/css-robot').then(mod => mod.default), {
     ssr: false,
     loading: () => (
         <div className="flex h-full w-full items-center justify-center">
@@ -206,7 +206,7 @@ export default function HomeView() {
             <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.4 }} className="relative w-full h-[450px]">
                 <div className="testimonial-card h-full flex items-center justify-center bg-slate-100/50 dark:bg-slate-900/50 overflow-hidden">
                     <div className="relative w-full h-full">
-                        <CodeRobot />
+                        <CssRobot />
                         <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-sm border border-white/10 shadow-lg pointer-events-none">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
