@@ -39,6 +39,7 @@
     "embla-carousel-react": "8.1.5",
     "events": "3.3.0",
     "firebase": "11.9.1",
+    "firebase-admin": "^12.1.0",
     "framer-motion": "11.2.10",
     "lru-cache": "^10.2.2",
     "lucide-react": "0.475.0",
