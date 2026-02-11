@@ -190,17 +190,17 @@ export default function HomeView() {
             <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.2 }}>
                 <div className="inline-flex items-center gap-2 rounded-full bg-sky-100 dark:bg-sky-900/50 px-4 py-2 border border-sky-200/50 dark:border-sky-800/50 mb-6">
                     <Sparkles className="w-5 h-5 text-sky-500" />
-                    <p className="font-semibold text-sm text-sky-600 dark:text-sky-400">Next-Gen AI Technology</p>
+                    <p className="font-semibold text-sm text-sky-600 dark:text-sky-400">SARC AI</p>
                 </div>
                 <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
-                    Interactive <span className="text-sky-500">AI</span><br />
-                    <span className="text-emerald-500">Learning</span>
+                    Your Personal <span className="text-sky-500">AI</span><br />
+                    <span className="text-emerald-500">Assistant</span>
                 </h2>
                 <p className="mt-6 text-muted-foreground leading-relaxed max-w-lg">
-                    Experience the future of AI-powered automation. Our voice agents and MVP solutions create immersive experiences that capture attention and drive conversions. Students learn through interactive AI companions, adaptive learning systems, and real-time personalized feedback.
+                    Meet SARC AI, your personal assistant for all things related to our college. From admission details to course information, SARC AI is here to help you 24/7. Ask anything, anytime!
                 </p>
                 <Button asChild size="lg" className="rounded-full bg-sky-500 hover:bg-sky-600 text-white mt-8 shadow-lg shadow-sky-500/20 transition-transform hover:scale-105">
-                    <Link href="#">Explore Our Solutions</Link>
+                    <Link href="#">Get Started</Link>
                 </Button>
             </motion.div>
             <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.4 }} className="relative w-full h-[450px]">
@@ -212,7 +212,7 @@ export default function HomeView() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            Alex talking...
+                            SARC AI is thinking...
                         </div>
                     </div>
                 </div>
