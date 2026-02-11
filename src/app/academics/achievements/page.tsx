@@ -3,7 +3,7 @@ import AchievementsView from './view';
 
 export const metadata: Metadata = {
   title: 'Our Achievements',
-  description: 'Celebrate the outstanding achievements and accolades of SARC students and faculty.',
+  description: 'Celebrating excellence, innovation, and the remarkable success of our students and alumni at SARC Education Foundation.',
 };
 
 export default function AchievementsPage() {
