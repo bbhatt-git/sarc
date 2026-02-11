@@ -454,22 +454,42 @@ export const STAFF_MEMBERS = [
 export const WHY_US_ITEMS = [
     {
         icon: Award,
-        title: "Academic Excellence",
-        description: "Pursue knowledge with our world-class curriculum and distinguished, dedicated faculty."
+        title: "Quality Education",
+        description: "A focus on conceptual and practical learning to build a strong academic foundation for success."
     },
     {
         icon: Users,
-        title: "Vibrant Community",
-        description: "Engage in a diverse and inclusive community with a rich tradition of social initiatives."
+        title: "Experienced Faculty",
+        description: "Learn from a dedicated team of experienced educators and mentors committed to your success."
     },
     {
+        icon: Building,
+        title: "Modern Infrastructure",
+        description: "Access well-equipped labs, smart classrooms, and a digital library to support your learning."
+    },
+    {
+        icon: Target,
+        title: "Student-Centered Learning",
+        description: "Our teaching approach fosters creativity, critical thinking, and problem-solving skills."
+    },
+     {
         icon: Briefcase,
-        title: "Career Development",
-        description: "Unlock your potential with access to internships, career counseling, and global networking events."
+        title: "Career-Oriented Courses",
+        description: "We provide technical and leadership training to prepare you for the professional world."
+    },
+    {
+        icon: Drama,
+        title: "Extracurricular Activities",
+        description: "Engage in sports, cultural events, debate, and various clubs for holistic development."
     },
     {
         icon: HeartHandshake,
-        title: "Holistic Growth",
-        description: "We focus on the all-round development of our students, nurturing both mind and character."
+        title: "Scholarships & Aid",
+        description: "We offer financial assistance and scholarships for deserving and talented students."
+    },
+    {
+        icon: Landmark,
+        title: "Industry Partnerships",
+        description: "Opportunities for internships and research through our partnerships with industry and universities."
     }
 ];

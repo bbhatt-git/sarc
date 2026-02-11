@@ -13,10 +13,10 @@ const futureGoals = [
 ]
 
 const missionItems = [
-    { text: "To provide a challenging and supportive learning environment.", color: "border-sky-500" },
-    { text: "To foster creativity, critical thinking, and problem-solving skills.", color: "border-emerald-500" },
-    { text: "To instill a sense of social responsibility and ethical values.", color: "border-rose-500" },
-    { text: "To prepare students for success in a rapidly changing global landscape.", color: "border-amber-500" },
+    { text: "Providing quality education that fosters critical thinking, innovation, and lifelong learning.", color: "border-sky-500" },
+    { text: "Encouraging student-centered learning with a focus on practical knowledge and research-based education.", color: "border-emerald-500" },
+    { text: "Promoting ethical leadership and social responsibility through value-based education.", color: "border-rose-500" },
+    { text: "Creating a nurturing and inclusive environment where students can explore their full potential.", color: "border-amber-500" },
 ];
 
 export default function VisionView() {
@@ -39,7 +39,7 @@ export default function VisionView() {
                     <div className="bg-card/50 backdrop-blur-sm shadow-lg rounded-2xl p-12 text-center relative overflow-hidden">
                         <h2 className="text-3xl font-bold text-foreground mb-4 relative">Our Vision</h2>
                         <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
-                            To be a premier educational institution recognized for its excellence in developing future-ready leaders, innovators, and compassionate global citizens who contribute positively to society.
+                            To become a leading institution in Nepal that sets benchmarks in academic excellence, research, and technological innovation. We aim to develop globally competent students equipped with 21st-century skills and to bridge the gap between academia and industry.
                         </p>
                     </div>
                 </motion.section>

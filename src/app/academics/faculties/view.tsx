@@ -16,8 +16,8 @@ const faculties = [
                 icon: Leaf,
             },
             {
-                name: 'Computer Science',
-                description: 'For students aiming for careers in engineering, IT, and software development, with a focus on programming, algorithms, and mathematics.',
+                name: 'Computer Science & Engineering',
+                description: 'For students aiming for careers in engineering, IT, and software development, with in-depth knowledge of software development, programming, hardware, and algorithms.',
                 icon: Computer,
             },
         ],

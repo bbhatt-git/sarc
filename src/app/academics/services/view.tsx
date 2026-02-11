@@ -1,15 +1,18 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
 import { motion } from 'framer-motion';
-import { Library, Bus, Utensils, HeartHandshake, Computer, Microscope } from 'lucide-react';
+import { Library, Bus, Utensils, HeartHandshake, Computer, Microscope, Wifi, ShieldCheck, Gamepad2, Presentation } from 'lucide-react';
 
 const facilities = [
+    { title: 'Modern Science & Computer Labs', icon: Microscope, description: 'Fully equipped physics, chemistry, biology, and computer labs for practical, hands-on learning.' },
     { title: 'Resourceful Library', icon: Library, description: 'Access a vast collection of books, journals, and digital resources to support your academic journey.' },
-    { title: 'Transportation', icon: Bus, description: 'Safe and reliable bus services covering various routes across Kathmandu valley for your convenience.' },
-    { title: 'Hygienic Cafeteria', icon: Utensils, description: 'Enjoy healthy and delicious meals in our clean and welcoming cafeteria.' },
+    { title: 'Smart Classrooms', icon: Presentation, description: 'Interactive and tech-based learning with modern audio-visual aids to enhance engagement.' },
+    { title: 'Wi-Fi Campus', icon: Wifi, description: 'High-speed internet access available across the entire campus for students and faculty.' },
+    { title: 'Transportation', icon: Bus, description: 'Safe and reliable bus services covering various routes for your convenience.' },
+    { title: 'Hygienic Cafeteria', icon: Utensils, description: 'Enjoy healthy, delicious, and affordable meals in our clean and welcoming cafeteria.' },
+    { title: 'Sports Facilities', icon: Gamepad2, description: 'Encouraging physical fitness with facilities for various indoor and outdoor sports.' },
     { title: 'Counseling & Support', icon: HeartHandshake, description: 'Confidential counseling and career guidance to support your personal and academic growth.' },
-    { title: 'Modern Labs', icon: Microscope, description: 'Fully equipped science and computer labs for practical, hands-on learning experiences.' },
-    { title: 'E-Learning Platform', icon: Computer, description: 'Access course materials, assignments, and lectures anytime through our online portal.' },
+    { title: 'Health Care', icon: ShieldCheck, description: 'Basic first-aid and health care services available on campus for student well-being.' },
 ];
 
 export default function FacilitiesView() {
