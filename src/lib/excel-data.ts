@@ -19,7 +19,7 @@ async function fetchExcelFromGithub(): Promise<Buffer | null> {
         Authorization: `token ${token}`,
         Accept: 'application/vnd.github.v3+json',
       },
-      next: { revalidate: 60 } // Revalidate every 60 seconds
+      cache: 'no-store' // Fetch fresh data on every request
     });
 
     if (!response.ok) {
