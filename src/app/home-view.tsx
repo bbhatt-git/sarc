@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Autoplay from "embla-carousel-autoplay"
-import dynamic from 'next/dynamic';
 
 import { TESTIMONIALS, STATS, WHY_US_ITEMS, HERO_IMAGES } from '@/lib/constants';
 import SectionTitle from './components/section-title';
@@ -17,12 +16,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
-
-const AiAgent = dynamic(() => import('@/app/components/ai-agent'), {
-    ssr: false,
-    loading: () => <div className="fixed bottom-0 right-0 md:bottom-5 md:right-5 w-52 h-52 z-50 rounded-full bg-black/20 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/20"><p className="text-sm text-white">Loading Agent...</p></div>
-});
-
 
 const TestimonialCard = ({
   image,
@@ -74,7 +67,6 @@ export default function HomeView() {
       transition={{ duration: 0.8 }}
       className="flex flex-col items-center"
     >
-      <AiAgent />
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
