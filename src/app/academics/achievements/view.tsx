@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Rocket, Users, Building, Briefcase } from 'lucide-react';
+import { Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare } from 'lucide-react';
 
 const stats = [
     { number: '50+', label: 'Awards' },
@@ -57,7 +57,7 @@ const alumni = [
             'Nation Representative at Techfest, IIT Bombay',
             'Founder and CEO at Note Swift',
         ],
-        image: 'https://picsum.photos/seed/bikash/200/200',
+        image: 'https://picsum.photos/seed/bikash/400/400',
     },
     {
         name: 'Rajesh Sharma',
@@ -70,7 +70,7 @@ const alumni = [
             'Founded 3 successful startups',
             'Employed 50+ people',
         ],
-        image: 'https://picsum.photos/seed/rajesh/200/200',
+        image: 'https://picsum.photos/seed/rajesh/400/400',
     },
     {
         name: 'Priya Thapa',
@@ -83,7 +83,7 @@ const alumni = [
             'Developed life-saving medical device',
             'International recognition',
         ],
-        image: 'https://picsum.photos/seed/priya/200/200',
+        image: 'https://picsum.photos/seed/priya/400/400',
     },
     {
         name: 'Amit Gurung',
@@ -96,7 +96,7 @@ const alumni = [
             'Developed AI models for healthcare',
             'Open source contributor',
         ],
-        image: 'https://picsum.photos/seed/amit/200/200',
+        image: 'https://picsum.photos/seed/amit/400/400',
     },
 ];
 
@@ -111,7 +111,7 @@ const topStudents = [
             'Social Media Manager at SAKDU - SAK Digital University',
             'Robotics Club President',
         ],
-        image: 'https://picsum.photos/seed/harish/200/200',
+        image: 'https://picsum.photos/seed/harish/400/400',
     },
     {
         name: 'Bikram Thapa',
@@ -123,7 +123,7 @@ const topStudents = [
             'Business Plan Competition Winner',
             'Debate Team Captain',
         ],
-        image: 'https://picsum.photos/seed/bikram/200/200',
+        image: 'https://picsum.photos/seed/bikram/400/400',
     },
     {
         name: 'Chandra Gurung',
@@ -135,7 +135,7 @@ const topStudents = [
             'Mathematics Olympiad Winner',
             'Science Fair Champion',
         ],
-        image: 'https://picsum.photos/seed/chandra/200/200',
+        image: 'https://picsum.photos/seed/chandra/400/400',
     },
     {
         name: 'Deepa Shrestha',
@@ -147,7 +147,7 @@ const topStudents = [
             'Chemistry Lab Assistant',
             'Environmental Club Leader',
         ],
-        image: 'https://picsum.photos/seed/deepa/200/200',
+        image: 'https://picsum.photos/seed/deepa/400/400',
     }
 ];
 
@@ -167,7 +167,6 @@ export default function AchievementsView() {
         imageUrl="/images/hero/2.jpg" 
       />
 
-      {/* Stats Section */}
       <section className="py-20">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
@@ -186,7 +185,6 @@ export default function AchievementsView() {
         </div>
       </section>
 
-      {/* Awards & Recognition Section */}
       <section className="py-20 bg-card/20">
         <div className="container mx-auto">
           <SectionTitle title="Awards & Recognition" subtitle="Our Accolades" />
@@ -212,7 +210,6 @@ export default function AchievementsView() {
         </div>
       </section>
       
-      {/* Alumni Section */}
       <section className="py-20">
         <div className="container mx-auto">
           <SectionTitle title="Our Alumni" subtitle="Making a Difference" />
@@ -224,35 +221,36 @@ export default function AchievementsView() {
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.15 }}
               >
-                <Card className="testimonial-card h-full flex flex-col">
-                  <CardHeader className="flex-row items-center gap-4 p-6">
-                    <Image src={person.image} alt={person.name} width={80} height={80} className="rounded-full" data-ai-hint="person" />
-                    <div>
-                      <CardTitle className="text-xl">{person.name}</CardTitle>
-                      <CardDescription>{person.role}</CardDescription>
+                <Card className="testimonial-card overflow-hidden p-0 h-full flex flex-col">
+                    <div className="relative h-48">
+                        <Image src={person.image} alt={person.name} fill className="object-cover" data-ai-hint="person" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-0 left-0 p-4">
+                            <h3 className="text-xl font-bold text-white text-shadow-md">{person.name}</h3>
+                            <p className="text-sm text-white/90">{person.role}</p>
+                        </div>
                     </div>
-                  </CardHeader>
-                  <CardContent className="p-6 flex-grow flex flex-col">
-                    <blockquote className="text-muted-foreground italic border-l-4 border-primary pl-4 mb-6">
-                      "{person.quote}"
-                    </blockquote>
-                    <div className="space-y-1 text-sm mt-auto">
-                        <p><span className="font-semibold text-foreground">Education:</span> {person.education}</p>
-                        <p><span className="font-semibold text-foreground">University:</span> {person.university}</p>
-                        <p><span className="font-semibold text-foreground">Graduated:</span> {person.graduated}</p>
-                    </div>
-                    <div className="mt-4 pt-4 border-t">
-                      <h4 className="font-semibold text-foreground mb-2">Key Achievements:</h4>
-                      <ul className="space-y-1.5 text-sm text-muted-foreground">
-                        {person.achievements.map((ach, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
-                            <span>{ach}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
+                    <CardContent className="p-6 flex-grow flex flex-col">
+                        <blockquote className="text-muted-foreground italic border-l-4 border-primary pl-4 mb-6">
+                          "{person.quote}"
+                        </blockquote>
+                        <div className="space-y-1 text-sm mb-6">
+                            <p className="flex items-center gap-2"><GraduationCap className="w-4 h-4 text-muted-foreground" /> <span className="font-semibold text-foreground">Education:</span> {person.education}</p>
+                            <p className="flex items-center gap-2"><Building className="w-4 h-4 text-muted-foreground" /> <span className="font-semibold text-foreground">University:</span> {person.university}</p>
+                            <p className="flex items-center gap-2"><Calendar className="w-4 h-4 text-muted-foreground" /> <span className="font-semibold text-foreground">Graduated:</span> {person.graduated}</p>
+                        </div>
+                        <div className="mt-auto">
+                          <h4 className="font-semibold text-foreground mb-2">Key Achievements:</h4>
+                          <ul className="space-y-1.5 text-sm text-muted-foreground">
+                            {person.achievements.map((ach, i) => (
+                              <li key={i} className="flex items-start gap-2">
+                                <Sparkles className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                                <span>{ach}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                    </CardContent>
                 </Card>
               </motion.div>
             ))}
@@ -263,46 +261,60 @@ export default function AchievementsView() {
         </div>
       </section>
 
-      {/* Top Students Section */}
       <section className="py-20 bg-card/20">
         <div className="container mx-auto">
           <SectionTitle title="Top Students" subtitle="Future Leaders" />
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Celebrating our current students who are excelling in academics and beyond.</p>
-          <div className="grid md:grid-cols-2 gap-8 mt-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
             {topStudents.map((student, index) => (
               <motion.div
                 key={student.name}
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.15 }}
-                className="testimonial-card"
+                className="testimonial-card overflow-hidden p-0"
               >
-                <CardHeader className="flex-row items-center gap-4">
-                  <Image src={student.image} alt={student.name} width={80} height={80} className="rounded-full" data-ai-hint="student" />
-                  <div>
-                    <CardTitle className="text-xl">{student.name}</CardTitle>
-                    <CardDescription>{student.class}</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <blockquote className="text-muted-foreground italic border-l-4 border-primary pl-4 mb-6">
-                    "{student.quote}"
-                  </blockquote>
-                  <div className="flex justify-between items-center bg-muted/50 p-3 rounded-lg text-sm mb-4">
-                    <span><span className="font-semibold text-foreground">GPA:</span> {student.gpa.toFixed(2)}</span>
-                    <span><span className="font-semibold text-foreground">Focus:</span> {student.subjects}</span>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">Key Achievements:</h4>
-                    <ul className="space-y-1.5 text-sm text-muted-foreground">
-                      {student.achievements.map((ach, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
-                          <span>{ach}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
+                <div className="relative h-48">
+                    <Image src={student.image} alt={student.name} fill className="object-cover" data-ai-hint="student" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-1.5 rounded-full border border-white/20">
+                        <Star className="w-4 h-4 text-amber-300" fill="currentColor" />
+                    </div>
+                    <div className="absolute bottom-0 left-0 p-4">
+                        <h3 className="text-xl font-bold text-white text-shadow-md">{student.name}</h3>
+                        <p className="text-sm text-white/90">{student.class}</p>
+                    </div>
+                </div>
+                <div className="p-6 space-y-4">
+                    <blockquote className="text-muted-foreground italic text-center text-sm">
+                        "{student.quote}"
+                    </blockquote>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                            <Trophy className="w-4 h-4 text-amber-500" />
+                            <p><span className="font-semibold text-foreground">GPA:</span> {student.gpa.toFixed(2)}</p>
+                        </div>
+                         <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md truncate">
+                            <Target className="w-4 h-4 text-sky-500" />
+                            <p className="truncate"><span className="font-semibold text-foreground">Focus:</span> {student.subjects}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 className="font-semibold text-foreground mb-2 text-sm">Key Achievements:</h4>
+                        <ul className="space-y-1.5 text-xs text-muted-foreground">
+                            {student.achievements.map((ach, i) => (
+                                <li key={i} className="flex items-start gap-2">
+                                    <Sparkles className="w-3 h-3 text-primary mt-0.5 shrink-0" />
+                                    <span>{ach}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                     <div className="flex justify-center gap-2 pt-3 border-t border-border/50">
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-700 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Linkedin size={16} /></Link>
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Facebook size={16} /></Link>
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-emerald-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
+                    </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -312,7 +324,6 @@ export default function AchievementsView() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 w-full">
         <div className="container mx-auto">
           <motion.div {...fadeIn} className="bg-emerald-600 text-white rounded-2xl p-12 text-center">
