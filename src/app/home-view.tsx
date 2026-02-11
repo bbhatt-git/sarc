@@ -16,6 +16,13 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
+import dynamic from 'next/dynamic';
+
+const DraggableAgent = dynamic(() => import('./components/draggable-agent'), {
+    ssr: false,
+    loading: () => <div className="fixed bottom-8 right-8 z-[100] w-40 h-40" />
+});
+
 
 const TestimonialCard = ({
   image,
@@ -239,6 +246,7 @@ export default function HomeView() {
             </div>
          </div>
       </section>
+      <DraggableAgent />
     </motion.div>
   );
 }
