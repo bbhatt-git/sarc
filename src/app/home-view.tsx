@@ -16,13 +16,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
-import dynamic from 'next/dynamic';
-
-const AIAgent = dynamic(() => import('./components/ai-agent'), {
-    ssr: false,
-    loading: () => <div className="fixed bottom-4 right-4 w-64 h-80 z-[100]" />
-});
-
 
 const TestimonialCard = ({
   image,
@@ -246,7 +239,6 @@ export default function HomeView() {
             </div>
          </div>
       </section>
-      <AIAgent />
     </motion.div>
   );
 }
