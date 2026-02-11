@@ -17,7 +17,6 @@ export const NAV_LINKS = [
     children: [
       { href: '/academics/programs', label: 'Academic Programs', description: 'Explore our comprehensive range of programs.', icon: BookOpen },
       { href: '/academics/services', label: 'Facilities', description: 'Explore our modern, world-class facilities.', icon: Briefcase },
-      { href: '/academics/faculties', label: 'Faculties', description: 'Meet our experienced and dedicated faculties.', icon: Users },
       { href: '/academics/achievements', label: 'Achievements', description: 'Celebrate the accomplishments of our students.', icon: Award },
       { href: '/academics/innovation', label: 'Innovation & Learning', description: 'Discover our hands-on, practical approach.', icon: Lightbulb },
     ],
@@ -179,7 +178,7 @@ export const NEWS_ITEMS = [
 ];
 
 const createStaffImage = (name: string) => {
-    const nameWithoutTitle = name.replace(/^(Dr\.\s*)/i, '');
+    const nameWithoutTitle = name.replace(/^(Dr\\.\\s*)/i, '');
     const filename = nameWithoutTitle.toLowerCase().replace(/\s+/g, '_') + '.jpg';
     return `/images/staffs/${filename}`;
 };

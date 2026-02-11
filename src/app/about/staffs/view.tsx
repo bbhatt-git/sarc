@@ -46,7 +46,7 @@ const StaffCard = ({ staff }: { staff: StaffMember }) => {
     return (
         <Card className="testimonial-card overflow-hidden text-center group h-full flex flex-col">
             <div className="relative bg-muted/30 pt-16 pb-8">
-                 <div className="absolute top-0 left-1/2 -translate-x-1/2 translate-y-8 h-24 w-24 rounded-full bg-gradient-to-tr from-primary/20 to-sky-400/20 transition-transform duration-500 group-hover:scale-[3.5] group-hover:opacity-50"></div>
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 translate-y-8 h-24 w-24 rounded-full bg-gradient-to-tr from-primary/20 to-sky-400/20 opacity-0 transition-all duration-500 group-hover:scale-[3.5] group-hover:opacity-50"></div>
                 <div className="relative mx-auto h-24 w-24 rounded-full ring-4 ring-background">
                     <Image
                         src={staff.image}
