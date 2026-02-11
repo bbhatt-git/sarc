@@ -220,7 +220,7 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
                                          </div>
                                          <div>
                                              <h3 className="font-bold text-foreground">{notice.title}</h3>
-                                             <p className="text-sm text-muted-foreground">Published on: {notice.date}</p>
+                                             <p className="text-sm text-muted-foreground">Published on (AD): {notice.date}</p>
                                          </div>
                                      </div>
                                      {notice.link && (

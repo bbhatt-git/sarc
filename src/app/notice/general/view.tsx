@@ -65,7 +65,7 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                                         </div>
                                         <div className="flex-1">
                                             <h3 className="text-xl font-bold text-foreground">{notice.title}</h3>
-                                            <p className="text-sm text-muted-foreground mt-1">Published on: {notice.date}</p>
+                                            <p className="text-sm text-muted-foreground mt-1">Published on (AD): {notice.date}</p>
                                             <p className="text-muted-foreground mt-3">{notice.summary}</p>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                                         <DialogHeader>
                                             <DialogTitle className="text-2xl font-bold text-foreground">{notice.title}</DialogTitle>
                                             <DialogDescription className="text-sm text-muted-foreground pt-2">
-                                                Published on: {notice.date}
+                                                Published on (AD): {notice.date}
                                             </DialogDescription>
                                         </DialogHeader>
                                         <div className="py-4 text-foreground/90 whitespace-pre-wrap max-h-[60vh] overflow-y-auto">

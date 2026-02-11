@@ -151,8 +151,21 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
     };
 
     const handleAddNewRow = () => {
-        const numCols = gridData[0]?.length || 1;
+        const headers = gridData[0] || [];
+        const numCols = headers.length || 1;
         const newRow = Array(numCols).fill('');
+
+        const dateIndex = headers.findIndex(h => String(h).toLowerCase() === 'date');
+        const activeSheetNameLower = activeSheetName.toLowerCase();
+        
+        if ((activeSheetNameLower.includes('general') || activeSheetNameLower.includes('exams')) && dateIndex !== -1) {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            newRow[dateIndex] = `${year}-${month}-${day}`;
+        }
+
         setGridData([...gridData, newRow]);
         toast({ title: 'Row Added', description: 'A new row has been added to the end of the sheet.' });
     };
