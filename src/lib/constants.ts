@@ -192,7 +192,7 @@ export const STAFF_MEMBERS = [
     credentials: 'PhD',
     philosophy: 'Dedicated to fostering a vibrant learning environment for all students.',
     image: createStaffImage('Dr. Laxman Basnet'),
-    socials: { facebook: 'https://www.facebook.com/laxman86' }
+    socials: { facebook: 'https://www.facebook.com/laxman86', instagram: '#', linkedin: '#' }
   },
   {
     id: 'santosh-pandey',
@@ -201,7 +201,7 @@ export const STAFF_MEMBERS = [
     credentials: 'B.M.B',
     philosophy: 'Laying the groundwork for future business leaders.',
     image: createStaffImage('Santosh Pandey'),
-    socials: { facebook: 'https://www.facebook.com/santosh.pandey.24598' }
+    socials: { facebook: 'https://www.facebook.com/santosh.pandey.24598', instagram: '#', linkedin: '#' }
   },
   {
     id: 'bhagwat-dev-bhatt',
@@ -210,7 +210,7 @@ export const STAFF_MEMBERS = [
     credentials: 'M.Phil',
     philosophy: 'Committed to academic excellence and student success.',
     image: createStaffImage('Bhagwat Dev Bhatt'),
-    socials: { facebook: 'https://www.facebook.com/bhagawat.bhatta' }
+    socials: { facebook: 'https://www.facebook.com/bhagawat.bhatta', instagram: '#', linkedin: '#' }
   },
   {
     id: 'dipendra-joshi',
@@ -219,107 +219,97 @@ export const STAFF_MEMBERS = [
     credentials: 'M.A. (Maths)',
     philosophy: 'Making mathematics understandable and enjoyable for all.',
     image: createStaffImage('Dipendra Joshi'),
-    socials: { facebook: 'https://www.facebook.com/dipendra.joshi.184' }
+    socials: { facebook: 'https://www.facebook.com/dipendra.joshi.184', instagram: '#', linkedin: '#' }
   },
   {
     id: 'bed-prakash-bhatt',
     name: 'Bed Prakash Bhatt',
     role: 'Head of Science Department',
     credentials: 'M.Sc',
-    subjects: 'Physics',
     philosophy: 'Inspiring the next generation of scientists and thinkers.',
     image: createStaffImage('Bed Prakash Bhatt'),
-    socials: { facebook: 'https://www.facebook.com/VED.BHATT' }
+    socials: { facebook: 'https://www.facebook.com/VED.BHATT', instagram: '#', linkedin: '#' }
   },
   {
     id: 'karan-singh-mahara',
     name: 'Karan Singh Mahara',
     role: 'Chemistry',
     credentials: 'M.Sc',
-    subjects: 'Chemistry',
     philosophy: 'Making science accessible and exciting for every student.',
     image: createStaffImage('Karan Singh Mahara'),
-    socials: { facebook: 'https://www.facebook.com/karan.singh.mahara.813935' }
+    socials: { facebook: 'https://www.facebook.com/karan.singh.mahara.813935', instagram: '#', linkedin: '#' }
   },
   {
     id: 'bhupendra-chand',
     name: 'Bhupendra Chand',
     role: 'Chemistry',
     credentials: 'M.Sc',
-    subjects: 'Chemistry',
     philosophy: 'Fostering a love for learning and critical inquiry.',
     image: createStaffImage('Bhupendra Chand'),
-    socials: { facebook: 'https://www.facebook.com/bhupen.chand.73' }
+    socials: { facebook: 'https://www.facebook.com/bhupen.chand.73', instagram: '#', linkedin: '#' }
   },
   {
     id: 'bhuwan-chandra-bogati',
     name: 'Bhuwan Chandra Bogati',
     role: 'Biology',
     credentials: 'M.Sc',
-    subjects: 'Biology',
     philosophy: 'Guiding students to discover their potential through science.',
     image: createStaffImage('Bhuwan Chandra Bogati'),
-    socials: { facebook: 'https://www.facebook.com/bhuwanchandra.bokati' }
+    socials: { facebook: 'https://www.facebook.com/bhuwanchandra.bokati', instagram: '#', linkedin: '#' }
   },
   {
     id: 'pushpa-raj-bhatt',
     name: 'Pushpa Raj Bhatt',
     role: 'Botany',
     credentials: 'M.Sc',
-    subjects: 'Botany',
     philosophy: 'Dedicated to creating an engaging and supportive classroom.',
     image: createStaffImage('Pushpa Raj Bhatt'),
-    socials: { facebook: 'https://www.facebook.com/puspraj.bhatt.35' }
+    socials: { facebook: 'https://www.facebook.com/puspraj.bhatt.35', instagram: '#', linkedin: '#' }
   },
   {
     id: 'narendra-awasthi',
     name: 'Narendra Awasthi',
     role: 'Physics',
     credentials: 'M.Sc',
-    subjects: 'Physics',
     philosophy: 'Empowering students with knowledge and practical skills.',
     image: createStaffImage('Narendra Awasthi'),
-    socials: { facebook: 'https://www.facebook.com/narendra.awasthi.940' }
+    socials: { facebook: 'https://www.facebook.com/narendra.awasthi.940', instagram: '#', linkedin: '#' }
   },
   {
     id: 'suraj-pant',
     name: 'Suraj Pant',
     role: 'Computer',
     credentials: 'M.Sc',
-    subjects: 'Computer',
     philosophy: 'Fostering curiosity and a passion for scientific discovery.',
     image: createStaffImage('Suraj Pant'),
-    socials: { facebook: '#' }
+    socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
     id: 'shiv-raj-bohara',
     name: 'Shiv Raj Bohara',
     role: 'Mathematics',
     credentials: 'M.A. (Maths)',
-    subjects: 'Mathematics',
     philosophy: 'Developing logical thinking and problem-solving skills in students.',
     image: createStaffImage('Shiv Raj Bohara'),
-    socials: { facebook: 'https://www.facebook.com/shivraj.bohara.1' }
+    socials: { facebook: 'https://www.facebook.com/shivraj.bohara.1', instagram: '#', linkedin: '#' }
   },
   {
     id: 'meen-bahadur-khadka',
     name: 'Meen Bahadur Khadka',
     role: 'English',
     credentials: 'M.Ed',
-    subjects: 'English',
     philosophy: 'Committed to holistic education and personal development.',
     image: createStaffImage('Meen Bahadur Khadka'),
-    socials: { facebook: 'https://www.facebook.com/RadheRadheMahen' }
+    socials: { facebook: 'https://www.facebook.com/RadheRadheMahen', instagram: '#', linkedin: '#' }
   },
   {
     id: 'sudarshan-prashad-bhatt',
     name: 'Sudarshan Prashad Bhatt',
     role: 'Mathematics',
     credentials: 'M.Ed',
-    subjects: 'Mathematics',
     philosophy: 'Creating an inclusive and effective learning environment.',
     image: createStaffImage('Sudarshan Prashad Bhatt'),
-    socials: { facebook: 'https://www.facebook.com/sudarsan.bhatta.5' }
+    socials: { facebook: 'https://www.facebook.com/sudarsan.bhatta.5', instagram: '#', linkedin: '#' }
   },
   {
     id: 'gyandeb-bhatt',
@@ -328,47 +318,43 @@ export const STAFF_MEMBERS = [
     credentials: 'M.Ed',
     philosophy: 'Nurturing lifelong learners and responsible citizens.',
     image: createStaffImage('Gyandeb Bhatt'),
-    socials: { facebook: 'https://www.facebook.com/gyandebbhatta.1' }
+    socials: { facebook: 'https://www.facebook.com/gyandebbhatta.1', instagram: '#', linkedin: '#' }
   },
   {
     id: 'pushpa-joshi',
     name: 'Pushpa Joshi',
     role: 'English',
     credentials: 'M.Ed',
-    subjects: 'English',
     philosophy: 'Dedicated to student growth and academic success.',
     image: createStaffImage('Pushpa Joshi'),
-    socials: { facebook: '#' }
+    socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
     id: 'govind-giri',
     name: 'Govind Giri',
     role: 'Mathematics',
     credentials: 'M.Ed',
-    subjects: 'Mathematics',
     philosophy: 'Inspiring students to achieve their full potential.',
     image: createStaffImage('Govind Giri'),
-    socials: { facebook: 'https://www.facebook.com/govind.giri.68635' }
+    socials: { facebook: 'https://www.facebook.com/govind.giri.68635', instagram: '#', linkedin: '#' }
   },
   {
     id: 'birendra-bahadur-chand',
     name: 'Birendra Bahadur Chand',
     role: 'Nepali',
     credentials: 'M.Ed',
-    subjects: 'Nepali',
     philosophy: 'Fostering a positive and challenging learning atmosphere.',
     image: createStaffImage('Birendra Bahadur Chand'),
-    socials: { facebook: 'https://www.facebook.com/birendra.chand.39750' }
+    socials: { facebook: 'https://www.facebook.com/birendra.chand.39750', instagram: '#', linkedin: '#' }
   },
   {
     id: 'rajesh-datt-bhatt',
     name: 'Rajesh Datt Bhatt',
     role: 'Computer',
     credentials: 'MCA',
-    subjects: 'Computer',
     philosophy: 'Bridging technology and education for modern learners.',
     image: createStaffImage('Rajesh Datt Bhatt'),
-    socials: { facebook: 'https://www.facebook.com/rajeshbhatt360' }
+    socials: { facebook: 'https://www.facebook.com/rajeshbhatt360', instagram: '#', linkedin: '#' }
   },
   {
     id: 'rituraj-bhatt',
@@ -377,7 +363,7 @@ export const STAFF_MEMBERS = [
     credentials: 'M.Com',
     philosophy: 'Equipping students with practical business and commerce skills.',
     image: createStaffImage('Rituraj Bhatt'),
-    socials: { facebook: 'https://www.facebook.com/profile.php?id=61577198216063' }
+    socials: { facebook: 'https://www.facebook.com/profile.php?id=61577198216063', instagram: '#', linkedin: '#' }
   },
   {
     id: 'dev-raj-paneru',
@@ -386,27 +372,25 @@ export const STAFF_MEMBERS = [
     credentials: 'M.BS',
     philosophy: 'Cultivating business acumen and entrepreneurial spirit.',
     image: createStaffImage('Dev Raj Paneru'),
-    socials: { facebook: '#' }
+    socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
     id: 'jeewan-thapa',
     name: 'Jeewan Thapa',
     role: 'Mathematics',
     credentials: 'M.A. & B.Sc (B.E.)',
-    subjects: 'Mathematics',
     philosophy: 'Integrating diverse fields of knowledge for a complete education.',
     image: createStaffImage('Jeewan Thapa'),
-    socials: { facebook: 'https://www.facebook.com/jeewan.thapa.684245' }
+    socials: { facebook: 'https://www.facebook.com/jeewan.thapa.684245', instagram: '#', linkedin: '#' }
   },
   {
     id: 'dev-singh-bhandari',
     name: 'Dev Singh Bhandari',
     role: 'Economics',
     credentials: 'B.Sc',
-    subjects: 'Economics',
     philosophy: 'Sharing the wonders of science with eager minds.',
     image: createStaffImage('Dev Singh Bhandari'),
-    socials: { facebook: '#' }
+    socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
     id: 'kokila-pant',
@@ -415,7 +399,7 @@ export const STAFF_MEMBERS = [
     credentials: 'B.BS',
     philosophy: 'Ensuring a smooth and supportive environment for students.',
     image: createStaffImage('Kokila Pant'),
-    socials: { facebook: 'https://www.facebook.com/kokila.pant/' }
+    socials: { facebook: 'https://www.facebook.com/kokila.pant/', instagram: '#', linkedin: '#' }
   },
   {
     id: 'saraswati-bist',
@@ -424,7 +408,7 @@ export const STAFF_MEMBERS = [
     credentials: 'MBA',
     philosophy: 'Dedicated to the efficient and caring administration of the institution.',
     image: createStaffImage('Saraswati Bist'),
-    socials: { facebook: 'https://www.facebook.com/sanbi.bist.2025' }
+    socials: { facebook: 'https://www.facebook.com/sanbi.bist.2025', instagram: '#', linkedin: '#' }
   },
   {
     id: 'basanti-chand',
@@ -432,7 +416,7 @@ export const STAFF_MEMBERS = [
     role: 'Support Staff',
     philosophy: 'Providing essential support to our faculty and students every day.',
     image: createStaffImage('Basanti Chand'),
-    socials: { facebook: 'https://www.facebook.com/nitin.chand.7334' }
+    socials: { facebook: 'https://www.facebook.com/nitin.chand.7334', instagram: '#', linkedin: '#' }
   },
   {
     id: 'dashrath-chand',
@@ -440,7 +424,7 @@ export const STAFF_MEMBERS = [
     role: 'Support Staff',
     philosophy: 'Working behind the scenes to keep our campus at its best.',
     image: createStaffImage('Dashrath Chand'),
-    socials: { facebook: '#' }
+    socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
     id: 'puran-rana',
@@ -448,7 +432,7 @@ export const STAFF_MEMBERS = [
     role: 'Support Staff',
     philosophy: 'A key part of the team that maintains our welcoming campus.',
     image: createStaffImage('Puran Rana'),
-    socials: { facebook: '#' }
+    socials: { facebook: '#', instagram: '#', linkedin: '#' }
   }
 ].sort((a, b) => {
     const roleOrder: { [key: string]: number } = {

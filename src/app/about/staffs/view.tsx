@@ -5,18 +5,10 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import PageHeader from '@/app/components/page-header';
 import SectionTitle from '@/app/components/section-title';
-import { Facebook, Linkedin, Award, Users, Bot, Briefcase, HeartHandshake, CheckCircle } from 'lucide-react';
+import { Facebook, Linkedin, Award, Users, Bot, Briefcase, HeartHandshake, CheckCircle, Instagram } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-
-// New WhatsApp icon
-const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-        <path d="M16.75 13.96c.25.25.25.66 0 .91l-1.54 1.54c-.12.12-.28.19-.45.19s-.33-.07-.45-.19c-.32-.32-1.07-.94-2.22-2.09s-1.77-1.9-2.09-2.22c-.25-.25-.25-.66 0-.91l1.54-1.54c.25-.25.66-.25.91 0l.54.54c.25.25.25.66 0 .91l-.63.63c-.09.09-.13.21-.13.34s.04.25.13.34c.18.18.52.52.92.92.4.4.74.74.92.92.09.09.21.13.34.13s.25-.04.34-.13l.63-.63c.25-.25.66-.25.91 0l.54.54zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-    </svg>
-);
-
 
 const departments = [
     { name: 'Academic Faculty', stat: '25+', icon: Users },
@@ -64,19 +56,16 @@ const StaffCard = ({ staff }: { staff: StaffMember }) => {
                     {'credentials' in staff && staff.credentials && (
                         <p className="text-sm text-muted-foreground mt-1">{staff.credentials}</p>
                     )}
-                    {'subjects' in staff && staff.subjects && (
-                        <p className="text-sm font-semibold text-emerald-600 mt-1">{(staff as any).subjects}</p>
-                    )}
                 </div>
                 <p className="flex-grow text-sm text-muted-foreground italic">"{staff.philosophy}"</p>
                 <div className="flex items-center justify-center gap-4 pt-4 border-t border-border/50">
                     <Link href={staff.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
                         <Facebook size={20} />
                     </Link>
-                     <Link href="#" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-green-500">
-                        <WhatsAppIcon className="h-5 w-5" />
+                     <Link href={staff.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
+                        <Instagram size={20} />
                     </Link>
-                    <Link href="#" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
+                    <Link href={staff.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
                         <Linkedin size={20} />
                     </Link>
                 </div>
@@ -93,7 +82,7 @@ export default function StaffsView() {
         viewport: { once: true, amount: 0.2 }
     };
 
-    const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Managing Director', 'Program Coordinator', 'Academic Coordinator'].includes(s.role));
+    const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Managing Director', 'Program Coordinator', 'Academic Coordinator', 'Head of Science Department'].includes(s.role));
     const support = STAFF_MEMBERS.filter(s => ['Accountant', 'Receptionist', 'Support Staff'].includes(s.role));
     const leadershipIds = new Set(leadership.map(s => s.id));
     const supportIds = new Set(support.map(s => s.id));
