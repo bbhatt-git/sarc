@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Autoplay from "embla-carousel-autoplay"
+import dynamic from 'next/dynamic';
 
 import { TESTIMONIALS, STATS, WHY_US_ITEMS, HERO_IMAGES } from '@/lib/constants';
 import SectionTitle from './components/section-title';
@@ -16,6 +17,15 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
+
+const CodeRobot = dynamic(() => import('./components/code-robot').then(mod => mod.default), {
+    ssr: false,
+    loading: () => (
+        <div className="flex h-full w-full items-center justify-center">
+            <div className="h-16 w-16 animate-spin rounded-full border-4 border-dashed border-primary"></div>
+        </div>
+    )
+});
 
 const TestimonialCard = ({
   image,
@@ -193,17 +203,11 @@ export default function HomeView() {
                     <Link href="#">Explore Our Solutions</Link>
                 </Button>
             </motion.div>
-            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.4 }} className="relative w-full min-h-[450px]">
-                <div className="testimonial-card p-6 h-full flex items-center justify-center bg-slate-100/50 dark:bg-slate-900/50">
-                    <div className="relative w-full h-[400px]">
-                        <Image
-                            src="https://picsum.photos/seed/ai-robot/600/600"
-                            alt="Interactive AI Robot"
-                            fill
-                            className="object-contain"
-                            data-ai-hint="robot mascot"
-                        />
-                        <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-sm border border-white/10 shadow-lg">
+            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.4 }} className="relative w-full h-[450px]">
+                <div className="testimonial-card h-full flex items-center justify-center bg-slate-100/50 dark:bg-slate-900/50 overflow-hidden">
+                    <div className="relative w-full h-full">
+                        <CodeRobot />
+                        <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-sm border border-white/10 shadow-lg pointer-events-none">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
