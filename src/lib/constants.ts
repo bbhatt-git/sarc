@@ -187,12 +187,28 @@ export const STAFF_MEMBERS = [
     image: 'https://picsum.photos/seed/301/400/400'
   },
   {
+    id: 'santosh-pandey',
+    name: 'Santosh Pandey',
+    role: 'Managing Director',
+    credentials: 'Bachelor of Business Management',
+    philosophy: 'Laying the groundwork for future business leaders.',
+    image: 'https://picsum.photos/seed/323/400/400'
+  },
+  {
     id: 'bhagwat-bhatt',
     name: 'Bhagwat Bhatt',
     role: 'Program Coordinator',
     credentials: 'Master of Philosophy',
     philosophy: 'Committed to academic excellence and student success.',
     image: 'https://picsum.photos/seed/302/400/400'
+  },
+  {
+    id: 'dipendra-joshi',
+    name: 'Dipendra Joshi',
+    role: 'Academic Coordinator',
+    credentials: 'Master of Arts (Mathematics)',
+    philosophy: 'Making mathematics understandable and enjoyable for all.',
+    image: 'https://picsum.photos/seed/310/400/400'
   },
   {
     id: 'bed-prakash-bhatt',
@@ -249,14 +265,6 @@ export const STAFF_MEMBERS = [
     credentials: 'Master of Science',
     philosophy: 'Fostering curiosity and a passion for scientific discovery.',
     image: 'https://picsum.photos/seed/309/400/400'
-  },
-  {
-    id: 'dipendra-joshi',
-    name: 'Dipendra Joshi',
-    role: 'Academic Coordinator',
-    credentials: 'Master of Arts (Mathematics)',
-    philosophy: 'Making mathematics understandable and enjoyable for all.',
-    image: 'https://picsum.photos/seed/310/400/400'
   },
   {
     id: 'shiv-raj-bhatt',
@@ -355,14 +363,6 @@ export const STAFF_MEMBERS = [
     image: 'https://picsum.photos/seed/322/400/400'
   },
   {
-    id: 'santosh-pandey',
-    name: 'Santosh Pandey',
-    role: 'Managing Director',
-    credentials: 'Bachelor of Business Management',
-    philosophy: 'Laying the groundwork for future business leaders.',
-    image: 'https://picsum.photos/seed/323/400/400'
-  },
-  {
     id: 'kokila-pant',
     name: 'Kokila Pant',
     role: 'Accountant',
@@ -374,7 +374,7 @@ export const STAFF_MEMBERS = [
     id: 'saraswati-bist',
     name: 'Saraswati Bist',
     role: 'Receptionist',
-    credentials: 'BBA / MBA (Running)',
+    credentials: 'Bachelor of Business Administration / Master of Business Administration (Running)',
     philosophy: 'Dedicated to the efficient and caring administration of the institution.',
     image: 'https://picsum.photos/seed/325/400/400'
   },
