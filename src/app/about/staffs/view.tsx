@@ -82,28 +82,18 @@ export default function StaffsView() {
         viewport: { once: true, amount: 0.2 }
     };
 
-    const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Managing Director', 'Program Coordinator', 'Academic Coordinator', 'Head of Science Department'].includes(s.role));
+    const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Managing Director', 'Program Coordinator', 'Academic Coordinator'].includes(s.role));
     const support = STAFF_MEMBERS.filter(s => ['Accountant', 'Receptionist', 'Support Staff'].includes(s.role));
-    const leadershipIds = new Set(leadership.map(s => s.id));
-    const supportIds = new Set(support.map(s => s.id));
-    const faculty = STAFF_MEMBERS.filter(s => !leadershipIds.has(s.id) && !supportIds.has(s.id));
-
+    
+    // Updated logic to categorize faculty
+    const teachingFacultyRoles = ['HOD (Science) | Physics', 'Physics', 'Chemistry', 'Biology', 'Botany', 'Computer Science', 'Mathematics', 'English & Literature', 'Nepali', 'Economics'];
+    const faculty = STAFF_MEMBERS.filter(s => teachingFacultyRoles.includes(s.role));
 
     return (
         <div>
             <PageHeader title="Our Dedicated Staff" subtitle="Meet Our Team" imageUrl="/images/hero/3.jpg" />
             <div className="container mx-auto px-4 py-20 space-y-24">
                 
-                {/* Intro Section */}
-                <motion.section {...fadeIn} className="text-center max-w-4xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
-                       A passionate team of educators, innovators, and mentors committed to shaping the next generation of leaders
-                    </h2>
-                    <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-                        At SARC Education Foundation, our greatest asset is our exceptional team of educators and staff members. Each individual brings unique expertise, passion, and dedication to creating an environment where students can thrive. Our faculty members aren't just teachers—they're mentors, guides, and role models who inspire students to reach beyond their perceived limits. With advanced degrees from prestigious institutions and real-world experience, they bridge the gap between theory and practice.
-                    </p>
-                </motion.section>
-
                 {/* Departments Section */}
                  <motion.section {...fadeIn}>
                     <SectionTitle title="Our Departments" subtitle="Specialized teams working together for student excellence" />
