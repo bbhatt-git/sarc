@@ -224,7 +224,7 @@ export const STAFF_MEMBERS = [
   {
     id: 'bed-prakash-bhatt',
     name: 'Bed Prakash Bhatt',
-    role: 'Head of Science Department',
+    role: 'HOD (Science) | Physics',
     credentials: 'M.Sc',
     philosophy: 'Inspiring the next generation of scientists and thinkers.',
     image: createStaffImage('Bed Prakash Bhatt'),
@@ -278,7 +278,7 @@ export const STAFF_MEMBERS = [
   {
     id: 'suraj-pant',
     name: 'Suraj Pant',
-    role: 'Computer',
+    role: 'Computer Science',
     credentials: 'M.Sc',
     philosophy: 'Fostering curiosity and a passion for scientific discovery.',
     image: createStaffImage('Suraj Pant'),
@@ -296,7 +296,7 @@ export const STAFF_MEMBERS = [
   {
     id: 'meen-bahadur-khadka',
     name: 'Meen Bahadur Khadka',
-    role: 'English',
+    role: 'English & Literature',
     credentials: 'M.Ed',
     philosophy: 'Committed to holistic education and personal development.',
     image: createStaffImage('Meen Bahadur Khadka'),
@@ -323,7 +323,7 @@ export const STAFF_MEMBERS = [
   {
     id: 'pushpa-joshi',
     name: 'Pushpa Joshi',
-    role: 'English',
+    role: 'English & Literature',
     credentials: 'M.Ed',
     philosophy: 'Dedicated to student growth and academic success.',
     image: createStaffImage('Pushpa Joshi'),
@@ -350,7 +350,7 @@ export const STAFF_MEMBERS = [
   {
     id: 'rajesh-datt-bhatt',
     name: 'Rajesh Datt Bhatt',
-    role: 'Computer',
+    role: 'Computer Science',
     credentials: 'MCA',
     philosophy: 'Bridging technology and education for modern learners.',
     image: createStaffImage('Rajesh Datt Bhatt'),
