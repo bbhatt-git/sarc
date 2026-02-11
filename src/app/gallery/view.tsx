@@ -15,7 +15,7 @@ export default function GalleryView() {
         imageUrl="/images/hero/4.jpg"
       />
       <div className="w-full h-[80vh] min-h-[700px] py-10">
-         <DomeGallery images={imagesForDome} />
+         <DomeGallery images={imagesForDome} autoRotate={true} grayscale={false} />
       </div>
     </div>
   );
