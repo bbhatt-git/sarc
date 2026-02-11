@@ -61,7 +61,9 @@ const StaffCard = ({ staff }: { staff: StaffMember }) => {
                 <div>
                     <h3 className="text-xl font-bold text-foreground">{staff.name}</h3>
                     <p className="font-medium text-primary">{staff.role}</p>
-                    <p className="text-sm text-muted-foreground mt-1">{staff.credentials}</p>
+                    {'credentials' in staff && staff.credentials && (
+                        <p className="text-sm text-muted-foreground mt-1">{staff.credentials}</p>
+                    )}
                     {'subjects' in staff && staff.subjects && (
                         <p className="text-sm font-semibold text-emerald-600 mt-1">{(staff as any).subjects}</p>
                     )}

@@ -1,4 +1,5 @@
 
+
 import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2, Lightbulb } from 'lucide-react';
 
 export const NAV_LINKS = [
@@ -188,7 +189,7 @@ export const STAFF_MEMBERS = [
     id: 'dr-laxman-basnet',
     name: 'Dr. Laxman Basnet',
     role: 'Founder / CEO',
-    credentials: 'Doctor of Philosophy',
+    credentials: 'PhD',
     philosophy: 'Dedicated to fostering a vibrant learning environment for all students.',
     image: createStaffImage('Dr. Laxman Basnet'),
     socials: { facebook: 'https://www.facebook.com/laxman86' }
@@ -197,7 +198,7 @@ export const STAFF_MEMBERS = [
     id: 'santosh-pandey',
     name: 'Santosh Pandey',
     role: 'Managing Director',
-    credentials: 'Bachelor of Business Management',
+    credentials: 'B.M.B',
     philosophy: 'Laying the groundwork for future business leaders.',
     image: createStaffImage('Santosh Pandey'),
     socials: { facebook: 'https://www.facebook.com/santosh.pandey.24598' }
@@ -206,7 +207,7 @@ export const STAFF_MEMBERS = [
     id: 'bhagwat-dev-bhatt',
     name: 'Bhagwat Dev Bhatt',
     role: 'Program Coordinator',
-    credentials: 'Master of Philosophy',
+    credentials: 'M.Phil',
     philosophy: 'Committed to academic excellence and student success.',
     image: createStaffImage('Bhagwat Dev Bhatt'),
     socials: { facebook: 'https://www.facebook.com/bhagawat.bhatta' }
@@ -215,7 +216,7 @@ export const STAFF_MEMBERS = [
     id: 'dipendra-joshi',
     name: 'Dipendra Joshi',
     role: 'Academic Coordinator',
-    credentials: 'Master of Arts (Mathematics)',
+    credentials: 'M.A. (Maths)',
     philosophy: 'Making mathematics understandable and enjoyable for all.',
     image: createStaffImage('Dipendra Joshi'),
     socials: { facebook: 'https://www.facebook.com/dipendra.joshi.184' }
@@ -224,7 +225,7 @@ export const STAFF_MEMBERS = [
     id: 'bed-prakash-bhatt',
     name: 'Bed Prakash Bhatt',
     role: 'Head of Science Department',
-    credentials: 'Master of Science',
+    credentials: 'M.Sc',
     subjects: 'Physics',
     philosophy: 'Inspiring the next generation of scientists and thinkers.',
     image: createStaffImage('Bed Prakash Bhatt'),
@@ -233,8 +234,9 @@ export const STAFF_MEMBERS = [
   {
     id: 'karan-singh-mahara',
     name: 'Karan Singh Mahara',
-    role: 'Faculty',
-    credentials: 'Master of Science',
+    role: 'Chemistry',
+    credentials: 'M.Sc',
+    subjects: 'Chemistry',
     philosophy: 'Making science accessible and exciting for every student.',
     image: createStaffImage('Karan Singh Mahara'),
     socials: { facebook: 'https://www.facebook.com/karan.singh.mahara.813935' }
@@ -242,8 +244,9 @@ export const STAFF_MEMBERS = [
   {
     id: 'bhupendra-chand',
     name: 'Bhupendra Chand',
-    role: 'Faculty',
-    credentials: 'Master of Science',
+    role: 'Chemistry',
+    credentials: 'M.Sc',
+    subjects: 'Chemistry',
     philosophy: 'Fostering a love for learning and critical inquiry.',
     image: createStaffImage('Bhupendra Chand'),
     socials: { facebook: 'https://www.facebook.com/bhupen.chand.73' }
@@ -252,7 +255,8 @@ export const STAFF_MEMBERS = [
     id: 'bhuwan-chandra-bogati',
     name: 'Bhuwan Chandra Bogati',
     role: 'Biology',
-    credentials: 'Master of Science',
+    credentials: 'M.Sc',
+    subjects: 'Biology',
     philosophy: 'Guiding students to discover their potential through science.',
     image: createStaffImage('Bhuwan Chandra Bogati'),
     socials: { facebook: 'https://www.facebook.com/bhuwanchandra.bokati' }
@@ -261,7 +265,8 @@ export const STAFF_MEMBERS = [
     id: 'pushpa-raj-bhatt',
     name: 'Pushpa Raj Bhatt',
     role: 'Botany',
-    credentials: 'Master of Science',
+    credentials: 'M.Sc',
+    subjects: 'Botany',
     philosophy: 'Dedicated to creating an engaging and supportive classroom.',
     image: createStaffImage('Pushpa Raj Bhatt'),
     socials: { facebook: 'https://www.facebook.com/puspraj.bhatt.35' }
@@ -270,7 +275,8 @@ export const STAFF_MEMBERS = [
     id: 'narendra-awasthi',
     name: 'Narendra Awasthi',
     role: 'Physics',
-    credentials: 'Master of Science',
+    credentials: 'M.Sc',
+    subjects: 'Physics',
     philosophy: 'Empowering students with knowledge and practical skills.',
     image: createStaffImage('Narendra Awasthi'),
     socials: { facebook: 'https://www.facebook.com/narendra.awasthi.940' }
@@ -279,7 +285,8 @@ export const STAFF_MEMBERS = [
     id: 'suraj-pant',
     name: 'Suraj Pant',
     role: 'Computer',
-    credentials: 'Master of Science',
+    credentials: 'M.Sc',
+    subjects: 'Computer',
     philosophy: 'Fostering curiosity and a passion for scientific discovery.',
     image: createStaffImage('Suraj Pant'),
     socials: { facebook: '#' }
@@ -288,7 +295,8 @@ export const STAFF_MEMBERS = [
     id: 'shiv-raj-bohara',
     name: 'Shiv Raj Bohara',
     role: 'Mathematics',
-    credentials: 'Master of Arts (Mathematics)',
+    credentials: 'M.A. (Maths)',
+    subjects: 'Mathematics',
     philosophy: 'Developing logical thinking and problem-solving skills in students.',
     image: createStaffImage('Shiv Raj Bohara'),
     socials: { facebook: 'https://www.facebook.com/shivraj.bohara.1' }
@@ -296,8 +304,9 @@ export const STAFF_MEMBERS = [
   {
     id: 'meen-bahadur-khadka',
     name: 'Meen Bahadur Khadka',
-    role: 'Faculty',
-    credentials: 'Master of Education',
+    role: 'English',
+    credentials: 'M.Ed',
+    subjects: 'English',
     philosophy: 'Committed to holistic education and personal development.',
     image: createStaffImage('Meen Bahadur Khadka'),
     socials: { facebook: 'https://www.facebook.com/RadheRadheMahen' }
@@ -306,7 +315,8 @@ export const STAFF_MEMBERS = [
     id: 'sudarshan-prashad-bhatt',
     name: 'Sudarshan Prashad Bhatt',
     role: 'Mathematics',
-    credentials: 'Master of Education',
+    credentials: 'M.Ed',
+    subjects: 'Mathematics',
     philosophy: 'Creating an inclusive and effective learning environment.',
     image: createStaffImage('Sudarshan Prashad Bhatt'),
     socials: { facebook: 'https://www.facebook.com/sudarsan.bhatta.5' }
@@ -315,7 +325,7 @@ export const STAFF_MEMBERS = [
     id: 'gyandeb-bhatt',
     name: 'Gyandeb Bhatt',
     role: 'Faculty',
-    credentials: 'Master of Education',
+    credentials: 'M.Ed',
     philosophy: 'Nurturing lifelong learners and responsible citizens.',
     image: createStaffImage('Gyandeb Bhatt'),
     socials: { facebook: 'https://www.facebook.com/gyandebbhatta.1' }
@@ -323,8 +333,9 @@ export const STAFF_MEMBERS = [
   {
     id: 'pushpa-joshi',
     name: 'Pushpa Joshi',
-    role: 'Faculty',
-    credentials: 'Master of Education',
+    role: 'English',
+    credentials: 'M.Ed',
+    subjects: 'English',
     philosophy: 'Dedicated to student growth and academic success.',
     image: createStaffImage('Pushpa Joshi'),
     socials: { facebook: '#' }
@@ -333,7 +344,8 @@ export const STAFF_MEMBERS = [
     id: 'govind-giri',
     name: 'Govind Giri',
     role: 'Mathematics',
-    credentials: 'Master of Education',
+    credentials: 'M.Ed',
+    subjects: 'Mathematics',
     philosophy: 'Inspiring students to achieve their full potential.',
     image: createStaffImage('Govind Giri'),
     socials: { facebook: 'https://www.facebook.com/govind.giri.68635' }
@@ -342,7 +354,8 @@ export const STAFF_MEMBERS = [
     id: 'birendra-bahadur-chand',
     name: 'Birendra Bahadur Chand',
     role: 'Nepali',
-    credentials: 'Master of Education',
+    credentials: 'M.Ed',
+    subjects: 'Nepali',
     philosophy: 'Fostering a positive and challenging learning atmosphere.',
     image: createStaffImage('Birendra Bahadur Chand'),
     socials: { facebook: 'https://www.facebook.com/birendra.chand.39750' }
@@ -351,7 +364,8 @@ export const STAFF_MEMBERS = [
     id: 'rajesh-datt-bhatt',
     name: 'Rajesh Datt Bhatt',
     role: 'Computer',
-    credentials: 'Master of Computer Applications',
+    credentials: 'MCA',
+    subjects: 'Computer',
     philosophy: 'Bridging technology and education for modern learners.',
     image: createStaffImage('Rajesh Datt Bhatt'),
     socials: { facebook: 'https://www.facebook.com/rajeshbhatt360' }
@@ -360,7 +374,7 @@ export const STAFF_MEMBERS = [
     id: 'rituraj-bhatt',
     name: 'Rituraj Bhatt',
     role: 'Faculty',
-    credentials: 'Master of Commerce',
+    credentials: 'M.Com',
     philosophy: 'Equipping students with practical business and commerce skills.',
     image: createStaffImage('Rituraj Bhatt'),
     socials: { facebook: 'https://www.facebook.com/profile.php?id=61577198216063' }
@@ -369,7 +383,7 @@ export const STAFF_MEMBERS = [
     id: 'dev-raj-paneru',
     name: 'Dev Raj Paneru',
     role: 'Faculty',
-    credentials: 'Master of Business Studies',
+    credentials: 'M.BS',
     philosophy: 'Cultivating business acumen and entrepreneurial spirit.',
     image: createStaffImage('Dev Raj Paneru'),
     socials: { facebook: '#' }
@@ -378,7 +392,8 @@ export const STAFF_MEMBERS = [
     id: 'jeewan-thapa',
     name: 'Jeewan Thapa',
     role: 'Mathematics',
-    credentials: 'Master of Arts & Bachelor of Science (Bachelor of Engineering)',
+    credentials: 'M.A. & B.Sc (B.E.)',
+    subjects: 'Mathematics',
     philosophy: 'Integrating diverse fields of knowledge for a complete education.',
     image: createStaffImage('Jeewan Thapa'),
     socials: { facebook: 'https://www.facebook.com/jeewan.thapa.684245' }
@@ -386,8 +401,9 @@ export const STAFF_MEMBERS = [
   {
     id: 'dev-singh-bhandari',
     name: 'Dev Singh Bhandari',
-    role: 'Faculty',
-    credentials: 'Bachelor of Science',
+    role: 'Economics',
+    credentials: 'B.Sc',
+    subjects: 'Economics',
     philosophy: 'Sharing the wonders of science with eager minds.',
     image: createStaffImage('Dev Singh Bhandari'),
     socials: { facebook: '#' }
@@ -396,7 +412,7 @@ export const STAFF_MEMBERS = [
     id: 'kokila-pant',
     name: 'Kokila Pant',
     role: 'Accountant',
-    credentials: 'Bachelor of Business Studies',
+    credentials: 'B.BS',
     philosophy: 'Ensuring a smooth and supportive environment for students.',
     image: createStaffImage('Kokila Pant'),
     socials: { facebook: 'https://www.facebook.com/kokila.pant/' }
@@ -405,7 +421,7 @@ export const STAFF_MEMBERS = [
     id: 'saraswati-bist',
     name: 'Saraswati Bist',
     role: 'Receptionist',
-    credentials: 'Master of Business Administration',
+    credentials: 'MBA',
     philosophy: 'Dedicated to the efficient and caring administration of the institution.',
     image: createStaffImage('Saraswati Bist'),
     socials: { facebook: 'https://www.facebook.com/sanbi.bist.2025' }
@@ -414,7 +430,6 @@ export const STAFF_MEMBERS = [
     id: 'basanti-chand',
     name: 'Basanti Chand',
     role: 'Support Staff',
-    credentials: '+2 Graduate',
     philosophy: 'Providing essential support to our faculty and students every day.',
     image: createStaffImage('Basanti Chand'),
     socials: { facebook: 'https://www.facebook.com/nitin.chand.7334' }
@@ -423,7 +438,6 @@ export const STAFF_MEMBERS = [
     id: 'dashrath-chand',
     name: 'Dashrath Chand',
     role: 'Support Staff',
-    credentials: 'S.L.C Graduate',
     philosophy: 'Working behind the scenes to keep our campus at its best.',
     image: createStaffImage('Dashrath Chand'),
     socials: { facebook: '#' }
@@ -432,7 +446,6 @@ export const STAFF_MEMBERS = [
     id: 'puran-rana',
     name: 'Puran Rana',
     role: 'Support Staff',
-    credentials: 'S.L.C Graduate',
     philosophy: 'A key part of the team that maintains our welcoming campus.',
     image: createStaffImage('Puran Rana'),
     socials: { facebook: '#' }
