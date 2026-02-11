@@ -26,7 +26,7 @@ export default function FounderView() {
                             <div className="testimonial-card p-6 text-center">
                                 <div className="relative w-48 h-48 mx-auto">
                                     <Image
-                                        src="/images/founder.png"
+                                        src="/images/staffs/laxman_basnet.jpg"
                                         alt="Laxman Basnet, Founder of SARC"
                                         fill
                                         className="rounded-full object-cover shadow-2xl"
