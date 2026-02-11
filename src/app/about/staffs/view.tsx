@@ -1,3 +1,4 @@
+
 'use client';
 import { STAFF_MEMBERS } from '@/lib/constants';
 import Image from 'next/image';
@@ -40,7 +41,7 @@ const staffAchievements = [
     { title: "Innovation Projects", date: "2023-2024", description: "50+ successful student projects guided by our team" },
 ]
 
-type StaffMember = typeof STAFF_MEMBERS[0];
+type StaffMember = (typeof STAFF_MEMBERS)[0];
 
 const StaffCard = ({ staff }: { staff: StaffMember }) => {
     return (
@@ -60,6 +61,10 @@ const StaffCard = ({ staff }: { staff: StaffMember }) => {
                 <div>
                     <h3 className="text-xl font-bold text-foreground">{staff.name}</h3>
                     <p className="font-medium text-primary">{staff.role}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{staff.credentials}</p>
+                    {'subjects' in staff && staff.subjects && (
+                        <p className="text-sm font-semibold text-emerald-600 mt-1">{(staff as any).subjects}</p>
+                    )}
                 </div>
                 <p className="flex-grow text-sm text-muted-foreground italic">"{staff.philosophy}"</p>
                 <div className="flex items-center justify-center gap-4 pt-4 border-t border-border/50">
