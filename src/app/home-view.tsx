@@ -18,9 +18,9 @@ import {
 } from "@/components/ui/carousel"
 import dynamic from 'next/dynamic';
 
-const DraggableAgent = dynamic(() => import('./components/draggable-agent'), {
+const AIAgent = dynamic(() => import('./components/ai-agent'), {
     ssr: false,
-    loading: () => <div className="fixed bottom-8 right-8 z-[100] w-40 h-40" />
+    loading: () => <div className="fixed bottom-4 right-4 w-64 h-80 z-[100]" />
 });
 
 
@@ -246,7 +246,7 @@ export default function HomeView() {
             </div>
          </div>
       </section>
-      <DraggableAgent />
+      <AIAgent />
     </motion.div>
   );
 }
