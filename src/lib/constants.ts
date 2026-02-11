@@ -179,8 +179,8 @@ export const NEWS_ITEMS = [
 ];
 
 const createStaffImage = (name: string) => {
-    const nameWithoutTitle = name.replace(/^(Dr\\.\\s*)/i, '');
-    const filename = nameWithoutTitle.toLowerCase().replace(/\\s+/g, '_') + '.jpg';
+    const nameWithoutTitle = name.replace(/^(Dr\.\s*)/i, '');
+    const filename = nameWithoutTitle.toLowerCase().replace(/\s+/g, '_') + '.jpg';
     return `/images/staffs/${filename}`;
 };
 
@@ -191,7 +191,7 @@ export const STAFF_MEMBERS = [
     role: 'Founder / CEO',
     credentials: 'Doctor of Philosophy',
     philosophy: 'Dedicated to fostering a vibrant learning environment for all students.',
-    image: createStaffImage('laxman_basnet'),
+    image: createStaffImage('Dr. Laxman Basnet'),
     socials: { facebook: 'https://www.facebook.com/laxman86' }
   },
   {
