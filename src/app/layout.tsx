@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
@@ -21,14 +22,14 @@ export const metadata: Metadata = {
     template: '%s | SARC Education Foundation',
     default: 'SARC Education Foundation | Pioneering Futures in Nepal',
   },
-  description: 'SARC Education Foundation, established in 2017 in Bagbazar, Kathmandu. We offer a legacy of excellence in +2 Science, Management, Law, and CTEVT programs, nurturing future leaders with holistic education.',
-  keywords: ['SARC', 'SARC Education', 'Education in Nepal', 'Kathmandu College', '+2 Science', '+2 Management', '+2 Law', 'CTEVT', 'Bridge Course', 'Top College Kathmandu', 'Bagbazar College'],
+  description: "Discover SARC in Bhimdatta, Kanchanpur, a top choice for +2 Science, Management, and Law. We have been nurturing Nepal's future leaders with excellence since 2017.",
+  keywords: ['SARC', 'SARC Education', 'Education in Nepal', 'Kanchanpur College', 'Bhimdatta College', '+2 Science', '+2 Management', '+2 Law', 'CTEVT', 'Bridge Course', 'Far-West Nepal Education'],
   authors: [{ name: 'SARC Education Foundation' }],
   creator: 'SARC Education Foundation',
   publisher: 'SARC Education Foundation',
   openGraph: {
     title: 'SARC Education Foundation | Pioneering Futures',
-    description: 'A legacy of excellence in education since 2017. Offering +2 programs in Science, Management, Law, and more.',
+    description: "Discover SARC in Bhimdatta, Kanchanpur. We offer a legacy of excellence in +2 Science, Management, and Law, nurturing future leaders with holistic education.",
     url: 'https://sarc.edu.np',
     siteName: 'SARC Education Foundation',
     images: [
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'SARC Education Foundation | Pioneering Futures',
-    description: 'Join SARC for a holistic education experience in Kathmandu. Discover our +2 programs in Science, Management, and Law.',
+    description: 'Join SARC in Bhimdatta, Kanchanpur for a holistic education. Discover our +2 programs in Science, Management, and Law.',
     images: ['/images/sarc.png'],
   },
   robots: {
