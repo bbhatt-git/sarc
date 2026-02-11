@@ -214,44 +214,66 @@ export default function AchievementsView() {
         <div className="container mx-auto">
           <SectionTitle title="Our Alumni" subtitle="Making a Difference" />
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Meet our successful alumni who are making a difference in the world.</p>
-          <div className="grid md:grid-cols-2 gap-8 mt-16 items-stretch">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
             {alumni.map((person, index) => (
               <motion.div
                 key={person.name}
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.15 }}
+                className="testimonial-card overflow-hidden p-0 h-full flex flex-col"
               >
-                <Card className="testimonial-card overflow-hidden p-0 h-full flex flex-col">
-                    <div className="relative h-48">
-                        <Image src={person.image} alt={person.name} fill className="object-cover" data-ai-hint="person" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                        <div className="absolute bottom-0 left-0 p-4">
-                            <h3 className="text-xl font-bold text-white text-shadow-md">{person.name}</h3>
-                            <p className="text-sm text-white/90">{person.role}</p>
+                <div className="relative h-48">
+                    <Image src={person.image} alt={person.name} fill className="object-cover" data-ai-hint="person" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-1.5 rounded-full border border-white/20">
+                        <Star className="w-4 h-4 text-amber-300" fill="currentColor" />
+                    </div>
+                    <div className="absolute bottom-0 left-0 p-4">
+                        <h3 className="text-xl font-bold text-white text-shadow-md">{person.name}</h3>
+                        <p className="text-sm text-white/90">{person.role}</p>
+                    </div>
+                </div>
+                <div className="p-6 space-y-4 flex flex-col flex-grow">
+                    <blockquote className="text-muted-foreground italic text-center text-sm">
+                        "{person.quote}"
+                    </blockquote>
+                    <div className="space-y-2 text-sm">
+                        <div className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
+                            <GraduationCap className="w-4 h-4 text-sky-500 mt-1 shrink-0" />
+                            <div>
+                                <span className="font-semibold text-foreground">Education:</span> {person.education}
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
+                            <Building className="w-4 h-4 text-sky-500 mt-1 shrink-0" />
+                            <div>
+                                <span className="font-semibold text-foreground">University:</span> {person.university}
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
+                            <Calendar className="w-4 h-4 text-sky-500 mt-1 shrink-0" />
+                            <div>
+                                <span className="font-semibold text-foreground">Graduated:</span> {person.graduated}
+                            </div>
                         </div>
                     </div>
-                    <CardContent className="p-6 flex-grow flex flex-col">
-                        <blockquote className="text-muted-foreground italic border-l-4 border-primary pl-4 mb-6">
-                          "{person.quote}"
-                        </blockquote>
-                        <div className="space-y-1 text-sm mb-6">
-                            <p className="flex items-center gap-2"><GraduationCap className="w-4 h-4 text-muted-foreground" /> <span className="font-semibold text-foreground">Education:</span> {person.education}</p>
-                            <p className="flex items-center gap-2"><Building className="w-4 h-4 text-muted-foreground" /> <span className="font-semibold text-foreground">University:</span> {person.university}</p>
-                            <p className="flex items-center gap-2"><Calendar className="w-4 h-4 text-muted-foreground" /> <span className="font-semibold text-foreground">Graduated:</span> {person.graduated}</p>
-                        </div>
-                        <div className="mt-auto">
-                          <h4 className="font-semibold text-foreground mb-2">Key Achievements:</h4>
-                          <ul className="space-y-1.5 text-sm text-muted-foreground">
-                            {person.achievements.map((ach, i) => (
-                              <li key={i} className="flex items-start gap-2">
-                                <Sparkles className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <div className="mt-auto pt-4">
+                        <h4 className="font-semibold text-foreground mb-2 text-sm">Key Achievements:</h4>
+                        <ul className="space-y-1.5 text-xs text-muted-foreground">
+                        {person.achievements.map((ach, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                                <Sparkles className="w-3 h-3 text-primary mt-0.5 shrink-0" />
                                 <span>{ach}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                    </CardContent>
-                </Card>
+                            </li>
+                        ))}
+                        </ul>
+                    </div>
+                    <div className="flex justify-center gap-2 pt-3 border-t border-border/50 mt-4">
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-700 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Linkedin size={16} /></Link>
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Facebook size={16} /></Link>
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-emerald-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
+                    </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -288,14 +310,10 @@ export default function AchievementsView() {
                     <blockquote className="text-muted-foreground italic text-center text-sm">
                         "{student.quote}"
                     </blockquote>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                    <div className="grid grid-cols-1 gap-2 text-sm">
                         <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
                             <Trophy className="w-4 h-4 text-amber-500" />
                             <p><span className="font-semibold text-foreground">GPA:</span> {student.gpa.toFixed(2)}</p>
-                        </div>
-                         <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md truncate">
-                            <Target className="w-4 h-4 text-sky-500" />
-                            <p className="truncate"><span className="font-semibold text-foreground">Focus:</span> {student.subjects}</p>
                         </div>
                     </div>
                     <div>
