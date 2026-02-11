@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle, Award, School } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -61,6 +61,15 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         { value: 'Bell', icon: <Bell className="h-4 w-4" /> },
         { value: 'FileText', icon: <FileText className="h-4 w-4" /> },
         { value: 'Calendar', icon: <Calendar className="h-4 w-4" /> },
+        { value: 'Award', icon: <Award className="h-4 w-4" /> },
+        { value: 'GraduationCap', icon: <GraduationCap className="h-4 w-4" /> },
+        { value: 'School', icon: <School className="h-4 w-4" /> },
+    ];
+    
+    const examTypeOptions = [
+        { value: 'Routine' },
+        { value: 'Result' },
+        { value: 'Notice' },
     ];
 
     useEffect(() => {
@@ -119,6 +128,12 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         const lowerCaseHeaders = headers.map(h => String(h).toLowerCase());
         return lowerCaseHeaders.includes('icon') && lowerCaseHeaders.includes('summary');
     }, [headers]);
+    
+    const isExamsSheet = useMemo(() => {
+        const lowerCaseHeaders = headers.map(h => String(h).toLowerCase());
+        const sheetNameLower = activeSheetName.toLowerCase();
+        return sheetNameLower.includes('exam') && lowerCaseHeaders.includes('type');
+    }, [headers, activeSheetName]);
 
     const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
         const updatedGridData = [...gridData];
@@ -349,6 +364,7 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
                                         {headers.map((header, colIndex) => {
                                             const headerName = String(header).toLowerCase();
                                             const isGeneralNoticeIconColumn = isGeneralSheet && headerName === 'icon';
+                                            const isExamsTypeColumn = isExamsSheet && headerName === 'type';
 
                                             return (
                                                 <TableCell key={colIndex} className="p-0 border-r">
@@ -367,6 +383,22 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
                                                                             {opt.icon}
                                                                             <span>{opt.value}</span>
                                                                         </div>
+                                                                    </SelectItem>
+                                                                ))}
+                                                            </SelectContent>
+                                                        </Select>
+                                                    ) : isExamsTypeColumn ? (
+                                                        <Select
+                                                            value={row[colIndex] || ''}
+                                                            onValueChange={(value) => handleCellChange(rowIndex, colIndex, value)}
+                                                        >
+                                                            <SelectTrigger className="w-full h-full p-2 border-none rounded-none focus:ring-1 focus:ring-primary/50 bg-transparent text-sm">
+                                                                <SelectValue placeholder="Select type..." />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                {examTypeOptions.map(opt => (
+                                                                    <SelectItem key={opt.value} value={opt.value}>
+                                                                        {opt.value}
                                                                     </SelectItem>
                                                                 ))}
                                                             </SelectContent>
