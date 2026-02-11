@@ -20,7 +20,7 @@ export default function Footer() {
   
   return (
     <footer className="mt-20 z-10">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <div className="bg-white/30 backdrop-blur-xl border-t border-slate-200/50 rounded-t-3xl text-foreground p-8 md:p-12 shadow-2xl shadow-slate-500/10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Column 1: Logo & About */}
@@ -66,10 +66,10 @@ export default function Footer() {
 
           <div className="border-t border-slate-200/50 mt-12 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; {new Date().getFullYear()} SARC Education Foundation. All Rights Reserved.</p>
-            <p className="mt-2 flex items-center justify-center gap-1.5 text-xs">
+            <p className="mt-2 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-xs">
                 <Sparkles className="w-3 h-3 text-emerald-600" />
-                Designed & Crafted by
-                <a href="https://bbhatt.com.np" target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-emerald-600 transition-colors">
+                <span className="whitespace-nowrap">Designed & Crafted by</span>
+                <a href="https://bbhatt.com.np" target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-emerald-600 transition-colors whitespace-nowrap">
                     Bhupesh Bhatt
                 </a>
                 <Sparkles className="w-3 h-3 text-emerald-600" />
