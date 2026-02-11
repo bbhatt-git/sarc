@@ -92,8 +92,11 @@ export default function StaffsView() {
     };
 
     const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Managing Director', 'Program Coordinator', 'Academic Coordinator'].includes(s.role));
-    const faculty = STAFF_MEMBERS.filter(s => ['Head of Science Department', 'Faculty'].includes(s.role));
     const support = STAFF_MEMBERS.filter(s => ['Accountant', 'Receptionist', 'Support Staff'].includes(s.role));
+    const leadershipIds = new Set(leadership.map(s => s.id));
+    const supportIds = new Set(support.map(s => s.id));
+    const faculty = STAFF_MEMBERS.filter(s => !leadershipIds.has(s.id) && !supportIds.has(s.id));
+
 
     return (
         <div>

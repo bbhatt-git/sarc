@@ -251,9 +251,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'bhuwan-chandra-bogati',
     name: 'Bhuwan Chandra Bogati',
-    role: 'Faculty',
+    role: 'Biology',
     credentials: 'Master of Science',
-    subjects: 'Biology',
     philosophy: 'Guiding students to discover their potential through science.',
     image: createStaffImage('Bhuwan Chandra Bogati'),
     socials: { facebook: 'https://www.facebook.com/bhuwanchandra.bokati' }
@@ -261,9 +260,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'pushpa-raj-bhatt',
     name: 'Pushpa Raj Bhatt',
-    role: 'Faculty',
+    role: 'Botany',
     credentials: 'Master of Science',
-    subjects: 'Botany',
     philosophy: 'Dedicated to creating an engaging and supportive classroom.',
     image: createStaffImage('Pushpa Raj Bhatt'),
     socials: { facebook: 'https://www.facebook.com/puspraj.bhatt.35' }
@@ -271,9 +269,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'narendra-awasthi',
     name: 'Narendra Awasthi',
-    role: 'Faculty',
+    role: 'Physics',
     credentials: 'Master of Science',
-    subjects: 'Physics',
     philosophy: 'Empowering students with knowledge and practical skills.',
     image: createStaffImage('Narendra Awasthi'),
     socials: { facebook: 'https://www.facebook.com/narendra.awasthi.940' }
@@ -281,9 +278,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'suraj-pant',
     name: 'Suraj Pant',
-    role: 'Faculty',
+    role: 'Computer',
     credentials: 'Master of Science',
-    subjects: 'Computer',
     philosophy: 'Fostering curiosity and a passion for scientific discovery.',
     image: createStaffImage('Suraj Pant'),
     socials: { facebook: '#' }
@@ -291,9 +287,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'shiv-raj-bohara',
     name: 'Shiv Raj Bohara',
-    role: 'Faculty',
+    role: 'Mathematics',
     credentials: 'Master of Arts (Mathematics)',
-    subjects: 'Mathematics',
     philosophy: 'Developing logical thinking and problem-solving skills in students.',
     image: createStaffImage('Shiv Raj Bohara'),
     socials: { facebook: 'https://www.facebook.com/shivraj.bohara.1' }
@@ -310,9 +305,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'sudarshan-prashad-bhatt',
     name: 'Sudarshan Prashad Bhatt',
-    role: 'Faculty',
+    role: 'Mathematics',
     credentials: 'Master of Education',
-    subjects: 'Mathematics',
     philosophy: 'Creating an inclusive and effective learning environment.',
     image: createStaffImage('Sudarshan Prashad Bhatt'),
     socials: { facebook: 'https://www.facebook.com/sudarsan.bhatta.5' }
@@ -338,9 +332,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'govind-giri',
     name: 'Govind Giri',
-    role: 'Faculty',
+    role: 'Mathematics',
     credentials: 'Master of Education',
-    subjects: 'Mathematics',
     philosophy: 'Inspiring students to achieve their full potential.',
     image: createStaffImage('Govind Giri'),
     socials: { facebook: 'https://www.facebook.com/govind.giri.68635' }
@@ -348,9 +341,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'birendra-bahadur-chand',
     name: 'Birendra Bahadur Chand',
-    role: 'Faculty',
+    role: 'Nepali',
     credentials: 'Master of Education',
-    subjects: 'Nepali',
     philosophy: 'Fostering a positive and challenging learning atmosphere.',
     image: createStaffImage('Birendra Bahadur Chand'),
     socials: { facebook: 'https://www.facebook.com/birendra.chand.39750' }
@@ -358,9 +350,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'rajesh-datt-bhatt',
     name: 'Rajesh Datt Bhatt',
-    role: 'Faculty',
+    role: 'Computer',
     credentials: 'Master of Computer Applications',
-    subjects: 'Computer',
     philosophy: 'Bridging technology and education for modern learners.',
     image: createStaffImage('Rajesh Datt Bhatt'),
     socials: { facebook: 'https://www.facebook.com/rajeshbhatt360' }
@@ -386,9 +377,8 @@ export const STAFF_MEMBERS = [
   {
     id: 'jeewan-thapa',
     name: 'Jeewan Thapa',
-    role: 'Faculty',
+    role: 'Mathematics',
     credentials: 'Master of Arts & Bachelor of Science (Bachelor of Engineering)',
-    subjects: 'Mathematics',
     philosophy: 'Integrating diverse fields of knowledge for a complete education.',
     image: createStaffImage('Jeewan Thapa'),
     socials: { facebook: 'https://www.facebook.com/jeewan.thapa.684245' }
