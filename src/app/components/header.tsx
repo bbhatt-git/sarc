@@ -44,7 +44,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 p-2 text-card-foreground glass-card"
+                className="w-80 p-2 text-card-foreground bg-card rounded-2xl border shadow-2xl"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -232,9 +232,13 @@ export default function Header() {
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
                   <div className="flex flex-col">
                       <span className={cn(
-                        "font-extrabold leading-tight transition-colors",
+                        "font-extrabold text-lg leading-tight transition-colors whitespace-nowrap",
                         hasScrolled ? 'text-primary' : 'text-white'
-                      )}>SARC</span>
+                      )}>SARC EDUCATION</span>
+                      <span className={cn(
+                        "text-xs font-medium transition-colors tracking-[0.27em]",
+                        hasScrolled ? 'text-foreground' : 'text-white/80'
+                      )}>FOUNDATION</span>
                   </div>
               </Link>
               
@@ -285,7 +289,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-4 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col glass-sidebar"
               onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-6 pb-4 border-b">
