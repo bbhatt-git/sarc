@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Menu, X, ChevronDown, Search } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { ThemeToggle } from './theme-toggle';
+import { Input } from '@/components/ui/input';
 
 const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMenuLabel }: { link: (typeof NAV_LINKS)[number], pathname: string, hasScrolled: boolean, openMenuLabel: string | null, setOpenMenuLabel: (label: string | null) => void }) => {
   const isOpen = openMenuLabel === link.label;
@@ -47,9 +48,9 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
@@ -183,9 +184,18 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   
   const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
 
   const activeParentOnLoad = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
   const [openAccordion, setOpenAccordion] = useState<string | null>(activeParentOnLoad?.label || null);
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      setTimeout(() => searchInputRef.current?.focus(), 100);
+    }
+  }, [isSearchOpen]);
 
   
   useEffect(() => {
@@ -208,7 +218,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (mobileMenuOpen || isSearchOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -216,7 +226,7 @@ export default function Header() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, isSearchOpen]);
 
   if (pathname.startsWith('/admin') || pathname === '/login') {
     return null;
@@ -242,10 +252,8 @@ export default function Header() {
                       <span className="text-lg font-medium leading-tight text-primary transition-colors whitespace-nowrap">
                         SARC EDU.
                       </span>
-                      <div className="text-xs font-medium text-foreground transition-colors">
-                          <div className="flex justify-between w-full">
-                              {'FOUNDATION'.split('').map((char, i) => <span key={i}>{char}</span>)}
-                          </div>
+                      <div className="text-xs font-medium text-foreground transition-colors flex justify-between w-full">
+                          {'FOUNDATION'.split('').map((char, i) => <span key={i}>{char}</span>)}
                       </div>
                   </div>
               </Link>
@@ -264,6 +272,9 @@ export default function Header() {
               </div>
 
               <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(true)} className="text-foreground hidden lg:flex">
+                  <Search />
+                </Button>
                 <ThemeToggle />
                 <Button asChild className="hidden lg:flex rounded-full text-sm font-semibold transition-all hover:scale-105 bg-primary text-primary-foreground">
                   <Link href="/admissions">Apply Now</Link>
@@ -308,6 +319,11 @@ export default function Header() {
                   </div>
                 </div>
 
+                 <div className="relative mb-4">
+                    <Input placeholder="Search..." className="pl-10 bg-muted" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                </div>
+
                 <nav className="flex-1 flex flex-col gap-1 overflow-y-auto pr-2 -mr-2">
                   {NAV_LINKS.map(link => (
                     <MobileNavItem 
@@ -326,6 +342,37 @@ export default function Header() {
                     <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
                   </Button>
                 </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+       <AnimatePresence>
+        {isSearchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 pt-[15vh]"
+            onClick={() => setIsSearchOpen(false)}
+          >
+            <motion.div
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -50, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              className="w-full max-w-xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Input
+                ref={searchInputRef}
+                placeholder="Search the site..."
+                className="w-full h-14 rounded-full pl-6 pr-14 text-lg border-2 border-primary/50 bg-background/80"
+              />
+              <div className="absolute top-0 right-0 h-14 w-14 flex items-center justify-center">
+                  <Search className="text-muted-foreground" />
+              </div>
             </motion.div>
           </motion.div>
         )}
