@@ -45,7 +45,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl border bg-card p-2 text-card-foreground shadow-lg"
+                className="w-80 rounded-2xl border border-white/10 bg-card/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
