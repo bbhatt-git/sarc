@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { ThemeToggle } from './theme-toggle';
 
-const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], pathname: string }) => {
+const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LINKS)[number], pathname: string, hasScrolled: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   if (link.children) {
@@ -23,7 +23,11 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
         <button
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
-            isChildActive ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300' : 'text-foreground hover:bg-primary/10 hover:text-primary'
+            isChildActive 
+                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300' 
+                : hasScrolled 
+                    ? 'text-foreground hover:bg-primary/10 hover:text-primary'
+                    : 'text-white hover:bg-white/10'
           )}
         >
           {link.label}
@@ -87,7 +91,11 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
       href={link.href}
       className={cn(
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-        isActive ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300' : 'text-foreground hover:bg-primary/10 hover:text-primary'
+         isActive 
+            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300' 
+            : hasScrolled
+                ? 'text-foreground hover:bg-primary/10 hover:text-primary'
+                : 'text-white hover:bg-white/10'
       )}
     >
       {link.label}
@@ -172,34 +180,45 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 p-0 md:p-2 transition-all duration-300 ease-in-out">
+      <header className="fixed top-0 left-0 right-0 z-50 p-0 transition-all duration-300 ease-in-out">
         <nav className={cn(
-            "mx-auto flex items-center justify-between p-3 transition-all duration-500 ease-heavy-out",
+            "flex items-center justify-between transition-all duration-500 ease-heavy-out",
             hasScrolled
-                ? 'w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl'
-                : 'w-full rounded-none bg-transparent backdrop-blur-2xl'
+                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl'
+                : 'w-full rounded-none bg-transparent backdrop-blur-2xl px-4 md:px-6 py-3'
         )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
                   <div className="flex flex-col">
-                      <span className="font-extrabold text-primary leading-tight">SARC EDU.</span>
-                      <span className="text-xs text-foreground tracking-[0.2em] font-medium">FOUNDATION</span>
+                      <span className={cn(
+                        "font-extrabold leading-tight transition-colors",
+                        hasScrolled ? 'text-primary' : 'text-white'
+                      )}>SARC EDU.</span>
+                      <span className={cn(
+                        "text-xs tracking-[0.2em] font-medium transition-colors",
+                        hasScrolled ? 'text-foreground' : 'text-white'
+                      )}>FOUNDATION</span>
                   </div>
               </Link>
               
               <div className="hidden lg:flex items-center lg:gap-x-1">
                 {NAV_LINKS.map((link) => (
-                  <DesktopNavItem key={link.label} link={link} pathname={pathname} />
+                  <DesktopNavItem key={link.label} link={link} pathname={pathname} hasScrolled={hasScrolled} />
                 ))}
               </div>
 
               <div className="flex items-center gap-2">
                 <ThemeToggle />
-                <Button asChild className='hidden lg:flex rounded-full bg-primary text-primary-foreground text-sm font-semibold transition-transform hover:-translate-y-0.5'>
+                <Button asChild className={cn(
+                    'hidden lg:flex rounded-full text-sm font-semibold transition-all hover:scale-105',
+                    hasScrolled 
+                        ? 'bg-primary text-primary-foreground' 
+                        : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'
+                )}>
                   <Link href="/admissions">Apply Now</Link>
                 </Button>
                 <div className="lg:hidden">
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className="text-foreground">
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className={cn(hasScrolled ? "text-foreground" : "text-white")}>
                     <Menu />
                   </Button>
                 </div>
