@@ -54,17 +54,17 @@ const Lightbox = ({ images, selectedIndex, onClose, onPrev, onNext }: { images: 
             </motion.div>
 
             {/* Close Button */}
-            <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
+            <button onClick={(e) => { e.stopPropagation(); onClose(); }} className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
                 <X size={32} />
             </button>
 
             {/* Prev Button */}
-            <button onClick={onPrev} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
+            <button onClick={(e) => { e.stopPropagation(); onPrev(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
                 <ArrowLeft size={32} />
             </button>
             
             {/* Next Button */}
-            <button onClick={onNext} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
+            <button onClick={(e) => { e.stopPropagation(); onNext(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
                 <ArrowRight size={32} />
             </button>
         </motion.div>
