@@ -27,6 +27,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
                     ? 'text-foreground hover:bg-primary/10 hover:text-primary'
                     : 'text-white hover:bg-white/10'
           )}
+          onClick={() => setOpenMenuLabel(isOpen ? null : link.label)}
         >
           {link.label}
           <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
@@ -43,7 +44,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl bg-popover/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg border border-border/20"
+                className="w-80 p-2 text-card-foreground glass-card"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -110,7 +111,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
     const isActive = pathname === link.href;
     return (
       <Link href={link.href} onClick={closeMenu} className={cn(
-          "flex items-center gap-4 rounded-lg px-3 py-2.5 text-base font-semibold transition-colors",
+          "flex items-center gap-4 rounded-lg px-3 py-2 text-base font-semibold transition-colors",
           isActive 
               ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
               : "text-foreground hover:bg-muted"
@@ -123,7 +124,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
   return (
     <div className="space-y-1">
       <button onClick={() => setOpenAccordion(isOpen ? null : link.label)} className={cn(
-          "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-muted",
+          "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-base font-semibold text-foreground transition-colors hover:bg-muted",
           isParentActive && !isOpen && "bg-emerald-100/60 dark:bg-emerald-900/30"
       )}>
         <span>{link.label}</span>
@@ -173,38 +174,11 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   
-  const activeParentOnLoad = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
   const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
+
+  const activeParentOnLoad = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
   const [openAccordion, setOpenAccordion] = useState<string | null>(activeParentOnLoad?.label || null);
 
-
-  useEffect(() => {
-    const handleMouseEnter = (label: string) => {
-      setOpenMenuLabel(label);
-    };
-    const handleMouseLeave = () => {
-      setOpenMenuLabel(null);
-    };
-
-    const navItems = document.querySelectorAll('[data-menu-label]');
-    navItems.forEach(item => {
-      const label = item.getAttribute('data-menu-label');
-      if (label) {
-        item.addEventListener('mouseenter', () => handleMouseEnter(label));
-        item.addEventListener('mouseleave', handleMouseLeave);
-      }
-    });
-
-    return () => {
-      navItems.forEach(item => {
-        const label = item.getAttribute('data-menu-label');
-        if (label) {
-          item.removeEventListener('mouseenter', () => handleMouseEnter(label));
-          item.removeEventListener('mouseleave', handleMouseLeave);
-        }
-      });
-    };
-  }, [openMenuLabel]);
   
   useEffect(() => {
     if (mobileMenuOpen) return;
@@ -260,11 +234,7 @@ export default function Header() {
                       <span className={cn(
                         "font-extrabold leading-tight transition-colors",
                         hasScrolled ? 'text-primary' : 'text-white'
-                      )}>SARC EDU.</span>
-                      <span className={cn(
-                        "text-xs tracking-[0.2em] font-medium transition-colors",
-                        hasScrolled ? 'text-foreground' : 'text-white'
-                      )}>FOUNDATION</span>
+                      )}>SARC</span>
                   </div>
               </Link>
               
@@ -315,38 +285,40 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-4 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-4 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center mb-6">
-                <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
-                  <Image src="/images/sarc.png" alt="SARC Logo" width={32} height={32} />
-                  <span className="font-bold text-lg text-foreground">SARC</span>
-                </Link>
-                <div className="flex items-center gap-1">
-                  <ThemeToggle />
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-muted-foreground -mr-2'>
-                    <X />
+                <div className="flex justify-between items-center mb-6 pb-4 border-b">
+                  <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+                    <Image src="/images/sarc.png" alt="SARC Logo" width={32} height={32} />
+                    <span className="font-bold text-lg text-foreground">SARC</span>
+                  </Link>
+                  <div className="flex items-center gap-1">
+                    <ThemeToggle />
+                    <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-muted-foreground -mr-2'>
+                      <X />
+                    </Button>
+                  </div>
+                </div>
+
+                <nav className="flex-1 flex flex-col gap-2 overflow-y-auto pr-2 -mr-2">
+                  {NAV_LINKS.map(link => (
+                    <MobileNavItem 
+                      key={link.label} 
+                      link={link}
+                      pathname={pathname}
+                      closeMenu={() => setMobileMenuOpen(false)}
+                      openAccordion={openAccordion}
+                      setOpenAccordion={setOpenAccordion}
+                    />
+                  ))}
+                </nav>
+
+                <div className="mt-6 pt-4 border-t border-border/50">
+                  <Button asChild className="w-full bg-primary text-primary-foreground uppercase text-sm font-bold tracking-widest" size="lg">
+                    <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
                   </Button>
                 </div>
-              </div>
-              <nav className="flex-1 flex flex-col gap-1 overflow-y-auto">
-                {NAV_LINKS.map(link => (
-                  <MobileNavItem 
-                    key={link.label} 
-                    link={link}
-                    pathname={pathname}
-                    closeMenu={() => setMobileMenuOpen(false)}
-                    openAccordion={openAccordion}
-                    setOpenAccordion={setOpenAccordion}
-                  />
-                ))}
-              </nav>
-              <div className="mt-6 pt-4 border-t border-border/50">
-                <Button asChild className="w-full bg-primary text-primary-foreground uppercase text-sm font-bold tracking-widest" size="lg">
-                  <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
-                </Button>
-              </div>
             </motion.div>
           </motion.div>
         )}
