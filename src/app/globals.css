@@ -80,25 +80,6 @@
   .testimonial-card {
     @apply relative bg-card/70 dark:bg-card/60 backdrop-blur-lg border border-border/70 rounded-2xl shadow-xl shadow-black/5 overflow-hidden;
   }
-  .glass-dropdown {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-
-  .dark .glass-dropdown {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-
-  .glass-sidebar {
-    background-color: rgba(255, 255, 255, 0.4); /* 40% opacity = 60% transparency */
-    backdrop-filter: blur(32px); /* 100% blur -> very high blur */
-    -webkit-backdrop-filter: blur(32px);
-  }
-
-  .dark .glass-sidebar {
-    background-color: rgba(15, 23, 42, 0.4); /* slate-900 at 40% opacity */
-  }
 }
 
 @layer utilities {

@@ -44,7 +44,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl glass-dropdown p-2 text-card-foreground shadow-lg border border-white/20"
+                className="w-80 rounded-2xl bg-card/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg border border-border/50"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -55,20 +55,20 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
                           href={child.href}
                           className={cn(
                             "group/navlink block rounded-xl p-3 transition-colors",
-                            isActive ? "bg-primary/10" : "hover:bg-primary/10"
+                            isActive ? "bg-primary text-primary-foreground" : "hover:bg-primary/10"
                           )}
                           onClick={() => setIsOpen(false)}
                         >
                           <div className="flex items-center gap-3">
                             <div className={cn(
                               'flex-shrink-0 rounded-lg p-2 transition-colors duration-200',
-                              isActive ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground'
+                               isActive ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground'
                             )}>
                               <child.icon className="w-5 h-5" />
                             </div>
                             <div>
-                              <span className="font-semibold text-foreground">{child.label}</span>
-                              <p className="text-sm text-muted-foreground">{child.description}</p>
+                              <span className={cn("font-semibold", isActive ? "text-primary-foreground" : "text-foreground")}>{child.label}</span>
+                              <p className={cn("text-sm", isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>{child.description}</p>
                             </div>
                           </div>
                         </Link>
@@ -102,40 +102,59 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
   );
 };
 
-const MobileNavItem = ({ link, closeMenu, isOpen, onToggle }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, isOpen: boolean, onToggle: () => void }) => {
+const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, pathname: string }) => {
+  const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
+  const [isOpen, setIsOpen] = useState(isParentActive);
+
   if (!link.children) {
+    const isActive = pathname === link.href;
     return (
-      <Link href={link.href} className="text-foreground hover:text-primary text-lg font-semibold" onClick={closeMenu}>
+      <Link href={link.href} onClick={closeMenu} className={cn(
+        "flex items-center gap-4 rounded-lg p-3 text-base font-semibold transition-colors",
+        isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-primary/5"
+      )}>
         {link.label}
       </Link>
     );
   }
 
   return (
-    <div className='overflow-hidden'>
-      <button onClick={onToggle} className="w-full flex justify-between items-center text-lg font-semibold text-foreground">
+    <div>
+      <button onClick={() => setIsOpen(!isOpen)} className="w-full flex items-center justify-between gap-4 rounded-lg p-3 text-base font-semibold text-foreground transition-colors hover:bg-primary/5">
         <span>{link.label}</span>
-        <ChevronDown className={cn('w-5 h-5 transition-transform', isOpen && 'rotate-180')} />
+        <ChevronDown className={cn("h-5 w-5 transition-transform", isOpen && "rotate-180")} />
       </button>
-      <motion.div
-        initial="collapsed"
-        animate={isOpen ? "open" : "collapsed"}
-        variants={{
-            open: { opacity: 1, height: 'auto', marginTop: '12px' },
-            collapsed: { opacity: 0, height: 0, marginTop: '0px' },
-        }}
-        transition={{ duration: 0.3, ease: 'easeOut' }}
-        className='overflow-hidden'
-      >
-        <div className='flex flex-col gap-4 pl-4 border-l-2 border-slate-200 dark:border-slate-700'>
-          {link.children.map((child: any) => (
-            <Link key={child.label} href={child.href} className="text-muted-foreground hover:text-primary" onClick={closeMenu}>
-                <span className='font-medium text-foreground'>{child.label}</span>
-                <p className='text-sm'>{child.description}</p>
-            </Link>
-          ))}
-        </div>
-      </motion.div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="pl-4 mt-1"
+          >
+            <div className="flex flex-col gap-1 border-l-2 border-border/50 pl-5">
+              {link.children.map((child: any) => {
+                const isChildActive = pathname.startsWith(child.href);
+                return (
+                  <Link key={child.label} href={child.href} onClick={closeMenu} className={cn(
+                    "group flex items-center gap-3 rounded-md p-2.5 transition-colors",
+                    isChildActive ? "text-primary font-medium" : "text-muted-foreground hover:text-foreground"
+                  )}>
+                    <div className={cn(
+                      "flex-shrink-0 rounded-md p-1.5 transition-colors duration-200",
+                      isChildActive ? 'bg-primary/10 text-primary' : 'bg-muted/60 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+                    )}>
+                       <child.icon className="w-4 h-4" />
+                    </div>
+                    <span className="text-sm">{child.label}</span>
+                  </Link>
+                )
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -144,7 +163,6 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -235,7 +253,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-[100] bg-black/50 lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
           >
             <motion.div
@@ -243,12 +261,13 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] glass-sidebar p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl p-6 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center mb-12">
+              <div className="flex justify-between items-center mb-10">
                 <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} />
+                  <span className="font-bold text-xl text-foreground">SARC</span>
                 </Link>
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
@@ -257,20 +276,21 @@ export default function Header() {
                   </Button>
                 </div>
               </div>
-              <nav className="flex flex-col gap-6">
+              <nav className="flex-1 flex flex-col gap-4 overflow-y-auto">
                 {NAV_LINKS.map(link => (
                   <MobileNavItem 
                     key={link.label} 
-                    link={link} 
+                    link={link}
+                    pathname={pathname}
                     closeMenu={() => setMobileMenuOpen(false)}
-                    isOpen={activeDropdown === link.label}
-                    onToggle={() => setActiveDropdown(prev => prev === link.label ? null : link.label)}
                   />
                 ))}
               </nav>
-              <Button asChild className="w-full mt-12 bg-primary text-primary-foreground uppercase text-sm font-bold tracking-widest" size="lg">
-                <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
-              </Button>
+              <div className="mt-8 pt-6 border-t border-border/50">
+                <Button asChild className="w-full bg-primary text-primary-foreground uppercase text-sm font-bold tracking-widest" size="lg">
+                  <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
+                </Button>
+              </div>
             </motion.div>
           </motion.div>
         )}
