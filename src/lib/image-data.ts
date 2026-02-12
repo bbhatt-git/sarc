@@ -1,10 +1,40 @@
 export const imageData = {
   "hero": [
-    { "src": "https://picsum.photos/seed/hero0/1920/1080", "hint": "education campus" },
-    { "src": "https://picsum.photos/seed/hero1/1920/1080", "hint": "students classroom" },
-    { "src": "https://picsum.photos/seed/hero2/1920/1080", "hint": "science laboratory" },
-    { "src": "https://picsum.photos/seed/hero3/1920/1080", "hint": "students collaborating" },
-    { "src": "https://picsum.photos/seed/hero4/1920/1080", "hint": "library students" }
+    { 
+      "src": "https://picsum.photos/seed/hero0/1920/1080", 
+      "hint": "education campus",
+      "pill": "Preparing Innovators for Tomorrow",
+      "title": "Education Beyond Theory",
+      "subtitle": "Modern campus facilities designed for future-ready learning."
+    },
+    { 
+      "src": "https://picsum.photos/seed/hero1/1920/1080", 
+      "hint": "students classroom",
+      "pill": "Excellence in Academics",
+      "title": "Learn from the Best",
+      "subtitle": "Our experienced faculty is dedicated to your success."
+    },
+    { 
+      "src": "https://picsum.photos/seed/hero2/1920/1080", 
+      "hint": "science laboratory",
+      "pill": "Hands-On Learning",
+      "title": "Innovation in Practice",
+      "subtitle": "State-of-the-art labs for practical, real-world experience."
+    },
+    { 
+      "src": "https://picsum.photos/seed/hero3/1920/1080", 
+      "hint": "students collaborating",
+      "pill": "Collaborative Community",
+      "title": "Grow and Succeed Together",
+      "subtitle": "A vibrant campus life that fosters teamwork and leadership."
+    },
+    { 
+      "src": "https://picsum.photos/seed/hero4/1920/1080", 
+      "hint": "library students",
+      "pill": "Your Future Starts Here",
+      "title": "A World of Knowledge",
+      "subtitle": "Explore our extensive library and digital resources."
+    }
   ],
   "staff": {
     "dr_laxman_basnet": { "src": "https://picsum.photos/seed/laxman/400/400", "hint": "male portrait" },

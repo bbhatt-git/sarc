@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BookOpen, Calendar, ShieldCheck, Users, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, Calendar, ShieldCheck, Users } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TESTIMONIALS, WHY_US_ITEMS } from '@/lib/constants';
@@ -64,31 +64,6 @@ export default function HomeView() {
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden">
         <HeroCarousel />
-        
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/60 to-black/80 z-10" />
-
-        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
-          <div>
-            <div className="mb-4 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 inline-flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-slate-200" />
-              <p className="text-sm font-medium text-slate-200">Preparing Innovators for Tomorrow</p>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-shadow-lg max-w-4xl">
-              Education Beyond Theory
-            </h1>
-            <h2 className="text-xl md:text-2xl text-slate-200 mt-4 text-shadow-md max-w-3xl">
-              Modern campus facilities designed for future-ready learning.
-            </h2>
-            <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-               <Button asChild size="lg" className='rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-transform hover:scale-105'>
-                <Link href="/admissions">Apply Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className='rounded-full bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20 hover:border-white/60 hover:text-white transition-all duration-300 hover:scale-105'>
-                <Link href="/academics/programs">Explore Programs</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Stats Section */}
