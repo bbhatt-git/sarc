@@ -23,7 +23,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
             isChildActive 
-                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300' 
+                ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
                 : hasScrolled 
                     ? 'text-foreground hover:bg-primary/10 hover:text-primary'
                     : 'text-white hover:bg-white/10'
@@ -91,7 +91,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
       className={cn(
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
          isActive 
-            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300' 
+            ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
             : hasScrolled
                 ? 'text-foreground hover:bg-primary/10 hover:text-primary'
                 : 'text-white hover:bg-white/10'
@@ -181,7 +181,7 @@ export default function Header() {
     <>
       <header className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
-        hasScrolled ? "pt-2" : "p-0"
+        hasScrolled ? "pt-[5px]" : "p-0"
       )}>
         <nav className={cn(
             "flex items-center justify-between transition-all duration-500 ease-heavy-out",
@@ -243,7 +243,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/20 dark:bg-slate-900/20 backdrop-blur-xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
