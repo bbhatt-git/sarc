@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
             
             {/* Column 1: About */}
-            <div className="space-y-4">
+            <div className="col-span-2 sm:col-span-1 space-y-4">
               <Link href="/" className="flex items-center gap-3">
                 <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} />
                 <span className="font-bold text-xl tracking-tight text-foreground">SARC</span>
@@ -80,9 +80,9 @@ export default function Footer() {
              </div>
           </div>
 
-          <div className="border-t border-border/50 mt-12 pt-8 text-center text-sm text-muted-foreground">
+          <div className="border-t border-border/50 mt-12 pt-8 text-center md:text-left text-sm text-muted-foreground md:flex md:items-center md:justify-between">
             <p>&copy; {new Date().getFullYear()} SARC Education Foundation. All Rights Reserved.</p>
-            <p className="mt-2 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-xs">
+            <p className="mt-2 md:mt-0 flex flex-wrap items-center justify-center md:justify-end gap-x-1.5 gap-y-1 text-xs">
                 <Sparkles className="w-3 h-3 text-primary" />
                 <span className="whitespace-nowrap">Designed & Crafted by</span>
                 <a href="https://bbhatt.com.np" target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-primary transition-colors whitespace-nowrap">
