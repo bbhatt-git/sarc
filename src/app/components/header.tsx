@@ -13,6 +13,11 @@ import { ThemeToggle } from './theme-toggle';
 import { Input } from '@/components/ui/input';
 
 const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMenuLabel }: { link: (typeof NAV_LINKS)[number], pathname: string, hasScrolled: boolean, openMenuLabel: string | null, setOpenMenuLabel: (label: string | null) => void }) => {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
   const isOpen = openMenuLabel === link.label;
   const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
 
@@ -26,7 +31,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
         <button
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
-            (isParentActive || isOpen)
+            (isClient && (isParentActive || isOpen))
                 ? 'bg-primary text-primary-foreground' 
                 : 'text-foreground hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50'
           )}
@@ -57,20 +62,20 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
                           href={child.href}
                           className={cn(
                             "group/navlink block rounded-xl p-3 transition-colors",
-                            isActive ? "bg-primary text-primary-foreground" : "hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50"
+                            isClient && isActive ? "bg-primary text-primary-foreground" : "hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50"
                           )}
                           onClick={() => setOpenMenuLabel(null)}
                         >
                           <div className="flex items-center gap-3">
                             <div className={cn(
                               'flex-shrink-0 rounded-lg p-2 transition-colors duration-200',
-                               isActive ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary group-hover/navlink:bg-emerald-200/50 dark:group-hover/navlink:bg-emerald-900/50'
+                               isClient && isActive ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary group-hover/navlink:bg-emerald-200/50 dark:group-hover/navlink:bg-emerald-900/50'
                             )}>
                               <child.icon className="w-5 h-5" />
                             </div>
                             <div>
-                              <span className={cn("font-semibold", isActive ? "text-primary-foreground" : "text-foreground")}>{child.label}</span>
-                              <p className={cn("text-sm", isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>{child.description}</p>
+                              <span className={cn("font-semibold", isClient && isActive ? "text-primary-foreground" : "text-foreground")}>{child.label}</span>
+                              <p className={cn("text-sm", isClient && isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>{child.description}</p>
                             </div>
                           </div>
                         </Link>
@@ -92,7 +97,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
       href={link.href}
       className={cn(
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-         isActive 
+         isClient && isActive 
             ? 'bg-primary text-primary-foreground' 
             : 'text-foreground hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50'
       )}
