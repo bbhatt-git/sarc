@@ -2,14 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Facebook, Instagram, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-
-const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M11.96 13.91a1.2 1.2 0 1 0-1.69 1.7 1.2 1.2 0 0 0 1.7-1.7zm3.09-10.91h-3.09v12.4a2.75 2.75 0 1 1-5.5 0V9.11a.25.25 0 0 1 .25-.25h3.09V6.07H7a3.07 3.07 0 0 0-3.07 3.07v5.82A5.82 5.82 0 1 0 9.75 9.1v-.01h.01a.25.25 0 0 1 .25-.25h3.09v-3.5a.25.25 0 0 1 .25-.25h3.09A3.07 3.07 0 0 0 15.05 3z" />
-    </svg>
-);
 
 export default function Footer() {
   const pathname = usePathname();
@@ -36,14 +30,17 @@ export default function Footer() {
                <div className="space-y-3 pt-2">
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300">
-                    <Facebook size={20} />
+                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-facebook-f fa-lg"></i>
                   </a>
-                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300">
-                    <Instagram size={20} />
+                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-instagram fa-lg"></i>
                   </a>
-                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300">
-                    <TikTokIcon className="h-5 w-5" />
+                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-tiktok fa-lg"></i>
+                  </a>
+                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-github fa-lg"></i>
                   </a>
                 </div>
              </div>
