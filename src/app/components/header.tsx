@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X, ChevronDown, Search } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,28 +16,18 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
   const isOpen = openMenuLabel === link.label;
   const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
 
-  const handleInteraction = (label: string | null) => {
-    if (openMenuLabel === label) {
-      setOpenMenuLabel(null);
-    } else {
-      setOpenMenuLabel(label);
-    }
-  };
-
   if (link.children) {
     return (
       <div 
-        className="relative" 
-        onMouseEnter={() => setOpenMenuLabel(link.label)} 
-        onMouseLeave={() => setOpenMenuLabel(null)}
-        onClick={() => handleInteraction(link.label)}
+        className="relative"
       >
         <button
+          onClick={() => setOpenMenuLabel(isOpen ? null : link.label)}
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
             (isParentActive || isOpen)
                 ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
-                : 'text-foreground hover:bg-primary/10 hover:text-primary'
+                : 'text-foreground hover:bg-muted'
           )}
         >
           {link.label}
@@ -55,7 +45,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 p-2 text-card-foreground bg-card rounded-2xl border shadow-2xl"
+                className="w-80 p-2 text-card-foreground bg-card rounded-2xl border shadow-2xl backdrop-blur-md bg-white/80 dark:bg-slate-900/80"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -66,14 +56,14 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
                           href={child.href}
                           className={cn(
                             "group/navlink block rounded-xl p-3 transition-colors",
-                            isActive ? "bg-primary text-primary-foreground" : "hover:bg-primary/10"
+                            isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted"
                           )}
                           onClick={() => setOpenMenuLabel(null)}
                         >
                           <div className="flex items-center gap-3">
                             <div className={cn(
                               'flex-shrink-0 rounded-lg p-2 transition-colors duration-200',
-                               isActive ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground'
+                               isActive ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary group-hover/navlink:bg-accent'
                             )}>
                               <child.icon className="w-5 h-5" />
                             </div>
@@ -103,7 +93,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
          isActive 
             ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
-            : 'text-foreground hover:bg-primary/10 hover:text-primary'
+            : 'text-foreground hover:bg-muted'
       )}
     >
       {link.label}
@@ -179,17 +169,29 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   
   const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
 
 
   const activeParentOnLoad = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
   const [openAccordion, setOpenAccordion] = useState<string | null>(activeParentOnLoad?.label || null);
+  
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+        router.push(`/search?q=${searchQuery.trim()}`);
+        setSearchQuery('');
+        setIsSearchOpen(false);
+        setMobileMenuOpen(false);
+    }
+  };
 
   useEffect(() => {
     if (isSearchOpen) {
@@ -303,7 +305,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-card"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-card/80 backdrop-blur-2xl"
               onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-6 pb-4 border-b">
@@ -319,10 +321,17 @@ export default function Header() {
                   </div>
                 </div>
 
-                 <div className="relative mb-4">
-                    <Input placeholder="Search..." className="pl-10 bg-muted" />
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                </div>
+                 <form onSubmit={handleSearchSubmit} className="relative mb-4">
+                    <Input
+                      placeholder="Search..."
+                      className="pl-10 bg-muted"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button type="submit" className="absolute left-0 top-0 h-full px-3 text-muted-foreground">
+                      <Search className="h-5 w-5" />
+                    </button>
+                </form>
 
                 <nav className="flex-1 flex flex-col gap-1 overflow-y-auto pr-2 -mr-2">
                   {NAV_LINKS.map(link => (
@@ -357,7 +366,8 @@ export default function Header() {
             className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 pt-[15vh]"
             onClick={() => setIsSearchOpen(false)}
           >
-            <motion.div
+            <motion.form
+              onSubmit={handleSearchSubmit}
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -50, opacity: 0 }}
@@ -369,11 +379,13 @@ export default function Header() {
                 ref={searchInputRef}
                 placeholder="Search the site..."
                 className="w-full h-14 rounded-full pl-6 pr-14 text-lg border-2 border-primary/50 bg-background/80"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <div className="absolute top-0 right-0 h-14 w-14 flex items-center justify-center">
-                  <Search className="text-muted-foreground" />
-              </div>
-            </motion.div>
+              <button type="submit" className="absolute top-0 right-0 h-14 w-14 flex items-center justify-center text-muted-foreground">
+                  <Search />
+              </button>
+            </motion.form>
           </motion.div>
         )}
       </AnimatePresence>
