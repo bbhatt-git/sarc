@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -110,28 +109,26 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
   if (!link.children) {
     const isActive = pathname === link.href;
     return (
-        <div className="relative">
-             <Link href={link.href} onClick={closeMenu} className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-semibold transition-colors",
-                isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
-            )}>
-                {link.label}
-            </Link>
-            {isActive && <div className="absolute left-0 top-1 bottom-1 w-1 bg-primary rounded-r-full"></div>}
-        </div>
+      <Link href={link.href} onClick={closeMenu} className={cn(
+          "flex items-center gap-3 rounded-lg px-3 py-2 text-base font-semibold transition-colors",
+          isActive 
+              ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
+              : "text-foreground hover:bg-muted"
+      )}>
+          {link.label}
+      </Link>
     );
   }
 
   return (
-    <div className="relative">
+    <div className="space-y-1">
       <button onClick={() => setOpenAccordion(isOpen ? null : link.label)} className={cn(
-          "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-muted",
-          isParentActive && !isOpen && "bg-muted"
+          "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-base font-semibold text-foreground transition-colors hover:bg-muted",
+          isParentActive && !isOpen && "bg-emerald-100/60 dark:bg-emerald-900/30"
       )}>
         <span>{link.label}</span>
         <ChevronDown className={cn("h-5 w-5 transition-transform", isOpen && "rotate-180")} />
       </button>
-      {isParentActive && !isOpen && <div className="absolute left-0 top-1 bottom-1 w-1 bg-primary rounded-r-full"></div>}
 
       <AnimatePresence>
         {isOpen && (
@@ -140,7 +137,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="pl-4 mt-1"
+            className="pl-4"
           >
             <div className="flex flex-col gap-1 border-l-2 border-border/50 pl-4 py-1">
               {link.children.map((child: any) => {
@@ -148,15 +145,17 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
                 return (
                   <Link key={child.label} href={child.href} onClick={closeMenu} className={cn(
                     "group flex items-center gap-3 rounded-md p-2 transition-colors",
-                    isChildActive ? "text-primary font-medium" : "text-muted-foreground hover:text-foreground"
+                    isChildActive 
+                        ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}>
                     <div className={cn(
                       "flex-shrink-0 rounded-md p-1.5 transition-colors duration-200",
-                      isChildActive ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+                      isChildActive ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
                     )}>
                        <child.icon className="w-4 h-4" />
                     </div>
-                    <span className="text-sm">{child.label}</span>
+                    <span className="text-sm font-medium">{child.label}</span>
                   </Link>
                 )
               })}
@@ -173,16 +172,38 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   
+  const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   const activeParentOnLoad = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
   const [openAccordion, setOpenAccordion] = useState<string | null>(activeParentOnLoad?.label || null);
 
   useEffect(() => {
+    const handleMouseEnter = (label: string) => setOpenMenuLabel(label);
+    const handleMouseLeave = () => setOpenMenuLabel(null);
+
+    const navItems = document.querySelectorAll('[data-menu-label]');
+    navItems.forEach(item => {
+      const label = item.getAttribute('data-menu-label');
+      if (label) {
+        item.addEventListener('mouseenter', () => handleMouseEnter(label));
+        item.addEventListener('mouseleave', handleMouseLeave);
+      }
+    });
+
+    return () => {
+      navItems.forEach(item => {
+        const label = item.getAttribute('data-menu-label');
+        if (label) {
+          item.removeEventListener('mouseenter', () => handleMouseEnter(label));
+          item.removeEventListener('mouseleave', handleMouseLeave);
+        }
+      });
+    };
+  }, []);
+
+  useEffect(() => {
     const activeParent = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
-    if (activeParent) {
-      setOpenAccordion(activeParent.label);
-    }
+    setOpenAccordion(activeParent ? activeParent.label : null);
   }, [pathname]);
 
   useEffect(() => {
@@ -224,7 +245,7 @@ export default function Header() {
         <nav className={cn(
             "flex items-center justify-between transition-all duration-500 ease-heavy-out",
             hasScrolled
-                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/10 dark:bg-slate-900/10 backdrop-blur-2xl'
+                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl'
                 : 'w-full rounded-none bg-transparent px-4 md:px-6 py-3'
         )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
@@ -303,7 +324,7 @@ export default function Header() {
                   </Button>
                 </div>
               </div>
-              <nav className="flex-1 flex flex-col gap-1 overflow-y-auto">
+              <nav className="flex-1 flex flex-col gap-2 overflow-y-auto px-1">
                 {NAV_LINKS.map(link => (
                   <MobileNavItem 
                     key={link.label} 
