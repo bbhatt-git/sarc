@@ -13,16 +13,15 @@ import { ThemeToggle } from './theme-toggle';
 
 const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMenuLabel }: { link: (typeof NAV_LINKS)[number], pathname: string, hasScrolled: boolean, openMenuLabel: string | null, setOpenMenuLabel: (label: string | null) => void }) => {
   const isOpen = openMenuLabel === link.label;
+  const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
 
   if (link.children) {
-    const isChildActive = link.children.some(child => pathname.startsWith(child.href));
-
     return (
       <div className="relative" onMouseEnter={() => setOpenMenuLabel(link.label)} onMouseLeave={() => setOpenMenuLabel(null)}>
         <button
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
-            isChildActive 
+            (isParentActive || isOpen)
                 ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
                 : hasScrolled 
                     ? 'text-foreground hover:bg-primary/10 hover:text-primary'
@@ -102,6 +101,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
   );
 };
 
+
 const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccordion }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, pathname: string, openAccordion: string | null, setOpenAccordion: (label: string | null) => void }) => {
   const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
   const isOpen = openAccordion === link.label;
@@ -110,7 +110,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
     const isActive = pathname === link.href;
     return (
       <Link href={link.href} onClick={closeMenu} className={cn(
-          "flex items-center gap-3 rounded-lg px-3 py-2 text-base font-semibold transition-colors",
+          "flex items-center gap-4 rounded-lg px-3 py-2.5 text-base font-semibold transition-colors",
           isActive 
               ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
               : "text-foreground hover:bg-muted"
@@ -123,7 +123,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
   return (
     <div className="space-y-1">
       <button onClick={() => setOpenAccordion(isOpen ? null : link.label)} className={cn(
-          "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-base font-semibold text-foreground transition-colors hover:bg-muted",
+          "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-muted",
           isParentActive && !isOpen && "bg-emerald-100/60 dark:bg-emerald-900/30"
       )}>
         <span>{link.label}</span>
@@ -173,13 +173,18 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   
-  const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   const activeParentOnLoad = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
+  const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<string | null>(activeParentOnLoad?.label || null);
 
+
   useEffect(() => {
-    const handleMouseEnter = (label: string) => setOpenMenuLabel(label);
-    const handleMouseLeave = () => setOpenMenuLabel(null);
+    const handleMouseEnter = (label: string) => {
+      setOpenMenuLabel(label);
+    };
+    const handleMouseLeave = () => {
+      setOpenMenuLabel(null);
+    };
 
     const navItems = document.querySelectorAll('[data-menu-label]');
     navItems.forEach(item => {
@@ -199,12 +204,13 @@ export default function Header() {
         }
       });
     };
-  }, []);
-
+  }, [openMenuLabel]);
+  
   useEffect(() => {
+    if (mobileMenuOpen) return;
     const activeParent = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
     setOpenAccordion(activeParent ? activeParent.label : null);
-  }, [pathname]);
+  }, [pathname, mobileMenuOpen]);
 
   useEffect(() => {
     setMounted(true);
@@ -312,10 +318,10 @@ export default function Header() {
               className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-4 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center mb-8 px-2">
+              <div className="flex justify-between items-center mb-6">
                 <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
                   <Image src="/images/sarc.png" alt="SARC Logo" width={32} height={32} />
-                  <span className="font-bold text-lg text-foreground">SARC Foundation</span>
+                  <span className="font-bold text-lg text-foreground">SARC</span>
                 </Link>
                 <div className="flex items-center gap-1">
                   <ThemeToggle />
@@ -324,7 +330,7 @@ export default function Header() {
                   </Button>
                 </div>
               </div>
-              <nav className="flex-1 flex flex-col gap-2 overflow-y-auto px-1">
+              <nav className="flex-1 flex flex-col gap-1 overflow-y-auto">
                 {NAV_LINKS.map(link => (
                   <MobileNavItem 
                     key={link.label} 
