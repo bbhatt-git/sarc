@@ -80,19 +80,6 @@
   .testimonial-card {
     @apply relative bg-card/70 dark:bg-card/60 backdrop-blur-lg border border-border/70 rounded-2xl shadow-xl shadow-black/5 overflow-hidden;
   }
-
-  .glass-sidebar {
-    background: rgba( 255, 255, 255, 0.01);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    @apply border-l border-white/20;
-  }
-  
-  .dark .glass-sidebar {
-    background: rgba(15, 23, 42, 0.2); /* Adjusted for dark mode */
-    @apply border-l border-white/10;
-  }
 }
 
 @layer utilities {
