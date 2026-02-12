@@ -22,7 +22,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
         <button
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
-            isChildActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+            isChildActive ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-primary/10 hover:text-primary'
           )}
         >
           {link.label}
@@ -40,18 +40,18 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-64 rounded-2xl border bg-card p-2 text-card-foreground shadow-lg"
+                className="w-64 rounded-2xl border bg-card/70 backdrop-blur-lg p-2 text-card-foreground shadow-lg"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => (
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="group/navlink block rounded-xl p-3 transition-colors hover:bg-accent"
+                        className="group/navlink block rounded-xl p-3 transition-colors hover:bg-primary/10"
                         onClick={() => setIsOpen(false)}
                       >
                         <div className="flex items-center gap-3">
-                          <div className='flex-shrink-0 rounded-lg bg-accent p-2 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground'>
+                          <div className='flex-shrink-0 rounded-lg bg-primary/10 p-2 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground transition-colors duration-200'>
                             <child.icon className="w-5 h-5" />
                           </div>
                           <div>
@@ -77,7 +77,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
       href={link.href}
       className={cn(
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-        isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+        isActive ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-primary/10 hover:text-primary'
       )}
     >
       {link.label}
