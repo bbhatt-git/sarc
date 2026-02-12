@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -44,7 +45,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg border border-white/20 dark:border-white/10"
+                className="w-80 rounded-2xl bg-background/80 dark:bg-slate-900/80 backdrop-blur-xl p-2 text-card-foreground shadow-lg border border-border/20"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -111,7 +112,7 @@ const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)
     return (
       <Link href={link.href} onClick={closeMenu} className={cn(
         "flex items-center gap-4 rounded-lg p-3 text-base font-semibold transition-colors",
-        isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-primary/5"
+        isActive ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-primary/10"
       )}>
         {link.label}
       </Link>
@@ -120,7 +121,7 @@ const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)
 
   return (
     <div>
-      <button onClick={() => setIsOpen(!isOpen)} className="w-full flex items-center justify-between gap-4 rounded-lg p-3 text-base font-semibold text-foreground transition-colors hover:bg-primary/5">
+      <button onClick={() => setIsOpen(!isOpen)} className="w-full flex items-center justify-between gap-4 rounded-lg p-3 text-base font-semibold text-foreground transition-colors hover:bg-primary/10">
         <span>{link.label}</span>
         <ChevronDown className={cn("h-5 w-5 transition-transform", isOpen && "rotate-180")} />
       </button>
@@ -131,9 +132,9 @@ const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="pl-4 mt-1"
+            className="pl-4 mt-2"
           >
-            <div className="flex flex-col gap-1 border-l-2 border-border/50 pl-5">
+            <div className="flex flex-col gap-1 border-l-2 border-border/50 pl-5 py-1">
               {link.children.map((child: any) => {
                 const isChildActive = pathname.startsWith(child.href);
                 return (
@@ -261,7 +262,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl p-6 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-6 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-10">
@@ -276,7 +277,7 @@ export default function Header() {
                   </Button>
                 </div>
               </div>
-              <nav className="flex-1 flex flex-col gap-2 overflow-y-auto">
+              <nav className="flex-1 flex flex-col gap-4 overflow-y-auto">
                 {NAV_LINKS.map(link => (
                   <MobileNavItem 
                     key={link.label} 
@@ -298,3 +299,5 @@ export default function Header() {
     </>
   );
 }
+
+    
