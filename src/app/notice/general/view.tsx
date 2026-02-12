@@ -1,6 +1,5 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
-import { motion } from 'framer-motion';
 import { Bell, FileText, Calendar } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import {
@@ -52,11 +51,7 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                             const IconComponent = iconMap[notice.icon] || iconMap.Default;
                             
                             const noticeCard = (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    viewport={{ once: true, amount: 0.3 }}
+                                <div
                                     className="testimonial-card p-6 w-full text-left"
                                 >
                                     <div className="flex items-start gap-5">
@@ -69,7 +64,7 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                                             <p className="text-muted-foreground mt-3">{notice.summary}</p>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </div>
                             );
 
                             if (!notice.details) {

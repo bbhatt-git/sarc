@@ -2,7 +2,6 @@
 'use client';
 import { STAFF_MEMBERS } from '@/lib/constants';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import PageHeader from '@/app/components/page-header';
 import SectionTitle from '@/app/components/section-title';
 import { Facebook, Linkedin, Award, Users, Bot, Briefcase, HeartHandshake, CheckCircle, Instagram } from 'lucide-react';
@@ -75,13 +74,6 @@ const StaffCard = ({ staff }: { staff: StaffMember }) => {
 };
 
 export default function StaffsView() {
-    const fadeIn = {
-        initial: { opacity: 0, y: 30 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.7, ease: 'easeOut' },
-        viewport: { once: true, amount: 0.2 }
-    };
-
     const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Managing Director', 'Program Coordinator', 'Academic Coordinator'].includes(s.role));
     const support = STAFF_MEMBERS.filter(s => ['Accountant', 'Receptionist', 'Support Staff'].includes(s.role));
     
@@ -95,7 +87,7 @@ export default function StaffsView() {
             <div className="container mx-auto px-4 py-20 space-y-24">
                 
                 {/* Departments Section */}
-                 <motion.section {...fadeIn}>
+                 <section>
                     <SectionTitle title="Our Departments" subtitle="Specialized teams working together for student excellence" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
                         {departments.map((dept, index) => (
@@ -109,10 +101,10 @@ export default function StaffsView() {
                             </Card>
                         ))}
                     </div>
-                </motion.section>
+                </section>
 
                 {/* Team Qualities Section */}
-                <motion.section {...fadeIn} className="max-w-4xl mx-auto">
+                <section className="max-w-4xl mx-auto">
                     <SectionTitle title="What Sets Our Team Apart" subtitle="Excellence in education through qualified and passionate professionals" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
                         {teamQualities.map((quality, index) => (
@@ -122,40 +114,40 @@ export default function StaffsView() {
                             </div>
                         ))}
                     </div>
-                </motion.section>
+                </section>
 
                 {/* Administrative Leadership Section */}
-                <motion.section {...fadeIn}>
+                <section>
                     <SectionTitle title="Administrative Leadership" subtitle="Experienced leaders guiding SARC's vision and operations" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         {leadership.map((staff) => (
                             <StaffCard key={staff.id} staff={staff} />
                         ))}
                     </div>
-                </motion.section>
+                </section>
 
                 {/* Teaching Faculty Section */}
-                <motion.section {...fadeIn}>
+                <section>
                     <SectionTitle title="Teaching Faculty" subtitle="Dedicated educators shaping young minds" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         {faculty.map((staff) => (
                             <StaffCard key={staff.id} staff={staff} />
                         ))}
                     </div>
-                </motion.section>
+                </section>
                 
                 {/* Support Team Section */}
-                <motion.section {...fadeIn}>
+                <section>
                     <SectionTitle title="Support Team" subtitle="Essential staff ensuring smooth operations and student welfare" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         {support.map((staff) => (
                             <StaffCard key={staff.id} staff={staff} />
                         ))}
                     </div>
-                </motion.section>
+                </section>
                 
                  {/* Staff Achievements Section */}
-                <motion.section {...fadeIn}>
+                <section>
                     <SectionTitle title="Staff Achievements" subtitle="Our Commitment to Excellence" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
                         {staffAchievements.map((ach, index) => (
@@ -170,10 +162,10 @@ export default function StaffsView() {
                             </Card>
                         ))}
                     </div>
-                </motion.section>
+                </section>
 
                  {/* Join Our Team CTA */}
-                <motion.section {...fadeIn}>
+                <section>
                     <Card className="testimonial-card bg-gradient-to-r from-emerald-600 to-sky-600 p-8 text-center text-primary-foreground">
                         <h2 className="text-3xl font-bold">Join Our Team</h2>
                         <p className="mt-2 max-w-2xl mx-auto opacity-90">
@@ -183,7 +175,7 @@ export default function StaffsView() {
                             <Link href="/contact">Career Opportunities</Link>
                         </Button>
                     </Card>
-                </motion.section>
+                </section>
 
             </div>
         </div>

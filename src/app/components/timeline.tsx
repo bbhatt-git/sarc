@@ -35,12 +35,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     <div className="w-full" ref={containerRef}>
       <div ref={ref} className="relative max-w-3xl mx-auto py-8">
         {data.map((item, index) => (
-          <motion.div
+          <div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
             className="flex justify-start pt-10 md:pt-20 md:gap-10"
           >
             <div className="sticky flex-col md:flex-row z-10 items-center top-40 self-start hidden md:flex md:w-40 relative">
@@ -61,7 +57,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               </h3>
               {item.content}
             </div>
-          </motion.div>
+          </div>
         ))}
         <div
           style={{

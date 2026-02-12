@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Autoplay from "embla-carousel-autoplay"
 import dynamic from 'next/dynamic';
@@ -59,22 +58,13 @@ const TestimonialCard = ({
 
 
 export default function HomeView() {
-  const fadeIn = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, ease: 'easeOut' },
-    viewport: { once: true, amount: 0.2 }
-  };
   
   const testimonialsRow1 = [...TESTIMONIALS, ...TESTIMONIALS];
   const testimonialsRow2 = [...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3), ...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3)];
   const testimonialsRow3 = [...[...TESTIMONIALS].reverse(), ...[...TESTIMONIALS].reverse()];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+    <div
       className="flex flex-col items-center"
     >
       {/* Hero Section */}
@@ -111,11 +101,7 @@ export default function HomeView() {
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/20 to-black/60 z-10" />
 
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <div>
             <div className="mb-4 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 inline-block">
               <p className="text-sm font-medium text-slate-200">Your Partner For Education</p>
             </div>
@@ -133,7 +119,7 @@ export default function HomeView() {
                 <Link href="/admissions">Apply Now</Link>
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -142,16 +128,14 @@ export default function HomeView() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {STATS.map((stat, index) => (
-              <motion.div
+              <div
                 key={stat.label}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.1 }}
                 className="testimonial-card p-8"
               >
                 <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
                 <p className="relative text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
                 <p className="relative text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -161,7 +145,7 @@ export default function HomeView() {
        <section className="w-full py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div {...fadeIn}>
+            <div>
               <SectionTitle title="A Legacy of Educational Excellence" subtitle="WELCOME TO SARC" align='left' />
               <p className="mt-6 text-muted-foreground leading-relaxed">
                 Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
@@ -169,8 +153,8 @@ export default function HomeView() {
               <Button asChild size="lg" className='rounded-full bg-emerald-600 hover:bg-emerald-700 text-white mt-8'>
                 <Link href="/about/us">Learn More <ArrowRight className="ml-2" /></Link>
               </Button>
-            </motion.div>
-            <motion.div {...fadeIn} className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg group">
+            </div>
+            <div className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg group">
                 <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
                 <Image
                     src="/images/hero/3.jpg"
@@ -178,7 +162,7 @@ export default function HomeView() {
                     fill
                     className="object-cover relative rounded-[11px]"
                 />
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -187,7 +171,7 @@ export default function HomeView() {
       <section className="w-full py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.2 }}>
+            <div>
                 <div className="inline-flex items-center gap-2 rounded-full bg-sky-100 dark:bg-sky-900/50 px-4 py-2 border border-sky-200/50 dark:border-sky-800/50 mb-6">
                     <Sparkles className="w-5 h-5 text-sky-500" />
                     <p className="font-semibold text-sm text-sky-600 dark:text-sky-400">SARC AI</p>
@@ -202,8 +186,8 @@ export default function HomeView() {
                 <Button asChild size="lg" className="rounded-full bg-sky-500 hover:bg-sky-600 text-white mt-8 shadow-lg shadow-sky-500/20 transition-transform hover:scale-105">
                     <Link href="#">Get Started</Link>
                 </Button>
-            </motion.div>
-            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.4 }} className="relative w-full h-[450px]">
+            </div>
+            <div className="relative w-full h-[450px]">
                 <div className="testimonial-card h-full flex items-center justify-center bg-slate-100/50 dark:bg-slate-900/50 overflow-hidden">
                     <div className="relative w-full h-full">
                         <CssRobot />
@@ -216,7 +200,7 @@ export default function HomeView() {
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -227,10 +211,8 @@ export default function HomeView() {
           <SectionTitle title="Why Choose SARC?" subtitle="OUR COMMITMENT" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
             {WHY_US_ITEMS.map((item, index) => (
-              <motion.div
+              <div
                 key={item.title}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
                 <div className="testimonial-card text-center h-full p-8">
                    <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
@@ -240,7 +222,7 @@ export default function HomeView() {
                   <h3 className="relative text-xl font-bold text-foreground">{item.title}</h3>
                   <p className="relative text-muted-foreground mt-2 text-sm">{item.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -273,20 +255,20 @@ export default function HomeView() {
       <section className="w-full mt-20">
          <div className="bg-emerald-600">
             <div className="container mx-auto px-4 py-20 text-center text-white">
-                <motion.h2 {...fadeIn} className="text-3xl lg:text-4xl font-bold tracking-tight text-shadow">
+                <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-shadow">
                     Shape Your Future With Us
-                </motion.h2>
-                <motion.p {...fadeIn} transition={{...fadeIn.transition, delay: 0.1}} className="mx-auto max-w-2xl md:text-lg mt-4 text-emerald-100">
+                </h2>
+                <p className="mx-auto max-w-2xl md:text-lg mt-4 text-emerald-100">
                     Join a community dedicated to excellence. Apply for admission and start your journey at SARC today.
-                </motion.p>
-                <motion.div {...fadeIn} transition={{...fadeIn.transition, delay: 0.2}}>
+                </p>
+                <div>
                     <Button asChild size="lg" className="mt-10 bg-white text-slate-800 hover:bg-slate-200 hover:scale-105 transition-all duration-300 rounded-full font-semibold">
                         <Link href="/admissions">Apply Now <ArrowRight className="ml-2" /></Link>
                     </Button>
-                </motion.div>
+                </div>
             </div>
          </div>
       </section>
-    </motion.div>
+    </div>
   );
 }

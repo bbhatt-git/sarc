@@ -1,7 +1,6 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
 import SectionTitle from '@/app/components/section-title';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -152,12 +151,6 @@ const topStudents = [
 ];
 
 export default function AchievementsView() {
-    const fadeIn = {
-        initial: { opacity: 0, y: 30 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.7, ease: 'easeOut' },
-        viewport: { once: true, amount: 0.2 }
-    };
     
   return (
     <div>
@@ -171,15 +164,13 @@ export default function AchievementsView() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
             {stats.map((stat, index) => (
-              <motion.div
+              <div
                 key={stat.label}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.1 }}
                 className="testimonial-card p-8"
               >
                 <p className="text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
                 <p className="text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -191,10 +182,8 @@ export default function AchievementsView() {
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Our commitment to excellence has been recognized at national and international levels.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
             {awards.map((award, index) => (
-              <motion.div
+              <div
                 key={award.title}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.1 }}
                 className="testimonial-card p-6 text-center h-full"
               >
                 <div className="inline-block bg-sky-100 dark:bg-sky-900/50 p-4 rounded-full mb-4">
@@ -204,7 +193,7 @@ export default function AchievementsView() {
                 <h3 className="text-lg font-bold text-foreground mt-2">{award.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2">{award.description}</p>
                 <p className="text-xs font-semibold text-primary mt-4 uppercase tracking-wider bg-primary/10 px-2 py-1 rounded-full inline-block">{award.category}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -216,10 +205,8 @@ export default function AchievementsView() {
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Meet our successful alumni who are making a difference in the world.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
             {alumni.map((person, index) => (
-              <motion.div
+              <div
                 key={person.name}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.15 }}
                 className="testimonial-card overflow-hidden p-0 h-full flex flex-col"
               >
                 <div className="relative h-48">
@@ -274,12 +261,12 @@ export default function AchievementsView() {
                         <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-emerald-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
                     </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-          <motion.div {...fadeIn} className="text-center mt-12">
+          <div className="text-center mt-12">
             <Button variant="outline" size="lg" className="rounded-full">View All Alumni Stories</Button>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -289,10 +276,8 @@ export default function AchievementsView() {
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Celebrating our current students who are excelling in academics and beyond.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
             {topStudents.map((student, index) => (
-              <motion.div
+              <div
                 key={student.name}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.15 }}
                 className="testimonial-card overflow-hidden p-0"
               >
                 <div className="relative h-48">
@@ -333,18 +318,18 @@ export default function AchievementsView() {
                         <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-emerald-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
                     </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-          <motion.div {...fadeIn} className="text-center mt-12">
+          <div className="text-center mt-12">
             <Button variant="outline" size="lg" className="rounded-full">Meet More Students</Button>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       <section className="py-20 w-full">
         <div className="container mx-auto">
-          <motion.div {...fadeIn} className="bg-emerald-600 text-white rounded-2xl p-12 text-center">
+          <div className="bg-emerald-600 text-white rounded-2xl p-12 text-center">
             <h2 className="text-3xl font-bold">Join Our Success Story</h2>
             <p className="mt-4 max-w-xl mx-auto">Be part of the next generation of innovators, leaders, and changemakers.</p>
             <div className="mt-8 flex justify-center gap-4">
@@ -355,7 +340,7 @@ export default function AchievementsView() {
                 <Link href="/about/us">Learn More</Link>
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

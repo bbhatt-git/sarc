@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
 
 interface SectionTitleProps {
     title: string;
@@ -9,16 +8,8 @@ interface SectionTitleProps {
 }
 
 export default function SectionTitle({ title, subtitle, align = 'center', className }: SectionTitleProps) {
-    const variants = {
-        initial: { y: 20, opacity: 0 },
-        whileInView: { y: 0, opacity: 1 },
-        transition: { duration: 0.6, ease: 'easeOut' },
-        viewport: { once: true, amount: 0.3 }
-    };
-    
     return (
-        <motion.div 
-            {...variants}
+        <div 
             className={cn(
                 'flex flex-col gap-3', 
                 align === 'center' ? 'items-center text-center' : 'items-start text-left',
@@ -29,6 +20,6 @@ export default function SectionTitle({ title, subtitle, align = 'center', classN
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
                 {title}
             </h2>
-        </motion.div>
+        </div>
     );
 }

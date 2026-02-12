@@ -1,6 +1,5 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
-import { motion } from 'framer-motion';
 import { CalendarDays, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -30,12 +29,8 @@ export default function HolidayNoticeView({ initialHolidays }: HolidayNoticeView
                         {initialHolidays && initialHolidays.length > 0 ? (
                             <div className="space-y-6">
                                 {initialHolidays.map((holiday, index) => (
-                                    <motion.div
+                                    <div
                                         key={index}
-                                        initial={{ opacity: 0, x: -50 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.5, delay: index * 0.15 }}
-                                        viewport={{ once: true, amount: 0.5 }}
                                         className="flex items-start gap-4 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border"
                                     >
                                         <div className="bg-rose-100 p-3 rounded-full">
@@ -46,7 +41,7 @@ export default function HolidayNoticeView({ initialHolidays }: HolidayNoticeView
                                             <p className="font-semibold text-rose-600">{holiday.date}</p>
                                             <p className="text-sm text-muted-foreground mt-1">{holiday.details}</p>
                                         </div>
-                                    </motion.div>
+                                    </div>
                                 ))}
                             </div>
                         ) : (

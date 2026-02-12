@@ -1,6 +1,5 @@
 'use client';
 import { WHY_US_ITEMS } from '@/lib/constants';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Check } from 'lucide-react';
 import PageHeader from '@/app/components/page-header';
@@ -14,19 +13,11 @@ const missionItems = [
 ];
 
 export default function AboutView() {
-    const fadeIn = {
-        initial: { opacity: 0, y: 30 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.7, ease: 'easeOut' },
-        viewport: { once: true, amount: 0.2 }
-    };
-
     return (
         <div>
             <PageHeader title="About Us" subtitle="Our Story, Vision, and Commitment" imageUrl="/images/hero/4.jpg" />
             
-            <motion.section 
-                {...fadeIn}
+            <section 
                 className="container mx-auto px-4 py-20"
             >
                 <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -48,10 +39,9 @@ export default function AboutView() {
                         />
                     </div>
                 </div>
-            </motion.section>
+            </section>
 
-            <motion.section 
-                {...fadeIn}
+            <section 
                 className="container mx-auto px-4"
             >
                 <div className="bg-card/50 backdrop-blur-sm border p-12 text-center relative overflow-hidden rounded-2xl">
@@ -60,29 +50,25 @@ export default function AboutView() {
                         To be a leading institution in Nepal that sets benchmarks in academic excellence, research, and technological innovation. We aim to develop globally competent students and bridge the gap between academia and industry.
                     </p>
                 </div>
-            </motion.section>
+            </section>
 
-            <motion.section 
-                 {...fadeIn}
+            <section 
                 className="container mx-auto px-4 mt-24"
             >
                 <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Mission</h2>
                 <div className="grid md:grid-cols-2 gap-8">
                    {missionItems.map((item, index) => (
-                       <motion.div 
+                       <div 
                         key={index} 
-                        {...fadeIn}
-                        transition={{...fadeIn.transition, delay: index * 0.1}}
                         className={`bg-card/50 backdrop-blur-sm flex items-start gap-4 p-6 border-l-4 ${item.color}`}>
                            <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
                            <p className="text-foreground text-lg">{item.text}</p>
-                       </motion.div>
+                       </div>
                    ))}
                 </div>
-            </motion.section>
+            </section>
 
-            <motion.section 
-                {...fadeIn}
+            <section 
                 className="container mx-auto px-4 py-24"
             >
                 <SectionTitle title="Why Choose SARC?" subtitle="Our Unique Features" />
@@ -97,7 +83,7 @@ export default function AboutView() {
                         </div>
                     ))}
                 </div>
-            </motion.section>
+            </section>
         </div>
     )
 }

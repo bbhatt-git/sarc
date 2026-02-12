@@ -1,5 +1,4 @@
 'use client';
-import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
 import PageHeader from '@/app/components/page-header';
 import { FileText, ClipboardCheck, Download, Search, Loader2, UserX, CheckCircle, XCircle } from 'lucide-react';
@@ -28,10 +27,7 @@ const ResultDisplay = ({ result }: { result: Result }) => {
     const isPass = result.Remarks === 'Pass';
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+        <div
             className="mt-8"
         >
             <div className={cn(
@@ -84,7 +80,7 @@ const ResultDisplay = ({ result }: { result: Result }) => {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 };
 
@@ -127,11 +123,7 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
             <PageHeader title="Exams & Results" subtitle="Schedules and Outcomes" imageUrl="/images/hero/3.jpg" />
             <div className="container mx-auto px-4 py-20 max-w-5xl">
                 {/* Results Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-                    viewport={{ once: true, amount: 0.3 }}
+                <div
                     className="mb-16"
                 >
                     <Card className="testimonial-card p-6 md:p-8 bg-card/70 backdrop-blur-xl">
@@ -189,25 +181,16 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
 
                         </CardContent>
                     </Card>
-                </motion.div>
+                </div>
 
                 {/* Notices Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                    viewport={{ once: true, amount: 0.3 }}
-                >
+                <div>
                     <h2 className="text-2xl font-bold text-foreground mb-6">Latest Examination Notices</h2>
                     {initialNotices && initialNotices.length > 0 ? (
                         <div className="space-y-4">
                             {initialNotices.map((notice, index) => (
-                                <motion.div
+                                <div
                                     key={index}
-                                    initial={{ opacity: 0, scale: 0.98, y: 20 }}
-                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                                    viewport={{ once: true, amount: 0.5 }}
                                     className="testimonial-card p-4"
                                 >
                                    <div className="flex items-center justify-between">
@@ -229,13 +212,13 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
                                          </Button>
                                      )}
                                    </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     ) : (
                         <p className="text-muted-foreground">No notices found.</p>
                     )}
-                </motion.div>
+                </div>
             </div>
         </div>
     );

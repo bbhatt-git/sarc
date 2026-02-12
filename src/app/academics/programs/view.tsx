@@ -1,6 +1,5 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
-import { motion } from 'framer-motion';
 import {
     FlaskConical, Briefcase, Check, Package, Bus, Cpu, Users, Presentation, Network, School, Book, BookCopy
 } from 'lucide-react';
@@ -63,13 +62,6 @@ const subjectGroups = {
     }
 };
 
-const fadeIn = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, ease: 'easeOut' },
-    viewport: { once: true, amount: 0.2 }
-};
-
 export default function ProgramsView() {
     return (
         <div>
@@ -77,7 +69,7 @@ export default function ProgramsView() {
             
             <div className="py-20 space-y-24">
                 {/* School Program Section */}
-                <motion.section {...fadeIn} className="container mx-auto px-4 max-w-5xl">
+                <section className="container mx-auto px-4 max-w-5xl">
                     <Card className="testimonial-card overflow-hidden">
                         <CardHeader className="bg-card/50 p-8">
                             <div className="flex items-center gap-4">
@@ -99,10 +91,10 @@ export default function ProgramsView() {
                             ))}
                         </CardContent>
                     </Card>
-                </motion.section>
+                </section>
 
                 {/* 10+2 Specializations Section */}
-                <motion.section {...fadeIn} className="container mx-auto px-4 max-w-6xl">
+                <section className="container mx-auto px-4 max-w-6xl">
                     <SectionTitle title="10+2 Specializations" subtitle="Choose Your Path" />
                     <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Choose your path and prepare for university and career success.</p>
                     <div className="grid md:grid-cols-2 gap-8 mt-12 items-stretch">
@@ -143,10 +135,10 @@ export default function ProgramsView() {
                             </Card>
                         ))}
                     </div>
-                </motion.section>
+                </section>
 
                 {/* Teaching Approach Section */}
-                <motion.section {...fadeIn} className="container mx-auto px-4 max-w-6xl">
+                <section className="container mx-auto px-4 max-w-6xl">
                     <SectionTitle title="Our Teaching Approach" subtitle="Learning for the 21st Century" />
                      <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Learning methods designed for the 21st century and beyond.</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
@@ -160,10 +152,10 @@ export default function ProgramsView() {
                             </div>
                         ))}
                     </div>
-                </motion.section>
+                </section>
 
                 {/* Subject Groups Section */}
-                <motion.section {...fadeIn} className="container mx-auto px-4 max-w-5xl">
+                <section className="container mx-auto px-4 max-w-5xl">
                     <SectionTitle title="+2 Subject Groups" subtitle="Official Combinations" />
                      <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Official combinations for Science and Management (Grade XI/XII).</p>
                     <Tabs defaultValue="science" className="w-full mt-12">
@@ -178,7 +170,7 @@ export default function ProgramsView() {
                             <SubjectGroupTable group={subjectGroups.management} />
                         </TabsContent>
                     </Tabs>
-                </motion.section>
+                </section>
             </div>
         </div>
     );

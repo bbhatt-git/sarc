@@ -1,6 +1,5 @@
 'use client';
 import { Check } from 'lucide-react';
-import { motion } from 'framer-motion';
 import PageHeader from '@/app/components/page-header';
 
 const futureGoals = [
@@ -20,20 +19,12 @@ const missionItems = [
 ];
 
 export default function VisionView() {
-    const fadeIn = {
-        initial: { opacity: 0, y: 30 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.7, ease: 'easeOut' },
-        viewport: { once: true, amount: 0.2 }
-    };
-    
     return (
         <div>
             <PageHeader title="Vision, Mission & Values" subtitle="The principles that guide us" imageUrl="/images/hero/0.jpg" />
             
             <div className="py-20">
-                <motion.section 
-                    {...fadeIn}
+                <section 
                     className="container mx-auto px-4"
                 >
                     <div className="bg-card/50 backdrop-blur-sm shadow-lg rounded-2xl p-12 text-center relative overflow-hidden">
@@ -42,45 +33,39 @@ export default function VisionView() {
                             To become a leading institution in Nepal that sets benchmarks in academic excellence, research, and technological innovation. We aim to develop globally competent students equipped with 21st-century skills and to bridge the gap between academia and industry.
                         </p>
                     </div>
-                </motion.section>
+                </section>
 
-                <motion.section 
-                     {...fadeIn}
+                <section 
                     className="container mx-auto px-4 mt-24"
                 >
                     <h2 className="text-3xl font-bold text-foreground text-center mb-12">Our Mission</h2>
                     <div className="grid md:grid-cols-2 gap-8">
                        {missionItems.map((item, index) => (
-                           <motion.div 
+                           <div 
                             key={index} 
-                            {...fadeIn}
-                            transition={{...fadeIn.transition, delay: index * 0.1}}
                             className={`bg-card/50 backdrop-blur-sm shadow rounded-lg p-6 flex items-start gap-4 border-l-4 ${item.color} relative overflow-hidden`}>
                                <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
                                <p className="text-foreground text-lg">{item.text}</p>
-                           </motion.div>
+                           </div>
                        ))}
                     </div>
-                </motion.section>
+                </section>
 
-                <motion.section 
-                     {...fadeIn}
+                <section 
                     className="container mx-auto px-4 mt-24"
                 >
                     <h2 className="text-3xl font-bold text-foreground text-center mb-12">Future Goals</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {futureGoals.map((goal, index) => (
-                            <motion.div 
+                            <div 
                                 key={index} 
-                                {...fadeIn}
-                                transition={{...fadeIn.transition, delay: index * 0.1}}
                                 className="flex items-center gap-3 bg-card/50 backdrop-blur-sm p-4 rounded-lg border border-border relative overflow-hidden">
                                 <Check className="w-5 h-5 text-emerald-500 shrink-0" />
                                 <p className="text-foreground">{goal}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
-                </motion.section>
+                </section>
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 
 export default function FounderView() {
@@ -17,12 +16,7 @@ export default function FounderView() {
                     <div className="grid md:grid-cols-5 gap-16 items-center max-w-6xl mx-auto">
                         
                         {/* Founder's Profile Card */}
-                        <motion.div 
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.7, delay: 0.2 }}
-                            className="md:col-span-2"
-                        >
+                        <div className="md:col-span-2">
                             <div className="testimonial-card p-6 text-center">
                                 <div className="relative w-48 h-48 mx-auto">
                                     <Image
@@ -40,15 +34,10 @@ export default function FounderView() {
                                     </p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Founder's Message */}
-                        <motion.div 
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.4 }}
-                            className="space-y-6 md:col-span-3"
-                        >
+                        <div className="space-y-6 md:col-span-3">
                             <h2 className="text-3xl font-bold text-foreground">A Message from the Founder</h2>
                             
                             <div className="relative bg-card/50 backdrop-blur-sm border-l-4 border-primary p-6 rounded-r-2xl shadow-lg">
@@ -67,7 +56,7 @@ export default function FounderView() {
                             <p className="text-muted-foreground text-lg leading-relaxed">
                                 Our philosophy is rooted in providing an environment that encourages curiosity, fosters critical thinking, and ignites a lifelong passion for learning. We believe in empowering our students to explore their potential, to challenge conventions, and to dare to dream big. At SARC, we are not just preparing students for exams; we are preparing them for life.
                             </p>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>

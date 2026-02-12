@@ -1,7 +1,6 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
 import SectionTitle from '@/app/components/section-title';
-import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { 
     Cpu, BrainCircuit, Leaf, CircuitBoard, 
@@ -59,13 +58,6 @@ const educationalTours = [
     }
 ];
 
-const fadeIn = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, ease: 'easeOut' },
-    viewport: { once: true, amount: 0.2 }
-};
-
 export default function InnovationView() {
     return (
         <div>
@@ -76,16 +68,12 @@ export default function InnovationView() {
             />
             
             <div className="py-20 space-y-24">
-                <motion.section {...fadeIn} className="container mx-auto px-4 max-w-6xl">
+                <section className="container mx-auto px-4 max-w-6xl">
                     <SectionTitle title="Hands-On Innovation Projects" subtitle="Real projects solving real problems — Learning by creating" />
                     <div className="grid md:grid-cols-2 gap-8 mt-16">
                         {innovationProjects.map((project, index) => (
-                            <motion.div
+                            <div
                                 key={project.title}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                viewport={{ once: true, amount: 0.3 }}
                                 className="testimonial-card p-8 flex items-start gap-6 h-full"
                             >
                                 <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
@@ -95,21 +83,17 @@ export default function InnovationView() {
                                     <h3 className="text-2xl font-bold text-foreground mb-2">{project.title}</h3>
                                     <p className="text-muted-foreground text-lg">{project.description}</p>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
-                </motion.section>
+                </section>
 
-                <motion.section {...fadeIn} className="container mx-auto px-4 max-w-6xl">
+                <section className="container mx-auto px-4 max-w-6xl">
                     <SectionTitle title="Educational Tours & Visits" subtitle="Learning extends beyond our campus — Exposure to real-world innovation" />
                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
                         {educationalTours.map((tour, index) => (
-                            <motion.div
+                            <div
                                 key={tour.title}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                viewport={{ once: true, amount: 0.3 }}
                                 className="testimonial-card p-6 flex flex-col items-center text-center gap-4 h-full"
                             >
                                 <div className="bg-sky-100 p-4 rounded-full border border-sky-200">
@@ -119,12 +103,12 @@ export default function InnovationView() {
                                     <h3 className="text-xl font-bold text-foreground mb-2">{tour.title}</h3>
                                     <p className="text-muted-foreground">{tour.description}</p>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
-                </motion.section>
+                </section>
                 
-                <motion.section {...fadeIn} className="container mx-auto px-4 max-w-4xl">
+                <section className="container mx-auto px-4 max-w-4xl">
                      <div className="bg-card/50 backdrop-blur-sm border p-12 text-center relative overflow-hidden rounded-2xl">
                         <h2 className="text-3xl font-bold text-foreground mb-4 relative">Building Tomorrow's Innovators</h2>
                         <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed relative">
@@ -134,7 +118,7 @@ export default function InnovationView() {
                            Through our partnerships with research institutions, industry leaders, and innovation hubs, we provide exposure that transforms curious students into confident creators ready to tackle global challenges.
                         </p>
                     </div>
-                </motion.section>
+                </section>
             </div>
         </div>
     );

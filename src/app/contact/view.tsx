@@ -14,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import PageHeader from '../components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { motion } from 'framer-motion';
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Name is too short"),
@@ -80,10 +79,7 @@ export default function ContactView() {
         <div>
             <PageHeader title="Contact Us" subtitle="Get In Touch With SARC" imageUrl="/images/hero/2.jpg" />
 
-            <motion.section 
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+            <section 
                 className="container mx-auto px-4 py-20"
             >
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -138,7 +134,7 @@ export default function ContactView() {
                         </div>
                     </div>
                 </div>
-            </motion.section>
+            </section>
         </div>
     );
 }

@@ -1,5 +1,4 @@
 'use client';
-import { motion } from 'framer-motion';
 import PageHeader from '@/app/components/page-header';
 import { FlaskConical, Briefcase, Leaf, Computer, BarChart, ShoppingCart } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
@@ -48,12 +47,8 @@ export default function FacultiesView() {
             <div className="container mx-auto px-4 py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
                     {faculties.map((faculty, index) => (
-                        <motion.div
+                        <div
                             key={faculty.name}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true, amount: 0.2 }}
                             className="h-full"
                         >
                             <Card className="testimonial-card h-full flex flex-col">
@@ -78,7 +73,7 @@ export default function FacultiesView() {
                                     ))}
                                 </CardContent>
                             </Card>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -1,6 +1,5 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
-import { motion } from 'framer-motion';
 import { Timeline } from '@/app/components/timeline';
 
 const milestones = [
@@ -29,14 +28,11 @@ export default function HistoryView() {
                 subtitle="Journey & Achievements" 
                 imageUrl="/images/hero/2.jpg" 
             />
-            <motion.section
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
+            <section
                 className="container mx-auto px-4 py-20"
             >
                 <Timeline data={timelineData} />
-            </motion.section>
+            </section>
         </div>
     );
 }
