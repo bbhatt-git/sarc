@@ -16,9 +16,9 @@ export default function Footer() {
     <footer className="mt-20 z-10">
       <div className="container mx-auto">
         <div className="bg-card/60 backdrop-blur-xl border-t border-border/50 rounded-t-3xl text-foreground p-8 md:p-12 shadow-2xl shadow-slate-500/10">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
             
-            {/* Column 1: About & Socials */}
+            {/* Column 1: About */}
             <div className="space-y-4">
               <Link href="/" className="flex items-center gap-3">
                 <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} />
@@ -27,23 +27,6 @@ export default function Footer() {
               <p className="text-sm text-muted-foreground pr-4">
                 Fostering a legacy of excellence and innovation in education since 2017.
               </p>
-               <div className="space-y-3 pt-2">
-                 <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
-                <div className="flex space-x-4">
-                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-facebook-f fa-lg"></i>
-                  </a>
-                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-instagram fa-lg"></i>
-                  </a>
-                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-tiktok fa-lg"></i>
-                  </a>
-                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-github fa-lg"></i>
-                  </a>
-                </div>
-             </div>
             </div>
 
             {/* Column 2: Quick Links */}
@@ -75,6 +58,25 @@ export default function Footer() {
                       <span className="text-muted-foreground">Bhimdatta-06, Kanchanpur</span>
                   </li>
                 </ul>
+             </div>
+             
+             {/* Column 4: Follow Us */}
+             <div className="space-y-4">
+                 <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
+                <div className="flex space-x-4">
+                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-facebook-f fa-lg"></i>
+                  </a>
+                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-instagram fa-lg"></i>
+                  </a>
+                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-tiktok fa-lg"></i>
+                  </a>
+                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <i className="fa-brands fa-github fa-lg"></i>
+                  </a>
+                </div>
              </div>
           </div>
 
