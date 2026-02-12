@@ -84,7 +84,7 @@ export const GALLERY_IMAGES = [
 export const STATS = [
     { number: '2017', label: 'Established' },
     { number: '5k+', label: 'Graduates' },
-    { number: '50+', label: 'Expert Faculty' },
+    { number: '10+', label: 'Expert Faculty' },
     { number: '12+', label: 'Programs' },
 ];
 
