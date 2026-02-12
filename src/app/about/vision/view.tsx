@@ -1,7 +1,6 @@
 'use client';
 import { Check } from 'lucide-react';
 import PageHeader from '@/app/components/page-header';
-import { imageData } from '@/lib/image-data';
 
 const futureGoals = [
     "Upgrade all labs with state-of-the-art equipment.",
@@ -22,7 +21,7 @@ const missionItems = [
 export default function VisionView() {
     return (
         <div>
-            <PageHeader title="Vision, Mission & Values" subtitle="The principles that guide us" imageUrl={imageData.hero[0].src} />
+            <PageHeader title="Vision, Mission & Values" subtitle="The principles that guide us" />
             
             <div className="py-20">
                 <section 

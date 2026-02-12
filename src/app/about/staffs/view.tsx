@@ -88,7 +88,7 @@ export default function StaffsView() {
 
     return (
         <div>
-            <PageHeader title="Our Dedicated Staff" subtitle="Meet Our Team" imageUrl={imageData.hero[3].src} />
+            <PageHeader title="Our Dedicated Staff" subtitle="Meet Our Team" />
             <div className="container mx-auto px-4 py-20 space-y-24">
                 
                 {/* Departments Section */}

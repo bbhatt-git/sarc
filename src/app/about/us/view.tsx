@@ -16,7 +16,7 @@ const missionItems = [
 export default function AboutView() {
     return (
         <div>
-            <PageHeader title="About Us" subtitle="Our Story, Vision, and Commitment" imageUrl={imageData.hero[4].src} />
+            <PageHeader title="About Us" subtitle="Our Story, Vision, and Commitment" />
             
             <section 
                 className="container mx-auto px-4 py-20"

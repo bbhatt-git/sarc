@@ -17,7 +17,6 @@ import PageHeader from '../components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { NATIONALITIES, NEPAL_PROVINCES, NEPAL_DISTRICTS, NEPALI_MONTHS, getNepaliYears, getDaysInMonth } from '@/lib/nepal-data';
-import { imageData } from '@/lib/image-data';
 
 
 const admissionSchema = z.object({
@@ -194,7 +193,7 @@ export default function AdmissionsView() {
 
     return (
         <div>
-            <PageHeader title="Admissions" subtitle="Begin Your Journey at SARC" imageUrl={imageData.hero[1].src} />
+            <PageHeader title="Admissions" subtitle="Begin Your Journey at SARC" />
             <div className="container mx-auto px-4 max-w-4xl py-20">
                 {!state.success ? (
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">

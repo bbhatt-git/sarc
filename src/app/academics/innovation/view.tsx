@@ -6,7 +6,6 @@ import {
     Cpu, BrainCircuit, Leaf, CircuitBoard, 
     FlaskConical, Rocket, Microscope, Building, Globe 
 } from 'lucide-react';
-import { imageData } from '@/lib/image-data';
 
 const innovationProjects = [
     {
@@ -65,7 +64,6 @@ export default function InnovationView() {
             <PageHeader 
                 title="Innovation & Practical Learning" 
                 subtitle="Where theory meets practice — Building tomorrow's solutions today" 
-                imageUrl={imageData.hero[1].src} 
             />
             
             <div className="py-20 space-y-24">

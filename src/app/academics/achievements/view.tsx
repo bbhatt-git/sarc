@@ -158,7 +158,6 @@ export default function AchievementsView() {
       <PageHeader 
         title="Our Achievements" 
         subtitle="Celebrating excellence, innovation, and the remarkable success of our students and alumni" 
-        imageUrl={imageData.hero[2].src} 
       />
 
       <section className="py-20">

@@ -10,7 +10,6 @@ export default function FounderView() {
             <PageHeader 
                 title="Our Founder" 
                 subtitle="The Visionary Behind SARC" 
-                imageUrl={imageData.hero[1].src} 
             />
             <section className="py-20">
                 <div className="container mx-auto px-4">

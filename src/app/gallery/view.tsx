@@ -12,7 +12,6 @@ export default function GalleryView() {
       <PageHeader
         title="Our Gallery"
         subtitle="Moments of Discovery and Community at SARC"
-        imageUrl={imageData.hero[4].src}
       />
       <div className="w-full py-20 lg:py-28">
          <ThreeDMarquee images={imagesForMarquee} />

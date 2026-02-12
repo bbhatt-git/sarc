@@ -6,7 +6,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SectionTitle from '@/app/components/section-title';
-import { imageData } from '@/lib/image-data';
 
 // Data for the page sections
 const schoolProgramFeatures = [
@@ -66,7 +65,7 @@ const subjectGroups = {
 export default function ProgramsView() {
     return (
         <div>
-            <PageHeader title="Academic Programs" subtitle="Pathways to Your Future" imageUrl={imageData.hero[4].src} />
+            <PageHeader title="Academic Programs" subtitle="Pathways to Your Future" />
             
             <div className="py-20 space-y-24">
                 {/* School Program Section */}

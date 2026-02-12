@@ -1,36 +1,22 @@
 'use client';
 
-import Image from 'next/image';
-
 interface PageHeaderProps {
     title: string;
     subtitle: string;
-    imageUrl: string;
 }
 
-export default function PageHeader({ title, subtitle, imageUrl }: PageHeaderProps) {
+export default function PageHeader({ title, subtitle }: PageHeaderProps) {
     return (
-        <section className="relative w-full h-80 text-white overflow-hidden">
-            <Image
-                src={imageUrl}
-                alt={title}
-                fill
-                className="object-cover"
-                priority
-            />
-            <div className="absolute inset-0 bg-black/60 z-10" />
-            <div
-                className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4"
-            >
-                <div
-                    className="mb-4 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20"
-                >
-                    <p className="text-sm font-medium text-slate-200">{subtitle}</p>
-                </div>
-                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-shadow-lg max-w-4xl">
+        <section className="bg-primary text-primary-foreground relative overflow-hidden py-20 text-center">
+            <div className="container relative z-10">
+                <p className="font-semibold uppercase tracking-wider text-primary-foreground/80">{subtitle}</p>
+                <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
                     {title}
                 </h1>
             </div>
+            {/* Decorative elements */}
+            <div className="absolute -bottom-1/3 -left-1/4 h-full w-2/3 rounded-full bg-white/5" />
+            <div className="absolute -top-1/2 -right-1/4 h-full w-1/2 rounded-full bg-white/5" />
         </section>
     );
 }

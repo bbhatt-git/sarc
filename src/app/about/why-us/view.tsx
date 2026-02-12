@@ -2,12 +2,11 @@
 'use client';
 import { WHY_US_ITEMS } from '@/lib/constants';
 import PageHeader from '@/app/components/page-header';
-import { imageData } from '@/lib/image-data';
 
 export default function WhyUsView() {
     return (
         <div>
-            <PageHeader title="Why Choose SARC?" subtitle="Our Commitment to Your Success" imageUrl={imageData.hero[1].src} />
+            <PageHeader title="Why Choose SARC?" subtitle="Our Commitment to Your Success" />
 
             <div className="container mx-auto px-4 py-20">
                 <div className="grid md:grid-cols-2 gap-8">

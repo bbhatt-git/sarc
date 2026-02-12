@@ -10,7 +10,6 @@ import { useState, FormEvent } from 'react';
 import { checkResult } from '@/app/actions';
 import type { Result } from '@/app/actions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { imageData } from '@/lib/image-data';
 
 // Notice type remains the same
 type Notice = {
@@ -121,7 +120,7 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
 
     return (
         <div>
-            <PageHeader title="Exams & Results" subtitle="Schedules and Outcomes" imageUrl={imageData.hero[3].src} />
+            <PageHeader title="Exams & Results" subtitle="Schedules and Outcomes" />
             <div className="container mx-auto px-4 py-20 max-w-5xl">
                 {/* Results Section */}
                 <div

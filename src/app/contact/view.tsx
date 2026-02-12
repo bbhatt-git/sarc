@@ -14,6 +14,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
+import PageHeader from '../components/page-header';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Name is too short"),
@@ -93,15 +95,8 @@ export default function ContactView() {
 
     return (
         <div>
-            {/* Hero Section */}
-            <section className="bg-primary text-primary-foreground py-20 text-center">
-                <div className="container">
-                    <h1 className="text-4xl md:text-5xl font-bold">Get in <span className='text-emerald-300'>Touch</span></h1>
-                    <p className="mt-4 text-lg text-primary-foreground/80 max-w-2xl mx-auto">Have questions? We're here to help you begin your SARC journey</p>
-                </div>
-            </section>
+            <PageHeader title="Get In Touch" subtitle="We're here to help" />
 
-            {/* Info Cards */}
             <section className="py-20">
                 <div className="container grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                      <InfoCard icon={MapPin} title="Address" text="Bhimdatta-06, Mahendranagar, Kanchanpur, Nepal" />
@@ -111,51 +106,55 @@ export default function ContactView() {
                 </div>
             </section>
 
-            {/* Form and Map Section */}
             <section className="container pb-20">
                  <div className="grid lg:grid-cols-2 gap-16 items-start">
-                    <div className="space-y-6">
-                        <h2 className="text-3xl font-bold">Send Us a <span className="text-primary">Message</span></h2>
-                        
-                        {state.success ? (
-                            <Alert variant="default" className="bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-900/30 dark:border-emerald-500/30 dark:text-emerald-200">
-                                <CheckCircle className="h-4 w-4 !text-emerald-600 dark:!text-emerald-400" />
-                                <AlertTitle className="font-semibold">Success!</AlertTitle>
-                                <AlertDescription>{state.message}</AlertDescription>
-                            </Alert>
-                        ) : (
-                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label htmlFor="fullName">Full Name *</Label>
-                                    <Input id="fullName" name="fullName" placeholder="Enter your name" required />
-                                    {state.errors?.fullName && <p className="text-sm text-rose-500">{state.errors.fullName[0]}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="email">Email Address *</Label>
-                                    <Input id="email" name="email" type="email" placeholder="your.email@example.com" required />
-                                    {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="phone">Phone Number *</Label>
-                                    <Input id="phone" name="phone" type="tel" placeholder="+977 XXX-XXXXXX" required />
-                                    {state.errors?.phone && <p className="text-sm text-rose-500">{state.errors.phone[0]}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="subject">Subject *</Label>
-                                    <Input id="subject" name="subject" placeholder="What is your inquiry about?" required />
-                                    {state.errors?.subject && <p className="text-sm text-rose-500">{state.errors.subject[0]}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="message">Message *</Label>
-                                    <Textarea id="message" name="message" placeholder="Tell us more about your inquiry..." required rows={5} />
-                                    {state.errors?.message && <p className="text-sm text-rose-500">{state.errors.message[0]}</p>}
-                                </div>
-                                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                                    {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : <><Send className="mr-2 h-4 w-4" />Send Message</>}
-                                </Button>
-                            </form>
-                        )}
-                    </div>
+                    <Card className="testimonial-card">
+                        <CardHeader>
+                            <CardTitle>Send Us a Message</CardTitle>
+                            <CardDescription>Have a question or feedback? Drop us a line.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            {state.success ? (
+                                <Alert variant="default" className="bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-900/30 dark:border-emerald-500/30 dark:text-emerald-200">
+                                    <CheckCircle className="h-4 w-4 !text-emerald-600 dark:!text-emerald-400" />
+                                    <AlertTitle className="font-semibold">Success!</AlertTitle>
+                                    <AlertDescription>{state.message}</AlertDescription>
+                                </Alert>
+                            ) : (
+                                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="fullName">Full Name *</Label>
+                                        <Input id="fullName" name="fullName" placeholder="Enter your name" required />
+                                        {state.errors?.fullName && <p className="text-sm text-rose-500">{state.errors.fullName[0]}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="email">Email Address *</Label>
+                                        <Input id="email" name="email" type="email" placeholder="your.email@example.com" required />
+                                        {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="phone">Phone Number *</Label>
+                                        <Input id="phone" name="phone" type="tel" placeholder="+977 XXX-XXXXXX" required />
+                                        {state.errors?.phone && <p className="text-sm text-rose-500">{state.errors.phone[0]}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="subject">Subject *</Label>
+                                        <Input id="subject" name="subject" placeholder="What is your inquiry about?" required />
+                                        {state.errors?.subject && <p className="text-sm text-rose-500">{state.errors.subject[0]}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="message">Message *</Label>
+                                        <Textarea id="message" name="message" placeholder="Tell us more about your inquiry..." required rows={5} />
+                                        {state.errors?.message && <p className="text-sm text-rose-500">{state.errors.message[0]}</p>}
+                                    </div>
+                                    <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                                        {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : <><Send className="mr-2 h-4 w-4" />Send Message</>}
+                                    </Button>
+                                </form>
+                            )}
+                        </CardContent>
+                    </Card>
+
                      <div className="rounded-lg overflow-hidden border border-border/50 shadow-md relative h-[550px] lg:h-full mt-8 lg:mt-0">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.851991823293!2d80.1753244743224!3d28.69376667562916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a1ab1492806743%3A0x24a0f71e59229306!2sSARC%20EDUCATION%20FOUNDATION-Best%20in%20School%2Fcollege%20in%20Kanchanpur%2C%20Mahendranagar!5e0!3m2!1sen!2snp!4v1669888812613!5m2!1sen!2snp"
@@ -171,7 +170,6 @@ export default function ContactView() {
                 </div>
             </section>
             
-            {/* CTA Section */}
             <section className="pb-20">
                 <div className="container">
                     <div className="bg-primary text-primary-foreground rounded-2xl p-12 text-center flex flex-col items-center">

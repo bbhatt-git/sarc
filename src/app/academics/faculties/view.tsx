@@ -2,7 +2,6 @@
 import PageHeader from '@/app/components/page-header';
 import { FlaskConical, Briefcase, Leaf, Computer, BarChart, ShoppingCart } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { imageData } from '@/lib/image-data';
 
 const faculties = [
     {
@@ -44,7 +43,7 @@ const faculties = [
 export default function FacultiesView() {
     return (
         <div>
-            <PageHeader title="Our Faculties" subtitle="Expertise in Science & Management" imageUrl={imageData.hero[3].src} />
+            <PageHeader title="Our Faculties" subtitle="Expertise in Science & Management" />
             <div className="container mx-auto px-4 py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     {faculties.map((faculty) => (

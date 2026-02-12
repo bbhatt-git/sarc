@@ -18,48 +18,45 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
     const isChildActive = link.children.some(child => pathname.startsWith(child.href));
 
     return (
-      <div className="relative group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+      <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
         <button
           className={cn(
-            'flex items-center gap-1.5 uppercase text-[12px] tracking-wider font-bold transition-colors',
-            isChildActive ? 'text-primary' : 'text-foreground hover:text-primary'
+            'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
+            isChildActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground'
           )}
         >
           {link.label}
           <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
-            <ChevronDown className="h-3 w-3" />
+            <ChevronDown className="h-4 w-4" />
           </motion.div>
         </button>
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="absolute top-full left-1/2 -translate-x-1/2 pt-5 z-20"
+              className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className={cn(
-                  'w-60',
-                  'bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-2xl rounded-2xl border border-white/20 dark:border-white/10'
-                )}
+                className="w-64 rounded-2xl border bg-card p-2 text-card-foreground shadow-lg"
               >
-                <ul className="p-2 space-y-1">
+                <ul className="space-y-1">
                   {link.children.map((child) => (
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="group/navlink block p-2 rounded-lg transition-all duration-300 hover:bg-primary/10"
+                        className="group/navlink block rounded-xl p-3 transition-colors hover:bg-accent"
                         onClick={() => setIsOpen(false)}
                       >
                         <div className="flex items-center gap-3">
-                          <div className='flex-shrink-0 bg-primary/10 text-primary p-2 rounded-md transition-colors duration-300 group-hover/navlink:bg-primary group-hover/navlink:text-white'>
-                            <child.icon className="w-4 h-4" />
+                          <div className='flex-shrink-0 rounded-lg bg-accent p-2 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground'>
+                            <child.icon className="w-5 h-5" />
                           </div>
                           <div>
-                            <span className="font-bold text-sm text-foreground">{child.label}</span>
-                            <p className="text-xs text-muted-foreground">{child.description}</p>
+                            <span className="font-semibold text-foreground">{child.label}</span>
+                            <p className="text-sm text-muted-foreground">{child.description}</p>
                           </div>
                         </div>
                       </Link>
@@ -79,8 +76,8 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
     <Link
       href={link.href}
       className={cn(
-        'uppercase text-[12px] tracking-wider font-bold transition-colors',
-        isActive ? 'text-primary' : 'text-foreground hover:text-primary'
+        'rounded-full px-4 py-2 text-sm font-medium transition-colors',
+        isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground'
       )}
     >
       {link.label}
@@ -174,7 +171,7 @@ export default function Header() {
             hasScrolled ? 'w-[96%] md:w-[95%] lg:w-[90%]' : 'w-full'
         )}>
             <nav className={cn(
-                "flex items-center justify-between p-4 transition-all duration-300",
+                "flex items-center justify-between p-3 transition-all duration-300",
                 "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl",
                 hasScrolled
                     ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
@@ -188,7 +185,7 @@ export default function Header() {
                   </div>
               </Link>
               
-              <div className="hidden lg:flex items-center lg:gap-x-8 xl:gap-x-12">
+              <div className="hidden lg:flex items-center lg:gap-x-2">
                 {NAV_LINKS.map((link) => (
                   <DesktopNavItem key={link.label} link={link} pathname={pathname} />
                 ))}
@@ -196,7 +193,7 @@ export default function Header() {
 
               <div className="flex items-center gap-2">
                 <ThemeToggle />
-                <Button asChild className='hidden lg:flex rounded-full bg-foreground text-background uppercase text-xs font-bold tracking-widest transition-transform hover:-translate-y-0.5'>
+                <Button asChild className='hidden lg:flex rounded-full bg-primary text-primary-foreground text-sm font-semibold transition-transform hover:-translate-y-0.5'>
                   <Link href="/admissions">Apply Now</Link>
                 </Button>
                 <div className="lg:hidden">
@@ -249,7 +246,7 @@ export default function Header() {
                   />
                 ))}
               </nav>
-              <Button asChild className="w-full mt-12 bg-foreground text-background uppercase text-sm font-bold tracking-widest" size="lg">
+              <Button asChild className="w-full mt-12 bg-primary text-primary-foreground uppercase text-sm font-bold tracking-widest" size="lg">
                 <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
               </Button>
             </motion.div>
