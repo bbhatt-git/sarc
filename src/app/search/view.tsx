@@ -5,26 +5,44 @@ import { Suspense, useState, useEffect } from 'react';
 import { NAV_LINKS } from '@/lib/constants';
 import Link from 'next/link';
 import PageHeader from '@/app/components/page-header';
-import { Search } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Search, Home, Image as ImageIcon, Mail, type LucideIcon } from 'lucide-react';
 
 type SearchResult = {
   label: string;
   href: string;
   description: string;
   category: string;
+  icon: LucideIcon;
 };
 
-const allPages = NAV_LINKS.flatMap(link => {
+// Flatten NAV_LINKS to a single array of searchable pages
+const allPages: SearchResult[] = NAV_LINKS.flatMap(link => {
+  // If the link has children (e.g., 'About', 'Academics'), map over them
   if (link.children) {
-    return link.children.map(child => ({ ...child, category: link.label }));
+    return link.children.map(child => ({
+      label: child.label,
+      href: child.href,
+      description: child.description,
+      category: link.label,
+      icon: child.icon,
+    }));
   }
-  // Exclude Home and Gallery from being just a link, they are top-level pages
-  if (link.href === '/' || link.href === '/gallery' || link.href === '/contact') {
-      return { ...link, description: `Main page for ${link.label}`, category: 'Main' };
+
+  // Handle standalone, top-level links
+  if (link.href === '/') {
+    return [{ label: link.label, href: link.href, description: 'The main homepage of SARC Education Foundation.', category: 'Main', icon: Home }];
   }
+  if (link.href === '/gallery') {
+    return [{ label: link.label, href: link.href, description: 'Explore moments of learning, discovery, and community.', category: 'Main', icon: ImageIcon }];
+  }
+  if (link.href === '/contact') {
+    return [{ label: link.label, href: link.href, description: 'Get in touch with us, find our location, and send a message.', category: 'Main', icon: Mail }];
+  }
+  
+  // Return an empty array for links that shouldn't be in search results (if any)
   return [];
-}).filter(Boolean) as (Omit<(typeof NAV_LINKS[0] & {children?: undefined}), 'children'> & { description: string, category: string })[];
+});
+
 
 function SearchComponent() {
   const searchParams = useSearchParams();
@@ -50,29 +68,32 @@ function SearchComponent() {
       <PageHeader title="Search Results" subtitle={query ? `For "${query}"` : "Enter a search term"} />
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         {query && results.length > 0 ? (
-            <div className="space-y-4">
+            <div className="space-y-6">
                 <p className="text-muted-foreground">{results.length} result(s) found</p>
                 {results.map(result => (
-                    <Link href={result.href} key={result.href} passHref>
-                        <Card className="testimonial-card cursor-pointer transition-transform hover:-translate-y-1">
-                          <CardHeader>
-                            <CardTitle className="text-primary">{result.label}</CardTitle>
-                            <CardDescription>{result.description}</CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                              <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">{result.category}</p>
-                          </CardContent>
-                        </Card>
+                    <Link href={result.href} key={result.href} passHref className='no-underline'>
+                        <div className="testimonial-card p-6 flex items-start gap-6 cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/50">
+                            <div className="bg-primary/10 text-primary p-4 rounded-xl mt-1">
+                                <result.icon className="w-7 h-7" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-semibold text-primary uppercase tracking-wider">{result.category}</p>
+                                <h3 className="text-xl font-bold text-foreground mt-1">{result.label}</h3>
+                                <p className="text-muted-foreground mt-2">{result.description}</p>
+                            </div>
+                        </div>
                     </Link>
                 ))}
             </div>
         ) : (
-            <div className="text-center py-12 text-muted-foreground flex flex-col items-center gap-4">
-                <Search className="h-16 w-16" />
-                <h3 className="text-2xl font-semibold text-foreground">
+            <div className="text-center py-16 px-6 testimonial-card flex flex-col items-center gap-4">
+                <div className="bg-primary/10 rounded-full p-5 border-4 border-primary/20">
+                    <Search className="h-16 w-16 text-primary" />
+                </div>
+                <h3 className="text-2xl font-semibold text-foreground mt-4">
                     {query ? 'No Results Found' : 'Search SARC'}
                 </h3>
-                <p className="max-w-md">
+                <p className="max-w-md text-muted-foreground">
                     {query ? `Sorry, we couldn't find any pages matching your search for "${query}". Try a different keyword.` : 'Use the search bar in the navigation to find information on our site.'}
                 </p>
             </div>

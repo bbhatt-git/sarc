@@ -7,10 +7,10 @@ interface PageHeaderProps {
 
 export default function PageHeader({ title, subtitle }: PageHeaderProps) {
     return (
-        <section className="bg-primary text-primary-foreground relative overflow-hidden py-20 text-center">
+        <section className="bg-gradient-to-br from-emerald-600 via-teal-600 to-sky-600 text-primary-foreground relative overflow-hidden py-20 text-center">
             <div className="container relative z-10">
                 <p className="font-semibold uppercase tracking-wider text-primary-foreground/80">{subtitle}</p>
-                <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+                <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl text-shadow-md shadow-black/30">
                     {title}
                 </h1>
             </div>
