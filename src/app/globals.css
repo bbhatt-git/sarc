@@ -68,12 +68,11 @@
     display: none;
   }
   
+  body.lightbox-open {
+    overflow: hidden;
+  }
   body.lightbox-open header {
     display: none;
-  }
-
-  body.dg-scroll-lock {
-    overflow: hidden;
   }
 }
 

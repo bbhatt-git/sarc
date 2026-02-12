@@ -1,6 +1,6 @@
 
 
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2, Lightbulb } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2, Lightbulb, Projector } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -34,6 +34,8 @@ export const NAV_LINKS = [
   { href: '/contact', label: 'Contact' },
 ];
 
+export const GALLERY_CATEGORIES = ['All', 'Campus', 'Labs', 'Projects', 'Tours', 'Events', 'Cultural', 'Sports'];
+
 export const HERO_IMAGES = [
     { alt: 'SARC campus view' },
     { alt: 'Students in a modern classroom' },
@@ -41,45 +43,6 @@ export const HERO_IMAGES = [
     { alt: 'Students collaborating on a project' },
     { alt: 'SARC students in the library' },
 ];
-
-export const GALLERY_CATEGORIES = ['All', 'Campus Life', 'Events', 'Academics', 'Sports'];
-
-export const GALLERY_IMAGES = [
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-  { category: 'Events' },
-  { category: 'Academics' },
-  { category: 'Sports' },
-  { category: 'Campus Life' },
-];
-
 
 export const STATS = [
     { number: '2017', label: 'Established' },
