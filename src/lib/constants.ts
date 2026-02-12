@@ -35,49 +35,49 @@ export const NAV_LINKS = [
 ];
 
 export const HERO_IMAGES = [
-    { src: '/images/hero/0.jpg', alt: 'SARC campus view' },
-    { src: '/images/hero/1.jpg', alt: 'Students in a modern classroom' },
-    { src: '/images/hero/2.jpg', alt: 'A state-of-the-art science laboratory' },
-    { src: '/images/hero/3.jpg', alt: 'Students collaborating on a project' },
-    { src: '/images/hero/4.jpg', alt: 'SARC students in the library' },
+    { alt: 'SARC campus view' },
+    { alt: 'Students in a modern classroom' },
+    { alt: 'A state-of-the-art science laboratory' },
+    { alt: 'Students collaborating on a project' },
+    { alt: 'SARC students in the library' },
 ];
 
 export const GALLERY_CATEGORIES = ['All', 'Campus Life', 'Events', 'Academics', 'Sports'];
 
 export const GALLERY_IMAGES = [
-  { src: '/images/gallery/1.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/2.jpg', category: 'Events' },
-  { src: '/images/gallery/3.jpg', category: 'Academics' },
-  { src: '/images/gallery/4.jpg', category: 'Sports' },
-  { src: '/images/gallery/5.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/6.jpg', category: 'Events' },
-  { src: '/images/gallery/7.jpg', category: 'Academics' },
-  { src: '/images/gallery/8.jpg', category: 'Sports' },
-  { src: '/images/gallery/9.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/10.jpg', category: 'Events' },
-  { src: '/images/gallery/11.jpg', category: 'Academics' },
-  { src: '/images/gallery/12.jpg', category: 'Sports' },
-  { src: '/images/gallery/13.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/14.jpg', category: 'Events' },
-  { src: '/images/gallery/15.jpg', category: 'Academics' },
-  { src: '/images/gallery/16.jpg', category: 'Sports' },
-  { src: '/images/gallery/17.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/18.jpg', category: 'Events' },
-  { src: '/images/gallery/19.jpg', category: 'Academics' },
-  { src: '/images/gallery/20.jpg', category: 'Sports' },
-  { src: '/images/gallery/21.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/22.jpg', category: 'Events' },
-  { src: '/images/gallery/23.jpg', category: 'Academics' },
-  { src: '/images/gallery/24.jpg', category: 'Sports' },
-  { src: '/images/gallery/25.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/26.jpg', category: 'Events' },
-  { src: '/images/gallery/27.jpg', category: 'Academics' },
-  { src: '/images/gallery/28.jpg', category: 'Sports' },
-  { src: '/images/gallery/29.jpg', category: 'Campus Life' },
-  { src: '/images/gallery/30.jpg', category: 'Events' },
-  { src: '/images/gallery/31.jpg', category: 'Academics' },
-  { src: '/images/gallery/32.jpg', category: 'Sports' },
-  { src: '/images/gallery/33.jpg', category: 'Campus Life' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
+  { category: 'Events' },
+  { category: 'Academics' },
+  { category: 'Sports' },
+  { category: 'Campus Life' },
 ];
 
 
@@ -178,260 +178,226 @@ export const NEWS_ITEMS = [
     }
 ];
 
-const createStaffImage = (name: string) => {
-    const nameWithoutTitle = name.replace(/^(Dr\\.\\s*)/i, '');
-    const filename = nameWithoutTitle.toLowerCase().replace(/\s+/g, '_') + '.jpg';
-    return `/images/staffs/${filename}`;
-};
-
 export const STAFF_MEMBERS = [
   {
-    id: 'dr-laxman-basnet',
+    id: 'dr_laxman_basnet',
     name: 'Dr. Laxman Basnet',
     role: 'Founder / CEO',
     credentials: 'PhD',
     philosophy: 'Dedicated to fostering a vibrant learning environment for all students.',
-    image: createStaffImage('Dr. Laxman Basnet'),
     socials: { facebook: 'https://www.facebook.com/laxman86', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'santosh-pandey',
+    id: 'santosh_pandey',
     name: 'Santosh Pandey',
     role: 'Managing Director',
     credentials: 'B.M.B',
     philosophy: 'Laying the groundwork for future business leaders.',
-    image: createStaffImage('Santosh Pandey'),
     socials: { facebook: 'https://www.facebook.com/santosh.pandey.24598', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'bhagwat-dev-bhatt',
+    id: 'bhagwat_dev_bhatt',
     name: 'Bhagwat Dev Bhatt',
     role: 'Program Coordinator',
     credentials: 'M.Phil',
     philosophy: 'Committed to academic excellence and student success.',
-    image: createStaffImage('Bhagwat Dev Bhatt'),
     socials: { facebook: 'https://www.facebook.com/bhagawat.bhatta', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'dipendra-joshi',
+    id: 'dipendra_joshi',
     name: 'Dipendra Joshi',
     role: 'Academic Coordinator',
     credentials: 'M.A. (Maths)',
     philosophy: 'Making mathematics understandable and enjoyable for all.',
-    image: createStaffImage('Dipendra Joshi'),
     socials: { facebook: 'https://www.facebook.com/dipendra.joshi.184', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'bed-prakash-bhatt',
+    id: 'bed_prakash_bhatt',
     name: 'Bed Prakash Bhatt',
     role: 'HOD (Science) | Physics',
     credentials: 'M.Sc',
     philosophy: 'Inspiring the next generation of scientists and thinkers.',
-    image: createStaffImage('Bed Prakash Bhatt'),
     socials: { facebook: 'https://www.facebook.com/VED.BHATT', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'karan-singh-mahara',
+    id: 'karan_singh_mahara',
     name: 'Karan Singh Mahara',
     role: 'Chemistry',
     credentials: 'M.Sc',
     philosophy: 'Making science accessible and exciting for every student.',
-    image: createStaffImage('Karan Singh Mahara'),
     socials: { facebook: 'https://www.facebook.com/karan.singh.mahara.813935', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'bhupendra-chand',
+    id: 'bhupendra_chand',
     name: 'Bhupendra Chand',
     role: 'Chemistry',
     credentials: 'M.Sc',
     philosophy: 'Fostering a love for learning and critical inquiry.',
-    image: createStaffImage('Bhupendra Chand'),
     socials: { facebook: 'https://www.facebook.com/bhupen.chand.73', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'bhuwan-chandra-bogati',
+    id: 'bhuwan_chandra_bogati',
     name: 'Bhuwan Chandra Bogati',
     role: 'Biology',
     credentials: 'M.Sc',
     philosophy: 'Guiding students to discover their potential through science.',
-    image: createStaffImage('Bhuwan Chandra Bogati'),
     socials: { facebook: 'https://www.facebook.com/bhuwanchandra.bokati', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'pushpa-raj-bhatt',
+    id: 'pushpa_raj_bhatt',
     name: 'Pushpa Raj Bhatt',
     role: 'Botany',
     credentials: 'M.Sc',
     philosophy: 'Dedicated to creating an engaging and supportive classroom.',
-    image: createStaffImage('Pushpa Raj Bhatt'),
     socials: { facebook: 'https://www.facebook.com/puspraj.bhatt.35', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'narendra-awasthi',
+    id: 'narendra_awasthi',
     name: 'Narendra Awasthi',
     role: 'Physics',
     credentials: 'M.Sc',
     philosophy: 'Empowering students with knowledge and practical skills.',
-    image: createStaffImage('Narendra Awasthi'),
     socials: { facebook: 'https://www.facebook.com/narendra.awasthi.940', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'suraj-pant',
+    id: 'suraj_pant',
     name: 'Suraj Pant',
     role: 'Computer Science',
     credentials: 'M.Sc',
     philosophy: 'Fostering curiosity and a passion for scientific discovery.',
-    image: createStaffImage('Suraj Pant'),
     socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'shiv-raj-bohara',
+    id: 'shiv_raj_bohara',
     name: 'Shiv Raj Bohara',
     role: 'Mathematics',
     credentials: 'M.A. (Maths)',
     philosophy: 'Developing logical thinking and problem-solving skills in students.',
-    image: createStaffImage('Shiv Raj Bohara'),
     socials: { facebook: 'https://www.facebook.com/shivraj.bohara.1', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'meen-bahadur-khadka',
+    id: 'meen_bahadur_khadka',
     name: 'Meen Bahadur Khadka',
     role: 'English & Literature',
     credentials: 'M.Ed',
     philosophy: 'Committed to holistic education and personal development.',
-    image: createStaffImage('Meen Bahadur Khadka'),
     socials: { facebook: 'https://www.facebook.com/RadheRadheMahen', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'sudarshan-prashad-bhatt',
+    id: 'sudarshan_prashad_bhatt',
     name: 'Sudarshan Prashad Bhatt',
     role: 'Mathematics',
     credentials: 'M.Ed',
     philosophy: 'Creating an inclusive and effective learning environment.',
-    image: createStaffImage('Sudarshan Prashad Bhatt'),
     socials: { facebook: 'https://www.facebook.com/sudarsan.bhatta.5', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'gyandeb-bhatt',
+    id: 'gyandeb_bhatt',
     name: 'Gyandeb Bhatt',
     role: 'Faculty',
     credentials: 'M.Ed',
     philosophy: 'Nurturing lifelong learners and responsible citizens.',
-    image: createStaffImage('Gyandeb Bhatt'),
     socials: { facebook: 'https://www.facebook.com/gyandebbhatta.1', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'pushpa-joshi',
+    id: 'pushpa_joshi',
     name: 'Pushpa Joshi',
     role: 'English & Literature',
     credentials: 'M.Ed',
     philosophy: 'Dedicated to student growth and academic success.',
-    image: createStaffImage('Pushpa Joshi'),
     socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'govind-giri',
+    id: 'govind_giri',
     name: 'Govind Giri',
     role: 'Mathematics',
     credentials: 'M.Ed',
     philosophy: 'Inspiring students to achieve their full potential.',
-    image: createStaffImage('Govind Giri'),
     socials: { facebook: 'https://www.facebook.com/govind.giri.68635', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'birendra-bahadur-chand',
+    id: 'birendra_bahadur_chand',
     name: 'Birendra Bahadur Chand',
     role: 'Nepali',
     credentials: 'M.Ed',
     philosophy: 'Fostering a positive and challenging learning atmosphere.',
-    image: createStaffImage('Birendra Bahadur Chand'),
     socials: { facebook: 'https://www.facebook.com/birendra.chand.39750', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'rajesh-datt-bhatt',
+    id: 'rajesh_datt_bhatt',
     name: 'Rajesh Datt Bhatt',
     role: 'Computer Science',
     credentials: 'MCA',
     philosophy: 'Bridging technology and education for modern learners.',
-    image: createStaffImage('Rajesh Datt Bhatt'),
     socials: { facebook: 'https://www.facebook.com/rajeshbhatt360', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'rituraj-bhatt',
+    id: 'rituraj_bhatt',
     name: 'Rituraj Bhatt',
     role: 'Faculty',
     credentials: 'M.Com',
     philosophy: 'Equipping students with practical business and commerce skills.',
-    image: createStaffImage('Rituraj Bhatt'),
     socials: { facebook: 'https://www.facebook.com/profile.php?id=61577198216063', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'dev-raj-paneru',
+    id: 'dev_raj_paneru',
     name: 'Dev Raj Paneru',
     role: 'Faculty',
     credentials: 'M.BS',
     philosophy: 'Cultivating business acumen and entrepreneurial spirit.',
-    image: createStaffImage('Dev Raj Paneru'),
     socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'jeewan-thapa',
+    id: 'jeewan_thapa',
     name: 'Jeewan Thapa',
     role: 'Mathematics',
     credentials: 'M.A. & B.Sc (B.E.)',
     philosophy: 'Integrating diverse fields of knowledge for a complete education.',
-    image: createStaffImage('Jeewan Thapa'),
     socials: { facebook: 'https://www.facebook.com/jeewan.thapa.684245', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'dev-singh-bhandari',
+    id: 'dev_singh_bhandari',
     name: 'Dev Singh Bhandari',
     role: 'Economics',
     credentials: 'B.Sc',
     philosophy: 'Sharing the wonders of science with eager minds.',
-    image: createStaffImage('Dev Singh Bhandari'),
     socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'kokila-pant',
+    id: 'kokila_pant',
     name: 'Kokila Pant',
     role: 'Accountant',
     credentials: 'B.BS',
     philosophy: 'Ensuring a smooth and supportive environment for students.',
-    image: createStaffImage('Kokila Pant'),
     socials: { facebook: 'https://www.facebook.com/kokila.pant/', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'saraswati-bist',
+    id: 'saraswati_bist',
     name: 'Saraswati Bist',
     role: 'Receptionist',
     credentials: 'MBA',
     philosophy: 'Dedicated to the efficient and caring administration of the institution.',
-    image: createStaffImage('Saraswati Bist'),
     socials: { facebook: 'https://www.facebook.com/sanbi.bist.2025', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'basanti-chand',
+    id: 'basanti_chand',
     name: 'Basanti Chand',
     role: 'Support Staff',
     philosophy: 'Providing essential support to our faculty and students every day.',
-    image: createStaffImage('Basanti Chand'),
     socials: { facebook: 'https://www.facebook.com/nitin.chand.7334', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'dashrath-chand',
+    id: 'dashrath_chand',
     name: 'Dashrath Chand',
     role: 'Support Staff',
     philosophy: 'Working behind the scenes to keep our campus at its best.',
-    image: createStaffImage('Dashrath Chand'),
     socials: { facebook: '#', instagram: '#', linkedin: '#' }
   },
   {
-    id: 'puran-rana',
+    id: 'puran_rana',
     name: 'Puran Rana',
     role: 'Support Staff',
     philosophy: 'A key part of the team that maintains our welcoming campus.',
-    image: createStaffImage('Puran Rana'),
     socials: { facebook: '#', instagram: '#', linkedin: '#' }
   }
 ].sort((a, b) => {

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Check } from 'lucide-react';
 import PageHeader from '@/app/components/page-header';
 import SectionTitle from '@/app/components/section-title';
+import { imageData } from '@/lib/image-data';
 
 const missionItems = [
     { text: "Providing quality education that fosters critical thinking, innovation, and lifelong learning.", color: "border-sky-500" },
@@ -15,7 +16,7 @@ const missionItems = [
 export default function AboutView() {
     return (
         <div>
-            <PageHeader title="About Us" subtitle="Our Story, Vision, and Commitment" imageUrl="/images/hero/4.jpg" />
+            <PageHeader title="About Us" subtitle="Our Story, Vision, and Commitment" imageUrl={imageData.hero[4].src} />
             
             <section 
                 className="container mx-auto px-4 py-20"
@@ -32,10 +33,11 @@ export default function AboutView() {
                     </div>
                     <div className="relative h-96 overflow-hidden rounded-2xl shadow-lg">
                         <Image
-                            src="/images/hero/0.jpg"
+                            src={imageData.hero[0].src}
                             alt="SARC Campus"
                             fill
                             className="object-cover"
+                            data-ai-hint={imageData.hero[0].hint}
                         />
                     </div>
                 </div>
@@ -61,7 +63,7 @@ export default function AboutView() {
                        <div 
                         key={index} 
                         className={`bg-card/50 backdrop-blur-sm flex items-start gap-4 p-6 border-l-4 ${item.color}`}>
-                           <Check className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
+                           <Check className="w-6 h-6 text-primary shrink-0 mt-1" />
                            <p className="text-foreground text-lg">{item.text}</p>
                        </div>
                    ))}
@@ -75,7 +77,7 @@ export default function AboutView() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
                     {WHY_US_ITEMS.map((item, index) => (
                          <div key={item.title} className="bg-card/50 backdrop-blur-sm border p-8 text-center transition-transform hover:-translate-y-2 h-full rounded-2xl">
-                            <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
+                            <div className="inline-block bg-primary/10 text-primary p-4 rounded-full mb-4">
                                 <item.icon className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>

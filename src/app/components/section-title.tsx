@@ -16,7 +16,7 @@ export default function SectionTitle({ title, subtitle, align = 'center', classN
                 className
             )}
         >
-            <p className="text-sm font-semibold text-emerald-600 tracking-widest uppercase bg-emerald-100 px-3 py-1 rounded-full">{subtitle}</p>
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase bg-primary/10 px-3 py-1 rounded-full">{subtitle}</p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
                 {title}
             </h2>

@@ -1,6 +1,7 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
 import { Timeline } from '@/app/components/timeline';
+import { imageData } from '@/lib/image-data';
 
 const milestones = [
     { year: 2017, event: "SARC Education Foundation was established with a vision for modern education." },
@@ -26,7 +27,7 @@ export default function HistoryView() {
             <PageHeader 
                 title="Our History" 
                 subtitle="Journey & Achievements" 
-                imageUrl="/images/hero/2.jpg" 
+                imageUrl={imageData.hero[2].src}
             />
             <section
                 className="container mx-auto px-4 py-20"

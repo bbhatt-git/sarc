@@ -10,6 +10,7 @@ import { useState, FormEvent } from 'react';
 import { checkResult } from '@/app/actions';
 import type { Result } from '@/app/actions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { imageData } from '@/lib/image-data';
 
 // Notice type remains the same
 type Notice = {
@@ -31,7 +32,7 @@ const ResultDisplay = ({ result }: { result: Result }) => {
             className="mt-8"
         >
             <div className={cn(
-                "rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl overflow-hidden",
+                "rounded-2xl border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl overflow-hidden",
                 "transition-all duration-500"
             )}>
                 {/* Header */}
@@ -120,7 +121,7 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
 
     return (
         <div>
-            <PageHeader title="Exams & Results" subtitle="Schedules and Outcomes" imageUrl="/images/hero/3.jpg" />
+            <PageHeader title="Exams & Results" subtitle="Schedules and Outcomes" imageUrl={imageData.hero[3].src} />
             <div className="container mx-auto px-4 py-20 max-w-5xl">
                 {/* Results Section */}
                 <div

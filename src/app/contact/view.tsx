@@ -14,6 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import PageHeader from '../components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { imageData } from '@/lib/image-data';
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Name is too short"),
@@ -77,7 +78,7 @@ export default function ContactView() {
 
     return (
         <div>
-            <PageHeader title="Contact Us" subtitle="Get In Touch With SARC" imageUrl="/images/hero/2.jpg" />
+            <PageHeader title="Contact Us" subtitle="Get In Touch With SARC" imageUrl={imageData.hero[2].src} />
 
             <section 
                 className="container mx-auto px-4 py-20"
@@ -109,7 +110,7 @@ export default function ContactView() {
                                 <Textarea id="message" name="message" placeholder="Your message here..." required rows={5} />
                                 {state.errors?.message && <p className="text-sm text-rose-500">{state.errors.message[0]}</p>}
                             </div>
-                            <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold" size="lg" disabled={isSubmitting}>
+                            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold" size="lg" disabled={isSubmitting}>
                                 {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : 'Send Message'}
                             </Button>
                             {state.success && state.message && (
@@ -141,13 +142,13 @@ export default function ContactView() {
 
 const InfoCard = ({ icon: Icon, title, text, href }: { icon: React.ElementType, title: string, text: string, href?: string }) => (
     <div className="flex items-start gap-4">
-        <div className="bg-emerald-100 p-3 rounded-full border border-emerald-200">
-            <Icon className="w-5 h-5 text-emerald-600" />
+        <div className="bg-primary/10 p-3 rounded-full border border-primary/20">
+            <Icon className="w-5 h-5 text-primary" />
         </div>
         <div>
             <h4 className="font-semibold text-lg text-foreground">{title}</h4>
             {href ? (
-                 <a href={href} className="text-muted-foreground hover:text-emerald-600 transition-colors">{text}</a>
+                 <a href={href} className="text-muted-foreground hover:text-primary transition-colors">{text}</a>
             ) : (
                 <p className="text-muted-foreground">{text}</p>
             )}

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare } from 'lucide-react';
+import { imageData } from '@/lib/image-data';
 
 const stats = [
     { number: '50+', label: 'Awards' },
@@ -157,7 +158,7 @@ export default function AchievementsView() {
       <PageHeader 
         title="Our Achievements" 
         subtitle="Celebrating excellence, innovation, and the remarkable success of our students and alumni" 
-        imageUrl="/images/hero/2.jpg" 
+        imageUrl={imageData.hero[2].src} 
       />
 
       <section className="py-20">
@@ -168,7 +169,7 @@ export default function AchievementsView() {
                 key={stat.label}
                 className="testimonial-card p-8"
               >
-                <p className="text-5xl font-bold text-emerald-600 dark:text-emerald-400">{stat.number}</p>
+                <p className="text-5xl font-bold text-primary">{stat.number}</p>
                 <p className="text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </div>
             ))}
@@ -258,7 +259,7 @@ export default function AchievementsView() {
                     <div className="flex justify-center gap-2 pt-3 border-t border-border/50 mt-4">
                         <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-700 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Linkedin size={16} /></Link>
                         <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Facebook size={16} /></Link>
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-emerald-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-primary-600 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
                     </div>
                 </div>
               </div>
@@ -315,7 +316,7 @@ export default function AchievementsView() {
                      <div className="flex justify-center gap-2 pt-3 border-t border-border/50">
                         <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-700 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Linkedin size={16} /></Link>
                         <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Facebook size={16} /></Link>
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-emerald-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
+                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-primary-600 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
                     </div>
                 </div>
               </div>
@@ -329,11 +330,11 @@ export default function AchievementsView() {
 
       <section className="py-20 w-full">
         <div className="container mx-auto">
-          <div className="bg-emerald-600 text-white rounded-2xl p-12 text-center">
+          <div className="bg-primary text-white rounded-2xl p-12 text-center">
             <h2 className="text-3xl font-bold">Join Our Success Story</h2>
             <p className="mt-4 max-w-xl mx-auto">Be part of the next generation of innovators, leaders, and changemakers.</p>
             <div className="mt-8 flex justify-center gap-4">
-              <Button asChild size="lg" className="rounded-full bg-white text-emerald-700 hover:bg-white/90">
+              <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90">
                 <Link href="/admissions">Apply Now</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="rounded-full border-white text-white hover:bg-white/10">

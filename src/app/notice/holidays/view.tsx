@@ -2,6 +2,7 @@
 import PageHeader from '@/app/components/page-header';
 import { CalendarDays, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { imageData } from '@/lib/image-data';
 
 type Holiday = {
     name: string;
@@ -16,7 +17,7 @@ interface HolidayNoticeViewProps {
 export default function HolidayNoticeView({ initialHolidays }: HolidayNoticeViewProps) {
     return (
         <div>
-            <PageHeader title="Holiday Notices" subtitle="Academic Calendar & Breaks" imageUrl="/images/hero/0.jpg" />
+            <PageHeader title="Holiday Notices" subtitle="Academic Calendar & Breaks" imageUrl={imageData.hero[0].src} />
             <div className="container mx-auto px-4 py-20 max-w-4xl">
                 <Card className="bg-card/50 backdrop-blur-lg relative overflow-hidden">
                     <CardHeader>

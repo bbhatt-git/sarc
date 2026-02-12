@@ -1,6 +1,7 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
 import { Library, Bus, Utensils, HeartHandshake, Computer, Microscope, Wifi, ShieldCheck, Gamepad2, Presentation } from 'lucide-react';
+import { imageData } from '@/lib/image-data';
 
 const facilities = [
     { title: 'Modern Science & Computer Labs', icon: Microscope, description: 'Fully equipped physics, chemistry, biology, and computer labs for practical, hands-on learning.' },
@@ -17,7 +18,7 @@ const facilities = [
 export default function FacilitiesView() {
     return (
         <div>
-            <PageHeader title="Our Facilities" subtitle="World-Class Infrastructure & Support" imageUrl="/images/hero/0.jpg" />
+            <PageHeader title="Our Facilities" subtitle="World-Class Infrastructure & Support" imageUrl={imageData.hero[0].src} />
             <div className="container mx-auto px-4 py-20">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {facilities.map((facility, index) => (
@@ -25,8 +26,8 @@ export default function FacilitiesView() {
                             key={facility.title}
                             className="testimonial-card p-8 flex flex-col items-center text-center gap-4 h-full"
                         >
-                            <div className="bg-emerald-100 p-4 rounded-full border border-emerald-200">
-                                <facility.icon className="w-8 h-8 text-emerald-600" />
+                            <div className="bg-primary/10 p-4 rounded-full border border-primary/20">
+                                <facility.icon className="w-8 h-8 text-primary" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-bold text-foreground mb-2">{facility.title}</h3>

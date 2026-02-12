@@ -2,6 +2,7 @@
 import PageHeader from '@/app/components/page-header';
 import Image from 'next/image';
 import { Quote } from 'lucide-react';
+import { imageData } from '@/lib/image-data';
 
 export default function FounderView() {
     return (
@@ -9,7 +10,7 @@ export default function FounderView() {
             <PageHeader 
                 title="Our Founder" 
                 subtitle="The Visionary Behind SARC" 
-                imageUrl="/images/hero/1.jpg" 
+                imageUrl={imageData.hero[1].src} 
             />
             <section className="py-20">
                 <div className="container mx-auto px-4">
@@ -20,10 +21,11 @@ export default function FounderView() {
                             <div className="testimonial-card p-6 text-center">
                                 <div className="relative w-48 h-48 mx-auto">
                                     <Image
-                                        src="/images/staffs/laxman_basnet.jpg"
+                                        src={imageData.staff.dr_laxman_basnet.src}
                                         alt="Laxman Basnet, Founder of SARC"
                                         fill
                                         className="rounded-full object-cover shadow-2xl"
+                                        data-ai-hint={imageData.staff.dr_laxman_basnet.hint}
                                     />
                                 </div>
                                 <div className="mt-6">

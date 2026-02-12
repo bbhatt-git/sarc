@@ -171,7 +171,7 @@ export default function Header() {
       )}>
         <div className={cn(
             "mx-auto transition-all duration-300",
-            hasScrolled ? 'w-[96%] md:w-[95%] lg:w-[80%]' : 'w-full'
+            hasScrolled ? 'w-[96%] md:w-[95%] lg:w-[90%]' : 'w-full'
         )}>
             <nav className={cn(
                 "flex items-center justify-between p-4 transition-all duration-300",

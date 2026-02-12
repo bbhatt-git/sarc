@@ -8,6 +8,7 @@ import { Facebook, Linkedin, Award, Users, Bot, Briefcase, HeartHandshake, Check
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { imageData } from '@/lib/image-data';
 
 const departments = [
     { name: 'Academic Faculty', stat: '25+', icon: Users },
@@ -35,17 +36,22 @@ const staffAchievements = [
 type StaffMember = (typeof STAFF_MEMBERS)[0];
 
 const StaffCard = ({ staff }: { staff: StaffMember }) => {
+    const staffImage = (imageData.staff as any)[staff.id];
+
     return (
         <Card className="testimonial-card overflow-hidden text-center group h-full flex flex-col">
             <div className="relative bg-muted/30 pt-16 pb-8">
                  <div className="absolute top-0 left-1/2 -translate-x-1/2 translate-y-8 h-24 w-24 rounded-full bg-gradient-to-tr from-primary/20 to-sky-400/20 opacity-0 transition-all duration-500 group-hover:scale-[3.5] group-hover:opacity-50"></div>
                 <div className="relative mx-auto h-24 w-24 rounded-full ring-4 ring-background">
-                    <Image
-                        src={staff.image}
-                        alt={`Portrait of ${staff.name}`}
-                        fill
-                        className="rounded-full object-cover"
-                    />
+                    {staffImage && (
+                        <Image
+                            src={staffImage.src}
+                            alt={`Portrait of ${staff.name}`}
+                            fill
+                            className="rounded-full object-cover"
+                            data-ai-hint={staffImage.hint}
+                        />
+                    )}
                 </div>
             </div>
             <CardContent className="flex flex-grow flex-col p-6 space-y-3">
@@ -83,7 +89,7 @@ export default function StaffsView() {
 
     return (
         <div>
-            <PageHeader title="Our Dedicated Staff" subtitle="Meet Our Team" imageUrl="/images/hero/3.jpg" />
+            <PageHeader title="Our Dedicated Staff" subtitle="Meet Our Team" imageUrl={imageData.hero[3].src} />
             <div className="container mx-auto px-4 py-20 space-y-24">
                 
                 {/* Departments Section */}
@@ -94,7 +100,7 @@ export default function StaffsView() {
                             <Card key={index} className="testimonial-card text-center p-8 group relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div className="relative">
-                                    <dept.icon className="w-10 h-10 text-emerald-600 mx-auto mb-4" />
+                                    <dept.icon className="w-10 h-10 text-primary mx-auto mb-4" />
                                     <p className="text-4xl font-bold text-foreground">{dept.stat}</p>
                                     <p className="text-muted-foreground mt-2">{dept.name}</p>
                                 </div>
@@ -109,7 +115,7 @@ export default function StaffsView() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
                         {teamQualities.map((quality, index) => (
                             <div key={index} className="flex items-start gap-4 rounded-lg bg-card/60 p-4 border border-transparent hover:border-primary/20 transition-colors">
-                                <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-1" />
+                                <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-1" />
                                 <p className="text-foreground">{quality}</p>
                             </div>
                         ))}
@@ -166,12 +172,12 @@ export default function StaffsView() {
 
                  {/* Join Our Team CTA */}
                 <section>
-                    <Card className="testimonial-card bg-gradient-to-r from-emerald-600 to-sky-600 p-8 text-center text-primary-foreground">
+                    <Card className="testimonial-card bg-gradient-to-r from-primary to-blue-500 p-8 text-center text-primary-foreground">
                         <h2 className="text-3xl font-bold">Join Our Team</h2>
                         <p className="mt-2 max-w-2xl mx-auto opacity-90">
                             Are you passionate about education and innovation? We're always looking for talented individuals to join our mission.
                         </p>
-                        <Button asChild className="mt-6 rounded-full bg-white text-emerald-700 hover:bg-white/90">
+                        <Button asChild className="mt-6 rounded-full bg-white text-primary hover:bg-white/90">
                             <Link href="/contact">Career Opportunities</Link>
                         </Button>
                     </Card>

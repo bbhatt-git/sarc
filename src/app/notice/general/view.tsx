@@ -10,6 +10,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { imageData } from '@/lib/image-data';
 
 
 const iconMap = {
@@ -43,7 +44,7 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
 
     return (
         <div>
-            <PageHeader title="General Notices" subtitle="Stay Informed" imageUrl="/images/hero/4.jpg" />
+            <PageHeader title="General Notices" subtitle="Stay Informed" imageUrl={imageData.hero[4].src} />
             <div className="container mx-auto px-4 py-20 max-w-4xl">
                 <div className="space-y-6">
                     {initialNotices && initialNotices.length > 0 ? (

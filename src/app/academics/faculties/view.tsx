@@ -2,6 +2,7 @@
 import PageHeader from '@/app/components/page-header';
 import { FlaskConical, Briefcase, Leaf, Computer, BarChart, ShoppingCart } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import { imageData } from '@/lib/image-data';
 
 const faculties = [
     {
@@ -43,7 +44,7 @@ const faculties = [
 export default function FacultiesView() {
     return (
         <div>
-            <PageHeader title="Our Faculties" subtitle="Expertise in Science & Management" imageUrl="/images/hero/3.jpg" />
+            <PageHeader title="Our Faculties" subtitle="Expertise in Science & Management" imageUrl={imageData.hero[3].src} />
             <div className="container mx-auto px-4 py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
                     {faculties.map((faculty, index) => (
@@ -53,8 +54,8 @@ export default function FacultiesView() {
                         >
                             <Card className="testimonial-card h-full flex flex-col">
                                 <CardHeader className="text-center items-center p-8">
-                                    <div className="p-4 bg-emerald-100 dark:bg-emerald-900/50 rounded-full inline-block mb-4">
-                                        <faculty.icon className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+                                    <div className="p-4 bg-primary/10 rounded-full inline-block mb-4">
+                                        <faculty.icon className="w-10 h-10 text-primary" />
                                     </div>
                                     <CardTitle className="text-3xl">{faculty.name}</CardTitle>
                                     <CardDescription className="pt-2 max-w-md mx-auto">{faculty.description}</CardDescription>

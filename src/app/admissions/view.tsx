@@ -17,6 +17,7 @@ import PageHeader from '../components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { NATIONALITIES, NEPAL_PROVINCES, NEPAL_DISTRICTS, NEPALI_MONTHS, getNepaliYears, getDaysInMonth } from '@/lib/nepal-data';
+import { imageData } from '@/lib/image-data';
 
 
 const admissionSchema = z.object({
@@ -193,7 +194,7 @@ export default function AdmissionsView() {
 
     return (
         <div>
-            <PageHeader title="Admissions" subtitle="Begin Your Journey at SARC" imageUrl="/images/hero/1.jpg" />
+            <PageHeader title="Admissions" subtitle="Begin Your Journey at SARC" imageUrl={imageData.hero[1].src} />
             <div className="container mx-auto px-4 max-w-4xl py-20">
                 {!state.success ? (
                     <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
@@ -365,7 +366,7 @@ export default function AdmissionsView() {
                         </FormSection>
 
                         <div className="flex flex-col items-center">
-                            <Button type="submit" className="w-full max-w-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold" size="lg" disabled={isSubmitting}>
+                            <Button type="submit" className="w-full max-w-xs bg-primary hover:bg-primary/90 text-primary-foreground font-semibold" size="lg" disabled={isSubmitting}>
                                 {isSubmitting ? (
                                     <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>
                                 ) : 'Submit Application'}

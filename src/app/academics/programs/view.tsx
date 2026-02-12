@@ -6,6 +6,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SectionTitle from '@/app/components/section-title';
+import { imageData } from '@/lib/image-data';
 
 // Data for the page sections
 const schoolProgramFeatures = [
@@ -65,7 +66,7 @@ const subjectGroups = {
 export default function ProgramsView() {
     return (
         <div>
-            <PageHeader title="Academic Programs" subtitle="Pathways to Your Future" imageUrl="/images/hero/4.jpg" />
+            <PageHeader title="Academic Programs" subtitle="Pathways to Your Future" imageUrl={imageData.hero[4].src} />
             
             <div className="py-20 space-y-24">
                 {/* School Program Section */}
@@ -73,8 +74,8 @@ export default function ProgramsView() {
                     <Card className="testimonial-card overflow-hidden">
                         <CardHeader className="bg-card/50 p-8">
                             <div className="flex items-center gap-4">
-                                <div className="bg-emerald-100 p-3 rounded-full">
-                                    <School className="w-8 h-8 text-emerald-600" />
+                                <div className="bg-primary/10 p-3 rounded-full">
+                                    <School className="w-8 h-8 text-primary" />
                                 </div>
                                 <div>
                                     <CardTitle className="text-2xl">School Program (ECD to Class 10)</CardTitle>
@@ -85,7 +86,7 @@ export default function ProgramsView() {
                         <CardContent className="p-8 grid md:grid-cols-2 gap-x-8 gap-y-4">
                             {schoolProgramFeatures.map((feature, index) => (
                                 <div key={index} className="flex items-start gap-3">
-                                    <Check className="w-5 h-5 text-emerald-500 shrink-0 mt-1" />
+                                    <Check className="w-5 h-5 text-primary shrink-0 mt-1" />
                                     <p className="text-foreground">{feature}</p>
                                 </div>
                             ))}
@@ -102,8 +103,8 @@ export default function ProgramsView() {
                             <Card key={index} className="testimonial-card flex flex-col">
                                 <CardHeader>
                                     <div className="flex items-center gap-4 mb-4">
-                                        <div className="bg-sky-100 p-4 rounded-full">
-                                            <spec.icon className="w-8 h-8 text-sky-600" />
+                                        <div className="bg-primary/10 p-4 rounded-full">
+                                            <spec.icon className="w-8 h-8 text-primary" />
                                         </div>
                                         <CardTitle className="text-2xl">{spec.title}</CardTitle>
                                     </div>
@@ -125,7 +126,7 @@ export default function ProgramsView() {
                                         <div className="space-y-2">
                                         {spec.specialFeatures.map(feature => (
                                             <div key={feature} className="flex items-center gap-3">
-                                                <Check className="w-5 h-5 text-emerald-500" />
+                                                <Check className="w-5 h-5 text-primary" />
                                                 <span className="text-foreground">{feature}</span>
                                             </div>
                                         ))}
@@ -144,7 +145,7 @@ export default function ProgramsView() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         {teachingApproaches.map((item, index) => (
                              <div key={item.title} className="testimonial-card text-center p-8 h-full">
-                                <div className="inline-block bg-emerald-100 text-emerald-600 p-4 rounded-full mb-4">
+                                <div className="inline-block bg-primary/10 text-primary p-4 rounded-full mb-4">
                                     <item.icon className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
@@ -196,7 +197,7 @@ function SubjectGroupTable({ group }: { group: { grade11: string[], grade12: str
                     <ul className="space-y-3">
                         {group.grade12.map(subject => (
                             <li key={subject} className="flex items-center gap-3">
-                                <BookCopy className="w-4 h-4 text-emerald-500" />
+                                <BookCopy className="w-4 h-4 text-primary" />
                                 <span className="text-muted-foreground">{subject}</span>
                             </li>
                         ))}
