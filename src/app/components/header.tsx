@@ -45,7 +45,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl bg-background/80 dark:bg-slate-900/80 backdrop-blur-xl p-2 text-card-foreground shadow-lg border border-border/20"
+                className="w-80 rounded-2xl bg-popover/80 backdrop-blur-xl p-2 text-card-foreground shadow-lg border border-border/20"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -110,21 +110,29 @@ const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)
   if (!link.children) {
     const isActive = pathname === link.href;
     return (
-      <Link href={link.href} onClick={closeMenu} className={cn(
-        "flex items-center gap-4 rounded-lg p-3 text-base font-semibold transition-colors",
-        isActive ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-primary/10"
-      )}>
-        {link.label}
-      </Link>
+        <div className="relative">
+             <Link href={link.href} onClick={closeMenu} className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-semibold transition-colors",
+                isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
+            )}>
+                {link.label}
+            </Link>
+            {isActive && <div className="absolute left-0 top-1 bottom-1 w-1 bg-primary rounded-r-full"></div>}
+        </div>
     );
   }
 
   return (
-    <div>
-      <button onClick={() => setIsOpen(!isOpen)} className="w-full flex items-center justify-between gap-4 rounded-lg p-3 text-base font-semibold text-foreground transition-colors hover:bg-primary/10">
+    <div className="relative">
+      <button onClick={() => setIsOpen(!isOpen)} className={cn(
+          "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-muted",
+          isParentActive && !isOpen && "bg-muted"
+      )}>
         <span>{link.label}</span>
         <ChevronDown className={cn("h-5 w-5 transition-transform", isOpen && "rotate-180")} />
       </button>
+      {isParentActive && !isOpen && <div className="absolute left-0 top-1 bottom-1 w-1 bg-primary rounded-r-full"></div>}
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -132,19 +140,19 @@ const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="pl-4 mt-2"
+            className="pl-4 mt-1"
           >
-            <div className="flex flex-col gap-1 border-l-2 border-border/50 pl-5 py-1">
+            <div className="flex flex-col gap-1 border-l-2 border-border/50 pl-4 py-1">
               {link.children.map((child: any) => {
                 const isChildActive = pathname.startsWith(child.href);
                 return (
                   <Link key={child.label} href={child.href} onClick={closeMenu} className={cn(
-                    "group flex items-center gap-3 rounded-md p-2.5 transition-colors",
+                    "group flex items-center gap-3 rounded-md p-2 transition-colors",
                     isChildActive ? "text-primary font-medium" : "text-muted-foreground hover:text-foreground"
                   )}>
                     <div className={cn(
                       "flex-shrink-0 rounded-md p-1.5 transition-colors duration-200",
-                      isChildActive ? 'bg-primary/10 text-primary' : 'bg-muted/60 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+                      isChildActive ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
                     )}>
                        <child.icon className="w-4 h-4" />
                     </div>
@@ -262,22 +270,22 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-6 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-4 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center mb-10">
+              <div className="flex justify-between items-center mb-8 px-2">
                 <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
-                  <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} />
-                  <span className="font-bold text-xl text-foreground">SARC</span>
+                  <Image src="/images/sarc.png" alt="SARC Logo" width={32} height={32} />
+                  <span className="font-bold text-lg text-foreground">SARC Foundation</span>
                 </Link>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <ThemeToggle />
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-muted-foreground'>
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className='text-muted-foreground -mr-2'>
                     <X />
                   </Button>
                 </div>
               </div>
-              <nav className="flex-1 flex flex-col gap-4 overflow-y-auto">
+              <nav className="flex-1 flex flex-col gap-2 overflow-y-auto">
                 {NAV_LINKS.map(link => (
                   <MobileNavItem 
                     key={link.label} 
@@ -287,7 +295,7 @@ export default function Header() {
                   />
                 ))}
               </nav>
-              <div className="mt-8 pt-6 border-t border-border/50">
+              <div className="mt-6 pt-4 border-t border-border/50">
                 <Button asChild className="w-full bg-primary text-primary-foreground uppercase text-sm font-bold tracking-widest" size="lg">
                   <Link href="/admissions" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
                 </Button>
@@ -299,5 +307,3 @@ export default function Header() {
     </>
   );
 }
-
-    
