@@ -20,9 +20,10 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
     return (
       <div 
         className="relative"
+        onMouseEnter={() => setOpenMenuLabel(link.label)}
+        onMouseLeave={() => setOpenMenuLabel(null)}
       >
         <button
-          onClick={() => setOpenMenuLabel(isOpen ? null : link.label)}
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
             (isParentActive || isOpen)
@@ -45,7 +46,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 p-2 text-card-foreground bg-card rounded-2xl border shadow-2xl backdrop-blur-md bg-white/80 dark:bg-slate-900/80"
+                className="w-80 p-2 text-card-foreground bg-card rounded-2xl border shadow-2xl"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -305,7 +306,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-card/80 backdrop-blur-2xl"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-card"
               onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-6 pb-4 border-b">
