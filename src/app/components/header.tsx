@@ -12,14 +12,14 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { ThemeToggle } from './theme-toggle';
 
-const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LINKS)[number], pathname: string, hasScrolled: boolean }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMenuLabel }: { link: (typeof NAV_LINKS)[number], pathname: string, hasScrolled: boolean, openMenuLabel: string | null, setOpenMenuLabel: (label: string | null) => void }) => {
+  const isOpen = openMenuLabel === link.label;
 
   if (link.children) {
     const isChildActive = link.children.some(child => pathname.startsWith(child.href));
 
     return (
-      <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+      <div className="relative" onMouseEnter={() => setOpenMenuLabel(link.label)} onMouseLeave={() => setOpenMenuLabel(null)}>
         <button
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
@@ -45,7 +45,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl bg-popover/80 backdrop-blur-xl p-2 text-card-foreground shadow-lg border border-border/20"
+                className="w-80 rounded-2xl bg-popover/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg border border-border/20"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -58,7 +58,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
                             "group/navlink block rounded-xl p-3 transition-colors",
                             isActive ? "bg-primary text-primary-foreground" : "hover:bg-primary/10"
                           )}
-                          onClick={() => setIsOpen(false)}
+                          onClick={() => setOpenMenuLabel(null)}
                         >
                           <div className="flex items-center gap-3">
                             <div className={cn(
@@ -103,9 +103,9 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
   );
 };
 
-const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, pathname: string }) => {
+const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccordion }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, pathname: string, openAccordion: string | null, setOpenAccordion: (label: string | null) => void }) => {
   const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
-  const [isOpen, setIsOpen] = useState(isParentActive);
+  const isOpen = openAccordion === link.label;
 
   if (!link.children) {
     const isActive = pathname === link.href;
@@ -124,7 +124,7 @@ const MobileNavItem = ({ link, closeMenu, pathname }: { link: (typeof NAV_LINKS)
 
   return (
     <div className="relative">
-      <button onClick={() => setIsOpen(!isOpen)} className={cn(
+      <button onClick={() => setOpenAccordion(isOpen ? null : link.label)} className={cn(
           "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-muted",
           isParentActive && !isOpen && "bg-muted"
       )}>
@@ -173,6 +173,17 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
+  
+  const activeParentOnLoad = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
+  const [openAccordion, setOpenAccordion] = useState<string | null>(activeParentOnLoad?.label || null);
+
+  useEffect(() => {
+    const activeParent = NAV_LINKS.find(l => l.children && l.children.some(c => pathname.startsWith(c.href)));
+    if (activeParent) {
+      setOpenAccordion(activeParent.label);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     setMounted(true);
@@ -214,7 +225,7 @@ export default function Header() {
             "flex items-center justify-between transition-all duration-500 ease-heavy-out",
             hasScrolled
                 ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/10 dark:bg-slate-900/10 backdrop-blur-2xl'
-                : 'w-full rounded-none bg-transparent backdrop-blur-2xl px-4 md:px-6 py-3'
+                : 'w-full rounded-none bg-transparent px-4 md:px-6 py-3'
         )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
@@ -232,7 +243,14 @@ export default function Header() {
               
               <div className="hidden lg:flex items-center lg:gap-x-1">
                 {NAV_LINKS.map((link) => (
-                  <DesktopNavItem key={link.label} link={link} pathname={pathname} hasScrolled={hasScrolled} />
+                  <DesktopNavItem 
+                    key={link.label} 
+                    link={link} 
+                    pathname={pathname} 
+                    hasScrolled={hasScrolled}
+                    openMenuLabel={openMenuLabel}
+                    setOpenMenuLabel={setOpenMenuLabel}
+                  />
                 ))}
               </div>
 
@@ -242,7 +260,7 @@ export default function Header() {
                     'hidden lg:flex rounded-full text-sm font-semibold transition-all hover:scale-105',
                     hasScrolled 
                         ? 'bg-primary text-primary-foreground' 
-                        : 'bg-transparent border border-white/30 text-white hover:bg-white/20'
+                        : 'bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white/20'
                 )}>
                   <Link href="/admissions">Apply Now</Link>
                 </Button>
@@ -285,13 +303,15 @@ export default function Header() {
                   </Button>
                 </div>
               </div>
-              <nav className="flex-1 flex flex-col gap-2 overflow-y-auto">
+              <nav className="flex-1 flex flex-col gap-1 overflow-y-auto">
                 {NAV_LINKS.map(link => (
                   <MobileNavItem 
                     key={link.label} 
                     link={link}
                     pathname={pathname}
                     closeMenu={() => setMobileMenuOpen(false)}
+                    openAccordion={openAccordion}
+                    setOpenAccordion={setOpenAccordion}
                   />
                 ))}
               </nav>
