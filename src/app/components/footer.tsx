@@ -16,10 +16,10 @@ export default function Footer() {
     <footer className="mt-20 z-10">
       <div className="container mx-auto">
         <div className="bg-card/60 backdrop-blur-xl border-t border-border/50 rounded-t-3xl text-foreground p-8 md:p-12 shadow-2xl shadow-slate-500/10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             
             {/* Column 1: About */}
-            <div className="col-span-2 sm:col-span-1 space-y-4">
+            <div className="space-y-4 order-1">
               <Link href="/" className="flex items-center gap-3">
                 <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} />
                 <span className="font-bold text-xl tracking-tight text-foreground">SARC</span>
@@ -30,19 +30,18 @@ export default function Footer() {
             </div>
 
             {/* Column 2: Quick Links */}
-            <div className="hidden lg:block space-y-4">
+            <div className="hidden md:block space-y-4 order-2">
                <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Quick Links</h3>
                <ul className="space-y-2 text-sm">
                 <li><Link href="/about/us" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
                 <li><Link href="/admissions" className="text-muted-foreground hover:text-primary transition-colors">Admissions</Link></li>
                 <li><Link href="/academics/programs" className="text-muted-foreground hover:text-primary transition-colors">Our Programs</Link></li>
                 <li><Link href="/gallery" className="text-muted-foreground hover:text-primary transition-colors">Gallery</Link></li>
-                <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link></li>
               </ul>
             </div>
 
             {/* Column 3: Contact Info */}
-             <div className="space-y-4">
+             <div className="space-y-4 order-3">
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Contact Us</h3>
                 <ul className="space-y-3 text-sm">
                   <li className='flex items-center gap-3'>
@@ -61,7 +60,7 @@ export default function Footer() {
              </div>
              
              {/* Column 4: Follow Us */}
-             <div className="space-y-4">
+             <div className="space-y-4 order-2 md:order-4">
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
                 <div className="flex space-x-4">
                   <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
