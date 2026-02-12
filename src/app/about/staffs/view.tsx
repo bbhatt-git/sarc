@@ -134,7 +134,7 @@ export default function StaffsView() {
                 {/* Teaching Faculty Section */}
                 <section>
                     <SectionTitle title="Teaching Faculty" subtitle="Dedicated educators shaping young minds" />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
                         {faculty.map((staff) => (
                             <StaffCard key={staff.id} staff={staff} />
                         ))}
