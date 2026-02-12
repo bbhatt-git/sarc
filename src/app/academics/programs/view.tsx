@@ -100,7 +100,7 @@ export default function ProgramsView() {
                     <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Choose your path and prepare for university and career success.</p>
                     <div className="grid md:grid-cols-2 gap-8 mt-12 items-stretch">
                         {Object.values(specializations).map((spec, index) => (
-                            <Card key={index} className="testimonial-card flex flex-col">
+                            <Card key={index} className="testimonial-card flex flex-col transition-all duration-300 hover:-translate-y-2">
                                 <CardHeader>
                                     <div className="flex items-center gap-4 mb-4">
                                         <div className="bg-primary/10 p-4 rounded-full">
@@ -144,7 +144,7 @@ export default function ProgramsView() {
                      <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Learning methods designed for the 21st century and beyond.</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         {teachingApproaches.map((item, index) => (
-                             <div key={item.title} className="testimonial-card text-center p-8 h-full">
+                             <div key={item.title} className="testimonial-card text-center p-8 h-full transition-all duration-300 hover:-translate-y-2">
                                 <div className="inline-block bg-primary/10 text-primary p-4 rounded-full mb-4">
                                     <item.icon className="w-8 h-8" />
                                 </div>

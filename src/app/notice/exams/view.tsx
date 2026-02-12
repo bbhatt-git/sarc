@@ -192,7 +192,7 @@ export default function ExamsView({ initialNotices }: ExamsViewProps) {
                             {initialNotices.map((notice, index) => (
                                 <div
                                     key={index}
-                                    className="testimonial-card p-4"
+                                    className="testimonial-card p-4 transition-all duration-300 hover:-translate-y-1"
                                 >
                                    <div className="flex items-center justify-between">
                                      <div className="flex items-center gap-4">

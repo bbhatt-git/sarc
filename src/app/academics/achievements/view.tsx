@@ -167,7 +167,7 @@ export default function AchievementsView() {
             {stats.map((stat, index) => (
               <div
                 key={stat.label}
-                className="testimonial-card p-8"
+                className="testimonial-card p-8 transition-all duration-300 hover:-translate-y-2"
               >
                 <p className="text-5xl font-bold text-primary">{stat.number}</p>
                 <p className="text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
@@ -185,7 +185,7 @@ export default function AchievementsView() {
             {awards.map((award, index) => (
               <div
                 key={award.title}
-                className="testimonial-card p-6 text-center h-full"
+                className="testimonial-card p-6 text-center h-full transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="inline-block bg-sky-100 dark:bg-sky-900/50 p-4 rounded-full mb-4">
                   <award.icon className="w-8 h-8 text-sky-600 dark:text-sky-400" />
@@ -208,7 +208,7 @@ export default function AchievementsView() {
             {alumni.map((person, index) => (
               <div
                 key={person.name}
-                className="testimonial-card overflow-hidden p-0 h-full flex flex-col"
+                className="testimonial-card overflow-hidden p-0 h-full flex flex-col transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="relative h-48">
                     <Image src={person.image} alt={person.name} fill className="object-cover" data-ai-hint="person" />
@@ -279,7 +279,7 @@ export default function AchievementsView() {
             {topStudents.map((student, index) => (
               <div
                 key={student.name}
-                className="testimonial-card overflow-hidden p-0"
+                className="testimonial-card overflow-hidden p-0 transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="relative h-48">
                     <Image src={student.image} alt={student.name} fill className="object-cover" data-ai-hint="student" />

@@ -14,7 +14,7 @@ export default function WhyUsView() {
                     {WHY_US_ITEMS.map((item, index) => (
                         <div
                             key={item.title}
-                            className="testimonial-card p-8 flex items-start gap-6 h-full"
+                            className="testimonial-card p-8 flex items-start gap-6 h-full transition-all duration-300 hover:-translate-y-2"
                         >
                             <div className="bg-primary/10 p-4 rounded-full border border-primary/20">
                                 <item.icon className="w-8 h-8 text-primary" />

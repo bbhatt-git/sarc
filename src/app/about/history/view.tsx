@@ -16,7 +16,7 @@ export default function HistoryView() {
     const timelineData = milestones.map(item => ({
         title: item.year.toString(),
         content: (
-            <div className="bg-card/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-xl p-6 relative overflow-hidden">
+            <div className="bg-card/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-xl p-6 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary/50">
                 <h3 className="text-xl font-bold text-foreground">{item.event}</h3>
             </div>
         )

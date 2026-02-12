@@ -1,6 +1,6 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
-import { Bell, FileText, Calendar } from 'lucide-react';
+import { Bell, FileText, Calendar, Award } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import {
     Dialog,
@@ -17,6 +17,7 @@ const iconMap = {
     Bell,
     FileText,
     Calendar,
+    Award,
     Default: Bell
 };
 
@@ -38,6 +39,7 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
             case 'Bell': return 'bg-sky-500/10 text-sky-500';
             case 'FileText': return 'bg-amber-500/10 text-amber-500';
             case 'Calendar': return 'bg-rose-500/10 text-rose-500';
+            case 'Award': return 'bg-emerald-500/10 text-emerald-500';
             default: return 'bg-sky-500/10 text-sky-500';
         }
     }
@@ -75,7 +77,7 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                             return (
                                 <Dialog key={index}>
                                     <DialogTrigger asChild>
-                                        <div className="cursor-pointer">
+                                        <div className="cursor-pointer transition-all duration-300 hover:-translate-y-1">
                                             {noticeCard}
                                         </div>
                                     </DialogTrigger>

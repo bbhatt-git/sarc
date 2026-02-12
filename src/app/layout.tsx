@@ -1,5 +1,5 @@
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
@@ -66,6 +66,13 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 0.9,
+  maximumScale: 5,
+};
+
 
 export default function RootLayout({
   children,

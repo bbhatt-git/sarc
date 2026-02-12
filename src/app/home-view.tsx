@@ -104,7 +104,7 @@ export default function HomeView() {
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="testimonial-card p-8"
+                className="testimonial-card p-8 transition-all duration-300 hover:-translate-y-2"
               >
                 <stat.icon className="w-10 h-10 text-primary mx-auto mb-4" />
                 <p className="relative text-4xl lg:text-5xl font-bold text-foreground">{stat.number}</p>
@@ -161,6 +161,7 @@ export default function HomeView() {
             {WHY_US_ITEMS.map((item, index) => (
               <div
                 key={item.title}
+                className="transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="testimonial-card text-center h-full p-8">
                   <div className="relative mb-4 inline-block bg-primary/10 p-4 rounded-full">
