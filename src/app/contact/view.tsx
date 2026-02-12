@@ -124,8 +124,17 @@ export default function ContactView() {
                     </div>
 
                     <div className="space-y-8">
-                        <div className="rounded-lg overflow-hidden border border-slate-200 shadow-md relative bg-muted h-[300px] flex items-center justify-center">
-                            <p className="text-muted-foreground">Map Coming Soon</p>
+                         <div className="rounded-lg overflow-hidden border border-border/50 shadow-md relative h-[450px]">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.851991823293!2d80.1753244743224!3d28.69376667562916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a1ab1492806743%3A0x24a0f71e59229306!2sSARC%20EDUCATION%20FOUNDATION-Best%20in%20School%2Fcollege%20in%20Kanchanpur%2C%20Mahendranagar!5e0!3m2!1sen!2snp!4v1669888812613!5m2!1sen!2snp"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen={false}
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="SARC Education Foundation Location"
+                            ></iframe>
                         </div>
                         <div className="space-y-6">
                             <InfoCard icon={MapPin} title="Address" text="Bhimdatta-06, Kanchanpur" />
