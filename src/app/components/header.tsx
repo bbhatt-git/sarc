@@ -44,7 +44,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 p-2 text-card-foreground bg-card/60 backdrop-blur-xl rounded-2xl border shadow-2xl"
+                className="w-80 p-2 text-card-foreground bg-card rounded-2xl border shadow-2xl"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -234,7 +234,7 @@ export default function Header() {
                       <span className={cn(
                           "text-lg font-medium leading-tight transition-colors whitespace-nowrap",
                           hasScrolled ? 'text-primary' : 'text-white'
-                      )}>SARC EDUCATION</span>
+                      )}>SARC EDU.</span>
                       <div className={cn(
                           "text-xs font-medium transition-colors",
                           hasScrolled ? 'text-foreground' : 'text-white/80'
@@ -293,7 +293,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl border-l border-white/20"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-background border-l"
               onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-6 pb-4 border-b">
@@ -309,7 +309,7 @@ export default function Header() {
                   </div>
                 </div>
 
-                <nav className="flex-1 flex flex-col gap-2 overflow-y-auto pr-2 -mr-2">
+                <nav className="flex-1 flex flex-col gap-1 overflow-y-auto pr-2 -mr-2">
                   {NAV_LINKS.map(link => (
                     <MobileNavItem 
                       key={link.label} 
