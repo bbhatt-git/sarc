@@ -27,7 +27,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
             (isParentActive || isOpen)
-                ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
+                ? 'bg-primary/10 text-primary' 
                 : 'text-foreground hover:bg-muted'
           )}
         >
@@ -93,7 +93,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
       className={cn(
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
          isActive 
-            ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
+            ? 'bg-primary/10 text-primary' 
             : 'text-foreground hover:bg-muted'
       )}
     >
@@ -252,10 +252,10 @@ export default function Header() {
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
                   <div className="flex flex-col">
-                      <span className="text-lg font-medium leading-tight text-primary transition-colors whitespace-nowrap">
+                      <span className="text-lg font-bold leading-tight text-sky-600 dark:text-sky-400 transition-colors whitespace-nowrap">
                         SARC EDU.
                       </span>
-                      <div className="text-xs font-medium text-foreground transition-colors flex justify-between w-full">
+                      <div className="text-xs font-bold text-foreground transition-colors flex justify-between w-full">
                           {'FOUNDATION'.split('').map((char, i) => <span key={i}>{char}</span>)}
                       </div>
                   </div>
@@ -298,7 +298,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/50 lg:hidden"
+            className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
           >
             <motion.div
