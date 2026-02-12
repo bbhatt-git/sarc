@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BookOpen, Calendar, ShieldCheck, Users } from 'lucide-react';
+import { BookOpen, Calendar, ShieldCheck, Users } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TESTIMONIALS, WHY_US_ITEMS } from '@/lib/constants';
@@ -94,7 +94,7 @@ export default function HomeView() {
                 Established in 2017, SARC has been a beacon of holistic education. We are dedicated to nurturing not just academic brilliance, but also the character, values, and skills that shape future leaders and responsible global citizens. Our philosophy is rooted in providing an environment that encourages curiosity, critical thinking, and a lifelong passion for learning.
               </p>
               <Button asChild size="lg" className='rounded-full bg-primary hover:bg-primary/90 text-primary-foreground mt-8'>
-                <Link href="/about/us">Learn More <ArrowRight className="ml-2" /></Link>
+                <Link href="/about/us">Learn More</Link>
               </Button>
             </div>
             <div className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg group">
@@ -180,7 +180,7 @@ export default function HomeView() {
                 </p>
                 <div>
                     <Button asChild size="lg" className="mt-10 bg-white text-primary hover:bg-slate-200 hover:scale-105 transition-all duration-300 rounded-full font-semibold">
-                        <Link href="/admissions">Apply Now <ArrowRight className="ml-2" /></Link>
+                        <Link href="/admissions">Apply Now</Link>
                     </Button>
                 </div>
             </div>

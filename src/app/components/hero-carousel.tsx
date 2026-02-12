@@ -71,7 +71,7 @@ export function HeroCarousel() {
             </AnimatePresence>
             <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
                 <Button asChild size="lg" className='rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-transform hover:scale-105'>
-                <Link href="/admissions">Apply Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                <Link href="/admissions">Apply Now</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className='rounded-full bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20 hover:border-white/60 hover:text-white transition-all duration-300 hover:scale-105'>
                 <Link href="/academics/programs">Explore Programs</Link>

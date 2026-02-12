@@ -162,21 +162,14 @@ export default function Header() {
 
   return (
     <>
-      <header className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          hasScrolled ? 'pt-2' : 'pt-0'
-      )}>
-        <div className={cn(
-            "mx-auto transition-all duration-300",
-            hasScrolled ? 'w-[96%] md:w-[95%] lg:w-[90%]' : 'w-full'
+      <header className="fixed top-0 left-0 right-0 z-50 p-0 md:p-2 transition-all duration-300 ease-in-out">
+        <nav className={cn(
+            "mx-auto flex items-center justify-between p-3 transition-all duration-500 ease-heavy-out",
+            "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl",
+            hasScrolled
+                ? 'w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
+                : 'w-full rounded-none border-b border-transparent'
         )}>
-            <nav className={cn(
-                "flex items-center justify-between p-3 transition-all duration-300",
-                "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl",
-                hasScrolled
-                    ? 'rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
-                    : 'rounded-none border-b border-transparent'
-            )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
                   <div className="flex flex-col">
@@ -185,7 +178,7 @@ export default function Header() {
                   </div>
               </Link>
               
-              <div className="hidden lg:flex items-center lg:gap-x-2">
+              <div className="hidden lg:flex items-center lg:gap-x-1">
                 {NAV_LINKS.map((link) => (
                   <DesktopNavItem key={link.label} link={link} pathname={pathname} />
                 ))}
@@ -203,7 +196,6 @@ export default function Header() {
                 </div>
               </div>
             </nav>
-        </div>
       </header>
 
       <AnimatePresence>
