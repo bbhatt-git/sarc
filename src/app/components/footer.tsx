@@ -22,7 +22,7 @@ export default function Footer() {
     <footer className="mt-20 z-10">
       <div className="container mx-auto">
         <div className="bg-card/60 backdrop-blur-xl border-t border-border/50 rounded-t-3xl text-foreground p-8 md:p-12 shadow-2xl shadow-slate-500/10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-12">
             
             {/* Column 1: About & Socials */}
             <div className="space-y-4">
@@ -50,7 +50,7 @@ export default function Footer() {
             </div>
 
             {/* Column 2: Quick Links */}
-            <div className="space-y-4">
+            <div className="hidden lg:block space-y-4">
                <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Quick Links</h3>
                <ul className="space-y-2 text-sm">
                 <li><Link href="/about/us" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
