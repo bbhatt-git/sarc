@@ -109,12 +109,13 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'marquee': 'marquee var(--duration) linear infinite',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
-        'blob': 'blob 25s infinite alternate ease-in-out',
+        'blob': 'blob 40s infinite alternate ease-in-out',
       },
       textShadow: {
         sm: '0 1px 2px var(--tw-shadow-color)',
         DEFAULT: '0 2px 4px var(--tw-shadow-color)',
         lg: '0 8px 16px var(--tw-shadow-color)',
+        md: '0 4px 8px var(--tw-shadow-color)',
       },
       transitionTimingFunction: {
         'heavy-out': 'cubic-bezier(0.25, 1, 0.5, 1)',

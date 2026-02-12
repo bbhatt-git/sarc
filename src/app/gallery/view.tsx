@@ -1,7 +1,6 @@
 'use client';
 
 import PageHeader from '@/app/components/page-header';
-import { GALLERY_IMAGES } from '@/lib/constants';
 import { imageData } from '@/lib/image-data';
 import { ThreeDMarquee } from '../components/3d-marquee';
 
@@ -15,7 +14,7 @@ export default function GalleryView() {
         subtitle="Moments of Discovery and Community at SARC"
         imageUrl={imageData.hero[4].src}
       />
-      <div className="w-full py-20">
+      <div className="w-full py-20 lg:py-28">
          <ThreeDMarquee images={imagesForMarquee} />
       </div>
     </div>

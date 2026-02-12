@@ -78,7 +78,7 @@
 
 @layer components {
   .testimonial-card {
-    @apply relative bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-border/50 rounded-2xl shadow-lg shadow-slate-500/5 overflow-hidden transition-all duration-300;
+    @apply relative bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-border/50 rounded-2xl shadow-lg shadow-slate-500/5 overflow-hidden;
   }
 }
 

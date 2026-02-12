@@ -46,35 +46,30 @@ export default function FacultiesView() {
         <div>
             <PageHeader title="Our Faculties" subtitle="Expertise in Science & Management" imageUrl={imageData.hero[3].src} />
             <div className="container mx-auto px-4 py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-                    {faculties.map((faculty, index) => (
-                        <div
-                            key={faculty.name}
-                            className="h-full"
-                        >
-                            <Card className="testimonial-card h-full flex flex-col">
-                                <CardHeader className="text-center items-center p-8">
-                                    <div className="p-4 bg-primary/10 rounded-full inline-block mb-4">
-                                        <faculty.icon className="w-10 h-10 text-primary" />
-                                    </div>
-                                    <CardTitle className="text-3xl">{faculty.name}</CardTitle>
-                                    <CardDescription className="pt-2 max-w-md mx-auto">{faculty.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-6 p-8 flex-grow">
-                                    {faculty.streams.map((stream) => (
-                                        <div key={stream.name} className="flex items-start gap-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/70 hover:border-primary/50 transition-colors duration-300">
-                                             <div className="bg-sky-100 dark:bg-sky-900/50 p-3 rounded-full mt-1">
-                                                <stream.icon className="w-6 h-6 text-sky-600 dark:text-sky-400" />
-                                            </div>
-                                            <div>
-                                                <h4 className="font-bold text-lg text-foreground">{stream.name}</h4>
-                                                <p className="text-muted-foreground text-sm">{stream.description}</p>
-                                            </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    {faculties.map((faculty) => (
+                        <Card key={faculty.name} className="testimonial-card h-full flex flex-col">
+                            <CardHeader className="text-center items-center p-8">
+                                <div className="p-4 bg-primary/10 rounded-full inline-block mb-4">
+                                    <faculty.icon className="w-10 h-10 text-primary" />
+                                </div>
+                                <CardTitle className="text-3xl">{faculty.name}</CardTitle>
+                                <CardDescription className="pt-2 max-w-md mx-auto">{faculty.description}</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6 p-8 flex-grow">
+                                {faculty.streams.map((stream) => (
+                                    <div key={stream.name} className="flex items-start gap-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/70 hover:border-primary/50 transition-colors duration-300">
+                                            <div className="bg-emerald-100 dark:bg-emerald-900/50 p-3 rounded-full mt-1">
+                                            <stream.icon className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                                         </div>
-                                    ))}
-                                </CardContent>
-                            </Card>
-                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-lg text-foreground">{stream.name}</h4>
+                                            <p className="text-muted-foreground text-sm">{stream.description}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </CardContent>
+                        </Card>
                     ))}
                 </div>
             </div>
