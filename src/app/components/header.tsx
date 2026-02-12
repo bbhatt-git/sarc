@@ -41,7 +41,7 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-64 rounded-2xl border bg-card p-2 text-card-foreground shadow-lg"
+                className="w-80 rounded-2xl border bg-card p-2 text-card-foreground shadow-lg"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -58,8 +58,8 @@ const DesktopNavItem = ({ link, pathname }: { link: (typeof NAV_LINKS)[number], 
                         >
                           <div className="flex items-center gap-3">
                             <div className={cn(
-                              'flex-shrink-0 rounded-lg bg-primary/10 p-2 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground transition-colors duration-200',
-                              isActive && 'bg-primary text-primary-foreground'
+                              'flex-shrink-0 rounded-lg p-2 transition-colors duration-200',
+                              isActive ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary group-hover/navlink:bg-primary group-hover/navlink:text-primary-foreground'
                             )}>
                               <child.icon className="w-5 h-5" />
                             </div>
@@ -177,7 +177,7 @@ export default function Header() {
             "mx-auto flex items-center justify-between p-3 transition-all duration-500 ease-heavy-out",
             hasScrolled
                 ? 'w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl'
-                : 'w-full rounded-none border-b border-border bg-background'
+                : 'w-full rounded-none bg-transparent backdrop-blur-2xl'
         )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
