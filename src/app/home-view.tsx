@@ -117,24 +117,45 @@ export default function HomeView() {
             subtitle="OUR GALLERY"
             className="mb-12"
           />
-          <div className="relative h-[600px] w-full grid grid-cols-2 md:grid-cols-3 gap-4 overflow-hidden rounded-lg [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-            <Marquee vertical className="h-full [--duration:90s] [--gap:1rem]">
-                {imageData.gallery.slice(0, 12).map((image, i) => (
+          <div className="relative h-[600px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 overflow-hidden rounded-lg [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+            <Marquee vertical className="h-full [--duration:60s] [--gap:1rem]">
+                {imageData.gallery.slice(0, 6).map((image, i) => (
                     <div key={`col1-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
                         <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint} />
                     </div>
                 ))}
             </Marquee>
-            <Marquee vertical reverse className="h-full [--duration:90s] [--gap:1rem]">
-                 {imageData.gallery.slice(12, 24).map((image, i) => (
+            <Marquee vertical reverse className="h-full [--duration:60s] [--gap:1rem]">
+                 {imageData.gallery.slice(6, 12).map((image, i) => (
                     <div key={`col2-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
                         <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint} />
                     </div>
                 ))}
             </Marquee>
-            <Marquee vertical className="h-full [--duration:90s] [--gap:1rem] hidden md:flex">
-                 {imageData.gallery.slice(24, 36).map((image, i) => (
+            <Marquee vertical className="h-full [--duration:60s] [--gap:1rem] hidden sm:flex">
+                 {imageData.gallery.slice(12, 18).map((image, i) => (
                     <div key={`col3-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
+                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
+                    </div>
+                ))}
+            </Marquee>
+            <Marquee vertical reverse className="h-full [--duration:60s] [--gap:1rem] hidden md:flex">
+                 {imageData.gallery.slice(18, 24).map((image, i) => (
+                    <div key={`col4-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
+                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
+                    </div>
+                ))}
+            </Marquee>
+            <Marquee vertical className="h-full [--duration:60s] [--gap:1rem] hidden lg:flex">
+                 {imageData.gallery.slice(24, 30).map((image, i) => (
+                    <div key={`col5-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
+                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
+                    </div>
+                ))}
+            </Marquee>
+            <Marquee vertical reverse className="h-full [--duration:60s] [--gap:1rem] hidden lg:flex">
+                 {imageData.gallery.slice(30, 36).map((image, i) => (
+                    <div key={`col6-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
                         <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
                     </div>
                 ))}
