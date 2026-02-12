@@ -9,7 +9,6 @@ import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { imageData } from '@/lib/image-data';
-import { ThreeDMarquee } from './components/3d-marquee';
 import { HeroCarousel } from './components/hero-carousel';
 
 
@@ -110,7 +109,7 @@ export default function HomeView() {
         </div>
       </section>
       
-      {/* 3D Marquee Section */}
+      {/* Gallery Marquee Section */}
       <section className="w-full py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <SectionTitle
@@ -118,7 +117,29 @@ export default function HomeView() {
             subtitle="OUR GALLERY"
             className="mb-12"
           />
-          <ThreeDMarquee images={imageData.gallery.map(img => img.src)} />
+          <div className="relative h-[600px] w-full grid grid-cols-2 md:grid-cols-3 gap-4 overflow-hidden rounded-lg [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+            <Marquee vertical className="h-full [--duration:90s] [--gap:1rem]">
+                {imageData.gallery.slice(0, 12).map((image, i) => (
+                    <div key={`col1-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
+                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint} />
+                    </div>
+                ))}
+            </Marquee>
+            <Marquee vertical reverse className="h-full [--duration:90s] [--gap:1rem]">
+                 {imageData.gallery.slice(12, 24).map((image, i) => (
+                    <div key={`col2-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
+                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint} />
+                    </div>
+                ))}
+            </Marquee>
+            <Marquee vertical className="h-full [--duration:90s] [--gap:1rem] hidden md:flex">
+                 {imageData.gallery.slice(24, 36).map((image, i) => (
+                    <div key={`col3-${i}`} className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-xl shadow-lg">
+                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
+                    </div>
+                ))}
+            </Marquee>
+          </div>
         </div>
       </section>
 
