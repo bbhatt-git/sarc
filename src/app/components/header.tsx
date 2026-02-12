@@ -44,7 +44,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl bg-card/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg border border-border/50"
+                className="w-80 rounded-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg border border-white/20 dark:border-white/10"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -233,7 +233,7 @@ export default function Header() {
                     'hidden lg:flex rounded-full text-sm font-semibold transition-all hover:scale-105',
                     hasScrolled 
                         ? 'bg-primary text-primary-foreground' 
-                        : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'
+                        : 'bg-transparent border border-white/30 text-white hover:bg-white/20'
                 )}>
                   <Link href="/admissions">Apply Now</Link>
                 </Button>
@@ -261,7 +261,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl p-6 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl p-6 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-10">
@@ -276,7 +276,7 @@ export default function Header() {
                   </Button>
                 </div>
               </div>
-              <nav className="flex-1 flex flex-col gap-4 overflow-y-auto">
+              <nav className="flex-1 flex flex-col gap-2 overflow-y-auto">
                 {NAV_LINKS.map(link => (
                   <MobileNavItem 
                     key={link.label} 
