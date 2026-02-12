@@ -187,7 +187,7 @@ export default function Header() {
         <nav className={cn(
             "flex items-center justify-between transition-all duration-500 ease-heavy-out",
             hasScrolled
-                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl'
+                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/10 dark:bg-slate-900/10 backdrop-blur-2xl'
                 : 'w-full rounded-none bg-transparent backdrop-blur-2xl px-4 md:px-6 py-3'
         )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
