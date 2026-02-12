@@ -44,7 +44,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled }: { link: (typeof NAV_LIN
               className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-20"
             >
               <div
-                className="w-80 rounded-2xl border border-white/10 bg-card/50 backdrop-blur-2xl p-2 text-card-foreground shadow-lg"
+                className="w-80 rounded-2xl bg-white/10 dark:bg-black/20 backdrop-blur-3xl p-2 text-card-foreground shadow-lg border border-white/20"
               >
                 <ul className="space-y-1">
                   {link.children.map((child) => {
@@ -181,7 +181,7 @@ export default function Header() {
     <>
       <header className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
-        hasScrolled ? "pt-[5px]" : "p-0"
+        hasScrolled ? "pt-2" : "p-0"
       )}>
         <nav className={cn(
             "flex items-center justify-between transition-all duration-500 ease-heavy-out",
@@ -243,7 +243,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/20 dark:bg-slate-900/20 backdrop-blur-2xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl p-6 overflow-y-auto shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white/20 dark:border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-12">
