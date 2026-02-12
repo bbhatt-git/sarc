@@ -2,7 +2,7 @@
 
 import { useState, useRef, FormEvent } from 'react';
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle, Loader2, Mail, MapPin, Phone, Clock } from 'lucide-react';
+import { CheckCircle, Loader2, Mail, MapPin, Phone, Clock, Send } from 'lucide-react';
 import { z } from "zod";
 import { useFirestore } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -12,13 +12,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import PageHeader from '../components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { imageData } from '@/lib/image-data';
+import Link from 'next/link';
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Name is too short"),
   email: z.string().email("Invalid email address"),
+  phone: z.string().min(7, "Phone number is required"),
   subject: z.string().min(3, "Subject is too short"),
   message: z.string().min(10, "Message is too short"),
 });
@@ -28,6 +28,21 @@ type State = {
   errors: Record<string, string[] | undefined> | null;
   success: boolean;
 };
+
+const InfoCard = ({ icon: Icon, title, text, href }: { icon: React.ElementType, title: string, text: string, href?: string }) => (
+    <div className="testimonial-card text-center p-8">
+        <div className="inline-block bg-primary/10 text-primary p-4 rounded-full mb-4">
+            <Icon className="w-8 h-8" />
+        </div>
+        <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
+        {href ? (
+             <a href={href} className="text-muted-foreground hover:text-primary transition-colors">{text}</a>
+        ) : (
+            <p className="text-muted-foreground">{text}</p>
+        )}
+    </div>
+);
+
 
 export default function ContactView() {
     const [state, setState] = useState<State>({ message: null, errors: null, success: false });
@@ -51,7 +66,7 @@ export default function ContactView() {
             const errors = validatedFields.error.flatten().fieldErrors;
             setState({ errors, message: "Please correct the errors.", success: false });
             setIsSubmitting(false);
-            toast({ variant: 'destructive', title: 'Submission Error' });
+            toast({ variant: 'destructive', title: 'Submission Error', description: 'Please check the form for errors.' });
             return;
         }
 
@@ -70,7 +85,7 @@ export default function ContactView() {
           });
           errorEmitter.emit('permission-error', permissionError);
           setState({ message: 'Server Error: Could not send message.', errors: null, success: false });
-          toast({ variant: 'destructive', title: 'Server Error' });
+          toast({ variant: 'destructive', title: 'Server Error', description: 'Could not send your message. Please try again later.' });
         }).finally(() => {
           setIsSubmitting(false);
         });
@@ -78,89 +93,102 @@ export default function ContactView() {
 
     return (
         <div>
-            <PageHeader title="Contact Us" subtitle="Get In Touch With SARC" imageUrl={imageData.hero[2].src} />
+            {/* Hero Section */}
+            <section className="bg-primary text-primary-foreground py-20 text-center">
+                <div className="container">
+                    <h1 className="text-4xl md:text-5xl font-bold">Get in <span className='text-emerald-300'>Touch</span></h1>
+                    <p className="mt-4 text-lg text-primary-foreground/80 max-w-2xl mx-auto">Have questions? We're here to help you begin your SARC journey</p>
+                </div>
+            </section>
 
-            <section 
-                className="container mx-auto px-4 py-20"
-            >
-                <div className="grid lg:grid-cols-2 gap-16 items-start">
-                    <div className="bg-card/50 backdrop-blur-sm shadow-lg rounded-2xl p-8 md:p-12 relative overflow-hidden">
-                        <h3 className="text-2xl font-bold mb-2 text-foreground">Send Us a Message</h3>
-                        <p className="text-muted-foreground mb-8">We'll get back to you as soon as possible.</p>
-                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                            <div className="grid sm:grid-cols-2 gap-6">
+            {/* Info Cards */}
+            <section className="py-20">
+                <div className="container grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                     <InfoCard icon={MapPin} title="Address" text="Bhimdatta-06, Mahendranagar, Kanchanpur, Nepal" />
+                     <InfoCard icon={Phone} title="Phone" text="099-525271" href="tel:099525271"/>
+                     <InfoCard icon={Mail} title="Email" text="contact@sarc.edu.np" href="mailto:contact@sarc.edu.np"/>
+                     <InfoCard icon={Clock} title="Office Hours" text="Sunday - Friday: 7:00 AM - 4:00 PM"/>
+                </div>
+            </section>
+
+            {/* Form and Map Section */}
+            <section className="container pb-20">
+                 <div className="grid lg:grid-cols-2 gap-16 items-start">
+                    <div className="space-y-6">
+                        <h2 className="text-3xl font-bold">Send Us a <span className="text-primary">Message</span></h2>
+                        
+                        {state.success ? (
+                            <Alert variant="default" className="bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-900/30 dark:border-emerald-500/30 dark:text-emerald-200">
+                                <CheckCircle className="h-4 w-4 !text-emerald-600 dark:!text-emerald-400" />
+                                <AlertTitle className="font-semibold">Success!</AlertTitle>
+                                <AlertDescription>{state.message}</AlertDescription>
+                            </Alert>
+                        ) : (
+                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="fullName">Full Name</Label>
-                                    <Input id="fullName" name="fullName" placeholder="e.g. John Doe" required />
+                                    <Label htmlFor="fullName">Full Name *</Label>
+                                    <Input id="fullName" name="fullName" placeholder="Enter your name" required />
                                     {state.errors?.fullName && <p className="text-sm text-rose-500">{state.errors.fullName[0]}</p>}
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="email">Email Address</Label>
-                                    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                                    <Label htmlFor="email">Email Address *</Label>
+                                    <Input id="email" name="email" type="email" placeholder="your.email@example.com" required />
                                     {state.errors?.email && <p className="text-sm text-rose-500">{state.errors.email[0]}</p>}
                                 </div>
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="subject">Subject</Label>
-                                <Input id="subject" name="subject" placeholder="e.g. Admission Inquiry" required />
-                                {state.errors?.subject && <p className="text-sm text-rose-500">{state.errors.subject[0]}</p>}
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="message">Message</Label>
-                                <Textarea id="message" name="message" placeholder="Your message here..." required rows={5} />
-                                {state.errors?.message && <p className="text-sm text-rose-500">{state.errors.message[0]}</p>}
-                            </div>
-                            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold" size="lg" disabled={isSubmitting}>
-                                {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : 'Send Message'}
-                            </Button>
-                            {state.success && state.message && (
-                                <Alert variant="default" className="mt-4 bg-emerald-50 border-emerald-200 text-emerald-800">
-                                  <CheckCircle className="h-4 w-4 !text-emerald-600" />
-                                  <AlertTitle className="font-semibold">Success!</AlertTitle>
-                                  <AlertDescription>{state.message}</AlertDescription>
-                                </Alert>
-                            )}
-                        </form>
+                                <div className="space-y-2">
+                                    <Label htmlFor="phone">Phone Number *</Label>
+                                    <Input id="phone" name="phone" type="tel" placeholder="+977 XXX-XXXXXX" required />
+                                    {state.errors?.phone && <p className="text-sm text-rose-500">{state.errors.phone[0]}</p>}
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="subject">Subject *</Label>
+                                    <Input id="subject" name="subject" placeholder="What is your inquiry about?" required />
+                                    {state.errors?.subject && <p className="text-sm text-rose-500">{state.errors.subject[0]}</p>}
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="message">Message *</Label>
+                                    <Textarea id="message" name="message" placeholder="Tell us more about your inquiry..." required rows={5} />
+                                    {state.errors?.message && <p className="text-sm text-rose-500">{state.errors.message[0]}</p>}
+                                </div>
+                                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                                    {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending...</> : <><Send className="mr-2 h-4 w-4" />Send Message</>}
+                                </Button>
+                            </form>
+                        )}
                     </div>
-
-                    <div className="space-y-8">
-                         <div className="rounded-lg overflow-hidden border border-border/50 shadow-md relative h-[450px]">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.851991823293!2d80.1753244743224!3d28.69376667562916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a1ab1492806743%3A0x24a0f71e59229306!2sSARC%20EDUCATION%20FOUNDATION-Best%20in%20School%2Fcollege%20in%20Kanchanpur%2C%20Mahendranagar!5e0!3m2!1sen!2snp!4v1669888812613!5m2!1sen!2snp"
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0 }}
-                                allowFullScreen={false}
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                title="SARC Education Foundation Location"
-                            ></iframe>
-                        </div>
-                        <div className="space-y-6">
-                            <InfoCard icon={MapPin} title="Address" text="Bhimdatta-06, Kanchanpur" />
-                            <InfoCard icon={Phone} title="Phone" text="099525271" href="tel:099525271"/>
-                            <InfoCard icon={Mail} title="Email" text="contact@sarc.edu.np" href="mailto:contact@sarc.edu.np"/>
-                            <InfoCard icon={Clock} title="Working Hours" text="Sun - Fri: 9:00 AM - 5:00 PM"/>
-                        </div>
+                     <div className="rounded-lg overflow-hidden border border-border/50 shadow-md relative h-[550px] lg:h-full mt-8 lg:mt-0">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.851991823293!2d80.1753244743224!3d28.69376667562916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a1ab1492806743%3A0x24a0f71e59229306!2sSARC%20EDUCATION%20FOUNDATION-Best%20in%20School%2Fcollege%20in%20Kanchanpur%2C%20Mahendranagar!5e0!3m2!1sen!2snp!4v1669888812613!5m2!1sen!2snp"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen={false}
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="SARC Education Foundation Location"
+                        ></iframe>
                     </div>
                 </div>
             </section>
+            
+            {/* CTA Section */}
+            <section className="pb-20">
+                <div className="container">
+                    <div className="bg-primary text-primary-foreground rounded-2xl p-12 text-center flex flex-col items-center">
+                        <div className="bg-white/10 p-4 rounded-full mb-6">
+                            <MapPin className="w-8 h-8"/>
+                        </div>
+                        <h2 className="text-3xl font-bold">Schedule a Campus Visit</h2>
+                        <p className="mt-2 max-w-2xl mx-auto opacity-90">
+                           Experience SARC firsthand. Tour our facilities, meet our faculty, and see innovation in action.
+                        </p>
+                        <Button asChild variant="secondary" className="mt-8 bg-white text-primary hover:bg-white/90 rounded-full">
+                            <Link href="/admissions">Book Your Visit</Link>
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
         </div>
     );
 }
-
-const InfoCard = ({ icon: Icon, title, text, href }: { icon: React.ElementType, title: string, text: string, href?: string }) => (
-    <div className="flex items-start gap-4">
-        <div className="bg-primary/10 p-3 rounded-full border border-primary/20">
-            <Icon className="w-5 h-5 text-primary" />
-        </div>
-        <div>
-            <h4 className="font-semibold text-lg text-foreground">{title}</h4>
-            {href ? (
-                 <a href={href} className="text-muted-foreground hover:text-primary transition-colors">{text}</a>
-            ) : (
-                <p className="text-muted-foreground">{text}</p>
-            )}
-        </div>
-    </div>
-)

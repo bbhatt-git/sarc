@@ -60,6 +60,10 @@
           "format": "email",
           "description": "The contact email address of the sender."
         },
+        "phone": {
+            "type": "string",
+            "description": "The contact phone number of the sender."
+        },
         "subject": {
           "type": "string",
           "description": "The subject of the message."
@@ -74,7 +78,7 @@
           "description": "The timestamp when the message was submitted."
         }
       },
-      "required": ["fullName", "email", "subject", "message", "createdAt"]
+      "required": ["fullName", "email", "phone", "subject", "message", "createdAt"]
     }
   },
   "auth": {
@@ -95,5 +99,3 @@
     }
   }
 }
-
-    
