@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Autoplay from "embla-carousel-autoplay"
@@ -17,15 +17,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 import { imageData } from '@/lib/image-data';
-
-const CssRobot = dynamic(() => import('./components/css-robot').then(mod => mod.default), {
-    ssr: false,
-    loading: () => (
-        <div className="flex h-full w-full items-center justify-center">
-            <div className="h-16 w-16 animate-spin rounded-full border-4 border-dashed border-primary"></div>
-        </div>
-    )
-});
+import { ThreeDMarquee } from './components/3d-marquee';
 
 const TestimonialCard = ({
   image,
@@ -163,52 +155,26 @@ export default function HomeView() {
             </div>
             <div className="relative w-full h-[450px] overflow-hidden rounded-2xl shadow-lg group">
                 <Image
-                    src="https://picsum.photos/seed/welcome/800/600"
+                    src={imageData.hero[3].src}
                     alt="Students collaborating on a project"
                     fill
                     className="object-cover relative rounded-[11px]"
-                    data-ai-hint="students collaborating"
+                    data-ai-hint={imageData.hero[3].hint}
                 />
             </div>
           </div>
         </div>
       </section>
-
-      {/* Interactive AI Learning Section */}
+      
+      {/* 3D Marquee Section */}
       <section className="w-full py-20 lg:py-28">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
-                <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 border border-primary/20 mb-6">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                    <p className="font-semibold text-sm text-primary">SARC AI</p>
-                </div>
-                <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
-                    Your Personal <span className="text-primary">AI</span><br />
-                    <span className="text-foreground/80">Assistant</span>
-                </h2>
-                <p className="mt-6 text-muted-foreground leading-relaxed max-w-lg">
-                    Meet SARC AI, your personal assistant for all things related to our college. From admission details to course information, SARC AI is here to help you 24/7. Ask anything, anytime!
-                </p>
-                <Button asChild size="lg" className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground mt-8 shadow-lg shadow-primary/20 transition-transform hover:scale-105">
-                    <Link href="#">Get Started</Link>
-                </Button>
-            </div>
-            <div className="relative w-full h-[450px]">
-                <div className="testimonial-card h-full flex items-center justify-center bg-slate-100/50 dark:bg-slate-900/50 overflow-hidden">
-                    <div className="relative w-full h-full">
-                        <CssRobot />
-                        <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-sm border border-white/10 shadow-lg pointer-events-none">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/80 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                            </span>
-                            SARC AI is thinking...
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
+          <SectionTitle
+            title="A Glimpse of SARC Life"
+            subtitle="OUR GALLERY"
+            className="mb-12"
+          />
+          <ThreeDMarquee images={imageData.gallery.map(img => img.src)} />
         </div>
       </section>
 

@@ -188,6 +188,14 @@ export const STAFF_MEMBERS = [
     socials: { facebook: 'https://www.facebook.com/laxman86', instagram: '#', linkedin: '#' }
   },
   {
+    id: 'dipendra_joshi',
+    name: 'Dipendra Joshi',
+    role: 'Academic Director',
+    credentials: 'M.A., M.Ed (Maths)',
+    philosophy: 'Making mathematics understandable and enjoyable for all.',
+    socials: { facebook: 'https://www.facebook.com/dipendra.joshi.184', instagram: '#', linkedin: '#' }
+  },
+  {
     id: 'santosh_pandey',
     name: 'Santosh Pandey',
     role: 'Managing Director',
@@ -202,14 +210,6 @@ export const STAFF_MEMBERS = [
     credentials: 'M.Phil',
     philosophy: 'Committed to academic excellence and student success.',
     socials: { facebook: 'https://www.facebook.com/bhagawat.bhatta', instagram: '#', linkedin: '#' }
-  },
-  {
-    id: 'dipendra_joshi',
-    name: 'Dipendra Joshi',
-    role: 'Academic Coordinator',
-    credentials: 'M.A. (Maths)',
-    philosophy: 'Making mathematics understandable and enjoyable for all.',
-    socials: { facebook: 'https://www.facebook.com/dipendra.joshi.184', instagram: '#', linkedin: '#' }
   },
   {
     id: 'bed_prakash_bhatt',
@@ -403,10 +403,10 @@ export const STAFF_MEMBERS = [
 ].sort((a, b) => {
     const roleOrder: { [key: string]: number } = {
         "Founder / CEO": 1,
-        "Managing Director": 2,
-        "Program Coordinator": 3,
-        "Academic Coordinator": 4,
-        "Head of Science Department": 5,
+        "Academic Director": 2,
+        "Managing Director": 3,
+        "Program Coordinator": 4,
+        "HOD (Science) | Physics": 5,
         "Faculty": 6,
         "Accountant": 7,
         "Receptionist": 8,

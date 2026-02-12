@@ -1,16 +1,12 @@
 'use client';
 
 import PageHeader from '@/app/components/page-header';
-import DomeGallery from '@/app/components/DomeGallery';
 import { GALLERY_IMAGES } from '@/lib/constants';
 import { imageData } from '@/lib/image-data';
+import { ThreeDMarquee } from '../components/3d-marquee';
 
 export default function GalleryView() {
-  const imagesForDome = imageData.gallery.map((image, index) => ({
-    src: image.src,
-    alt: `Gallery image: ${GALLERY_IMAGES[index]?.category || 'SARC Gallery'}`
-  }));
-
+  const imagesForMarquee = imageData.gallery.map(image => image.src);
 
   return (
     <div>
@@ -19,8 +15,8 @@ export default function GalleryView() {
         subtitle="Moments of Discovery and Community at SARC"
         imageUrl={imageData.hero[4].src}
       />
-      <div className="w-full h-[80vh] min-h-[700px] py-10">
-         <DomeGallery images={imagesForDome} autoRotate={true} grayscale={false} />
+      <div className="w-full py-20">
+         <ThreeDMarquee images={imagesForMarquee} />
       </div>
     </div>
   );
