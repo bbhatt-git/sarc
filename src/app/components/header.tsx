@@ -15,19 +15,29 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
   const isOpen = openMenuLabel === link.label;
   const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
 
+  const handleInteraction = (label: string | null) => {
+    if (openMenuLabel === label) {
+      setOpenMenuLabel(null);
+    } else {
+      setOpenMenuLabel(label);
+    }
+  };
+
   if (link.children) {
     return (
-      <div className="relative" onMouseEnter={() => setOpenMenuLabel(link.label)} onMouseLeave={() => setOpenMenuLabel(null)}>
+      <div 
+        className="relative" 
+        onMouseEnter={() => setOpenMenuLabel(link.label)} 
+        onMouseLeave={() => setOpenMenuLabel(null)}
+        onClick={() => handleInteraction(link.label)}
+      >
         <button
           className={cn(
             'flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
             (isParentActive || isOpen)
                 ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
-                : hasScrolled 
-                    ? 'text-foreground hover:bg-primary/10 hover:text-primary'
-                    : 'text-white hover:bg-white/10'
+                : 'text-foreground hover:bg-primary/10 hover:text-primary'
           )}
-          onClick={() => setOpenMenuLabel(isOpen ? null : link.label)}
         >
           {link.label}
           <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
@@ -92,9 +102,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
          isActive 
             ? 'bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200' 
-            : hasScrolled
-                ? 'text-foreground hover:bg-primary/10 hover:text-primary'
-                : 'text-white hover:bg-white/10'
+            : 'text-foreground hover:bg-primary/10 hover:text-primary'
       )}
     >
       {link.label}
@@ -113,7 +121,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
       <Link href={link.href} onClick={closeMenu} className={cn(
           "flex items-center gap-4 rounded-lg px-3 py-2 text-base font-semibold transition-colors",
           isActive 
-              ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
+              ? "bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
               : "text-foreground hover:bg-muted"
       )}>
           {link.label}
@@ -147,7 +155,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
                   <Link key={child.label} href={child.href} onClick={closeMenu} className={cn(
                     "group flex items-center gap-3 rounded-md p-2 transition-colors",
                     isChildActive 
-                        ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
+                        ? "bg-emerald-100/80 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-200" 
                         : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}>
                     <div className={cn(
@@ -225,20 +233,16 @@ export default function Header() {
         <nav className={cn(
             "flex items-center justify-between transition-all duration-500 ease-heavy-out",
             hasScrolled
-                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl'
-                : 'w-full rounded-none bg-transparent px-4 md:px-6 py-3'
+                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg bg-card/80 backdrop-blur-2xl'
+                : 'w-full rounded-none bg-white/20 dark:bg-slate-900/20 backdrop-blur-2xl px-4 md:px-6 py-3 border-b border-black/10 dark:border-white/10'
         )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
                   <Image src="/images/sarc.png" alt="SARC Logo" width={40} height={40} className='transition-transform duration-300 group-hover:scale-110' />
                   <div className="flex flex-col">
-                      <span className={cn(
-                          "text-lg font-medium leading-tight transition-colors whitespace-nowrap",
-                          hasScrolled ? 'text-primary' : 'text-white'
-                      )}>SARC EDU.</span>
-                      <div className={cn(
-                          "text-xs font-medium transition-colors",
-                          hasScrolled ? 'text-foreground' : 'text-white/80'
-                      )}>
+                      <span className="text-lg font-medium leading-tight text-primary transition-colors whitespace-nowrap">
+                        SARC EDU.
+                      </span>
+                      <div className="text-xs font-medium text-foreground transition-colors">
                           <div className="flex justify-between w-full">
                               {'FOUNDATION'.split('').map((char, i) => <span key={i}>{char}</span>)}
                           </div>
@@ -261,16 +265,11 @@ export default function Header() {
 
               <div className="flex items-center gap-2">
                 <ThemeToggle />
-                <Button asChild className={cn(
-                    'hidden lg:flex rounded-full text-sm font-semibold transition-all hover:scale-105',
-                    hasScrolled 
-                        ? 'bg-primary text-primary-foreground' 
-                        : 'bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white/20'
-                )}>
+                <Button asChild className="hidden lg:flex rounded-full text-sm font-semibold transition-all hover:scale-105 bg-primary text-primary-foreground">
                   <Link href="/admissions">Apply Now</Link>
                 </Button>
                 <div className="lg:hidden">
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className={cn(hasScrolled ? "text-foreground" : "text-white")}>
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)} className="text-foreground">
                     <Menu />
                   </Button>
                 </div>
@@ -293,7 +292,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-background border-l"
+              className="fixed top-0 right-0 h-full w-[85%] max-w-sm p-4 flex flex-col bg-card"
               onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-6 pb-4 border-b">
