@@ -13,8 +13,8 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 158 75% 32%;
+    --primary-foreground: 158 75% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
@@ -25,7 +25,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 217 91% 60%;
+    --ring: 158 75% 32%;
     --radius: 1rem;
   }
 
@@ -36,8 +36,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 224 71% 4%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 158 60% 50%;
+    --primary-foreground: 158 75% 98%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 17%;
@@ -48,7 +48,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 22%;
     --input: 217 33% 22%;
-    --ring: 217 91% 60%;
+    --ring: 158 60% 50%;
   }
 }
 
@@ -79,15 +79,6 @@
 @layer components {
   .testimonial-card {
     @apply relative bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-border/50 rounded-2xl shadow-lg shadow-slate-500/5 overflow-hidden transition-all duration-300;
-  }
-
-  .testimonial-card:hover {
-    @apply -translate-y-1 shadow-2xl shadow-slate-500/10 border-primary/20;
-    transform: translateY(-0.25rem);
-  }
-  .marquee-column {
-    @apply flex flex-col;
-    animation: marquee-vertical-3d var(--duration) linear infinite;
   }
 }
 

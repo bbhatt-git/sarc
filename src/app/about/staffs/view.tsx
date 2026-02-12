@@ -80,12 +80,11 @@ const StaffCard = ({ staff }: { staff: StaffMember }) => {
 };
 
 export default function StaffsView() {
-    const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Managing Director', 'Program Coordinator', 'Academic Coordinator'].includes(s.role));
+    const leadership = STAFF_MEMBERS.filter(s => ['Founder / CEO', 'Academic Director', 'Managing Director', 'Program Coordinator'].includes(s.role));
     const support = STAFF_MEMBERS.filter(s => ['Accountant', 'Receptionist', 'Support Staff'].includes(s.role));
     
-    // Updated logic to categorize faculty
     const teachingFacultyRoles = ['HOD (Science) | Physics', 'Physics', 'Chemistry', 'Biology', 'Botany', 'Computer Science', 'Mathematics', 'English & Literature', 'Nepali', 'Economics'];
-    const faculty = STAFF_MEMBERS.filter(s => teachingFacultyRoles.includes(s.role));
+    const faculty = STAFF_MEMBERS.filter(s => teachingFacultyRoles.includes(s.role) || s.role === 'Faculty');
 
     return (
         <div>
@@ -125,7 +124,7 @@ export default function StaffsView() {
                 {/* Administrative Leadership Section */}
                 <section>
                     <SectionTitle title="Administrative Leadership" subtitle="Experienced leaders guiding SARC's vision and operations" />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
                         {leadership.map((staff) => (
                             <StaffCard key={staff.id} staff={staff} />
                         ))}
@@ -135,7 +134,7 @@ export default function StaffsView() {
                 {/* Teaching Faculty Section */}
                 <section>
                     <SectionTitle title="Teaching Faculty" subtitle="Dedicated educators shaping young minds" />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-12">
                         {faculty.map((staff) => (
                             <StaffCard key={staff.id} staff={staff} />
                         ))}
@@ -145,7 +144,7 @@ export default function StaffsView() {
                 {/* Support Team Section */}
                 <section>
                     <SectionTitle title="Support Team" subtitle="Essential staff ensuring smooth operations and student welfare" />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
                         {support.map((staff) => (
                             <StaffCard key={staff.id} staff={staff} />
                         ))}
@@ -172,7 +171,7 @@ export default function StaffsView() {
 
                  {/* Join Our Team CTA */}
                 <section>
-                    <Card className="testimonial-card bg-gradient-to-r from-primary to-blue-500 p-8 text-center text-primary-foreground">
+                    <Card className="testimonial-card bg-gradient-to-r from-primary to-emerald-500 p-8 text-center text-primary-foreground">
                         <h2 className="text-3xl font-bold">Join Our Team</h2>
                         <p className="mt-2 max-w-2xl mx-auto opacity-90">
                             Are you passionate about education and innovation? We're always looking for talented individuals to join our mission.

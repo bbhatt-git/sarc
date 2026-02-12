@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer className="mt-20 z-10">
       <div className="container mx-auto">
-        <div className="bg-card/60 backdrop-blur-xl border-t border-slate-200/50 rounded-t-3xl text-foreground p-8 md:p-12 shadow-2xl shadow-slate-500/10">
+        <div className="bg-card/60 backdrop-blur-xl border-t border-border/50 rounded-t-3xl text-foreground p-8 md:p-12 shadow-2xl shadow-slate-500/10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Column 1: Logo & About */}
             <div className="space-y-4 md:col-span-1">
@@ -64,7 +64,7 @@ export default function Footer() {
              </div>
           </div>
 
-          <div className="border-t border-slate-200/50 mt-12 pt-8 text-center text-sm text-muted-foreground">
+          <div className="border-t border-border/50 mt-12 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; {new Date().getFullYear()} SARC Education Foundation. All Rights Reserved.</p>
             <p className="mt-2 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-xs">
                 <Sparkles className="w-3 h-3 text-primary" />

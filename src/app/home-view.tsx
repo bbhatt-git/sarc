@@ -1,21 +1,13 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BookOpen, Calendar, ShieldCheck, Users } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Autoplay from "embla-carousel-autoplay"
-import dynamic from 'next/dynamic';
-
-import { TESTIMONIALS, STATS, WHY_US_ITEMS, HERO_IMAGES } from '@/lib/constants';
+import { TESTIMONIALS, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
 import { Marquee } from './components/marquee';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
 import { imageData } from '@/lib/image-data';
 import { ThreeDMarquee } from './components/3d-marquee';
 
@@ -52,15 +44,16 @@ const TestimonialCard = ({
 
 export default function HomeView() {
   
-  const heroImages = HERO_IMAGES.map((img, index) => ({
-    ...img,
-    src: imageData.hero[index].src,
-    hint: imageData.hero[index].hint
-  }));
-
   const testimonialsRow1 = [...TESTIMONIALS, ...TESTIMONIALS];
   const testimonialsRow2 = [...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3), ...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3)];
   const testimonialsRow3 = [...[...TESTIMONIALS].reverse(), ...[...TESTIMONIALS].reverse()];
+  
+  const STATS = [
+    { number: '2017', label: 'Established', icon: Calendar },
+    { number: '5k+', label: 'Graduates', icon: BookOpen },
+    { number: '50+', label: 'Expert Faculty', icon: Users },
+    { number: '99%', label: 'Success Rate', icon: ShieldCheck },
+];
 
   return (
     <div
@@ -69,36 +62,17 @@ export default function HomeView() {
       {/* Hero Section */}
       <section className="relative w-full h-screen text-white overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
-        <Carousel
-            className="absolute inset-0 w-full h-full"
-            plugins={[
-                Autoplay({
-                    delay: 5000,
-                    stopOnInteraction: false,
-                }),
-            ]}
-            opts={{
-                loop: true,
-            }}
-        >
-            <CarouselContent className="h-full">
-                {heroImages.map((image, index) => (
-                    <CarouselItem key={index} className="relative h-full">
-                        <Image
-                            src={image.src}
-                            alt={image.alt}
-                            fill
-                            className="object-cover"
-                            priority={index === 0}
-                            data-ai-hint={image.hint}
-                        />
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-        </Carousel>
+          <Image
+              src={imageData.hero[0].src}
+              alt="SARC campus view"
+              fill
+              className="object-cover"
+              priority
+              data-ai-hint={imageData.hero[0].hint}
+          />
         </div>
         
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/20 to-black/60 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/40 to-black/70 z-10" />
 
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
           <div>
@@ -127,12 +101,13 @@ export default function HomeView() {
        <section className="w-full py-20 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {STATS.map((stat, index) => (
+            {STATS.map((stat) => (
               <div
                 key={stat.label}
                 className="testimonial-card p-8"
               >
-                <p className="relative text-4xl lg:text-5xl font-bold text-primary">{stat.number}</p>
+                <stat.icon className="w-10 h-10 text-primary mx-auto mb-4" />
+                <p className="relative text-4xl lg:text-5xl font-bold text-foreground">{stat.number}</p>
                 <p className="relative text-muted-foreground mt-3 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
               </div>
             ))}
