@@ -62,20 +62,20 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
                           href={child.href}
                           className={cn(
                             "group/navlink block rounded-xl p-3 transition-colors",
-                            isClient && isActive ? "bg-primary text-primary-foreground" : "hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50"
+                            (isClient && isActive) ? "bg-primary text-primary-foreground" : "hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50"
                           )}
                           onClick={() => setOpenMenuLabel(null)}
                         >
                           <div className="flex items-center gap-3">
                             <div className={cn(
                               'flex-shrink-0 rounded-lg p-2 transition-colors duration-200',
-                               isClient && isActive ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary group-hover/navlink:bg-emerald-200/50 dark:group-hover/navlink:bg-emerald-900/50'
+                               (isClient && isActive) ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary group-hover/navlink:bg-emerald-200/50 dark:group-hover/navlink:bg-emerald-900/50'
                             )}>
                               <child.icon className="w-5 h-5" />
                             </div>
                             <div>
-                              <span className={cn("font-semibold", isClient && isActive ? "text-primary-foreground" : "text-foreground")}>{child.label}</span>
-                              <p className={cn("text-sm", isClient && isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>{child.description}</p>
+                              <span className={cn("font-semibold", (isClient && isActive) ? "text-primary-foreground" : "text-foreground")}>{child.label}</span>
+                              <p className={cn("text-sm", (isClient && isActive) ? "text-primary-foreground/80" : "text-muted-foreground")}>{child.description}</p>
                             </div>
                           </div>
                         </Link>
@@ -97,7 +97,7 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
       href={link.href}
       className={cn(
         'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-         isClient && isActive 
+         (isClient && isActive)
             ? 'bg-primary text-primary-foreground' 
             : 'text-foreground hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50'
       )}
@@ -109,6 +109,11 @@ const DesktopNavItem = ({ link, pathname, hasScrolled, openMenuLabel, setOpenMen
 
 
 const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccordion }: { link: (typeof NAV_LINKS)[number], closeMenu: () => void, pathname: string, openAccordion: string | null, setOpenAccordion: (label: string | null) => void }) => {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const isParentActive = link.children ? link.children.some(child => pathname.startsWith(child.href)) : false;
   const isOpen = openAccordion === link.label;
 
@@ -117,7 +122,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
     return (
       <Link href={link.href} onClick={closeMenu} className={cn(
           "flex items-center gap-4 rounded-lg px-3 py-2 text-base font-semibold transition-colors",
-          isActive 
+          (isClient && isActive) 
               ? "bg-primary text-primary-foreground" 
               : "text-foreground hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50"
       )}>
@@ -130,7 +135,7 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
     <div className="space-y-1">
       <button onClick={() => setOpenAccordion(isOpen ? null : link.label)} className={cn(
           "w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-base font-semibold text-foreground transition-colors hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50",
-          isParentActive && !isOpen && "bg-primary/10 text-primary"
+          (isClient && isParentActive && !isOpen) && "bg-primary/10 text-primary"
       )}>
         <span>{link.label}</span>
         <ChevronDown className={cn("h-5 w-5 transition-transform", isOpen && "rotate-180")} />
@@ -151,13 +156,13 @@ const MobileNavItem = ({ link, closeMenu, pathname, openAccordion, setOpenAccord
                 return (
                   <Link key={child.label} href={child.href} onClick={closeMenu} className={cn(
                     "group flex items-center gap-3 rounded-md p-2 transition-colors",
-                    isChildActive 
+                    (isClient && isChildActive) 
                         ? "bg-primary text-primary-foreground" 
                         : "text-muted-foreground hover:bg-emerald-100/80 dark:hover:bg-emerald-900/50 hover:text-foreground"
                   )}>
                     <div className={cn(
                       "flex-shrink-0 rounded-md p-1.5 transition-colors duration-200",
-                      isChildActive ? 'bg-primary-foreground text-primary' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
+                      (isClient && isChildActive) ? 'bg-primary-foreground text-primary' : 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
                     )}>
                        <child.icon className="w-4 h-4" />
                     </div>
@@ -178,7 +183,6 @@ export default function Header() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   
   const [openMenuLabel, setOpenMenuLabel] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -213,16 +217,13 @@ export default function Header() {
   }, [pathname, mobileMenuOpen]);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const scrollListener = () => handleScroll();
+    window.addEventListener('scroll', scrollListener);
+    handleScroll(); // Call once to set initial state
+    return () => window.removeEventListener('scroll', scrollListener);
   }, []);
 
   useEffect(() => {
@@ -240,7 +241,7 @@ export default function Header() {
     return null;
   }
   
-  const hasScrolled = mounted && scrolled;
+  const hasScrolled = scrolled;
 
   return (
     <>
@@ -251,7 +252,7 @@ export default function Header() {
         <nav className={cn(
             "flex items-center justify-between transition-all duration-500 ease-heavy-out",
             hasScrolled
-                ? 'mx-auto p-3 w-full md:w-[95%] lg:w-[90%] bg-card/50 backdrop-blur-2xl rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
+                ? 'mx-auto p-3 w-[80%] md:w-[95%] lg:w-[90%] bg-card/50 backdrop-blur-2xl rounded-full border border-slate-200/20 dark:border-white/10 shadow-lg'
                 : 'w-full rounded-none bg-white/20 dark:bg-slate-900/20 backdrop-blur-2xl px-4 md:px-6 py-3 border-b border-black/10 dark:border-white/10'
         )}>
               <Link href="/" className="flex items-center gap-2 flex-shrink-0">
