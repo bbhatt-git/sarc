@@ -9,6 +9,7 @@ import { FirebaseClientProvider } from '@/firebase';
 import { Poppins } from 'next/font/google';
 import { ThemeProvider } from './components/theme-provider';
 import { BackgroundController } from './components/background-controller';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -100,6 +101,7 @@ export default function RootLayout({
             <Toaster />
           </FirebaseClientProvider>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

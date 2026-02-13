@@ -2,6 +2,7 @@
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
 import { getAuth, type Auth } from 'firebase/auth';
 import { getFirestore, type Firestore } from 'firebase/firestore';
+import { getAnalytics } from 'firebase/analytics';
 import { firebaseConfig } from './config';
 
 let firebaseApp: FirebaseApp;
@@ -13,6 +14,9 @@ export function initializeFirebase() {
     firebaseApp = initializeApp(firebaseConfig);
     auth = getAuth(firebaseApp);
     firestore = getFirestore(firebaseApp);
+    if (typeof window !== 'undefined') {
+      getAnalytics(firebaseApp);
+    }
   }
   return { firebaseApp, auth, firestore };
 }
