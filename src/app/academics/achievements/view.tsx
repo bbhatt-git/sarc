@@ -336,7 +336,7 @@ export default function AchievementsView() {
               <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90">
                 <Link href="/admissions">Apply Now</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full border-white text-white hover:bg-white/10">
+              <Button asChild size="lg" className="rounded-full bg-white text-emerald-600 hover:bg-white/90">
                 <Link href="/about/us">Learn More</Link>
               </Button>
             </div>
