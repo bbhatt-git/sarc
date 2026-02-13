@@ -100,8 +100,8 @@ export default function RootLayout({
             <Footer />
             <Toaster />
           </FirebaseClientProvider>
+          <SpeedInsights />
         </ThemeProvider>
-        <SpeedInsights />
       </body>
     </html>
   );
