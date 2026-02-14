@@ -121,9 +121,12 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
                         name={header} 
                         value={formData[header] || ''} 
                         onChange={handleChange} 
-                        placeholder={`Enter ${header}...`}
+                        placeholder={`Enter notice details...`}
                         rows={5}
                     />
+                    <p className="text-xs text-muted-foreground">
+                        Use Markdown for formatting. E.g., `**bold**`, `*italic*`, `- list item`.
+                    </p>
                 </div>
             );
         }

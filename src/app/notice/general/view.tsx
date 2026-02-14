@@ -10,6 +10,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 
 const iconMap = {
@@ -87,10 +89,14 @@ export default function GeneralNoticeView({ initialNotices }: GeneralNoticeViewP
                                                 Published on (AD): {notice.date}
                                             </DialogDescription>
                                         </DialogHeader>
-                                        <div 
-                                            className="py-4 text-foreground/90 max-h-[60vh] overflow-y-auto [&_p]:mb-4 [&_h1]:text-2xl [&_h2]:text-xl [&_h3]:text-lg [&_strong]:font-bold [&_em]:italic [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
-                                            dangerouslySetInnerHTML={{ __html: notice.details || '' }} 
-                                        />
+                                        <div className="py-4 text-foreground/90 max-h-[60vh] overflow-y-auto">
+                                            <ReactMarkdown
+                                                className="[&_p]:mb-4 [&_h1]:text-2xl [&_h2]:text-xl [&_h3]:text-lg [&_strong]:font-bold [&_em]:italic [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
+                                                remarkPlugins={[remarkGfm]}
+                                            >
+                                                {notice.details || ''}
+                                            </ReactMarkdown>
+                                        </div>
                                     </DialogContent>
                                 </Dialog>
                             );

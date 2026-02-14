@@ -2,6 +2,8 @@
 import PageHeader from '@/app/components/page-header';
 import { CalendarDays, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 type Holiday = {
     name: string;
@@ -39,7 +41,12 @@ export default function HolidayNoticeView({ initialHolidays }: HolidayNoticeView
                                         <div>
                                             <h3 className="text-lg font-bold text-foreground">{holiday.name}</h3>
                                             <p className="font-semibold text-rose-500">{holiday.date}</p>
-                                            <div className="text-sm text-muted-foreground mt-1 [&_p]:mb-2 [&_strong]:font-bold [&_em]:italic" dangerouslySetInnerHTML={{ __html: holiday.details || '' }} />
+                                            <ReactMarkdown
+                                                className="text-sm text-muted-foreground mt-1 [&_p]:mb-2 [&_strong]:font-bold [&_em]:italic"
+                                                remarkPlugins={[remarkGfm]}
+                                            >
+                                                {holiday.details || ''}
+                                            </ReactMarkdown>
                                         </div>
                                     </div>
                                 ))}
