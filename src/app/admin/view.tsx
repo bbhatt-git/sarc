@@ -53,7 +53,7 @@ const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, chil
 const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions }: {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (data: Record<string, string>) => void;
+    onSubmit: (data: Record<string, string>) => Promise<boolean>;
     sheetName: string;
     headers: string[];
     iconOptions: { value: string; icon: React.ReactNode }[];
@@ -61,6 +61,8 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
 }) => {
     const [formData, setFormData] = useState<Record<string, string>>({});
     const detailsTextareaRef = useRef<HTMLTextAreaElement>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
     useEffect(() => {
         if (isOpen) {
@@ -142,9 +144,14 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(formData);
+        setIsSubmitting(true);
+        const success = await onSubmit(formData);
+        setIsSubmitting(false);
+        if (success) {
+            onClose();
+        }
     };
 
     const renderField = (header: string) => {
@@ -247,8 +254,11 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
                 <form onSubmit={handleSubmit} className="space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
                     {headers.map(header => renderField(header))}
                     <DialogFooter className="pt-4 bg-transparent">
-                        <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
-                        <Button type="submit">Add Notice</Button>
+                        <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button>
+                        <Button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                            {isSubmitting ? 'Publishing...' : 'Publish Notice'}
+                        </Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
@@ -413,24 +423,35 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         setIsModalOpen(true);
     };
 
-    const handleAddNoticeFromModal = (newRowData: Record<string, string>) => {
-        if (!workbook) return;
+    const handleAddNoticeFromModal = async (newRowData: Record<string, string>): Promise<boolean> => {
+        if (!workbook) return false;
 
         const newRow = headers.map(header => newRowData[String(header)] || '');
+        const newGridData = [...gridData, newRow];
         
-        setGridData(prevGridData => [...prevGridData, newRow]);
-        setIsModalOpen(false);
-        toast({
-            title: 'Notice Added Locally',
-            description: 'The new notice has been added. Click "Save Changes" to publish.',
-        });
+        const result = await commitGridData(newGridData);
+        
+        if (result.success) {
+            toast({
+                title: 'Success!',
+                description: 'The new notice has been published successfully.',
+            });
+            return true;
+        } else {
+            toast({
+                variant: 'destructive',
+                title: 'Error Publishing Notice',
+                description: result.message,
+            });
+            return false;
+        }
     };
 
     const triggerRemoveRow = (rowIndex: number) => {
         setRowToDelete(rowIndex);
     };
 
-    const commitGridData = async (newGridData: GridData) => {
+    const commitGridData = async (newGridData: GridData): Promise<{ success: boolean; message: string; }> => {
         if (!workbook || !activeSheetName) return { success: false, message: 'Workbook not ready.' };
 
         setIsSaving(true);
