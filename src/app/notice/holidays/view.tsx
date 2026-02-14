@@ -39,7 +39,7 @@ export default function HolidayNoticeView({ initialHolidays }: HolidayNoticeView
                                         <div>
                                             <h3 className="text-lg font-bold text-foreground">{holiday.name}</h3>
                                             <p className="font-semibold text-rose-500">{holiday.date}</p>
-                                            <p className="text-sm text-muted-foreground mt-1">{holiday.details}</p>
+                                            <div className="text-sm text-muted-foreground mt-1 [&_p]:mb-2 [&_strong]:font-bold [&_em]:italic" dangerouslySetInnerHTML={{ __html: holiday.details || '' }} />
                                         </div>
                                     </div>
                                 ))}
