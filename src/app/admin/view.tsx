@@ -27,10 +27,126 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription
+  DialogDescription,
+  DialogFooter
 } from "@/components/ui/dialog";
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+
+const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions }: {
+    isOpen: boolean;
+    onClose: () => void;
+    onSubmit: (data: Record<string, string>) => void;
+    sheetName: string;
+    headers: string[];
+    iconOptions: { value: string; icon: React.ReactNode }[];
+    examTypeOptions: { value: string }[];
+}) => {
+    const [formData, setFormData] = useState<Record<string, string>>({});
+
+    useEffect(() => {
+        if (isOpen) {
+            // Reset form data when modal opens
+            const initialData: Record<string, string> = {};
+            headers.forEach(header => {
+                const headerLower = String(header).toLowerCase();
+                if (headerLower === 'date') {
+                    const today = new Date();
+                    initialData[header] = today.toISOString().split('T')[0]; // YYYY-MM-DD
+                } else {
+                    initialData[header] = '';
+                }
+            });
+            setFormData(initialData);
+        }
+    }, [isOpen, headers]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSelectChange = (name: string, value: string) => {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+    
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        onSubmit(formData);
+    };
+
+    const renderField = (header: string) => {
+        const headerLower = String(header).toLowerCase();
+        const capitalizedHeader = header.charAt(0).toUpperCase() + header.slice(1);
+        
+        if (sheetName.toLowerCase() === 'general' && headerLower === 'icon') {
+            return (
+                <div key={header} className="space-y-2">
+                    <Label htmlFor={header}>Icon</Label>
+                    <Select name={header} onValueChange={(value) => handleSelectChange(header, value)} value={formData[header] || ''}>
+                        <SelectTrigger id={header}><SelectValue placeholder="Select an icon" /></SelectTrigger>
+                        <SelectContent>
+                            {iconOptions.map(opt => (
+                                <SelectItem key={opt.value} value={opt.value}>
+                                    <div className="flex items-center gap-2">{opt.icon}<span>{opt.value}</span></div>
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+            );
+        }
+
+        if (sheetName.toLowerCase() === 'exams' && headerLower === 'type') {
+            return (
+                <div key={header} className="space-y-2">
+                    <Label htmlFor={header}>Type</Label>
+                    <Select name={header} onValueChange={(value) => handleSelectChange(header, value)} value={formData[header] || ''}>
+                        <SelectTrigger id={header}><SelectValue placeholder="Select a type" /></SelectTrigger>
+                        <SelectContent>
+                            {examTypeOptions.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.value}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+                </div>
+            );
+        }
+        
+        if (headerLower === 'details' || headerLower === 'summary') {
+            return (
+                <div key={header} className="space-y-2">
+                    <Label htmlFor={header}>{capitalizedHeader}</Label>
+                    <Textarea id={header} name={header} value={formData[header] || ''} onChange={handleChange} placeholder={`Enter ${header}...`} />
+                </div>
+            );
+        }
+
+        return (
+            <div key={header} className="space-y-2">
+                <Label htmlFor={header}>{capitalizedHeader}</Label>
+                <Input id={header} name={header} value={formData[header] || ''} onChange={handleChange} placeholder={headerLower === 'date' ? 'YYYY-MM-DD' : `Enter ${header}...`} type={headerLower === 'date' ? 'date' : 'text'} />
+            </div>
+        );
+    };
+
+    return (
+        <Dialog open={isOpen} onOpenChange={onClose}>
+            <DialogContent className="sm:max-w-lg bg-card/80 backdrop-blur-xl">
+                <DialogHeader>
+                    <DialogTitle>New {sheetName} Notice</DialogTitle>
+                    <DialogDescription>Fill out the form below to create a new notice.</DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
+                    {headers.map(header => renderField(header))}
+                    <DialogFooter className="pt-4 bg-transparent">
+                        <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
+                        <Button type="submit">Add Notice</Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
+    );
+};
 
 // Excel Editor Component
 type GridData = any[][];
@@ -56,6 +172,7 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
     const [isSaving, setIsSaving] = useState(false);
     const [rowToDelete, setRowToDelete] = useState<number | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const iconOptions = [
         { value: 'Bell', icon: <Bell className="h-4 w-4" /> },
@@ -134,6 +251,16 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         const sheetNameLower = activeSheetName.toLowerCase();
         return sheetNameLower.includes('exam') && lowerCaseHeaders.includes('type');
     }, [headers, activeSheetName]);
+    
+    const formatSheetNameForDisplay = (name: string) => {
+        if (!name) return '';
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes('general')) return 'General';
+        if (lowerName.includes('holiday')) return 'Holiday';
+        if (lowerName.includes('exam')) return 'Exams';
+        if (lowerName.includes('result')) return 'Results';
+        return name;
+    };
 
     const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
         const updatedGridData = [...gridData];
@@ -164,27 +291,33 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
             setGridData(updatedGridData);
         }
     };
-
-    const handleAddNewRow = () => {
-        const headers = gridData[0] || [];
-        const numCols = headers.length || 1;
-        const newRow = Array(numCols).fill('');
-
-        const dateIndex = headers.findIndex(h => String(h).toLowerCase() === 'date');
-        const activeSheetNameLower = activeSheetName.toLowerCase();
-        
-        if ((activeSheetNameLower.includes('general') || activeSheetNameLower.includes('exams')) && dateIndex !== -1) {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            newRow[dateIndex] = `${year}-${month}-${day}`;
-        }
-
-        setGridData([...gridData, newRow]);
-        toast({ title: 'Row Added', description: 'A new row has been added to the end of the sheet.' });
-    };
     
+    const handleOpenModal = () => {
+        const sheetNameLower = activeSheetName.toLowerCase();
+        if (sheetNameLower.includes('result')) {
+            toast({
+                variant: 'destructive',
+                title: 'Action Not Available',
+                description: 'Please use the "Import Results" button for student results.',
+            });
+            return;
+        }
+        setIsModalOpen(true);
+    };
+
+    const handleAddNoticeFromModal = (newRowData: Record<string, string>) => {
+        if (!workbook) return;
+
+        const newRow = headers.map(header => newRowData[String(header)] || '');
+        
+        setGridData(prevGridData => [...prevGridData, newRow]);
+        setIsModalOpen(false);
+        toast({
+            title: 'Notice Added Locally',
+            description: 'The new notice has been added. Click "Save Changes" to publish.',
+        });
+    };
+
     const triggerRemoveRow = (rowIndex: number) => {
         setRowToDelete(rowIndex);
     };
@@ -237,7 +370,6 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
                 title: 'Error Deleting Row',
                 description: result.message,
             });
-            // Revert state if save fails
             setGridData(gridData);
         }
         setRowToDelete(null);
@@ -306,30 +438,32 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
     if (!workbook) {
         return <div className="flex h-64 w-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     }
-    
-    const formatSheetNameForDisplay = (name: string) => {
-        const lowerName = name.toLowerCase();
-        if (lowerName.includes('general')) return 'General';
-        if (lowerName.includes('holiday')) return 'Holiday';
-        if (lowerName.includes('exam')) return 'Exams';
-        if (lowerName.includes('result')) return 'Results';
-        return name;
-    };
 
     return (
         <>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
                 <p className="text-sm text-muted-foreground flex-1">
-                    Note: Changes are saved to your designated GitHub repository.
+                    Manage notices for the website. Click "Save Changes" to publish.
                 </p>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                    <Button onClick={handleAddNewRow} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />Add Row</Button>
+                    <Button onClick={handleOpenModal} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />New Notice</Button>
                     <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
                         {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                         Save Changes
                     </Button>
                 </div>
             </div>
+
+            <NewNoticeModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={handleAddNoticeFromModal}
+                sheetName={formatSheetNameForDisplay(activeSheetName)}
+                headers={headers}
+                iconOptions={iconOptions}
+                examTypeOptions={examTypeOptions}
+            />
+
             <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
                 <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-none sm:inline-flex sm:w-auto">
                     {sheetNames.map((name) => (
