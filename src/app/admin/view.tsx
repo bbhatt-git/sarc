@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle, Award, School, Bold, Italic, Heading3, List, Edit, Download } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar as CalendarIcon, Upload, AlertTriangle, Award, School, Bold, Italic, Heading3, List, Edit, Download } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -37,6 +37,9 @@ import { Textarea } from '@/components/ui/textarea';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
+import { format, parse } from 'date-fns';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 
 const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, children: React.ReactNode, label: string }) => (
   <Button
@@ -89,6 +92,12 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
             setFormData(initialFormData);
         }
     }, [isOpen, headers, initialData, isEditing]);
+
+    const handleDateChange = (header: string, date: Date | undefined) => {
+        if (date) {
+            setFormData(prev => ({ ...prev, [header]: format(date, 'yyyy-MM-dd') }));
+        }
+    };
 
     const handleFormat = (format: 'bold' | 'italic' | 'h3' | 'list') => {
         const textarea = detailsTextareaRef.current;
@@ -199,6 +208,59 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
             );
         }
         
+        if (headerLower === 'date') {
+            if (sheetName.toLowerCase() === 'holiday') {
+                return (
+                    <div key={header} className="space-y-2">
+                        <Label htmlFor={header}>{capitalizedHeader}</Label>
+                        <Input 
+                            id={header} 
+                            name={header} 
+                            value={formData[header] || ''} 
+                            onChange={handleChange} 
+                            placeholder="e.g., 2081-07-25" 
+                            type="text"
+                        />
+                        <p className="text-xs text-muted-foreground">
+                            Enter the date in your desired text format.
+                        </p>
+                    </div>
+                );
+            }
+            
+            const selectedDate = formData[header]
+                ? parse(formData[header], 'yyyy-MM-dd', new Date())
+                : undefined;
+
+            return (
+                <div key={header} className="space-y-2">
+                    <Label htmlFor={header}>{capitalizedHeader}</Label>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant={"outline"}
+                                className={cn(
+                                    "w-full justify-start text-left font-normal",
+                                    !selectedDate && "text-muted-foreground"
+                                )}
+                            >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                            <Calendar
+                                mode="single"
+                                selected={selectedDate}
+                                onSelect={(date) => handleDateChange(header, date)}
+                                initialFocus
+                            />
+                        </PopoverContent>
+                    </Popover>
+                </div>
+            );
+        }
+
         if (headerLower === 'details') {
             return (
                  <div key={header} className="space-y-2">
@@ -248,7 +310,7 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
         return (
             <div key={header} className="space-y-2">
                 <Label htmlFor={header}>{capitalizedHeader}</Label>
-                <Input id={header} name={header} value={formData[header] || ''} onChange={handleChange} placeholder={headerLower === 'date' ? 'YYYY-MM-DD' : `Enter ${header}...`} type={headerLower === 'date' ? 'date' : 'text'} />
+                <Input id={header} name={header} value={formData[header] || ''} onChange={handleChange} placeholder={`Enter ${header}...`} type={'text'} />
             </div>
         );
     };
@@ -324,7 +386,7 @@ const NoticeCard = ({ notice, headers, sheetName, onEdit, onDelete }: {
   const IconComponent = sheetName.toLowerCase() === 'general' 
       ? (iconMap[iconName] || iconMap.Default) 
       : sheetName.toLowerCase() === 'holiday' 
-      ? Calendar 
+      ? Calendar
       : FileText;
 
     const getIconColor = (sheetName: string) => {
@@ -377,7 +439,7 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
     const iconOptions = [
         { value: 'Bell', icon: <Bell className="h-4 w-4" /> },
         { value: 'FileText', icon: <FileText className="h-4 w-4" /> },
-        { value: 'Calendar', icon: <Calendar className="h-4 w-4" /> },
+        { value: 'Calendar', icon: <CalendarIcon className="h-4 w-4" /> },
         { value: 'Award', icon: <Award className="h-4 w-4" /> },
         { value: 'GraduationCap', icon: <GraduationCap className="h-4 w-4" /> },
         { value: 'School', icon: <School className="h-4 w-4" /> },
