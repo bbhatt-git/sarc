@@ -33,12 +33,6 @@ import {
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import dynamic from 'next/dynamic';
-
-const QuillEditor = dynamic(() => import('react-quill'), { 
-    ssr: false,
-    loading: () => <div className="h-48 w-full rounded-md bg-muted animate-pulse" />
-});
 
 const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions }: {
     isOpen: boolean;
@@ -77,11 +71,6 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleQuillChange = (name: string, value: string) => {
-        const cleanValue = value === '<p><br></p>' ? '' : value;
-        setFormData(prev => ({ ...prev, [name]: cleanValue }));
-    };
-    
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSubmit(formData);
@@ -127,14 +116,14 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
             return (
                  <div key={header} className="space-y-2">
                     <Label htmlFor={header}>{capitalizedHeader}</Label>
-                    <div className="bg-background rounded-md border">
-                        <QuillEditor
-                            theme="snow"
-                            value={formData[header] || ''}
-                            onChange={(content) => handleQuillChange(header, content)}
-                            className='[&_.ql-editor]:min-h-32'
-                        />
-                    </div>
+                    <Textarea 
+                        id={header} 
+                        name={header} 
+                        value={formData[header] || ''} 
+                        onChange={handleChange} 
+                        placeholder={`Enter ${header}...`}
+                        rows={5}
+                    />
                 </div>
             );
         }
