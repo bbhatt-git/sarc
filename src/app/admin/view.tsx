@@ -7,11 +7,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle, Award, School, Bold, Italic, Heading3, List } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle, Award, School, Bold, Italic, Heading3, List, Edit, Download } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, orderBy, query, Timestamp } from 'firebase/firestore';
+import { Badge } from '@/components/ui/badge';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,6 +36,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { cn } from '@/lib/utils';
 
 const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, children: React.ReactNode, label: string }) => (
   <Button
@@ -50,7 +52,7 @@ const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, chil
   </Button>
 );
 
-const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions }: {
+const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions, isEditing, initialData }: {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (data: Record<string, string>) => Promise<boolean>;
@@ -58,6 +60,8 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
     headers: string[];
     iconOptions: { value: string; icon: React.ReactNode }[];
     examTypeOptions: { value: string }[];
+    isEditing: boolean;
+    initialData?: Record<string, any> | null;
 }) => {
     const [formData, setFormData] = useState<Record<string, string>>({});
     const detailsTextareaRef = useRef<HTMLTextAreaElement>(null);
@@ -66,20 +70,25 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
 
     useEffect(() => {
         if (isOpen) {
-            // Reset form data when modal opens
-            const initialData: Record<string, string> = {};
-            headers.forEach(header => {
-                const headerLower = String(header).toLowerCase();
-                if (headerLower === 'date') {
-                    const today = new Date();
-                    initialData[header] = today.toISOString().split('T')[0]; // YYYY-MM-DD
-                } else {
-                    initialData[header] = '';
-                }
-            });
-            setFormData(initialData);
+            const initialFormData: Record<string, string> = {};
+            if (isEditing && initialData) {
+                headers.forEach(header => {
+                    initialFormData[header] = initialData[header] || '';
+                });
+            } else {
+                 headers.forEach(header => {
+                    const headerLower = String(header).toLowerCase();
+                    if (headerLower === 'date') {
+                        const today = new Date();
+                        initialFormData[header] = today.toISOString().split('T')[0]; // YYYY-MM-DD
+                    } else {
+                        initialFormData[header] = '';
+                    }
+                });
+            }
+            setFormData(initialFormData);
         }
-    }, [isOpen, headers]);
+    }, [isOpen, headers, initialData, isEditing]);
 
     const handleFormat = (format: 'bold' | 'italic' | 'h3' | 'list') => {
         const textarea = detailsTextareaRef.current;
@@ -248,8 +257,10 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-lg bg-card/80 backdrop-blur-xl">
                 <DialogHeader>
-                    <DialogTitle>New {sheetName} Notice</DialogTitle>
-                    <DialogDescription>Fill out the form below to create a new notice.</DialogDescription>
+                    <DialogTitle>{isEditing ? `Edit ${sheetName} Notice` : `New ${sheetName} Notice`}</DialogTitle>
+                    <DialogDescription>
+                        {isEditing ? `Update the details for this notice.` : `Fill out the form below to create a new notice.`}
+                    </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
                     {headers.map(header => renderField(header))}
@@ -257,7 +268,7 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
                         <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button>
                         <Button type="submit" disabled={isSubmitting}>
                             {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                            {isSubmitting ? 'Publishing...' : 'Publish Notice'}
+                            {isSubmitting ? 'Saving...' : (isEditing ? 'Save Changes' : 'Publish Notice')}
                         </Button>
                     </DialogFooter>
                 </form>
@@ -281,6 +292,75 @@ const calculateGradeFromGPA = (gpa: number): { grade: string; remarks: 'Pass' | 
     return { grade: 'NG', remarks: 'Fail' };
 };
 
+const iconMap = {
+    Bell,
+    FileText,
+    Calendar,
+    Award,
+    School,
+    GraduationCap,
+    Default: Bell
+};
+
+const NoticeCard = ({ notice, headers, sheetName, onEdit, onDelete }: {
+  notice: any[],
+  headers: string[],
+  sheetName: string,
+  onEdit: () => void,
+  onDelete: () => void,
+}) => {
+  const noticeData = headers.reduce((obj, header, index) => {
+    obj[String(header)] = notice[index];
+    return obj;
+  }, {} as Record<string, any>);
+
+  const title = noticeData.title || noticeData.name;
+  const date = noticeData.date;
+  const summary = noticeData.summary;
+  const iconName = noticeData.icon as keyof typeof iconMap;
+  const type = noticeData.type;
+  const link = noticeData.link;
+
+  const IconComponent = sheetName.toLowerCase() === 'general' 
+      ? (iconMap[iconName] || iconMap.Default) 
+      : sheetName.toLowerCase() === 'holiday' 
+      ? Calendar 
+      : FileText;
+
+    const getIconColor = (sheetName: string) => {
+        const lowerSheet = sheetName.toLowerCase();
+        if (lowerSheet.includes('exam')) return 'bg-sky-500/10 text-sky-500';
+        if (lowerSheet.includes('holiday')) return 'bg-rose-500/10 text-rose-500';
+        return 'bg-amber-500/10 text-amber-500';
+    }
+
+  return (
+    <Card className="testimonial-card overflow-hidden transition-all duration-300 hover:-translate-y-1">
+      <CardContent className="p-5">
+        <div className="flex justify-between items-start gap-4">
+            <div className="flex items-start gap-4 flex-1 overflow-hidden">
+                <div className={cn("rounded-lg p-3 mt-1", getIconColor(sheetName))}>
+                    <IconComponent className="w-6 h-6 " />
+                </div>
+                <div className="flex-1 overflow-hidden">
+                    <h3 className="font-bold text-foreground text-lg truncate" title={title}>{title}</h3>
+                    <p className="text-sm text-muted-foreground">Published: {date}</p>
+                    {summary && <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{summary}</p>}
+                    {type && <Badge variant="secondary" className="mt-2">{type}</Badge>}
+                </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-2">
+                {link && <Button asChild size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground"><a href={link} target="_blank" rel="noopener noreferrer"><Download/></a></Button>}
+                <Button onClick={onEdit} size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground"><Edit /></Button>
+                <Button onClick={onDelete} size="icon" variant="ghost" className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"><Trash2 /></Button>
+            </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+
 const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: string, initialSha: string }) => {
     const { toast } = useToast();
     const [workbook, setWorkbook] = useState<XLSX.WorkBook | null>(null);
@@ -290,7 +370,9 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
     const [isSaving, setIsSaving] = useState(false);
     const [rowToDelete, setRowToDelete] = useState<number | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingNotice, setEditingNotice] = useState<{data: Record<string, any>, index: number} | null>(null);
 
     const iconOptions = [
         { value: 'Bell', icon: <Bell className="h-4 w-4" /> },
@@ -317,7 +399,6 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
                     setActiveSheetName(firstSheetName);
                 }
             } else {
-                 // If no data, create a workbook with default sheets
                 const wb = XLSX.utils.book_new();
                 const ws_general = XLSX.utils.aoa_to_sheet([["icon", "title", "summary", "date", "details"]]);
                 const ws_holiday = XLSX.utils.aoa_to_sheet([["name", "date", "details"]]);
@@ -359,17 +440,6 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         return { sheetNames, headers, bodyData };
     }, [workbook, gridData]);
 
-    const isGeneralSheet = useMemo(() => {
-        const lowerCaseHeaders = headers.map(h => String(h).toLowerCase());
-        return lowerCaseHeaders.includes('icon') && lowerCaseHeaders.includes('summary');
-    }, [headers]);
-    
-    const isExamsSheet = useMemo(() => {
-        const lowerCaseHeaders = headers.map(h => String(h).toLowerCase());
-        const sheetNameLower = activeSheetName.toLowerCase();
-        return sheetNameLower.includes('exam') && lowerCaseHeaders.includes('type');
-    }, [headers, activeSheetName]);
-    
     const formatSheetNameForDisplay = (name: string) => {
         if (!name) return '';
         const lowerName = name.toLowerCase();
@@ -410,41 +480,24 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         }
     };
     
-    const handleOpenModal = () => {
-        const sheetNameLower = activeSheetName.toLowerCase();
-        if (sheetNameLower.includes('result')) {
-            toast({
-                variant: 'destructive',
-                title: 'Action Not Available',
-                description: 'Please use the "Import Results" button for student results.',
-            });
-            return;
-        }
+    const handleOpenNewModal = () => {
+        setEditingNotice(null);
         setIsModalOpen(true);
     };
 
-    const handleAddNoticeFromModal = async (newRowData: Record<string, string>): Promise<boolean> => {
-        if (!workbook) return false;
+    const handleOpenEditModal = (rowIndex: number) => {
+        const rowDataArray = gridData[rowIndex + 1];
+        const rowDataObject = headers.reduce((obj, header, index) => {
+            obj[String(header)] = rowDataArray[index];
+            return obj;
+        }, {} as Record<string, any>);
+        setEditingNotice({ data: rowDataObject, index: rowIndex });
+        setIsModalOpen(true);
+    };
 
-        const newRow = headers.map(header => newRowData[String(header)] || '');
-        const newGridData = [...gridData, newRow];
-        
-        const result = await commitGridData(newGridData);
-        
-        if (result.success) {
-            toast({
-                title: 'Success!',
-                description: 'The new notice has been published successfully.',
-            });
-            return true;
-        } else {
-            toast({
-                variant: 'destructive',
-                title: 'Error Publishing Notice',
-                description: result.message,
-            });
-            return false;
-        }
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setEditingNotice(null);
     };
 
     const triggerRemoveRow = (rowIndex: number) => {
@@ -479,6 +532,28 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
             return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred.' };
         } finally {
             setIsSaving(false);
+        }
+    };
+
+    const handleNoticeSubmit = async (formData: Record<string, string>): Promise<boolean> => {
+        const newRow = headers.map(header => formData[String(header)] || '');
+        let newGridData: GridData;
+
+        if (editingNotice !== null) { // Editing existing
+            newGridData = [...gridData];
+            newGridData[editingNotice.index + 1] = newRow;
+        } else { // Creating new
+            newGridData = [...gridData, newRow];
+        }
+
+        const result = await commitGridData(newGridData);
+        if (result.success) {
+            toast({ title: 'Success!', description: `Notice has been ${editingNotice ? 'updated' : 'published'} successfully.` });
+            handleCloseModal();
+            return true;
+        } else {
+            toast({ variant: 'destructive', title: 'Error', description: result.message });
+            return false;
         }
     };
 
@@ -568,29 +643,38 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         return <div className="flex h-64 w-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     }
 
+    const isResultsTab = activeSheetName === 'Results';
+
     return (
         <>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-                <p className="text-sm text-muted-foreground flex-1">
-                    Manage notices for the website. Click "Save Changes" to publish.
+                 <p className="text-sm text-muted-foreground flex-1">
+                    {isResultsTab 
+                        ? 'Manage student result data. Click "Save Changes" to publish.' 
+                        : 'Manage website notices. Add or edit notices using the buttons provided.'
+                    }
                 </p>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                    <Button onClick={handleOpenModal} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />New Notice</Button>
-                    <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
-                        {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                        Save Changes
-                    </Button>
+                    {!isResultsTab && <Button onClick={handleOpenNewModal} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />New Notice</Button>}
+                    {isResultsTab && (
+                        <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
+                            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                            Save Changes
+                        </Button>
+                    )}
                 </div>
             </div>
 
             <NewNoticeModal
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onSubmit={handleAddNoticeFromModal}
+                onClose={handleCloseModal}
+                onSubmit={handleNoticeSubmit}
                 sheetName={formatSheetNameForDisplay(activeSheetName)}
                 headers={headers}
                 iconOptions={iconOptions}
                 examTypeOptions={examTypeOptions}
+                isEditing={!!editingNotice}
+                initialData={editingNotice?.data}
             />
 
             <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
@@ -609,107 +693,84 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
                             </div>
                         </div>
                     )}
-                    <div className="max-h-[65vh] overflow-auto border rounded-lg">
-                        <Table>
-                            <TableHeader className="sticky top-0 z-20 bg-muted/80 backdrop-blur-sm">
-                                <TableRow>
-                                    <TableHead className="sticky left-0 z-30 w-16 border-r bg-muted/95 text-center font-bold">#</TableHead>
-                                    {headers.map((header, colIndex) => (
-                                        <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap border-r">{header}</TableHead>
-                                    ))}
-                                    <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {bodyData.map((row, rowIndex) => (
-                                    <TableRow key={rowIndex}>
-                                        <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
-                                        {headers.map((header, colIndex) => {
-                                            const headerName = String(header).toLowerCase();
-                                            const isGeneralNoticeIconColumn = isGeneralSheet && headerName === 'icon';
-                                            const isExamsTypeColumn = isExamsSheet && headerName === 'type';
-
-                                            return (
-                                                <TableCell key={colIndex} className="p-0 border-r">
-                                                    {isGeneralNoticeIconColumn ? (
-                                                        <Select
-                                                            value={row[colIndex] || ''}
-                                                            onValueChange={(value) => handleCellChange(rowIndex, colIndex, value)}
-                                                        >
-                                                            <SelectTrigger className="w-full h-full p-2 border-none rounded-none focus:ring-1 focus:ring-primary/50 bg-transparent text-sm">
-                                                                <SelectValue placeholder="Select icon..." />
-                                                            </SelectTrigger>
-                                                            <SelectContent>
-                                                                {iconOptions.map(opt => (
-                                                                    <SelectItem key={opt.value} value={opt.value}>
-                                                                        <div className="flex items-center gap-2">
-                                                                            {opt.icon}
-                                                                            <span>{opt.value}</span>
-                                                                        </div>
-                                                                    </SelectItem>
-                                                                ))}
-                                                            </SelectContent>
-                                                        </Select>
-                                                    ) : isExamsTypeColumn ? (
-                                                        <Select
-                                                            value={row[colIndex] || ''}
-                                                            onValueChange={(value) => handleCellChange(rowIndex, colIndex, value)}
-                                                        >
-                                                            <SelectTrigger className="w-full h-full p-2 border-none rounded-none focus:ring-1 focus:ring-primary/50 bg-transparent text-sm">
-                                                                <SelectValue placeholder="Select type..." />
-                                                            </SelectTrigger>
-                                                            <SelectContent>
-                                                                {examTypeOptions.map(opt => (
-                                                                    <SelectItem key={opt.value} value={opt.value}>
-                                                                        {opt.value}
-                                                                    </SelectItem>
-                                                                ))}
-                                                            </SelectContent>
-                                                        </Select>
-                                                    ) : (
+                     {isResultsTab ? (
+                        <>
+                            <div className="max-h-[65vh] overflow-auto border rounded-lg">
+                                <Table>
+                                    <TableHeader className="sticky top-0 z-20 bg-muted/80 backdrop-blur-sm">
+                                        <TableRow>
+                                            <TableHead className="sticky left-0 z-30 w-16 border-r bg-muted/95 text-center font-bold">#</TableHead>
+                                            {headers.map((header, colIndex) => (
+                                                <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap border-r">{header}</TableHead>
+                                            ))}
+                                            <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {bodyData.map((row, rowIndex) => (
+                                            <TableRow key={rowIndex}>
+                                                <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
+                                                {headers.map((_, colIndex) => (
+                                                    <TableCell key={colIndex} className="p-0 border-r">
                                                         <Input
                                                             type="text"
                                                             value={row[colIndex] || ''}
                                                             onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
                                                             className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-primary/50 bg-transparent"
                                                         />
-                                                    )}
+                                                    </TableCell>
+                                                ))}
+                                                <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
+                                                    <Button 
+                                                        variant="ghost" 
+                                                        size="icon" 
+                                                        className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
+                                                        onClick={() => triggerRemoveRow(rowIndex)}
+                                                        aria-label="Remove row"
+                                                    >
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
                                                 </TableCell>
-                                            )
-                                        })}
-                                        <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
-                                            <Button 
-                                                variant="ghost" 
-                                                size="icon" 
-                                                className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
-                                                onClick={() => triggerRemoveRow(rowIndex)}
-                                                aria-label="Remove row"
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </div>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                             <div className="flex justify-start mt-4">
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleFileImport}
+                                    className="hidden"
+                                    accept=".xlsx, .xls, .csv"
+                                />
+                                <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
+                                    <Upload className="mr-2 h-4 w-4" />
+                                    Import Results
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="space-y-4">
+                            {bodyData.length > 0 ? bodyData.map((row, rowIndex) => (
+                                <NoticeCard
+                                    key={rowIndex}
+                                    notice={row}
+                                    headers={headers}
+                                    sheetName={activeSheetName}
+                                    onEdit={() => handleOpenEditModal(rowIndex)}
+                                    onDelete={() => triggerRemoveRow(rowIndex)}
+                                />
+                            )) : (
+                                <div className="text-center py-12 text-muted-foreground flex flex-col items-center gap-4 border rounded-lg bg-card/50">
+                                    <Inbox className="h-12 w-12" />
+                                    <h3 className="text-lg font-semibold">No Notices Yet</h3>
+                                    <p>Click "New Notice" to publish the first one in this category.</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
-                
-                {activeSheetName === 'Results' && (
-                    <div className="flex justify-start mt-4">
-                        <input
-                            type="file"
-                            ref={fileInputRef}
-                            onChange={handleFileImport}
-                            className="hidden"
-                            accept=".xlsx, .xls, .csv"
-                        />
-                        <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
-                            <Upload className="mr-2 h-4 w-4" />
-                            Import Results
-                        </Button>
-                    </div>
-                )}
             </Tabs>
             <AlertDialog open={rowToDelete !== null} onOpenChange={(open) => !open && setRowToDelete(null)}>
                 <AlertDialogContent className="bg-card/60 backdrop-blur-xl border-border/50">
