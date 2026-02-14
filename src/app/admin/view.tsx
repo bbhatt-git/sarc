@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle, Award, School } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar, Upload, AlertTriangle, Award, School, Bold, Italic, Heading3, List } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -33,6 +33,22 @@ import {
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, children: React.ReactNode, label: string }) => (
+  <Button
+    type="button"
+    variant="ghost"
+    size="icon"
+    className="h-8 w-8 text-muted-foreground"
+    onClick={onClick}
+    aria-label={label}
+    title={label}
+  >
+    {children}
+  </Button>
+);
 
 const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions }: {
     isOpen: boolean;
@@ -44,6 +60,7 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
     examTypeOptions: { value: string }[];
 }) => {
     const [formData, setFormData] = useState<Record<string, string>>({});
+    const detailsTextareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         if (isOpen) {
@@ -61,6 +78,60 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
             setFormData(initialData);
         }
     }, [isOpen, headers]);
+
+    const handleFormat = (format: 'bold' | 'italic' | 'h3' | 'list') => {
+        const textarea = detailsTextareaRef.current;
+        if (!textarea) return;
+    
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const value = textarea.value;
+        const selectedText = value.substring(start, end);
+    
+        let prefix = '';
+        let suffix = '';
+        let newText = selectedText;
+        let newStart = start;
+        let newEnd = end;
+    
+        if (format === 'bold') {
+            prefix = '**';
+            suffix = '**';
+        } else if (format === 'italic') {
+            prefix = '*';
+            suffix = '*';
+        } else if (format === 'h3' || format === 'list') {
+            const marker = format === 'h3' ? '### ' : '- ';
+            const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+            
+            const updatedValue = value.substring(0, lineStart) + marker + value.substring(lineStart);
+            setFormData(prev => ({ ...prev, details: updatedValue }));
+            
+            setTimeout(() => {
+                textarea.focus();
+                textarea.setSelectionRange(start + marker.length, end + marker.length);
+            }, 0);
+            return;
+        }
+    
+        if (selectedText) {
+            newText = prefix + selectedText + suffix;
+            newStart = start;
+            newEnd = start + newText.length;
+        } else {
+            newText = prefix + suffix;
+            newStart = start + prefix.length;
+            newEnd = newStart;
+        }
+    
+        const updatedValue = value.substring(0, start) + newText + value.substring(end);
+        setFormData(prev => ({ ...prev, details: updatedValue }));
+    
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(newStart, newEnd);
+        }, 0);
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -116,16 +187,34 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
             return (
                  <div key={header} className="space-y-2">
                     <Label htmlFor={header}>{capitalizedHeader}</Label>
-                    <Textarea 
-                        id={header} 
-                        name={header} 
-                        value={formData[header] || ''} 
-                        onChange={handleChange} 
-                        placeholder={`Enter notice details...`}
-                        rows={5}
-                    />
+                    <div className="rounded-md border">
+                         <div className="flex items-center gap-1 border-b p-1">
+                            <ToolbarButton onClick={() => handleFormat('bold')} label="Bold">
+                                <Bold className="h-4 w-4" />
+                            </ToolbarButton>
+                            <ToolbarButton onClick={() => handleFormat('italic')} label="Italic">
+                                <Italic className="h-4 w-4" />
+                            </ToolbarButton>
+                            <ToolbarButton onClick={() => handleFormat('h3')} label="Heading">
+                                <Heading3 className="h-4 w-4" />
+                            </ToolbarButton>
+                            <ToolbarButton onClick={() => handleFormat('list')} label="List">
+                                <List className="h-4 w-4" />
+                            </ToolbarButton>
+                        </div>
+                        <Textarea 
+                            ref={detailsTextareaRef}
+                            id={header} 
+                            name={header} 
+                            value={formData[header] || ''} 
+                            onChange={handleChange} 
+                            placeholder={`Enter notice details...`}
+                            rows={5}
+                            className="border-0 focus-visible:ring-0"
+                        />
+                    </div>
                     <p className="text-xs text-muted-foreground">
-                        Use Markdown for formatting. E.g., `**bold**`, `*italic*`, `- list item`.
+                        Use the toolbar or Markdown for formatting. E.g., `**bold**`, `*italic*`, `### Heading`.
                     </p>
                 </div>
             );
