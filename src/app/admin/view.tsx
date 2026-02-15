@@ -55,7 +55,7 @@ const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, chil
   </Button>
 );
 
-const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions, isEditing, initialData }: {
+const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions, isEditing, initialData }: {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (data: Record<string, string>) => Promise<boolean>;
@@ -339,21 +339,6 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
     );
 };
 
-// Excel Editor Component
-type GridData = any[][];
-
-const calculateGradeFromGPA = (gpa: number): { grade: string; remarks: 'Pass' | 'Fail' } => {
-    if (gpa >= 3.6) return { grade: 'A+', remarks: 'Pass' };
-    if (gpa >= 3.2) return { grade: 'A', remarks: 'Pass' };
-    if (gpa >= 2.8) return { grade: 'B+', remarks: 'Pass' };
-    if (gpa >= 2.4) return { grade: 'B', remarks: 'Pass' };
-    if (gpa >= 2.0) return { grade: 'C+', remarks: 'Pass' };
-    if (gpa >= 1.6) return { grade: 'C', remarks: 'Pass' };
-    if (gpa >= 1.2) return { grade: 'D+', remarks: 'Pass' };
-    if (gpa >= 0.8) return { grade: 'D', remarks: 'Pass' };
-    return { grade: 'NG', remarks: 'Fail' };
-};
-
 const iconMap = {
     Bell,
     FileText,
@@ -423,16 +408,30 @@ const NoticeCard = ({ notice, headers, sheetName, onEdit, onDelete }: {
 };
 
 
-const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: string, initialSha: string }) => {
+type GridData = any[][];
+type WorkbookState = {
+    workbook: XLSX.WorkBook | null;
+    sha: string;
+};
+
+const calculateGradeFromGPA = (gpa: number): { grade: string; remarks: 'Pass' | 'Fail' } => {
+    if (gpa >= 3.6) return { grade: 'A+', remarks: 'Pass' };
+    if (gpa >= 3.2) return { grade: 'A', remarks: 'Pass' };
+    if (gpa >= 2.8) return { grade: 'B+', remarks: 'Pass' };
+    if (gpa >= 2.4) return { grade: 'B', remarks: 'Pass' };
+    if (gpa >= 2.0) return { grade: 'C+', remarks: 'Pass' };
+    if (gpa >= 1.6) return { grade: 'C', remarks: 'Pass' };
+    if (gpa >= 1.2) return { grade: 'D+', remarks: 'Pass' };
+    if (gpa >= 0.8) return { grade: 'D', remarks: 'Pass' };
+    return { grade: 'NG', remarks: 'Fail' };
+};
+
+const NoticeSheetEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onStateChange: (newState: WorkbookState) => void }) => {
     const { toast } = useToast();
-    const [workbook, setWorkbook] = useState<XLSX.WorkBook | null>(null);
-    const [activeSheetName, setActiveSheetName] = useState<string>('');
-    const [gridData, setGridData] = useState<GridData>([]);
-    const [sha, setSha] = useState(initialSha);
+    const [activeSheetName, setActiveSheetName] = useState<string>('General');
     const [isSaving, setIsSaving] = useState(false);
-    const [rowToDelete, setRowToDelete] = useState<number | null>(null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    
+    const [rowToDelete, setRowToDelete] = useState<{ sheetName: string; rowIndex: number } | null>(null);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingNotice, setEditingNotice] = useState<{data: Record<string, any>, index: number} | null>(null);
 
@@ -445,110 +444,34 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         { value: 'School', icon: <School className="h-4 w-4" /> },
     ];
     
-    const examTypeOptions = [
-        { value: 'Routine' },
-        { value: 'Result' },
-        { value: 'Notice' },
-    ];
-
-    useEffect(() => {
-        try {
-            if (initialBase64Data) {
-                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: 'yyyy-mm-dd' });
-                setWorkbook(wb);
-                const firstSheetName = wb.SheetNames[0];
-                if (firstSheetName) {
-                    setActiveSheetName(firstSheetName);
-                }
-            } else {
-                const wb = XLSX.utils.book_new();
-                const ws_general = XLSX.utils.aoa_to_sheet([["icon", "title", "summary", "date", "details"]]);
-                const ws_holiday = XLSX.utils.aoa_to_sheet([["name", "date", "details"]]);
-                const ws_exams = XLSX.utils.aoa_to_sheet([["title", "date", "type", "link"]]);
-                const ws_results = XLSX.utils.aoa_to_sheet([["SymbolNo", "StudentName", "DOB", "Grade", "GPA", "Remarks"]]);
-                
-                XLSX.utils.book_append_sheet(wb, ws_general, "General");
-                XLSX.utils.book_append_sheet(wb, ws_holiday, "Holiday");
-                XLSX.utils.book_append_sheet(wb, ws_exams, "Exams");
-                XLSX.utils.book_append_sheet(wb, ws_results, "Results");
-
-                setWorkbook(wb);
-                setActiveSheetName("General");
-            }
-        } catch (error) {
-            console.error("Failed to parse Excel data:", error);
-            toast({
-                variant: 'destructive',
-                title: 'Error',
-                description: 'Failed to read the Excel file format.',
-            });
-        }
-    }, [initialBase64Data, toast]);
-
-    useEffect(() => {
-        if (workbook && activeSheetName) {
-            const worksheet = workbook.Sheets[activeSheetName];
-            if (worksheet) {
-                const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
-                setGridData(data);
-            }
-        }
-    }, [workbook, activeSheetName]);
-
-    const { sheetNames, headers, bodyData } = useMemo(() => {
-        const sheetNames = workbook?.SheetNames || [];
-        const headers = gridData[0] || [];
-        const bodyData = gridData.slice(1);
-        return { sheetNames, headers, bodyData };
-    }, [workbook, gridData]);
-
-    const formatSheetNameForDisplay = (name: string) => {
-        if (!name) return '';
-        const lowerName = name.toLowerCase();
-        if (lowerName.includes('general')) return 'General';
-        if (lowerName.includes('holiday')) return 'Holiday';
-        if (lowerName.includes('exam')) return 'Exams';
-        if (lowerName.includes('result')) return 'Results';
-        return name;
-    };
-
-    const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
-        const updatedGridData = [...gridData];
-        const actualRowIndex = rowIndex + 1;
-
-        if (updatedGridData[actualRowIndex]) {
-            const newRow = [...updatedGridData[actualRowIndex]];
-            newRow[colIndex] = value;
-
-            if (activeSheetName === 'Results' && headers.length > 0) {
-                const gpaIndex = headers.findIndex(h => String(h).toLowerCase() === 'gpa');
-                const gradeIndex = headers.findIndex(h => String(h).toLowerCase() === 'grade');
-                const remarksIndex = headers.findIndex(h => String(h).toLowerCase() === 'remarks');
-
-                if (colIndex === gpaIndex && gpaIndex !== -1 && gradeIndex !== -1 && remarksIndex !== -1) {
-                    const gpa = parseFloat(value);
-                    if (!isNaN(gpa)) {
-                        const { grade, remarks } = calculateGradeFromGPA(gpa);
-                        newRow[gradeIndex] = grade;
-                        newRow[remarksIndex] = remarks;
-                    } else {
-                        newRow[gradeIndex] = '';
-                        newRow[remarksIndex] = '';
-                    }
-                }
-            }
-            updatedGridData[actualRowIndex] = newRow;
-            setGridData(updatedGridData);
-        }
-    };
+    const examTypeOptions = [ { value: 'Routine' }, { value: 'Result' }, { value: 'Notice' }];
     
+    const noticeSheetNames = useMemo(() => {
+        return wbState.workbook?.SheetNames.filter(name => ['General', 'Holiday'].includes(name)) || [];
+    }, [wbState.workbook]);
+
+    useEffect(() => {
+        if (!noticeSheetNames.includes(activeSheetName)) {
+            setActiveSheetName(noticeSheetNames[0] || '');
+        }
+    }, [noticeSheetNames, activeSheetName]);
+
+    const { headers, bodyData } = useMemo(() => {
+        if (!wbState.workbook || !activeSheetName) return { headers: [], bodyData: [] };
+        const worksheet = wbState.workbook.Sheets[activeSheetName];
+        if (!worksheet) return { headers: [], bodyData: [] };
+
+        const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
+        return { headers: data[0] || [], bodyData: data.slice(1) };
+    }, [wbState.workbook, activeSheetName]);
+
     const handleOpenNewModal = () => {
         setEditingNotice(null);
         setIsModalOpen(true);
     };
 
     const handleOpenEditModal = (rowIndex: number) => {
-        const rowDataArray = gridData[rowIndex + 1];
+        const rowDataArray = bodyData[rowIndex];
         const rowDataObject = headers.reduce((obj, header, index) => {
             obj[String(header)] = rowDataArray[index];
             return obj;
@@ -556,59 +479,51 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
         setEditingNotice({ data: rowDataObject, index: rowIndex });
         setIsModalOpen(true);
     };
+    
+    const handleCloseModal = () => setIsModalOpen(false);
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setEditingNotice(null);
-    };
-
-    const triggerRemoveRow = (rowIndex: number) => {
-        setRowToDelete(rowIndex);
-    };
-
-    const commitGridData = async (newGridData: GridData): Promise<{ success: boolean; message: string; }> => {
-        if (!workbook || !activeSheetName) return { success: false, message: 'Workbook not ready.' };
-
+    const commitChanges = async (newWorkbook: XLSX.WorkBook): Promise<{ success: boolean; message: string; newSha?: string }> => {
         setIsSaving(true);
         try {
-            const newWorkbook: XLSX.WorkBook = { ...workbook, Sheets: { ...workbook.Sheets } };
-            const newSheet = XLSX.utils.aoa_to_sheet(newGridData, { dateNF: 'yyyy-mm-dd' });
-            newWorkbook.Sheets[activeSheetName] = newSheet;
-
             const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
-            const result = await saveExcelFile(newBase64, sha);
+            const result = await saveExcelFile(newBase64, wbState.sha);
 
             if (result.success && result.newSha) {
-                setWorkbook(newWorkbook);
-                setGridData(newGridData);
-                setSha(result.newSha);
+                onStateChange({ workbook: newWorkbook, sha: result.newSha });
                 return { success: true, message: result.message };
             } else {
                 throw new Error(result.message);
             }
         } catch (error) {
             console.error("Failed to save Excel data:", error);
-            if (error instanceof Error && (error.message.includes('sha') || error.message.includes('409'))) {
+            const errorMsg = error instanceof Error ? error.message : 'An unknown error occurred.';
+            if (errorMsg.includes('sha') || errorMsg.includes('409')) {
                 return { success: false, message: 'File has been updated by someone else. Please refresh the page and try again.' };
             }
-            return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred.' };
+            return { success: false, message: errorMsg };
         } finally {
             setIsSaving(false);
         }
     };
-
+    
     const handleNoticeSubmit = async (formData: Record<string, string>): Promise<boolean> => {
-        const newRow = headers.map(header => formData[String(header)] || '');
-        let newGridData: GridData;
+        if (!wbState.workbook) return false;
 
+        const newRow = headers.map(header => formData[String(header)] || '');
+        const currentSheetData: GridData = XLSX.utils.sheet_to_json(wbState.workbook.Sheets[activeSheetName], { header: 1 });
+        
+        let newGridData: GridData;
         if (editingNotice !== null) { // Editing existing
-            newGridData = [...gridData];
+            newGridData = [...currentSheetData];
             newGridData[editingNotice.index + 1] = newRow;
         } else { // Creating new
-            newGridData = [...gridData, newRow];
+            newGridData = [...currentSheetData, newRow];
         }
 
-        const result = await commitGridData(newGridData);
+        const newWorkbook = { ...wbState.workbook, Sheets: { ...wbState.workbook.Sheets } };
+        newWorkbook.Sheets[activeSheetName] = XLSX.utils.aoa_to_sheet(newGridData, { dateNF: 'yyyy-mm-dd' });
+
+        const result = await commitChanges(newWorkbook);
         if (result.success) {
             toast({ title: 'Success!', description: `Notice has been ${editingNotice ? 'updated' : 'published'} successfully.` });
             handleCloseModal();
@@ -620,40 +535,195 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
     };
 
     const confirmRemoveRow = async () => {
-        if (rowToDelete === null) return;
-        
-        const updatedGridData = gridData.filter((_, index) => index !== rowToDelete + 1);
-        const result = await commitGridData(updatedGridData);
+        if (rowToDelete === null || !wbState.workbook) return;
 
+        const { sheetName, rowIndex } = rowToDelete;
+        const currentSheetData: GridData = XLSX.utils.sheet_to_json(wbState.workbook.Sheets[sheetName], { header: 1 });
+        const updatedGridData = currentSheetData.filter((_, index) => index !== rowIndex + 1);
+
+        const newWorkbook = { ...wbState.workbook, Sheets: { ...wbState.workbook.Sheets } };
+        newWorkbook.Sheets[sheetName] = XLSX.utils.aoa_to_sheet(updatedGridData);
+        
+        const result = await commitChanges(newWorkbook);
         if (result.success) {
-            toast({ 
-                title: 'Row Removed', 
-                description: `Row ${rowToDelete + 1} has been successfully removed and saved.` 
-            });
+            toast({ title: 'Row Removed', description: `The notice has been successfully removed.` });
         } else {
-            toast({
-                variant: 'destructive',
-                title: 'Error Deleting Row',
-                description: result.message,
-            });
-            setGridData(gridData);
+            toast({ variant: 'destructive', title: 'Error Deleting Row', description: result.message });
+        }
+        setRowToDelete(null);
+    };
+
+    return (
+        <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-sm text-muted-foreground flex-1">
+                    Manage website notices. Add, edit, or delete notices using the buttons on each card.
+                </p>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                    <Button onClick={handleOpenNewModal} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />New Notice</Button>
+                </div>
+            </div>
+
+            <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
+                <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-none sm:inline-flex sm:w-auto">
+                    {noticeSheetNames.map((name) => (
+                        <TabsTrigger key={name} value={name}>{name}</TabsTrigger>
+                    ))}
+                </TabsList>
+                <div className="mt-6 relative">
+                    <div className="space-y-4">
+                        {bodyData.length > 0 ? bodyData.map((row, rowIndex) => (
+                            <NoticeCard
+                                key={rowIndex}
+                                notice={row}
+                                headers={headers}
+                                sheetName={activeSheetName}
+                                onEdit={() => handleOpenEditModal(rowIndex)}
+                                onDelete={() => setRowToDelete({ sheetName: activeSheetName, rowIndex })}
+                            />
+                        )) : (
+                            <div className="text-center py-12 text-muted-foreground flex flex-col items-center gap-4 border rounded-lg bg-card/50">
+                                <Inbox className="h-12 w-12" />
+                                <h3 className="text-lg font-semibold">No Notices Yet</h3>
+                                <p>Click "New Notice" to publish the first one in this category.</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </Tabs>
+
+            <NoticeModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onSubmit={handleNoticeSubmit}
+                sheetName={activeSheetName}
+                headers={headers}
+                iconOptions={iconOptions}
+                examTypeOptions={examTypeOptions}
+                isEditing={!!editingNotice}
+                initialData={editingNotice?.data}
+            />
+            
+            <AlertDialog open={rowToDelete !== null} onOpenChange={(open) => !open && setRowToDelete(null)}>
+                <AlertDialogContent className="bg-card/60 backdrop-blur-xl border-border/50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>This will permanently delete this notice and save the changes. This action cannot be undone.</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="bg-transparent pt-4">
+                        <AlertDialogCancel onClick={() => setRowToDelete(null)}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmRemoveRow} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </div>
+    );
+};
+
+const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onStateChange: (newState: WorkbookState) => void }) => {
+    const { toast } = useToast();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [rowToDelete, setRowToDelete] = useState<number | null>(null);
+
+    const [gridData, setGridData] = useState<GridData>([]);
+
+    useEffect(() => {
+        if (wbState.workbook) {
+            const worksheet = wbState.workbook.Sheets['Results'];
+            if (worksheet) {
+                const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
+                setGridData(data);
+            }
+        }
+    }, [wbState.workbook]);
+
+    const { headers, bodyData } = useMemo(() => {
+        const headers = gridData[0] || [];
+        const bodyData = gridData.slice(1);
+        return { headers, bodyData };
+    }, [gridData]);
+
+    const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
+        const updatedGridData = [...gridData];
+        const actualRowIndex = rowIndex + 1;
+
+        if (updatedGridData[actualRowIndex]) {
+            const newRow = [...updatedGridData[actualRowIndex]];
+            newRow[colIndex] = value;
+
+            const gpaIndex = headers.findIndex(h => String(h).toLowerCase() === 'gpa');
+            const gradeIndex = headers.findIndex(h => String(h).toLowerCase() === 'grade');
+            const remarksIndex = headers.findIndex(h => String(h).toLowerCase() === 'remarks');
+
+            if (colIndex === gpaIndex && gpaIndex !== -1 && gradeIndex !== -1 && remarksIndex !== -1) {
+                const gpa = parseFloat(value);
+                if (!isNaN(gpa)) {
+                    const { grade, remarks } = calculateGradeFromGPA(gpa);
+                    newRow[gradeIndex] = grade;
+                    newRow[remarksIndex] = remarks;
+                } else {
+                    newRow[gradeIndex] = '';
+                    newRow[remarksIndex] = '';
+                }
+            }
+            updatedGridData[actualRowIndex] = newRow;
+            setGridData(updatedGridData);
+        }
+    };
+
+    const commitChanges = async (newGridData: GridData): Promise<{ success: boolean; message: string; newSha?: string }> => {
+        if (!wbState.workbook) return { success: false, message: 'Workbook not ready.' };
+
+        setIsSaving(true);
+        try {
+            const newWorkbook: XLSX.WorkBook = { ...wbState.workbook, Sheets: { ...wbState.workbook.Sheets } };
+            const newSheet = XLSX.utils.aoa_to_sheet(newGridData, { dateNF: 'yyyy-mm-dd' });
+            newWorkbook.Sheets['Results'] = newSheet;
+
+            const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
+            const result = await saveExcelFile(newBase64, wbState.sha);
+
+            if (result.success && result.newSha) {
+                onStateChange({ workbook: newWorkbook, sha: result.newSha });
+                return { success: true, message: result.message };
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error("Failed to save Excel data:", error);
+            const errorMsg = error instanceof Error ? error.message : 'An unknown error occurred.';
+            if (errorMsg.includes('sha') || errorMsg.includes('409')) {
+                return { success: false, message: 'File has been updated by someone else. Please refresh the page and try again.' };
+            }
+            return { success: false, message: errorMsg };
+        } finally {
+            setIsSaving(false);
+        }
+    };
+    
+    const confirmRemoveRow = async () => {
+        if (rowToDelete === null) return;
+        const updatedGridData = gridData.filter((_, index) => index !== rowToDelete + 1);
+        const result = await commitChanges(updatedGridData);
+        if (result.success) {
+            toast({ title: 'Row Removed', description: `Row ${rowToDelete + 1} has been successfully removed and saved.` });
+        } else {
+            toast({ variant: 'destructive', title: 'Error Deleting Row', description: result.message });
+            setGridData(gridData); // Revert UI on failure
         }
         setRowToDelete(null);
     };
 
     const handleSaveChanges = async () => {
-        const result = await commitGridData(gridData);
+        const result = await commitChanges(gridData);
         if (result.success) {
             toast({ title: 'Success!', description: result.message });
         } else {
-            toast({
-                variant: 'destructive',
-                title: 'Error Saving File',
-                description: result.message,
-            });
+            toast({ variant: 'destructive', title: 'Error Saving File', description: result.message });
         }
     };
-    
+
     const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
@@ -668,193 +738,108 @@ const ExcelEditor = ({ initialBase64Data, initialSha }: { initialBase64Data: str
                 const importedData: GridData = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
 
                 if (!importedData || importedData.length < 2) {
-                    toast({
-                        variant: 'destructive',
-                        title: 'Import Error',
-                        description: 'The selected file is empty or contains no data rows.',
-                    });
+                    toast({ variant: 'destructive', title: 'Import Error', description: 'The selected file is empty or contains no data rows.' });
                     return;
                 }
                 
                 const currentHeader = gridData[0] || [];
                 const importedBody = importedData.slice(1);
-
                 setGridData([currentHeader, ...importedBody]);
-                toast({
-                    title: 'Import Successful',
-                    description: `Data from "${file.name}" has been loaded, preserving the existing header. Review and save changes.`,
-                });
-
+                toast({ title: 'Import Successful', description: `Data from "${file.name}" has been loaded. Review and save changes.` });
             } catch (error) {
                 console.error("Failed to import file:", error);
-                toast({
-                    variant: 'destructive',
-                    title: 'Import Error',
-                    description: 'Failed to read the file. Please ensure it is a valid Excel or CSV file.',
-                });
+                toast({ variant: 'destructive', title: 'Import Error', description: 'Failed to read the file. Please ensure it is a valid Excel or CSV file.' });
             } finally {
-                if (event.target) {
-                    event.target.value = "";
-                }
+                if (event.target) event.target.value = "";
             }
         };
         reader.readAsBinaryString(file);
     };
-
-    if (!workbook) {
-        return <div className="flex h-64 w-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
-    }
-
-    const isResultsTab = activeSheetName === 'Results';
-
+    
     return (
-        <>
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+        <div className="space-y-6">
+             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                  <p className="text-sm text-muted-foreground flex-1">
-                    {isResultsTab 
-                        ? 'Manage student result data. Click "Save Changes" to publish.' 
-                        : 'Manage website notices. Add or edit notices using the buttons provided.'
-                    }
+                    Manage student result data. Click "Save Changes" to publish.
                 </p>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                    {!isResultsTab && <Button onClick={handleOpenNewModal} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />New Notice</Button>}
-                    {isResultsTab && (
-                        <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
-                            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                            Save Changes
-                        </Button>
-                    )}
+                    <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
+                        {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                        Save Changes
+                    </Button>
                 </div>
             </div>
+            
+            <div className="max-h-[65vh] overflow-auto border rounded-lg">
+                <Table>
+                    <TableHeader className="sticky top-0 z-20 bg-muted/80 backdrop-blur-sm">
+                        <TableRow>
+                            <TableHead className="sticky left-0 z-30 w-16 border-r bg-muted/95 text-center font-bold">#</TableHead>
+                            {headers.map((header, colIndex) => (
+                                <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap border-r">{header}</TableHead>
+                            ))}
+                            <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {bodyData.map((row, rowIndex) => (
+                            <TableRow key={rowIndex}>
+                                <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
+                                {headers.map((_, colIndex) => (
+                                    <TableCell key={colIndex} className="p-0 border-r">
+                                        <Input
+                                            type="text"
+                                            value={row[colIndex] || ''}
+                                            onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
+                                            className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-primary/50 bg-transparent"
+                                        />
+                                    </TableCell>
+                                ))}
+                                <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon" 
+                                        className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
+                                        onClick={() => setRowToDelete(rowIndex)}
+                                        aria-label="Remove row"
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
+             <div className="flex justify-start">
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileImport}
+                    className="hidden"
+                    accept=".xlsx, .xls, .csv"
+                />
+                <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
+                    <Upload className="mr-2 h-4 w-4" />
+                    Import Results
+                </Button>
+            </div>
 
-            <NewNoticeModal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                onSubmit={handleNoticeSubmit}
-                sheetName={formatSheetNameForDisplay(activeSheetName)}
-                headers={headers}
-                iconOptions={iconOptions}
-                examTypeOptions={examTypeOptions}
-                isEditing={!!editingNotice}
-                initialData={editingNotice?.data}
-            />
-
-            <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
-                <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-none sm:inline-flex sm:w-auto">
-                    {sheetNames.map((name) => (
-                        <TabsTrigger key={name} value={name}>{formatSheetNameForDisplay(name)}</TabsTrigger>
-                    ))}
-                </TabsList>
-
-                <div className="mt-6 relative">
-                    {isSaving && (
-                        <div className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center z-40 rounded-lg">
-                            <div className="flex items-center gap-2 text-foreground">
-                                <Loader2 className="h-5 w-5 animate-spin" />
-                                <span className="font-medium text-lg">Saving...</span>
-                            </div>
-                        </div>
-                    )}
-                     {isResultsTab ? (
-                        <>
-                            <div className="max-h-[65vh] overflow-auto border rounded-lg">
-                                <Table>
-                                    <TableHeader className="sticky top-0 z-20 bg-muted/80 backdrop-blur-sm">
-                                        <TableRow>
-                                            <TableHead className="sticky left-0 z-30 w-16 border-r bg-muted/95 text-center font-bold">#</TableHead>
-                                            {headers.map((header, colIndex) => (
-                                                <TableHead key={colIndex} className="p-2.5 text-center font-bold whitespace-nowrap border-r">{header}</TableHead>
-                                            ))}
-                                            <TableHead className="sticky right-0 z-30 p-2.5 text-center font-bold bg-muted/95">Actions</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {bodyData.map((row, rowIndex) => (
-                                            <TableRow key={rowIndex}>
-                                                <TableCell className="sticky left-0 z-10 w-16 border-r text-center font-medium bg-muted">{rowIndex + 1}</TableCell>
-                                                {headers.map((_, colIndex) => (
-                                                    <TableCell key={colIndex} className="p-0 border-r">
-                                                        <Input
-                                                            type="text"
-                                                            value={row[colIndex] || ''}
-                                                            onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
-                                                            className="w-full h-full p-2 border-none rounded-none focus-visible:ring-1 focus-visible:ring-primary/50 bg-transparent"
-                                                        />
-                                                    </TableCell>
-                                                ))}
-                                                <TableCell className="sticky right-0 z-10 p-1 bg-card border-r">
-                                                    <Button 
-                                                        variant="ghost" 
-                                                        size="icon" 
-                                                        className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
-                                                        onClick={() => triggerRemoveRow(rowIndex)}
-                                                        aria-label="Remove row"
-                                                    >
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </div>
-                             <div className="flex justify-start mt-4">
-                                <input
-                                    type="file"
-                                    ref={fileInputRef}
-                                    onChange={handleFileImport}
-                                    className="hidden"
-                                    accept=".xlsx, .xls, .csv"
-                                />
-                                <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
-                                    <Upload className="mr-2 h-4 w-4" />
-                                    Import Results
-                                </Button>
-                            </div>
-                        </>
-                    ) : (
-                        <div className="space-y-4">
-                            {bodyData.length > 0 ? bodyData.map((row, rowIndex) => (
-                                <NoticeCard
-                                    key={rowIndex}
-                                    notice={row}
-                                    headers={headers}
-                                    sheetName={activeSheetName}
-                                    onEdit={() => handleOpenEditModal(rowIndex)}
-                                    onDelete={() => triggerRemoveRow(rowIndex)}
-                                />
-                            )) : (
-                                <div className="text-center py-12 text-muted-foreground flex flex-col items-center gap-4 border rounded-lg bg-card/50">
-                                    <Inbox className="h-12 w-12" />
-                                    <h3 className="text-lg font-semibold">No Notices Yet</h3>
-                                    <p>Click "New Notice" to publish the first one in this category.</p>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
-            </Tabs>
             <AlertDialog open={rowToDelete !== null} onOpenChange={(open) => !open && setRowToDelete(null)}>
                 <AlertDialogContent className="bg-card/60 backdrop-blur-xl border-border/50">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            This will permanently delete row {rowToDelete !== null ? rowToDelete + 1 : ''} and save the changes. This action cannot be undone.
-                        </AlertDialogDescription>
+                        <AlertDialogDescription>This will permanently delete row {rowToDelete !== null ? rowToDelete + 1 : ''} and save the changes. This action cannot be undone.</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="bg-transparent pt-4">
                         <AlertDialogCancel onClick={() => setRowToDelete(null)}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction 
-                            onClick={confirmRemoveRow} 
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                            Delete Row
-                        </AlertDialogAction>
+                        <AlertDialogAction onClick={confirmRemoveRow} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </>
+        </div>
     );
-};
+}
 
 const formatDate = (timestamp: Timestamp | Date | undefined) => {
     if (!timestamp) return 'N/A';
@@ -1134,23 +1119,70 @@ const ContactTab = () => {
 }
 
 export default function AdminView({ initialBase64Data, initialSha }: { initialBase64Data: string, initialSha: string }) {
+    const { toast } = useToast();
     const [activeTab, setActiveTab] = useState("admissions");
+    const [wbState, setWbState] = useState<WorkbookState>({ workbook: null, sha: initialSha });
+     const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        try {
+            if (initialBase64Data) {
+                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: 'yyyy-mm-dd' });
+                setWbState({ workbook: wb, sha: initialSha });
+            } else {
+                const wb = XLSX.utils.book_new();
+                const ws_general = XLSX.utils.aoa_to_sheet([["icon", "title", "summary", "date", "details"]]);
+                const ws_holiday = XLSX.utils.aoa_to_sheet([["name", "date", "details"]]);
+                const ws_results = XLSX.utils.aoa_to_sheet([["SymbolNo", "StudentName", "DOB", "Grade", "GPA", "Remarks"]]);
+                
+                XLSX.utils.book_append_sheet(wb, ws_general, "General");
+                XLSX.utils.book_append_sheet(wb, ws_holiday, "Holiday");
+                XLSX.utils.book_append_sheet(wb, ws_results, "Results");
+                setWbState({ workbook: wb, sha: initialSha });
+            }
+        } catch (error) {
+            console.error("Failed to parse Excel data:", error);
+            toast({ variant: 'destructive', title: 'Error', description: 'Failed to read the Excel file format.' });
+        } finally {
+            setIsLoading(false);
+        }
+    }, [initialBase64Data, initialSha, toast]);
+
+    const handleWbStateChange = (newState: WorkbookState) => {
+        setWbState(newState);
+    }
+    
+    if (isLoading) {
+        return (
+             <div className="container mx-auto px-4">
+                <Card className="testimonial-card p-8">
+                     <div className="flex h-64 w-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>
+                </Card>
+             </div>
+        )
+    }
 
     return (
         <div className="container mx-auto px-4">
             <Card className="testimonial-card">
                 <CardHeader>
                     <CardTitle className="text-2xl">Admin Dashboard</CardTitle>
-                    {activeTab === 'notice' && <CardDescription>Manage website notices and result data.</CardDescription>}
-                    {activeTab === 'admissions' && <CardDescription>View all submitted admission inquiries.</CardDescription>}
-                    {activeTab === 'contact' && <CardDescription>View all submitted contact form messages.</CardDescription>}
+                    <CardDescription>
+                        {
+                            activeTab === 'admissions' ? 'View all submitted admission inquiries.' :
+                            activeTab === 'contact' ? 'View all submitted contact form messages.' :
+                            activeTab === 'notice' ? 'Manage website notices and announcements.' :
+                            'Manage student result data.'
+                        }
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full h-auto grid-cols-1 rounded-lg sm:h-12 sm:grid-cols-3 sm:rounded-full max-w-lg mx-auto">
+                        <TabsList className="grid w-full h-auto grid-cols-2 rounded-lg sm:h-12 sm:grid-cols-4 sm:rounded-full max-w-2xl mx-auto">
                             <TabsTrigger value="admissions">Admissions</TabsTrigger>
                             <TabsTrigger value="contact">Contact Messages</TabsTrigger>
                             <TabsTrigger value="notice">Notice Editor</TabsTrigger>
+                            <TabsTrigger value="results">Results Editor</TabsTrigger>
                         </TabsList>
                         <TabsContent value="admissions" className='mt-6'>
                            <AdmissionsTab />
@@ -1159,7 +1191,10 @@ export default function AdminView({ initialBase64Data, initialSha }: { initialBa
                            <ContactTab />
                         </TabsContent>
                          <TabsContent value="notice" className='mt-6'>
-                           <ExcelEditor initialBase64Data={initialBase64Data} initialSha={initialSha} />
+                           {wbState.workbook && <NoticeSheetEditor wbState={wbState} onStateChange={handleWbStateChange} />}
+                        </TabsContent>
+                         <TabsContent value="results" className='mt-6'>
+                           {wbState.workbook && <ResultsEditor wbState={wbState} onStateChange={handleWbStateChange} />}
                         </TabsContent>
                     </Tabs>
                 </CardContent>

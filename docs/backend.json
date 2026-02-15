@@ -79,20 +79,6 @@
         }
       },
       "required": ["fullName", "email", "phone", "subject", "message", "createdAt"]
-    },
-     "result": {
-      "title": "Exam Result",
-      "description": "Represents a student's exam result.",
-      "type": "object",
-      "properties": {
-        "SymbolNo": { "type": "string" },
-        "StudentName": { "type": "string" },
-        "DOB": { "type": "string", "description": "Date of Birth in YYYY-MM-DD format." },
-        "GPA": { "type": "number" },
-        "Grade": { "type": "string" },
-        "Remarks": { "type": "string", "enum": ["Pass", "Fail"] }
-      },
-      "required": ["SymbolNo", "StudentName", "DOB", "GPA", "Grade", "Remarks"]
     }
   },
   "auth": {
@@ -110,12 +96,6 @@
         "$ref": "#/entities/message"
       },
       "description": "Collection of contact form messages."
-    },
-    "/results/{resultId}": {
-      "schema": {
-        "$ref": "#/entities/result"
-      },
-      "description": "Collection of student exam results."
     }
   }
 }

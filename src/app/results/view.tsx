@@ -8,19 +8,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState, FormEvent } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useFirestore } from '@/firebase';
-import { collection, query, where, getDocs, type DocumentData } from 'firebase/firestore';
 import { cn } from '@/lib/utils';
-
-// This type is now local to the results page
-export type Result = {
-  StudentName: string;
-  SymbolNo: string;
-  DOB: string;
-  Grade: string;
-  GPA: number;
-  Remarks: 'Pass' | 'Fail';
-};
+import { checkResult } from '@/app/actions';
+import type { Result } from '@/app/actions';
 
 const ResultDisplay = ({ result }: { result: Result }) => {
     const isPass = result.Remarks === 'Pass';
@@ -83,31 +73,12 @@ const ResultDisplay = ({ result }: { result: Result }) => {
     );
 };
 
-
-function normalizeDate(dob: string): string {
-  // Remove all non-digit characters
-  const digitsOnly = dob.replace(/\D/g, '');
-  
-  // Check if it's in YYYYMMDD format
-  if (digitsOnly.length === 8) {
-    const year = digitsOnly.substring(0, 4);
-    const month = digitsOnly.substring(4, 6);
-    const day = digitsOnly.substring(6, 8);
-    return `${year}-${month}-${day}`;
-  }
-  
-  // Assume it's already in a delimited format like YYYY-MM-DD or YYYY/MM/DD
-  // Just replace slashes with dashes for consistency
-  return dob.replace(/\//g, '-');
-}
-
 export default function ResultsView() {
     const [symbolNo, setSymbolNo] = useState('');
     const [dob, setDob] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [result, setResult] = useState<Result | null>(null);
-    const firestore = useFirestore();
 
     const handleResultCheck = async (e: FormEvent) => {
         e.preventDefault();
@@ -121,34 +92,14 @@ export default function ResultsView() {
             return;
         }
 
-        if (!firestore) {
-            setError("Database connection is not available. Please try again later.");
-            setIsLoading(false);
-            return;
-        }
-        
         try {
-            const normalizedDob = normalizeDate(dob);
-            const resultsRef = collection(firestore, 'results');
-            const q = query(resultsRef, where("SymbolNo", "==", symbolNo.trim()), where("DOB", "==", normalizedDob));
-            
-            const querySnapshot = await getDocs(q);
-
-            if (querySnapshot.empty) {
-                setError("No result found for the provided Symbol Number and Date of Birth. Please check your inputs and try again.");
+            const foundResult = await checkResult(symbolNo, dob);
+            if (foundResult) {
+                setResult(foundResult);
             } else {
-                const docData = querySnapshot.docs[0].data() as DocumentData;
-                 setResult({
-                    StudentName: docData.StudentName,
-                    SymbolNo: docData.SymbolNo,
-                    DOB: docData.DOB,
-                    Grade: docData.Grade,
-                    GPA: Number(docData.GPA),
-                    Remarks: docData.Remarks,
-                });
+                setError("No result found for the provided Symbol Number and Date of Birth. Please check your inputs and try again.");
             }
         } catch (e) {
-            console.error("Firestore query error:", e);
             setError("An error occurred while checking your result. Please try again later.");
         } finally {
             setIsLoading(false);
