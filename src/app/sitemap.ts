@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/academics/innovation',
     '/notice/general',
     '/notice/holidays',
-    '/notice/exams'
+    '/results'
   ].map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: new Date(),

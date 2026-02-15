@@ -5,7 +5,7 @@ import { Suspense, useState, useEffect } from 'react';
 import { NAV_LINKS } from '@/lib/constants';
 import Link from 'next/link';
 import PageHeader from '@/app/components/page-header';
-import { Search, Home, Image as ImageIcon, Mail, type LucideIcon } from 'lucide-react';
+import { Search, Home, Image as ImageIcon, Mail, type LucideIcon, ShieldCheck } from 'lucide-react';
 
 type SearchResult = {
   label: string;
@@ -31,6 +31,9 @@ const allPages: SearchResult[] = NAV_LINKS.flatMap(link => {
   // Handle standalone, top-level links
   if (link.href === '/') {
     return [{ label: link.label, href: link.href, description: 'The main homepage of SARC Education Foundation.', category: 'Main', icon: Home }];
+  }
+   if (link.href === '/results') {
+    return [{ label: link.label, href: link.href, description: 'Check your examination results.', category: 'Main', icon: ShieldCheck }];
   }
   if (link.href === '/gallery') {
     return [{ label: link.label, href: link.href, description: 'Explore moments of learning, discovery, and community.', category: 'Main', icon: ImageIcon }];

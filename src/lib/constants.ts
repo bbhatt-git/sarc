@@ -1,6 +1,6 @@
 
 
-import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2, Lightbulb, Projector } from 'lucide-react';
+import { GraduationCap, Briefcase, Users, HeartHandshake, Microscope, Landmark, Computer, Library, Bus, Utensils, Home, FlaskConical, Target, User, History, BookOpen, Award, Building, Bell, CalendarDays, FileText, School, Drama, Gamepad2, Lightbulb, Projector, ShieldCheck } from 'lucide-react';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -27,9 +27,9 @@ export const NAV_LINKS = [
     children: [
       { href: '/notice/general', label: 'General Notice', description: 'Stay updated with general announcements.', icon: Bell },
       { href: '/notice/holidays', label: 'Holiday Notice', description: 'View our academic calendar and holidays.', icon: CalendarDays },
-      { href: '/notice/exams', label: 'Exam & Results', description: 'Find exam schedules and check results.', icon: FileText },
     ],
   },
+  { href: '/results', label: 'Results' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact', label: 'Contact' },
 ];

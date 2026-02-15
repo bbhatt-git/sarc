@@ -1,14 +1,26 @@
-import type { Metadata } from 'next';
-import ExamsView from './view';
-import { getExcelData } from '@/lib/excel-data';
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow anyone to create an admission inquiry.
+    // Allow admins to read inquiries.
+    match /admissionInquiries/{inquiryId} {
+      allow create: if true;
+      allow read: if request.auth != null && request.auth.token.admin == true;
+      allow update, delete: if false;
+    }
 
-export const metadata: Metadata = {
-  title: 'Exams & Results',
-  description: 'Find important information about examination schedules, routines, and results at SARC Education Foundation.',
-};
+    // Allow anyone to create a contact message.
+    // Allow admins to read messages.
+    match /messages/{messageId} {
+        allow create: if true;
+        allow read: if request.auth != null && request.auth.token.admin == true;
+        allow update, delete: if false;
+    }
 
-export default async function ExamsPage() {
-  const examNotices = await getExcelData('Exams');
-  
-  return <ExamsView initialNotices={examNotices} />;
+    // Allow public read for result checking, but only admins can write.
+    match /results/{resultId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null && request.auth.token.admin == true;
+    }
+  }
 }
