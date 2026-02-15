@@ -228,9 +228,9 @@ const NewNoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOpt
                 );
             }
             
-            const selectedDate = formData[header]
-                ? parse(formData[header], 'yyyy-MM-dd', new Date())
-                : undefined;
+            const dateString = formData[header];
+            const parsedDate = dateString ? parse(dateString, "yyyy-MM-dd", new Date()) : undefined;
+            const selectedDate = parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : undefined;
 
             return (
                 <div key={header} className="space-y-2">
