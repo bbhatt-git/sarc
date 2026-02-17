@@ -29,7 +29,7 @@ const TestimonialCard = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("relative flex flex-col justify-between rounded-2xl border bg-card/60 p-6 shadow-sm", className)}>
+    <div className={cn("relative flex h-full flex-col justify-between rounded-2xl border bg-card/60 p-6 shadow-sm", className)}>
       <div className="absolute top-4 right-4 text-primary/10">
         <Quote className="h-16 w-16" />
       </div>
@@ -123,7 +123,7 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
             subtitle="OUR GALLERY"
             className="mb-12"
           />
-          <div className="relative h-[600px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 overflow-hidden rounded-lg [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+          <div className="relative h-[600px] w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 overflow-hidden rounded-lg [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
             <Marquee vertical className="h-full [--duration:60s] [--gap:1rem]">
                 {imageData.gallery.slice(0, 6).map((image, i) => (
                     <div key={`col1-${i}`} className={cn("relative w-full shrink-0 overflow-hidden rounded-xl shadow-lg", aspectRatios[i % aspectRatios.length])}>
@@ -148,20 +148,6 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
             <Marquee vertical reverse className="h-full [--duration:60s] [--gap:1rem] hidden md:flex">
                  {imageData.gallery.slice(18, 24).map((image, i) => (
                     <div key={`col4-${i}`} className={cn("relative w-full shrink-0 overflow-hidden rounded-xl shadow-lg", aspectRatios[i % aspectRatios.length])}>
-                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
-                    </div>
-                ))}
-            </Marquee>
-            <Marquee vertical className="h-full [--duration:60s] [--gap:1rem] hidden lg:flex">
-                 {imageData.gallery.slice(24, 30).map((image, i) => (
-                    <div key={`col5-${i}`} className={cn("relative w-full shrink-0 overflow-hidden rounded-xl shadow-lg", aspectRatios[i % aspectRatios.length])}>
-                        <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
-                    </div>
-                ))}
-            </Marquee>
-            <Marquee vertical reverse className="h-full [--duration:60s] [--gap:1rem] hidden lg:flex">
-                 {imageData.gallery.slice(30, 36).map((image, i) => (
-                    <div key={`col6-${i}`} className={cn("relative w-full shrink-0 overflow-hidden rounded-xl shadow-lg", aspectRatios[i % aspectRatios.length])}>
                         <Image src={image.src} alt={image.title} fill className="object-cover" data-ai-hint={image.hint}/>
                     </div>
                 ))}
