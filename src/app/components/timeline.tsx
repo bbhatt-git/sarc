@@ -1,13 +1,14 @@
 'use client';
 import { useScroll, useTransform, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface TimelineEntry {
   title: string;
   content: React.ReactNode;
 }
 
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+export const Timeline = ({ data, titleClassName }: { data: TimelineEntry[], titleClassName?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -39,11 +40,11 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             key={index}
             className="flex justify-start pt-10 md:pt-20 md:gap-10"
           >
-            <div className="sticky flex-col md:flex-row z-10 items-center top-40 self-start hidden md:flex md:w-40 relative">
+            <div className="sticky flex-col md:flex-row z-10 items-center top-40 self-start hidden md:flex md:w-48 relative">
                <div className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-background ring-4 ring-background left-0">
                  <div className="h-4 w-4 rounded-full bg-muted border border-border" />
               </div>
-              <h3 className="text-4xl font-bold text-muted-foreground text-left w-full pl-12">
+              <h3 className={cn("text-4xl font-bold text-muted-foreground text-left w-full pl-12", titleClassName)}>
                 {item.title}
               </h3>
             </div>
@@ -52,7 +53,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               <div className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-background ring-4 ring-background -left-12 md:hidden">
                  <div className="h-4 w-4 rounded-full bg-muted border border-border" />
               </div>
-              <h3 className="md:hidden block text-2xl mb-2 text-left font-bold text-muted-foreground">
+              <h3 className={cn("md:hidden block text-xl mb-2 text-left font-bold text-muted-foreground", titleClassName)}>
                 {item.title}
               </h3>
               {item.content}

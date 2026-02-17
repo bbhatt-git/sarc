@@ -1,7 +1,7 @@
 'use client';
 import PageHeader from '@/app/components/page-header';
-import { CalendarDays, Info } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Timeline } from '@/app/components/timeline';
+import { CalendarDays } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -16,46 +16,41 @@ interface HolidayNoticeViewProps {
 }
 
 export default function HolidayNoticeView({ initialHolidays }: HolidayNoticeViewProps) {
+
+    const timelineData = (initialHolidays || []).map(holiday => ({
+        title: holiday.date,
+        content: (
+            <div className="bg-card/50 backdrop-blur-sm border border-border/50 shadow-lg rounded-xl p-6 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary/50">
+                <div className="flex items-start gap-4">
+                    <div className="bg-rose-100 dark:bg-rose-900/50 p-3 rounded-full mt-1">
+                        <CalendarDays className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                    </div>
+                    <div>
+                        <h3 className="text-xl font-bold text-foreground">{holiday.name}</h3>
+                         <div className="text-sm text-muted-foreground mt-1 [&_p]:my-1">
+                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {holiday.details || ''}
+                            </ReactMarkdown>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }));
+
     return (
         <div>
             <PageHeader title="Holiday Notices" subtitle="Academic Calendar & Breaks" />
-            <div className="container mx-auto px-4 py-20 max-w-4xl">
-                <Card className="testimonial-card">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-foreground">
-                            <Info className="w-5 h-5" />
-                            Upcoming Holidays (2081 B.S.)
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {initialHolidays && initialHolidays.length > 0 ? (
-                            <div className="space-y-6">
-                                {initialHolidays.map((holiday, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex items-start gap-4 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border"
-                                    >
-                                        <div className="bg-rose-100 dark:bg-rose-900/50 p-3 rounded-full">
-                                            <CalendarDays className="w-6 h-6 text-rose-600 dark:text-rose-400" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-lg font-bold text-foreground">{holiday.name}</h3>
-                                            <p className="font-semibold text-rose-500">{holiday.date}</p>
-                                            <ReactMarkdown
-                                                className="text-sm text-muted-foreground mt-1 [&_p]:mb-2 [&_strong]:font-bold [&_em]:italic"
-                                                remarkPlugins={[remarkGfm]}
-                                            >
-                                                {holiday.details || ''}
-                                            </ReactMarkdown>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                             <p className="text-muted-foreground text-center">No holiday notices found.</p>
-                        )}
-                    </CardContent>
-                </Card>
+            <div className="container mx-auto px-4 py-20">
+                {(initialHolidays && initialHolidays.length > 0) ? (
+                    <Timeline data={timelineData} titleClassName="!text-xl !font-semibold !text-rose-500 dark:!text-rose-400" />
+                ) : (
+                    <div className="testimonial-card text-center p-12 max-w-lg mx-auto">
+                        <CalendarDays className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-xl font-bold">No Holiday Notices</h3>
+                        <p className="text-muted-foreground mt-2">The academic calendar for holidays has not been published yet. Please check back later.</p>
+                    </div>
+                )}
             </div>
         </div>
     );
