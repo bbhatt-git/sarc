@@ -46,7 +46,7 @@ export async function getExcelData(sheetIdentifier: string): Promise<any[]> {
     }
 
     try {
-        const workbook = XLSX.read(fileBuffer, { type: 'buffer', cellDates: true });
+        const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
         const targetName = sheetIdentifier.toLowerCase();
         let sheetName = workbook.SheetNames.find(name => name.toLowerCase() === targetName);
 
@@ -61,24 +61,11 @@ export async function getExcelData(sheetIdentifier: string): Promise<any[]> {
           return [];
         }
         
-        const jsonData: any[] = XLSX.utils.sheet_to_json(sheet);
+        // By default, sheet_to_json will format dates based on the cell format,
+        // which should preserve string-based dates as they are.
+        const jsonData: any[] = XLSX.utils.sheet_to_json(sheet, { raw: false });
 
-        const serializableData = jsonData.map(row => {
-          const newRow: { [key: string]: any } = {};
-          for (const key in row) {
-            if (Object.prototype.hasOwnProperty.call(row, key)) {
-              const value = row[key];
-              if (value instanceof Date) {
-                newRow[key] = value.toISOString().split('T')[0];
-              } else {
-                newRow[key] = value;
-              }
-            }
-          }
-          return newRow;
-        });
-
-        return serializableData;
+        return jsonData;
     } catch (error) {
         console.error('An error occurred while parsing the Excel file:', error);
         return [];
