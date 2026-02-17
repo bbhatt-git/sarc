@@ -331,16 +331,14 @@ type WorkbookState = {
     sha: string;
 };
 
-const calculateGradeFromGPA = (gpa: number): { grade: string; remarks: 'Pass' | 'Fail' } => {
-    if (gpa >= 3.6) return { grade: 'A+', remarks: 'Pass' };
-    if (gpa >= 3.2) return { grade: 'A', remarks: 'Pass' };
-    if (gpa >= 2.8) return { grade: 'B+', remarks: 'Pass' };
-    if (gpa >= 2.4) return { grade: 'B', remarks: 'Pass' };
-    if (gpa >= 2.0) return { grade: 'C+', remarks: 'Pass' };
-    if (gpa >= 1.6) return { grade: 'C', remarks: 'Pass' };
-    if (gpa >= 1.2) return { grade: 'D+', remarks: 'Pass' };
-    if (gpa >= 0.8) return { grade: 'D', remarks: 'Pass' };
-    return { grade: 'NG', remarks: 'Fail' };
+const calculateGradeAndRemarksFromGPA = (gpa: number): { grade: string; remarks: string } => {
+    if (gpa >= 3.6) return { grade: 'A+', remarks: 'Outstanding' };
+    if (gpa >= 3.2) return { grade: 'A', remarks: 'Excellent' };
+    if (gpa >= 2.8) return { grade: 'B+', remarks: 'Very Good' };
+    if (gpa >= 2.4) return { grade: 'B', remarks: 'Satisfactory' };
+    if (gpa >= 2.0) return { grade: 'C+', remarks: 'Acceptable' };
+    if (gpa >= 1.6) return { grade: 'C', remarks: 'Basic' };
+    return { grade: 'NG', remarks: 'Non Graded' };
 };
 
 const NoticeSheetEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onStateChange: (newState: WorkbookState) => void }) => {
@@ -579,7 +577,7 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
             if (colIndex === gpaIndex && gpaIndex !== -1 && gradeIndex !== -1 && remarksIndex !== -1) {
                 const gpa = parseFloat(value);
                 if (!isNaN(gpa)) {
-                    const { grade, remarks } = calculateGradeFromGPA(gpa);
+                    const { grade, remarks } = calculateGradeAndRemarksFromGPA(gpa);
                     newRow[gradeIndex] = grade;
                     newRow[remarksIndex] = remarks;
                 } else {
@@ -1074,7 +1072,7 @@ export default function AdminView({
                 setResultsWbState({ workbook: wb, sha: initialResultsData.sha });
             } else {
                 const wb = XLSX.utils.book_new();
-                const ws_results = XLSX.utils.aoa_to_sheet([["SymbolNo", "StudentName", "DOB", "Grade", "GPA", "Remarks"]]);
+                const ws_results = XLSX.utils.aoa_to_sheet([["StudentName", "SymbolNo", "DOB", "GPA", "Grade", "Remarks"]]);
                 XLSX.utils.book_append_sheet(wb, ws_results, "Results");
                 setResultsWbState({ workbook: wb, sha: initialResultsData.sha });
             }

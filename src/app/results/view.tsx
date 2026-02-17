@@ -13,7 +13,7 @@ import { checkResult } from '@/app/actions';
 import type { Result } from '@/app/actions';
 
 const ResultDisplay = ({ result }: { result: Result }) => {
-    const isPass = result.Remarks === 'Pass';
+    const isPass = result.Grade !== 'NG';
 
     return (
         <div
@@ -30,20 +30,20 @@ const ResultDisplay = ({ result }: { result: Result }) => {
                 )}>
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                         <div>
-                            <h3 className={cn(
-                                "text-xl font-bold",
+                            <h3 className="text-2xl font-semibold text-foreground">{result.StudentName}</h3>
+                             <p className={cn(
+                                "text-xl font-bold mt-1",
                                 isPass ? "text-emerald-300" : "text-rose-300"
                             )}>
-                                {isPass ? "Congratulations! Result: Pass" : "Sorry! Result: Fail"}
-                            </h3>
-                            <p className="text-2xl font-semibold text-foreground mt-1">{result.StudentName}</p>
+                                {result.Remarks}
+                            </p>
                         </div>
                         <div className={cn(
                             "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold",
                             isPass ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"
                         )}>
                             {isPass ? <CheckCircle className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
-                            <span>{result.Remarks}</span>
+                            <span>{isPass ? "Graded" : "Non Graded"}</span>
                         </div>
                     </div>
                 </div>

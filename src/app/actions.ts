@@ -8,7 +8,7 @@ export type Result = {
   DOB: string; // YYYY-MM-DD
   Grade: string;
   GPA: number;
-  Remarks: 'Pass' | 'Fail';
+  Remarks: string;
 };
 
 function normalizeDate(dob: string): string {
@@ -50,7 +50,7 @@ export async function checkResult(symbolNo: string, dob: string): Promise<Result
       DOB: String(foundRow.DOB),
       Grade: String(foundRow.Grade),
       GPA: Number(foundRow.GPA),
-      Remarks: foundRow.Remarks === 'Pass' ? 'Pass' : 'Fail',
+      Remarks: String(foundRow.Remarks),
     };
   }
 
