@@ -29,7 +29,7 @@ export function Marquee({
     >
       <div
         className={cn(
-          'flex shrink-0 items-center justify-around [gap:var(--gap)]',
+          'flex shrink-0 items-center justify-start [gap:var(--gap)]',
           vertical ? 'flex-col animate-marquee-vertical' : 'flex-row animate-marquee-horizontal',
           reverse && '[animation-direction:reverse]',
           pauseOnHover && 'group-hover:[animation-play-state:paused]'
@@ -40,7 +40,7 @@ export function Marquee({
       <div
         aria-hidden="true"
         className={cn(
-          'flex shrink-0 items-center justify-around [gap:var(--gap)]',
+          'flex shrink-0 items-center justify-start [gap:var(--gap)]',
           vertical ? 'flex-col animate-marquee-vertical' : 'flex-row animate-marquee-horizontal',
           reverse && '[animation-direction:reverse]',
           pauseOnHover && 'group-hover:[animation-play-state:paused]'

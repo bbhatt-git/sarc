@@ -195,7 +195,7 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
 
         <div className="mt-16">
            {isMobile ? (
-              <Marquee pauseOnHover={false} className="[--gap:1.5rem]">
+              <Marquee pauseOnHover={false} className="[--gap:1.5rem] [--duration:120s]">
                 {TESTIMONIALS.map((testimonial, index) => (
                   <div key={index} className="w-80 flex-shrink-0">
                     <TestimonialCard {...testimonial} />
