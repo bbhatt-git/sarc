@@ -74,14 +74,14 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                                 `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
                             );
                             
-                            const month = NEPALI_MONTHS.find(m => m.value === todayBS.en.month);
+                            const month = NEPALI_MONTHS.find(m => m.value === String(todayBS.en.month).padStart(2, '0'));
                             const monthName = month ? month.label : '';
 
                             if (monthName) {
-                                initialFormData['date'] = `${todayBS.en.year} ${monthName} ${todayBS.en.day}`;
+                                initialFormData['date'] = `${todayBS.en.year} ${monthName} ${String(todayBS.en.day).padStart(2, '0')}`;
                             } else {
                                 // Fallback to raw format if month name not found
-                                initialFormData['date'] = `${todayBS.en.year}-${todayBS.en.month}-${todayBS.en.day}`;
+                                initialFormData['date'] = `${todayBS.en.year}-${String(todayBS.en.month).padStart(2, '0')}-${String(todayBS.en.day).padStart(2, '0')}`;
                             }
                         } catch (e) {
                              console.error("Failed to load ad-bs-converter", e);
@@ -403,7 +403,7 @@ const NoticeSheetEditor = ({ wbState, onStateChange }: { wbState: WorkbookState,
         setIsSaving(true);
         try {
             const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
-            const result = await saveExcelFile(newBase64, wbState.sha);
+            const result = await saveExcelFile('notice', newBase64, wbState.sha);
 
             if (result.success && result.newSha) {
                 onStateChange({ workbook: newWorkbook, sha: result.newSha });
@@ -602,7 +602,7 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
             newWorkbook.Sheets['Results'] = newSheet;
 
             const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
-            const result = await saveExcelFile(newBase64, wbState.sha);
+            const result = await saveExcelFile('results', newBase64, wbState.sha);
 
             if (result.success && result.newSha) {
                 onStateChange({ workbook: newWorkbook, sha: result.newSha });
@@ -1038,38 +1038,60 @@ const ContactTab = () => {
     );
 }
 
-export default function AdminView({ initialBase64Data, initialSha }: { initialBase64Data: string, initialSha: string }) {
+export default function AdminView({ 
+    initialNoticeData, 
+    initialResultsData 
+}: { 
+    initialNoticeData: { base64Data: string; sha: string; },
+    initialResultsData: { base64Data: string; sha: string; } 
+}) {
     const { toast } = useToast();
     const [activeTab, setActiveTab] = useState("admissions");
-    const [wbState, setWbState] = useState<WorkbookState>({ workbook: null, sha: initialSha });
-     const [isLoading, setIsLoading] = useState(true);
+    
+    const [noticeWbState, setNoticeWbState] = useState<WorkbookState>({ workbook: null, sha: initialNoticeData.sha });
+    const [resultsWbState, setResultsWbState] = useState<WorkbookState>({ workbook: null, sha: initialResultsData.sha });
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         try {
-            if (initialBase64Data) {
-                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: "yyyy-mm-dd" });
-                setWbState({ workbook: wb, sha: initialSha });
+            // Notice Workbook
+            if (initialNoticeData.base64Data) {
+                const wb = XLSX.read(initialNoticeData.base64Data, { type: 'base64', cellDates: true, dateNF: "yyyy-mm-dd" });
+                setNoticeWbState({ workbook: wb, sha: initialNoticeData.sha });
             } else {
                 const wb = XLSX.utils.book_new();
                 const ws_general = XLSX.utils.aoa_to_sheet([["icon", "title", "summary", "date", "details"]]);
                 const ws_holiday = XLSX.utils.aoa_to_sheet([["name", "date", "details"]]);
-                const ws_results = XLSX.utils.aoa_to_sheet([["SymbolNo", "StudentName", "DOB", "Grade", "GPA", "Remarks"]]);
                 
                 XLSX.utils.book_append_sheet(wb, ws_general, "General");
                 XLSX.utils.book_append_sheet(wb, ws_holiday, "Holiday");
-                XLSX.utils.book_append_sheet(wb, ws_results, "Results");
-                setWbState({ workbook: wb, sha: initialSha });
+                setNoticeWbState({ workbook: wb, sha: initialNoticeData.sha });
             }
+
+            // Results Workbook
+            if (initialResultsData.base64Data) {
+                const wb = XLSX.read(initialResultsData.base64Data, { type: 'base64', cellDates: true, dateNF: "yyyy-mm-dd" });
+                setResultsWbState({ workbook: wb, sha: initialResultsData.sha });
+            } else {
+                const wb = XLSX.utils.book_new();
+                const ws_results = XLSX.utils.aoa_to_sheet([["SymbolNo", "StudentName", "DOB", "Grade", "GPA", "Remarks"]]);
+                XLSX.utils.book_append_sheet(wb, ws_results, "Results");
+                setResultsWbState({ workbook: wb, sha: initialResultsData.sha });
+            }
+
         } catch (error) {
             console.error("Failed to parse Excel data:", error);
             toast({ variant: 'destructive', title: 'Error', description: 'Failed to read the Excel file format.' });
         } finally {
             setIsLoading(false);
         }
-    }, [initialBase64Data, initialSha, toast]);
+    }, [initialNoticeData, initialResultsData, toast]);
 
-    const handleWbStateChange = (newState: WorkbookState) => {
-        setWbState(newState);
+    const handleNoticeWbStateChange = (newState: WorkbookState) => {
+        setNoticeWbState(newState);
+    }
+    const handleResultsWbStateChange = (newState: WorkbookState) => {
+        setResultsWbState(newState);
     }
     
     if (isLoading) {
@@ -1111,10 +1133,10 @@ export default function AdminView({ initialBase64Data, initialSha }: { initialBa
                            <ContactTab />
                         </TabsContent>
                          <TabsContent value="notice" className='mt-6'>
-                           {wbState.workbook && <NoticeSheetEditor wbState={wbState} onStateChange={handleWbStateChange} />}
+                           {noticeWbState.workbook && <NoticeSheetEditor wbState={noticeWbState} onStateChange={handleNoticeWbStateChange} />}
                         </TabsContent>
                          <TabsContent value="results" className='mt-6'>
-                           {wbState.workbook && <ResultsEditor wbState={wbState} onStateChange={handleWbStateChange} />}
+                           {resultsWbState.workbook && <ResultsEditor wbState={resultsWbState} onStateChange={handleResultsWbStateChange} />}
                         </TabsContent>
                     </Tabs>
                 </CardContent>

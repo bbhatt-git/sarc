@@ -1,13 +1,17 @@
 'use server';
 
-export async function getExcelFileAsBase64(): Promise<{ base64Data: string; sha: string; error?: string } | null> {
+type ExcelFileType = 'notice' | 'results';
+
+export async function getExcelFileAsBase64(fileType: ExcelFileType): Promise<{ base64Data: string; sha: string; error?: string } | null> {
   const owner = process.env.GITHUB_REPO_OWNER;
   const repo = process.env.GITHUB_REPO_NAME;
-  const path = process.env.GITHUB_FILE_PATH;
+  const path = fileType === 'notice'
+    ? process.env.GITHUB_NOTICE_FILE_PATH
+    : process.env.GITHUB_RESULTS_FILE_PATH;
   const token = process.env.GITHUB_TOKEN;
 
   if (!owner || !repo || !path || !token) {
-    const errorMsg = 'GitHub environment variables for Excel data are not set.';
+    const errorMsg = `GitHub environment variables for ${fileType} file are not set.`;
     console.error(errorMsg);
     return { base64Data: '', sha: '', error: errorMsg };
   }
@@ -40,14 +44,16 @@ export async function getExcelFileAsBase64(): Promise<{ base64Data: string; sha:
   }
 }
 
-export async function saveExcelFile(base64Data: string, sha: string): Promise<{ success: boolean; message: string; newSha?: string; }> {
+export async function saveExcelFile(fileType: ExcelFileType, base64Data: string, sha: string): Promise<{ success: boolean; message: string; newSha?: string; }> {
   const owner = process.env.GITHUB_REPO_OWNER;
   const repo = process.env.GITHUB_REPO_NAME;
-  const path = process.env.GITHUB_FILE_PATH;
+  const path = fileType === 'notice'
+    ? process.env.GITHUB_NOTICE_FILE_PATH
+    : process.env.GITHUB_RESULTS_FILE_PATH;
   const token = process.env.GITHUB_TOKEN;
 
   if (!owner || !repo || !path || !token) {
-    const errorMsg = 'GitHub environment variables are not configured for saving.';
+    const errorMsg = `GitHub environment variables are not configured for saving ${fileType} file.`;
     console.error(errorMsg);
     return { success: false, message: errorMsg };
   }

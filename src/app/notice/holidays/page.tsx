@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HolidayNoticePage() {
-  const notices = await getExcelData('Holiday');
+  const notices = await getExcelData('Holiday', 'notice');
   const reversedNotices = notices.reverse();
   // Ensure data is a plain object before passing to client component
   const holidayNotices = JSON.parse(JSON.stringify(reversedNotices));

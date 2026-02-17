@@ -30,7 +30,7 @@ function normalizeDate(dob: string): string {
 }
 
 export async function checkResult(symbolNo: string, dob: string): Promise<Result | null> {
-  const resultsData: any[] = await getExcelData('Results');
+  const resultsData: any[] = await getExcelData('Results', 'results');
   
   if (!resultsData || resultsData.length === 0) {
     return null;
