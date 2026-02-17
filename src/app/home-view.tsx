@@ -2,7 +2,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { BookOpen, Calendar, ShieldCheck, Users } from 'lucide-react';
+import { BookOpen, Calendar, ShieldCheck, Users, Quote } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TESTIMONIALS, WHY_US_ITEMS } from '@/lib/constants';
@@ -26,8 +26,9 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="w-80 flex-shrink-0 p-6 testimonial-card">
-        <div className="flex items-center gap-4">
+    <div className="w-80 h-48 flex-shrink-0 p-6 testimonial-card relative">
+      <Quote className="absolute -top-2 -left-2 w-24 h-24 text-primary/5 opacity-50" />
+        <div className="flex items-center gap-4 relative z-10">
             <Avatar>
                 <AvatarImage src={image} alt={author}/>
                 <AvatarFallback>{author.charAt(0)}</AvatarFallback>
@@ -37,7 +38,7 @@ const TestimonialCard = ({
                 <p className="text-sm text-muted-foreground">{role}</p>
             </div>
         </div>
-        <blockquote className="mt-4 text-foreground/90 italic before:content-['“'] after:content-['”']">
+        <blockquote className="mt-4 text-foreground/90 italic relative z-10 before:content-['“'] after:content-['”'] line-clamp-3">
             {text}
         </blockquote>
     </div>
@@ -47,31 +48,8 @@ const TestimonialCard = ({
 
 export default function HomeView() {
   
-  // Create 3 distinct rows for the marquee, each with 5 testimonials.
-  // We'll rotate the testimonials to ensure each row looks different.
-  const testimonialsRow1 = [
-    TESTIMONIALS[0],
-    TESTIMONIALS[1],
-    TESTIMONIALS[2],
-    TESTIMONIALS[3],
-    TESTIMONIALS[4],
-  ];
-
-  const testimonialsRow2 = [
-    TESTIMONIALS[5],
-    TESTIMONIALS[6],
-    TESTIMONIALS[7],
-    TESTIMONIALS[8],
-    TESTIMONIALS[9],
-  ];
-
-  const testimonialsRow3 = [
-    TESTIMONIALS[10],
-    TESTIMONIALS[11],
-    TESTIMONIALS[12],
-    TESTIMONIALS[13],
-    TESTIMONIALS[14],
-  ];
+  const testimonialsRow1 = TESTIMONIALS.slice(0, 8);
+  const testimonialsRow2 = TESTIMONIALS.slice(8, 15);
   
   const STATS = [
     { number: '2017', label: 'Established', icon: Calendar },
@@ -216,19 +194,14 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
          <div className="relative mt-16 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <Marquee reverse className="[--duration:40s]">
+            <Marquee className="[--duration:60s] [--gap:1rem]">
               {testimonialsRow1.map((testimonial, index) => (
                 <TestimonialCard key={`row1-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee className="[--duration:40s]">
+            <Marquee reverse className="[--duration:60s] [--gap:1rem]">
               {testimonialsRow2.map((testimonial, index) => (
                 <TestimonialCard key={`row2-${index}`} {...testimonial} />
-              ))}
-            </Marquee>
-            <Marquee reverse className="[--duration:40s]">
-              {testimonialsRow3.map((testimonial, index) => (
-                <TestimonialCard key={`row3-${index}`} {...testimonial} />
               ))}
             </Marquee>
         </div>

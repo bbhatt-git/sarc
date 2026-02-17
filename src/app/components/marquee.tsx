@@ -4,7 +4,6 @@ import React from 'react';
 
 interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   reverse?: boolean;
-  pauseOnHover?: boolean;
   children: React.ReactNode;
   vertical?: boolean;
 }
@@ -12,7 +11,6 @@ interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Marquee({
   className,
   reverse,
-  pauseOnHover = false,
   children,
   vertical = false,
   ...props
@@ -27,20 +25,18 @@ export function Marquee({
       )}
     >
       <div
-        className={cn('flex shrink-0 items-center [gap:var(--gap)]', {
+        className={cn('flex shrink-0 items-center justify-around [gap:var(--gap)]', {
           'animate-marquee': !vertical,
           'animate-marquee-vertical': vertical,
-          'group-hover:[animation-play-state:paused]': pauseOnHover,
           '[animation-direction:reverse]': reverse,
         })}
       >
         {children}
       </div>
       <div
-        className={cn('flex shrink-0 items-center [gap:var(--gap)]', {
+        className={cn('flex shrink-0 items-center justify-around [gap:var(--gap)]', {
           'animate-marquee': !vertical,
           'animate-marquee-vertical': vertical,
-          'group-hover:[animation-play-state:paused]': pauseOnHover,
           '[animation-direction:reverse]': reverse,
         })}
         aria-hidden="true"
