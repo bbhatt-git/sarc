@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare } from 'lucide-react';
+import { Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare, Instagram } from 'lucide-react';
 import { imageData } from '@/lib/image-data';
 
 const stats = [
@@ -58,10 +58,11 @@ const alumni = [
             'Nation Representative at Techfest, IIT Bombay',
             'Founder and CEO at Note Swift',
         ],
-        image: 'https://picsum.photos/seed/bikash/400/400',
+        image: '/images/alumni/bikash_pandeya.jpg',
         socials: {
-            linkedin: 'https://www.linkedin.com/in/bikashpandeya',
-            facebook: 'https://www.facebook.com/bikashpandeya'
+            linkedin: 'https://www.linkedin.com/in/bikash-pandeya-bb53b4246/',
+            facebook: 'https://www.facebook.com/bikash.pandeya.69',
+            instagram: 'https://www.instagram.com/its_bikash_pandeya'
         }
     },
     {
@@ -280,6 +281,11 @@ export default function AchievementsView() {
                             {person.socials.facebook && (
                                 <Link href={person.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
                                     <Facebook size={20} />
+                                </Link>
+                            )}
+                             {person.socials.instagram && (
+                                <Link href={person.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
+                                    <Instagram size={20} />
                                 </Link>
                             )}
                         </div>
