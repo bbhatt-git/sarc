@@ -30,10 +30,10 @@ export const NEPALI_MONTHS = [
 ];
 
 export const getNepaliYears = () => {
-    // A reasonable range of birth years in Bikram Sambat
+    // Generate a range of years appropriate for both birth dates and recent notices.
     const currentNepaliYear = new Date().getFullYear() + 57; 
     const years = [];
-    for (let i = currentNepaliYear - 10; i >= 2040; i--) {
+    for (let i = currentNepaliYear + 5; i >= 2040; i--) {
         years.push(i.toString());
     }
     return years;

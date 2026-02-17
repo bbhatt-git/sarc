@@ -91,13 +91,22 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                     setNoticeMonth('');
                     setNoticeDay('');
                 }
-            } else {
+            } else { // Creating a new notice
                  headers.forEach(header => {
                     initialFormData[header] = '';
                 });
-                setNoticeYear('');
-                setNoticeMonth('');
-                setNoticeDay('');
+
+                if (sheetName.toLowerCase() === 'general') {
+                    // Set current year for new notices
+                    const currentNepaliYear = (new Date().getFullYear() + 57).toString();
+                    setNoticeYear(currentNepaliYear);
+                    setNoticeMonth(''); // Month and day are left for the user to select
+                    setNoticeDay('');
+                } else {
+                    setNoticeYear('');
+                    setNoticeMonth('');
+                    setNoticeDay('');
+                }
             }
             setFormData(initialFormData);
         }
