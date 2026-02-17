@@ -64,14 +64,6 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                  headers.forEach(header => {
                     initialFormData[header] = '';
                 });
-                if (sheetName.toLowerCase() === 'general') {
-                    // Auto-fill with current Gregorian date. The component will convert it.
-                    const today = new Date();
-                    const year = today.getFullYear();
-                    const month = String(today.getMonth() + 1).padStart(2, '0');
-                    const day = String(today.getDate()).padStart(2, '0');
-                    initialFormData['date'] = `${year}-${month}-${day}`;
-                }
             }
             setFormData(initialFormData);
         }
