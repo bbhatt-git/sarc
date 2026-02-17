@@ -22,14 +22,14 @@ export function Marquee({
     <div
       {...props}
       className={cn(
-        'group flex overflow-hidden',
+        'group flex overflow-hidden [gap:var(--gap)]',
         vertical ? 'flex-col' : 'flex-row',
         className
       )}
     >
       <div
         className={cn(
-          'flex shrink-0 items-center justify-start [gap:var(--gap)]',
+          'flex shrink-0 items-stretch justify-start [gap:var(--gap)]',
           vertical ? 'flex-col animate-marquee-vertical' : 'flex-row animate-marquee-horizontal',
           reverse && '[animation-direction:reverse]',
           pauseOnHover && 'group-hover:[animation-play-state:paused]'
@@ -40,7 +40,7 @@ export function Marquee({
       <div
         aria-hidden="true"
         className={cn(
-          'flex shrink-0 items-center justify-start [gap:var(--gap)]',
+          'flex shrink-0 items-stretch justify-start [gap:var(--gap)]',
           vertical ? 'flex-col animate-marquee-vertical' : 'flex-row animate-marquee-horizontal',
           reverse && '[animation-direction:reverse]',
           pauseOnHover && 'group-hover:[animation-play-state:paused]'

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { BookOpen, Calendar, ShieldCheck, Users } from 'lucide-react';
+import { BookOpen, Calendar, ShieldCheck, Users, Quote } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TESTIMONIALS, WHY_US_ITEMS } from '@/lib/constants';
@@ -26,11 +26,14 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="mb-4 break-inside-avoid rounded-2xl border bg-card/60 p-6 shadow-sm">
-      <blockquote className="text-muted-foreground mb-4">
+    <div className="relative break-inside-avoid h-[280px] w-full flex flex-col justify-between rounded-2xl border bg-card/60 p-6 shadow-sm">
+      <div className="absolute top-4 right-4 text-primary/10">
+        <Quote className="h-16 w-16" />
+      </div>
+      <blockquote className="relative text-muted-foreground z-10">
         "{text}"
       </blockquote>
-      <div className="flex items-center gap-4">
+      <div className="relative flex items-center gap-4 pt-4 mt-4 border-t z-10">
         <Avatar>
           <AvatarImage src={image} alt={author} />
           <AvatarFallback>{author.charAt(0)}</AvatarFallback>
