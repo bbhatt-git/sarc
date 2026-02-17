@@ -61,9 +61,21 @@ export async function getExcelData(sheetIdentifier: string): Promise<any[]> {
           return [];
         }
         
-        // By default, sheet_to_json will format dates based on the cell format,
-        // which should preserve string-based dates as they are.
         const jsonData: any[] = XLSX.utils.sheet_to_json(sheet, { raw: false });
+
+        // Sort notices by date in descending order if a 'date' column exists
+        if (jsonData.length > 0 && 'date' in jsonData[0]) {
+          return jsonData.sort((a, b) => {
+            // Handle non-standard date strings gracefully
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+              return dateB.getTime() - dateA.getTime();
+            }
+            // Fallback for non-date strings or different formats
+            return 0;
+          });
+        }
 
         return jsonData;
     } catch (error) {

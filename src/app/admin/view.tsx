@@ -37,6 +37,7 @@ import { Textarea } from '@/components/ui/textarea';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
+import { NEPALI_MONTHS, getNepaliYears, getDaysInMonth } from '@/lib/nepal-data';
 
 
 const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, children: React.ReactNode, label: string }) => (
@@ -68,6 +69,10 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
     const detailsTextareaRef = useRef<HTMLTextAreaElement>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const [noticeYear, setNoticeYear] = useState('');
+    const [noticeMonth, setNoticeMonth] = useState('');
+    const [noticeDay, setNoticeDay] = useState('');
+
 
     useEffect(() => {
         if (isOpen) {
@@ -76,20 +81,37 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                 headers.forEach(header => {
                     initialFormData[header] = initialData[header] || '';
                 });
+                 if (sheetName.toLowerCase() === 'general' && initialData['date']) {
+                    const [year, month, day] = String(initialData['date']).split('-');
+                    setNoticeYear(year || '');
+                    setNoticeMonth(month || '');
+                    setNoticeDay(day || '');
+                } else {
+                    setNoticeYear('');
+                    setNoticeMonth('');
+                    setNoticeDay('');
+                }
             } else {
                  headers.forEach(header => {
-                    const headerLower = String(header).toLowerCase();
-                    if (headerLower === 'date' && sheetName.toLowerCase() !== 'holiday') {
-                        const today = new Date();
-                        initialFormData[header] = today.toISOString().split('T')[0]; // YYYY-MM-DD
-                    } else {
-                        initialFormData[header] = '';
-                    }
+                    initialFormData[header] = '';
                 });
+                setNoticeYear('');
+                setNoticeMonth('');
+                setNoticeDay('');
             }
             setFormData(initialFormData);
         }
     }, [isOpen, headers, initialData, isEditing, sheetName]);
+
+    useEffect(() => {
+        if (sheetName.toLowerCase() === 'general') {
+            const combinedDate = noticeYear && noticeMonth && noticeDay ? `${noticeYear}-${noticeMonth}-${noticeDay}` : '';
+            if (formData.date !== combinedDate) {
+                setFormData(prev => ({ ...prev, date: combinedDate }));
+            }
+        }
+    }, [noticeYear, noticeMonth, noticeDay, sheetName, formData.date]);
+
 
     const handleFormat = (format: 'bold' | 'italic' | 'h3' | 'list') => {
         const textarea = detailsTextareaRef.current;
@@ -201,7 +223,34 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
         }
         
         if (headerLower === 'date') {
-            const isHolidaySheet = sheetName.toLowerCase() === 'holiday';
+             if (sheetName.toLowerCase() === 'general') {
+                return (
+                    <div key={header} className="space-y-2">
+                        <Label>Date (B.S.)</Label>
+                        <div className="grid grid-cols-3 gap-2">
+                            <Select onValueChange={setNoticeYear} value={noticeYear}>
+                                <SelectTrigger><SelectValue placeholder="Year" /></SelectTrigger>
+                                <SelectContent>
+                                    {getNepaliYears().map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
+                            <Select onValueChange={setNoticeMonth} value={noticeMonth}>
+                                <SelectTrigger><SelectValue placeholder="Month" /></SelectTrigger>
+                                <SelectContent>
+                                    {NEPALI_MONTHS.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
+                            <Select onValueChange={setNoticeDay} value={noticeDay}>
+                                <SelectTrigger><SelectValue placeholder="Day" /></SelectTrigger>
+                                <SelectContent>
+                                    {getDaysInMonth().map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                );
+            }
+
             return (
                 <div key={header} className="space-y-2">
                     <Label htmlFor={header}>{capitalizedHeader}</Label>
@@ -210,18 +259,12 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                         name={header} 
                         value={formData[header] || ''} 
                         onChange={handleChange} 
-                        placeholder={isHolidaySheet ? "e.g., Falgun 7, or Chaitra 15-17" : "YYYY-MM-DD"} 
+                        placeholder={"e.g., Falgun 7, or Chaitra 15-17"} 
                         type="text"
                     />
-                    {isHolidaySheet ? (
-                        <p className="text-xs text-muted-foreground">
-                           Enter the holiday date or duration.
-                        </p>
-                    ) : (
-                         <p className="text-xs text-muted-foreground">
-                            Enter the notice publish date in YYYY-MM-DD format.
-                        </p>
-                    )}
+                    <p className="text-xs text-muted-foreground">
+                       Enter the holiday date or duration.
+                    </p>
                 </div>
             );
         }
@@ -486,7 +529,7 @@ const NoticeSheetEditor = ({ wbState, onStateChange }: { wbState: WorkbookState,
         }
 
         const newWorkbook = { ...wbState.workbook, Sheets: { ...wbState.workbook.Sheets } };
-        newWorkbook.Sheets[activeSheetName] = XLSX.utils.aoa_to_sheet(newGridData, { dateNF: 'yyyy-mm-dd' });
+        newWorkbook.Sheets[activeSheetName] = XLSX.utils.aoa_to_sheet(newGridData);
 
         const result = await commitChanges(newWorkbook);
         if (result.success) {
@@ -643,7 +686,7 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
         setIsSaving(true);
         try {
             const newWorkbook: XLSX.WorkBook = { ...wbState.workbook, Sheets: { ...wbState.workbook.Sheets } };
-            const newSheet = XLSX.utils.aoa_to_sheet(newGridData, { dateNF: 'yyyy-mm-dd' });
+            const newSheet = XLSX.utils.aoa_to_sheet(newGridData);
             newWorkbook.Sheets['Results'] = newSheet;
 
             const newBase64 = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'base64' });
@@ -700,7 +743,7 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
                 const wb = XLSX.read(data, { type: 'binary', cellDates: true, dateNF: 'yyyy-mm-dd' });
                 const wsname = wb.SheetNames[0];
                 const ws = wb.Sheets[wsname];
-                const importedData: GridData = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
+                const importedData: GridData = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false });
 
                 if (!importedData || importedData.length < 2) {
                     toast({ variant: 'destructive', title: 'Import Error', description: 'The selected file is empty or contains no data rows.' });
@@ -1092,7 +1135,7 @@ export default function AdminView({ initialBase64Data, initialSha }: { initialBa
     useEffect(() => {
         try {
             if (initialBase64Data) {
-                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: 'yyyy-mm-dd' });
+                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true });
                 setWbState({ workbook: wb, sha: initialSha });
             } else {
                 const wb = XLSX.utils.book_new();
