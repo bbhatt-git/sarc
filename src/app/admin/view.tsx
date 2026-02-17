@@ -37,7 +37,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { NEPALI_MONTHS, getNepaliYears, getDaysInMonth } from '@/lib/nepal-data';
+import { NepaliDatepicker } from '@/components/ui/nepali-date-picker';
 
 const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions, isEditing, initialData }: {
     isOpen: boolean;
@@ -53,12 +53,6 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
     const [formData, setFormData] = useState<Record<string, string>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const [noticeYear, setNoticeYear] = useState('');
-    const [noticeMonth, setNoticeMonth] = useState('');
-    const [noticeDay, setNoticeDay] = useState('');
-    const { years: nepaliYears, currentNepaliYear } = useMemo(() => getNepaliYears(), []);
-
-
     useEffect(() => {
         if (isOpen) {
             const initialFormData: Record<string, string> = {};
@@ -66,45 +60,14 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                 headers.forEach(header => {
                     initialFormData[header] = initialData[header] || '';
                 });
-                 if (sheetName.toLowerCase() === 'general' && initialData['date']) {
-                    const [year, month, day] = String(initialData['date']).split('-');
-                    setNoticeYear(year || '');
-                    setNoticeMonth(month || '');
-                    setNoticeDay(day || '');
-                } else {
-                    setNoticeYear('');
-                    setNoticeMonth('');
-                    setNoticeDay('');
-                }
             } else { // Creating a new notice
                  headers.forEach(header => {
                     initialFormData[header] = '';
                 });
-
-                if (sheetName.toLowerCase() === 'general') {
-                    // Set current year for new notices
-                    setNoticeYear(currentNepaliYear);
-                    setNoticeMonth(''); // Month and day are left for the user to select
-                    setNoticeDay('');
-                } else {
-                    setNoticeYear('');
-                    setNoticeMonth('');
-                    setNoticeDay('');
-                }
             }
             setFormData(initialFormData);
         }
-    }, [isOpen, headers, initialData, isEditing, sheetName, currentNepaliYear]);
-
-    useEffect(() => {
-        if (sheetName.toLowerCase() === 'general') {
-            const combinedDate = noticeYear && noticeMonth && noticeDay ? `${noticeYear}-${noticeMonth.padStart(2, '0')}-${noticeDay.padStart(2, '0')}` : '';
-            if (formData.date !== combinedDate) {
-                setFormData(prev => ({ ...prev, date: combinedDate }));
-            }
-        }
-    }, [noticeYear, noticeMonth, noticeDay, sheetName, formData.date]);
-
+    }, [isOpen, headers, initialData, isEditing, sheetName]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -169,27 +132,11 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
              if (sheetName.toLowerCase() === 'general') {
                 return (
                     <div key={header} className="space-y-2">
-                        <Label>Date (B.S.)</Label>
-                        <div className="grid grid-cols-3 gap-2">
-                            <Select onValueChange={setNoticeYear} value={noticeYear}>
-                                <SelectTrigger><SelectValue placeholder="Year" /></SelectTrigger>
-                                <SelectContent>
-                                    {nepaliYears.map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
-                                </SelectContent>
-                            </Select>
-                            <Select onValueChange={setNoticeMonth} value={noticeMonth}>
-                                <SelectTrigger><SelectValue placeholder="Month" /></SelectTrigger>
-                                <SelectContent>
-                                    {NEPALI_MONTHS.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
-                                </SelectContent>
-                            </Select>
-                            <Select onValueChange={setNoticeDay} value={noticeDay}>
-                                <SelectTrigger><SelectValue placeholder="Day" /></SelectTrigger>
-                                <SelectContent>
-                                    {getDaysInMonth().map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
-                                </SelectContent>
-                            </Select>
-                        </div>
+                        <Label htmlFor={header}>Date (B.S.)</Label>
+                        <NepaliDatepicker
+                            value={formData[header] || ''}
+                            onChange={(date) => handleSelectChange(header, date)}
+                        />
                     </div>
                 );
             }
@@ -1054,7 +1001,7 @@ export default function AdminView({ initialBase64Data, initialSha }: { initialBa
     useEffect(() => {
         try {
             if (initialBase64Data) {
-                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true });
+                const wb = XLSX.read(initialBase64Data, { type: 'base64', cellDates: true, dateNF: "yyyy-mm-dd" });
                 setWbState({ workbook: wb, sha: initialSha });
             } else {
                 const wb = XLSX.utils.book_new();

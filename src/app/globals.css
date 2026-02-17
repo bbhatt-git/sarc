@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+@import "nepali-datepicker-reactjs/dist/index.css";
 
 @tailwind base;
 @tailwind components;
@@ -92,13 +93,13 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-primary/60 border-[3px] border-transparent bg-clip-content;
-  }
-
-  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
-    @apply bg-primary;
+    @apply rounded-full border-[3px] border-transparent bg-primary/30 bg-clip-content transition-colors duration-300;
   }
   
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    @apply bg-primary/70;
+  }
+
   .custom-scrollbar::-webkit-scrollbar-button {
     @apply h-0 w-0;
   }
@@ -112,5 +113,46 @@
   @keyframes marquee-vertical-3d {
     from { transform: translateY(0%); }
     to { transform: translateY(-50%); }
+  }
+
+  /* Custom Nepali Datepicker Styles */
+  .nepali-datepicker .calendar-container {
+    @apply bg-card border border-border rounded-lg shadow-lg p-2 z-50;
+  }
+  .nepali-datepicker .calendar-container .header {
+      @apply p-2 flex items-center justify-between;
+  }
+  .nepali-datepicker .calendar-container .month-picker-nav,
+  .nepali-datepicker .calendar-container .year-picker-nav {
+      @apply text-foreground h-8 w-8 rounded-md hover:bg-accent transition-colors flex items-center justify-center;
+  }
+  .nepali-datepicker .calendar-container .header-text-label {
+      @apply text-foreground font-semibold;
+  }
+  .nepali-datepicker .calendar-container .calendar-body {
+      @apply mt-2;
+  }
+  .nepali-datepicker .calendar-container .week-header .day-element {
+      @apply text-muted-foreground font-semibold text-sm w-9 h-9;
+  }
+  .nepali-datepicker .calendar-container .week-row .day-element {
+      @apply text-foreground rounded-md h-9 w-9 hover:bg-accent transition-colors;
+  }
+  .nepali-datepicker .calendar-container .week-row .day-element.current-day-element {
+      @apply border border-primary;
+  }
+  .nepali-datepicker .calendar-container .week-row .day-element.selected-day-element {
+      @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  .nepali-datepicker .calendar-container .week-row .day-element:disabled {
+      @apply text-muted-foreground/50 cursor-not-allowed;
+  }
+  .nepali-datepicker .month-name-container .month-element,
+  .nepali-datepicker .year-name-container .year-element {
+      @apply text-foreground rounded-md p-2 hover:bg-accent transition-colors;
+  }
+  .nepali-datepicker .month-name-container .month-element.selected-month-element,
+  .nepali-datepicker .year-name-container .year-element.selected-year-element {
+      @apply bg-primary text-primary-foreground hover:bg-primary/90;
   }
 }
