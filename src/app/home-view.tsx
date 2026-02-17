@@ -195,13 +195,22 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
 
         <div className="mt-16">
            {isMobile ? (
-              <Marquee pauseOnHover={false} className="[--gap:1.5rem] [--duration:120s]">
-                {TESTIMONIALS.map((testimonial, index) => (
-                  <div key={index} className="w-80 flex-shrink-0">
-                    <TestimonialCard {...testimonial} />
-                  </div>
-                ))}
-              </Marquee>
+              <div className="space-y-4">
+                <Marquee pauseOnHover={false} className="[--gap:1.5rem] [--duration:120s]">
+                  {TESTIMONIALS.slice(0, 8).map((testimonial, index) => (
+                    <div key={index} className="w-80 flex-shrink-0">
+                      <TestimonialCard {...testimonial} />
+                    </div>
+                  ))}
+                </Marquee>
+                <Marquee pauseOnHover={false} reverse className="[--gap:1.5rem] [--duration:120s]">
+                  {TESTIMONIALS.slice(8).map((testimonial, index) => (
+                    <div key={index} className="w-80 flex-shrink-0">
+                      <TestimonialCard {...testimonial} />
+                    </div>
+                  ))}
+                </Marquee>
+              </div>
            ) : (
             <div className="container mx-auto px-4">
               <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
