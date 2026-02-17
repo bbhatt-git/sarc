@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare, Instagram } from 'lucide-react';
 import { imageData } from '@/lib/image-data';
+import { ALUMNI_MEMBERS } from '@/lib/constants';
 
 const stats = [
     { number: '50+', label: 'Awards' },
@@ -42,118 +43,6 @@ const awards = [
         description: 'Teams won entrepreneurship challenges with sustainable, community-focused solutions.',
         category: 'Business Innovation',
         icon: Briefcase,
-    }
-];
-
-const alumni = [
-    {
-        name: 'Mr Bikash Pandeya',
-        role: 'CEO, NoteSwift',
-        story: "Bikash's journey from a curious SARC student to a Techfest representative at IIT Bombay and now the founder of NoteSwift showcases the entrepreneurial spirit we nurture. His work in digital education tools is making learning more accessible for students everywhere.",
-        quote: "SARC gave me the foundation to think beyond textbooks and solve real-world problems.",
-        education: 'Bachelors in Computer Science',
-        university: 'Far-Western University',
-        graduated: 2024,
-        achievements: [
-            'Nation Representative at Techfest, IIT Bombay',
-            'Founder and CEO at Note Swift',
-        ],
-        image: '/images/alumni/bikash_pandeya.jpg',
-        socials: {
-            linkedin: 'https://www.linkedin.com/in/bikash-pandeya-bb53b4246/',
-            facebook: 'https://www.facebook.com/bikash.pandeya.69',
-            instagram: 'https://www.instagram.com/its_bikash_pandeya'
-        }
-    },
-    {
-        name: 'Rajesh Sharma',
-        role: 'Founder & CEO, TechNepal',
-        story: "Rajesh credits SARC's innovation labs for sparking his passion for entrepreneurship. Today, his company TechNepal is a leading force in the local tech scene, creating jobs and driving innovation.",
-        quote: "The innovation lab at SARC taught me that failure is just a stepping stone to success.",
-        education: 'B.E. in Computer Engineering',
-        university: 'IIT Delhi',
-        graduated: 2019,
-        achievements: [
-            'Founded 3 successful startups',
-            'Employed 50+ people',
-        ],
-        image: 'https://picsum.photos/seed/rajesh/400/400',
-         socials: {
-            linkedin: '#',
-            facebook: '#',
-        }
-    },
-    {
-        name: 'Priya Thapa',
-        role: 'Biomedical Engineer, Johns Hopkins',
-        story: "Priya's passion for blending technology and healthcare was ignited at SARC. Her groundbreaking work on a life-saving medical device has earned her international recognition and is a testament to the hands-on learning approach at SARC.",
-        quote: "SARC's hands-on approach made me realize my passion for helping others through technology.",
-        education: 'M.S. in Biomedical Engineering',
-        university: 'Johns Hopkins University',
-        graduated: 2020,
-        achievements: [
-            'Developed life-saving medical device',
-            'International recognition',
-        ],
-        image: 'https://picsum.photos/seed/priya/400/400',
-         socials: {
-            linkedin: '#',
-            facebook: '#',
-        }
-    },
-    {
-        name: 'Amit Gurung',
-        role: 'Data Scientist, Microsoft',
-        story: "Amit's experience with project-based learning at SARC gave him a competitive edge. At Microsoft, he now develops advanced AI models for healthcare, continuing to solve real-world problems with the skills he first honed on our campus.",
-        quote: "The project-based learning at SARC prepared me for the real challenges in tech industry.",
-        education: 'M.S. in Data Science',
-        university: 'MIT',
-        graduated: 2021,
-        achievements: [
-            'Developed AI models for healthcare',
-            'Open source contributor',
-        ],
-        image: 'https://picsum.photos/seed/amit/400/400',
-         socials: {
-            linkedin: '#',
-            facebook: '#',
-        }
-    },
-    {
-        name: 'Sunita Rai',
-        role: 'Lead Architect, Urban Designs',
-        story: "Sunita's creative vision was nurtured at SARC. She now leads major urban design projects that focus on sustainability and community living, proving that a strong foundation in science can lead to a beautiful and functional world.",
-        quote: "SARC's creative environment allowed me to merge art with science seamlessly.",
-        education: 'B.Arch',
-        university: 'Pulchowk Campus',
-        graduated: 2018,
-        achievements: [
-            'National Award for Sustainable Architecture',
-            'Designed two public parks',
-        ],
-        image: 'https://picsum.photos/seed/sunita/400/400',
-        socials: {
-            linkedin: '#',
-            facebook: '#',
-        }
-    },
-    {
-        name: 'Kiran Thapa',
-        role: 'Law Associate, Pradhan & Associates',
-        story: "The Law faculty at SARC was the perfect launchpad for Kiran. His sharp analytical skills, honed in our debate clubs and moot courts, now serve him well as he navigates complex legal cases at one of the country's top law firms.",
-        quote: "The moot court competitions were pivotal in building my confidence for a career in law.",
-        education: 'B.A.LLB',
-        university: 'Kathmandu School of Law',
-        graduated: 2023,
-        achievements: [
-            'Won National Moot Court Competition',
-            'Published paper on corporate law',
-        ],
-        image: 'https://picsum.photos/seed/kiran/400/400',
-        socials: {
-            linkedin: '#',
-            facebook: '#',
-        }
     }
 ];
 
@@ -238,7 +127,7 @@ export default function AchievementsView() {
           <SectionTitle title="Alumni Network Hub" subtitle="Making a Difference" />
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Meet our successful alumni who are making a difference in the world.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-            {alumni.map((person, index) => (
+            {ALUMNI_MEMBERS.map((person, index) => (
               <div
                 key={person.name}
                 className="testimonial-card overflow-hidden p-0 h-full flex flex-col transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"

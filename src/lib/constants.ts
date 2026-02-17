@@ -18,7 +18,7 @@ export const NAV_LINKS = [
     children: [
       { href: '/academics/programs', label: 'Academic Programs', description: 'Explore our comprehensive range of programs.', icon: BookOpen },
       { href: '/academics/services', label: 'Facilities', description: 'Explore our modern, world-class facilities.', icon: Briefcase },
-      { href: '/academics/achievements', label: 'Achievements', description: 'Celebrate the accomplishments of our students.', icon: Award },
+      { href: '/academics/achievements', label: 'Alumni Network', description: 'Celebrate the accomplishments of our students.', icon: Award },
       { href: '/academics/innovation', label: 'Innovation & Learning', description: 'Discover our hands-on, practical approach.', icon: Lightbulb },
     ],
   },
@@ -138,6 +138,123 @@ export const NEWS_ITEMS = [
         summary: 'Top alumni from leading tech companies returned to campus to share their career journeys, offering invaluable insights and mentorship to the next generation of leaders.',
         image: 'https://picsum.photos/seed/news3/600/400',
         category: 'Alumni'
+    }
+];
+
+export const ALUMNI_MEMBERS = [
+    {
+        name: 'Mr Bikash Pandeya',
+        role: 'CEO, NoteSwift',
+        story: "Bikash's journey from a curious SARC student to a Techfest representative at IIT Bombay and now the founder of NoteSwift showcases the entrepreneurial spirit we nurture. His work in digital education tools is making learning more accessible for students everywhere.",
+        quote: "SARC gave me the foundation to think beyond textbooks and solve real-world problems.",
+        education: 'Bachelors in Computer Science',
+        university: 'Far-Western University',
+        graduated: 2024,
+        achievements: [
+            'Nation Representative at Techfest, IIT Bombay',
+            'Founder and CEO at Note Swift',
+        ],
+        image: '/images/alumni/bikash_pandeya.jpg',
+        socials: {
+            linkedin: 'https://www.linkedin.com/in/bikash-pandeya-bb53b4246/',
+            facebook: 'https://www.facebook.com/bikash.pandeya.69',
+            instagram: 'https://www.instagram.com/its_bikash_pandeya'
+        }
+    },
+    {
+        name: 'Rajesh Sharma',
+        role: 'Founder & CEO, TechNepal',
+        story: "Rajesh credits SARC's innovation labs for sparking his passion for entrepreneurship. Today, his company TechNepal is a leading force in the local tech scene, creating jobs and driving innovation.",
+        quote: "The innovation lab at SARC taught me that failure is just a stepping stone to success.",
+        education: 'B.E. in Computer Engineering',
+        university: 'IIT Delhi',
+        graduated: 2019,
+        achievements: [
+            'Founded 3 successful startups',
+            'Employed 50+ people',
+        ],
+        image: 'https://picsum.photos/seed/rajesh/400/400',
+         socials: {
+            linkedin: '#',
+            facebook: '#',
+            instagram: '#'
+        }
+    },
+    {
+        name: 'Priya Thapa',
+        role: 'Biomedical Engineer, Johns Hopkins',
+        story: "Priya's passion for blending technology and healthcare was ignited at SARC. Her groundbreaking work on a life-saving medical device has earned her international recognition and is a testament to the hands-on learning approach at SARC.",
+        quote: "SARC's hands-on approach made me realize my passion for helping others through technology.",
+        education: 'M.S. in Biomedical Engineering',
+        university: 'Johns Hopkins University',
+        graduated: 2020,
+        achievements: [
+            'Developed life-saving medical device',
+            'International recognition',
+        ],
+        image: 'https://picsum.photos/seed/priya/400/400',
+         socials: {
+            linkedin: '#',
+            facebook: '#',
+            instagram: '#'
+        }
+    },
+    {
+        name: 'Amit Gurung',
+        role: 'Data Scientist, Microsoft',
+        story: "Amit's experience with project-based learning at SARC gave him a competitive edge. At Microsoft, he now develops advanced AI models for healthcare, continuing to solve real-world problems with the skills he first honed on our campus.",
+        quote: "The project-based learning at SARC prepared me for the real challenges in tech industry.",
+        education: 'M.S. in Data Science',
+        university: 'MIT',
+        graduated: 2021,
+        achievements: [
+            'Developed AI models for healthcare',
+            'Open source contributor',
+        ],
+        image: 'https://picsum.photos/seed/amit/400/400',
+         socials: {
+            linkedin: '#',
+            facebook: '#',
+            instagram: '#'
+        }
+    },
+    {
+        name: 'Sunita Rai',
+        role: 'Lead Architect, Urban Designs',
+        story: "Sunita's creative vision was nurtured at SARC. She now leads major urban design projects that focus on sustainability and community living, proving that a strong foundation in science can lead to a beautiful and functional world.",
+        quote: "SARC's creative environment allowed me to merge art with science seamlessly.",
+        education: 'B.Arch',
+        university: 'Pulchowk Campus',
+        graduated: 2018,
+        achievements: [
+            'National Award for Sustainable Architecture',
+            'Designed two public parks',
+        ],
+        image: 'https://picsum.photos/seed/sunita/400/400',
+        socials: {
+            linkedin: '#',
+            facebook: '#',
+            instagram: '#'
+        }
+    },
+    {
+        name: 'Kiran Thapa',
+        role: 'Law Associate, Pradhan & Associates',
+        story: "The Law faculty at SARC was the perfect launchpad for Kiran. His sharp analytical skills, honed in our debate clubs and moot courts, now serve him well as he navigates complex legal cases at one of the country's top law firms.",
+        quote: "The moot court competitions were pivotal in building my confidence for a career in law.",
+        education: 'B.A.LLB',
+        university: 'Kathmandu School of Law',
+        graduated: 2023,
+        achievements: [
+            'Won National Moot Court Competition',
+            'Published paper on corporate law',
+        ],
+        image: 'https://picsum.photos/seed/kiran/400/400',
+        socials: {
+            linkedin: '#',
+            facebook: '#',
+            instagram: '#'
+        }
     }
 ];
 
