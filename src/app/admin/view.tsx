@@ -324,7 +324,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                         {isEditing ? `Update the details for this notice.` : `Fill out the form below to create a new notice.`}
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
+                <form onSubmit={handleSubmit} className="custom-scrollbar space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
                     {headers.map(header => renderField(header))}
                     <DialogFooter className="pt-4 bg-transparent">
                         <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button>
@@ -974,7 +974,7 @@ const AdmissionsTab = () => {
                         </DialogDescription>
                     </DialogHeader>
                     {selectedInquiry && (
-                        <div className="grid gap-8 py-4 px-6 text-sm max-h-[75vh] overflow-y-auto">
+                        <div className="custom-scrollbar grid gap-8 py-4 px-6 text-sm max-h-[75vh] overflow-y-auto">
                             <DetailSection icon={User} title="Personal Information">
                                 <DetailItem label="Full Name" value={`${selectedInquiry.firstName} ${selectedInquiry.lastName}`} />
                                 <DetailItem label="Date of Birth" value={selectedInquiry.dob} />

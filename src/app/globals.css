@@ -83,6 +83,23 @@
 }
 
 @layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/80;
+  }
+
   @property --angle {
     syntax: '<angle>';
     initial-value: 0deg;
