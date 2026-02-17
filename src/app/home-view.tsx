@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -49,27 +50,27 @@ export default function HomeView() {
   // Create 3 distinct rows for the marquee, each with 5 testimonials.
   // We'll rotate the testimonials to ensure each row looks different.
   const testimonialsRow1 = [
-    TESTIMONIALS[0], // Ankit
-    TESTIMONIALS[1], // Menuka
-    TESTIMONIALS[2], // Chandani
-    TESTIMONIALS[3], // Amar
-    TESTIMONIALS[4], // Ayush
+    TESTIMONIALS[0],
+    TESTIMONIALS[1],
+    TESTIMONIALS[2],
+    TESTIMONIALS[3],
+    TESTIMONIALS[4],
   ];
 
   const testimonialsRow2 = [
-    TESTIMONIALS[5], // Suraj
-    TESTIMONIALS[6], // Bikash
-    TESTIMONIALS[0], // Ankit
-    TESTIMONIALS[1], // Menuka
-    TESTIMONIALS[2], // Chandani
+    TESTIMONIALS[5],
+    TESTIMONIALS[6],
+    TESTIMONIALS[7],
+    TESTIMONIALS[8],
+    TESTIMONIALS[9],
   ];
 
   const testimonialsRow3 = [
-    TESTIMONIALS[3], // Amar
-    TESTIMONIALS[4], // Ayush
-    TESTIMONIALS[5], // Suraj
-    TESTIMONIALS[6], // Bikash
-    TESTIMONIALS[0], // Ankit
+    TESTIMONIALS[10],
+    TESTIMONIALS[11],
+    TESTIMONIALS[12],
+    TESTIMONIALS[13],
+    TESTIMONIALS[14],
   ];
   
   const STATS = [
@@ -215,17 +216,17 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
          <div className="relative mt-16 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <Marquee reverse className="[--duration:180s]">
+            <Marquee reverse className="[--duration:90s]">
               {testimonialsRow1.map((testimonial, index) => (
                 <TestimonialCard key={`row1-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee className="[--duration:180s]">
+            <Marquee className="[--duration:90s]">
               {testimonialsRow2.map((testimonial, index) => (
                 <TestimonialCard key={`row2-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee reverse className="[--duration:180s]">
+            <Marquee reverse className="[--duration:90s]">
               {testimonialsRow3.map((testimonial, index) => (
                 <TestimonialCard key={`row3-${index}`} {...testimonial} />
               ))}

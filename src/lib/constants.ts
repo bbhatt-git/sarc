@@ -117,6 +117,54 @@ export const TESTIMONIALS = [
         author: "Bikash Pandeya",
         role: "CEO, NoteSwift",
         image: "/images/testimonials/bikash_pandeya.jpg"
+    },
+    {
+        text: "SARC's innovative teaching methods made learning fun and meaningful, paving the way for my academic achievements.",
+        author: "Ashim Giri",
+        role: "NEB Topper",
+        image: "/images/testimonials/ashim_giri.jpg"
+    },
+    {
+        text: "The supportive environment at SARC helped me grow both personally and professionally. Highly recommended.",
+        author: "Bhupesh Bhatt",
+        role: "Alumnus",
+        image: "/images/testimonials/bhupesh_bhatt.jpg"
+    },
+    {
+        text: "I am thankful to SARC for providing a platform to excel and explore my potential to the fullest.",
+        author: "Jeetu Kalauni",
+        role: "Alumnus",
+        image: "/images/testimonials/jeetu_kalauni.jpg"
+    },
+    {
+        text: "The practical approach to learning at SARC is what sets it apart. It was a wonderful experience.",
+        author: "Kishore Paneru",
+        role: "Alumnus",
+        image: "/images/testimonials/kishore_paneru.jpg"
+    },
+    {
+        text: "SARC's faculty is top-notch. Their guidance was crucial in shaping my career path.",
+        author: "Rakesh Kathayat",
+        role: "Alumnus",
+        image: "/images/testimonials/rakesh_kathayat.jpg"
+    },
+    {
+        text: "An amazing institution that focuses on holistic development. I had a great time studying here.",
+        author: "Uttam Gurudhami",
+        role: "Alumnus",
+        image: "/images/testimonials/uttam_gurudhami.jpg"
+    },
+    {
+        text: "From academics to extracurriculars, SARC provides a balanced and enriching college life.",
+        author: "Vivek Bhatt",
+        role: "Alumnus",
+        image: "/images/testimonials/vivek_bhatt.jpg"
+    },
+    {
+        text: "The college has a very positive and motivating atmosphere. It prepared me well for future challenges.",
+        author: "Vyan Madai",
+        role: "Alumnus",
+        image: "/images/testimonials/vyan_madai.jpg"
     }
 ];
 
