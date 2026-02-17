@@ -70,16 +70,16 @@ export default function Footer() {
              <div className="space-y-4 order-2 md:order-4">
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="text-muted-foreground hover:text-primary transition-colors">
                     <Facebook size={20} />
                   </a>
-                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="text-muted-foreground hover:text-primary transition-colors">
                     <Instagram size={20} />
                   </a>
-                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="text-muted-foreground hover:text-primary transition-colors">
                     <TikTokIcon />
                   </a>
-                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="text-muted-foreground hover:text-primary transition-colors">
                     <Github size={20} />
                   </a>
                 </div>

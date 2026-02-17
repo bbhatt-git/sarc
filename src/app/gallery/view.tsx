@@ -242,16 +242,16 @@ export default function GalleryView() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="flex justify-around items-center py-8">
-                        <Link href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                        <Link href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="text-muted-foreground hover:text-primary transition-colors">
                             <Facebook size={32} />
                         </Link>
-                        <Link href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                        <Link href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="text-muted-foreground hover:text-primary transition-colors">
                            <Instagram size={32} />
                         </Link>
-                        <Link href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                        <Link href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="text-muted-foreground hover:text-primary transition-colors">
                             <TikTokIcon />
                         </Link>
-                        <Link href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                        <Link href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="text-muted-foreground hover:text-primary transition-colors">
                             <Github size={32} />
                         </Link>
                     </div>
