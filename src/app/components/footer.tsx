@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Mail, Phone, MapPin, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Sparkles, Facebook, Instagram, Github } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Footer() {
@@ -64,16 +64,16 @@ export default function Footer() {
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
                 <div className="flex space-x-4">
                   <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-facebook-f fa-lg"></i>
+                    <Facebook size={20} />
                   </a>
                   <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-instagram fa-lg"></i>
+                    <Instagram size={20} />
                   </a>
                   <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <i className="fa-brands fa-tiktok fa-lg"></i>
                   </a>
                    <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-github fa-lg"></i>
+                    <Github size={20} />
                   </a>
                 </div>
              </div>

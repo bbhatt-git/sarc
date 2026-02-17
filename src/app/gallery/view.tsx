@@ -7,7 +7,7 @@ import { Marquee } from '@/app/components/marquee';
 import { imageData } from '@/lib/image-data';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, ArrowLeft, ArrowRight, Camera, Share2 } from 'lucide-react';
+import { X, ArrowLeft, ArrowRight, Camera, Share2, Facebook, Instagram, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
@@ -237,16 +237,16 @@ export default function GalleryView() {
                     </DialogHeader>
                     <div className="flex justify-around items-center py-8">
                         <Link href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
-                            <i className="fa-brands fa-facebook-f fa-2x"></i>
+                            <Facebook size={32} />
                         </Link>
                         <Link href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
-                           <i className="fa-brands fa-instagram fa-2x"></i>
+                           <Instagram size={32} />
                         </Link>
                         <Link href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
                             <i className="fa-brands fa-tiktok fa-2x"></i>
                         </Link>
                         <Link href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
-                            <i className="fa-brands fa-github fa-2x"></i>
+                            <Github size={32} />
                         </Link>
                     </div>
                 </DialogContent>

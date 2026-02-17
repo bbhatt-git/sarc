@@ -109,27 +109,22 @@ export default function AchievementsView() {
                         ))}
                         </ul>
                     </div>
-                    <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
-                        <div className="flex gap-3">
-                           {person.socials.linkedin && (
-                                <Link href={person.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
-                                    <Linkedin size={20} />
-                                </Link>
-                            )}
-                            {person.socials.facebook && (
-                                <Link href={person.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
-                                    <Facebook size={20} />
-                                </Link>
-                            )}
-                             {person.socials.instagram && (
-                                <Link href={person.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
-                                    <Instagram size={20} />
-                                </Link>
-                            )}
-                        </div>
-                        <Button asChild variant="ghost" size="sm" className="text-primary hover:bg-primary/10">
-                            <Link href="#">Connect</Link>
-                        </Button>
+                    <div className="flex items-center justify-center gap-4 pt-4 border-t border-border/50 mt-auto">
+                       {person.socials.linkedin && (
+                            <Link href={person.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
+                                <Linkedin size={20} />
+                            </Link>
+                        )}
+                        {person.socials.facebook && (
+                            <Link href={person.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
+                                <Facebook size={20} />
+                            </Link>
+                        )}
+                         {person.socials.instagram && (
+                            <Link href={person.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
+                                <Instagram size={20} />
+                            </Link>
+                        )}
                     </div>
                 </div>
               </div>
