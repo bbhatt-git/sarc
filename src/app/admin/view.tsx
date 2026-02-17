@@ -489,16 +489,19 @@ const NoticeSheetEditor = ({ wbState, onStateChange }: { wbState: WorkbookState,
                 </TabsList>
                 <div className="mt-6 relative">
                     <div className="space-y-4">
-                        {bodyData.length > 0 ? bodyData.map((row, rowIndex) => (
-                            <NoticeCard
-                                key={rowIndex}
-                                notice={row}
-                                headers={headers}
-                                sheetName={activeSheetName}
-                                onEdit={() => handleOpenEditModal(rowIndex)}
-                                onDelete={() => setRowToDelete({ sheetName: activeSheetName, rowIndex })}
-                            />
-                        )) : (
+                        {bodyData.length > 0 ? bodyData.slice().reverse().map((row, reversedIndex) => {
+                            const originalIndex = bodyData.length - 1 - reversedIndex;
+                            return (
+                                <NoticeCard
+                                    key={originalIndex}
+                                    notice={row}
+                                    headers={headers}
+                                    sheetName={activeSheetName}
+                                    onEdit={() => handleOpenEditModal(originalIndex)}
+                                    onDelete={() => setRowToDelete({ sheetName: activeSheetName, rowIndex: originalIndex })}
+                                />
+                            )
+                        }) : (
                             <div className="text-center py-12 text-muted-foreground flex flex-col items-center gap-4 border rounded-lg bg-card/50">
                                 <Inbox className="h-12 w-12" />
                                 <h3 className="text-lg font-semibold">No Notices Yet</h3>
@@ -1119,3 +1122,5 @@ export default function AdminView({ initialBase64Data, initialSha }: { initialBa
         </div>
     );
 }
+
+    
