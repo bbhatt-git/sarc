@@ -84,7 +84,7 @@
 
 @layer utilities {
   .custom-scrollbar::-webkit-scrollbar {
-    @apply block w-2;
+    @apply w-1.5;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -92,11 +92,11 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply rounded-full border-2 border-solid border-transparent bg-primary/50 bg-clip-content;
+    @apply rounded-full bg-primary/60;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary/70;
+    @apply bg-primary;
   }
 
   @property --angle {
