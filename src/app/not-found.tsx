@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="flex h-[calc(100vh-160px)] min-h-[500px] flex-col items-center justify-center text-center px-4">
+    <div className="flex min-h-screen flex-col items-center justify-center px-4 pt-24 text-center">
       <div className="bg-card/60 backdrop-blur-xl border border-slate-200/50 p-8 sm:p-16 rounded-3xl shadow-2xl shadow-slate-500/10 max-w-lg w-full relative overflow-hidden">
         <h1 className="text-8xl sm:text-9xl font-extrabold tracking-tighter text-primary">404</h1>
         <p className="mt-2 text-2xl sm:text-3xl font-bold text-foreground">

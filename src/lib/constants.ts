@@ -407,7 +407,7 @@ export const TOP_STUDENTS = [
         quote: "SARC's innovative teaching methods made learning fun and meaningful.",
         gpa: 3.82,
         subjects: 'Economics, Mathematics, Accountancy',
-        image: 'https://picsum.photos/seed/harish/400/400',
+        image: '/images/alumni/ashim_giri.jpg',
         achievements: [
           'NEB District Level Topper',
           'NEB State Level 2nd Topper',
