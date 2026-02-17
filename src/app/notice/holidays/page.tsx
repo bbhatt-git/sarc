@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default async function HolidayNoticePage() {
-  const holidayNotices = await getExcelData('Holiday');
+  const notices = await getExcelData('Holiday');
+  // Ensure data is a plain object before passing to client component
+  const holidayNotices = JSON.parse(JSON.stringify(notices));
   return <HolidayNoticeView initialHolidays={holidayNotices} />;
 }

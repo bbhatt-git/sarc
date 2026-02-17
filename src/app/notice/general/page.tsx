@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default async function GeneralNoticePage() {
-  const generalNotices = await getExcelData('General');
+  const notices = await getExcelData('General');
+  // Ensure data is a plain object before passing to client component
+  const generalNotices = JSON.parse(JSON.stringify(notices));
   return <GeneralNoticeView initialNotices={generalNotices} />;
 }
