@@ -26,7 +26,7 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="w-full h-48 flex-shrink-0 p-6 testimonial-card relative">
+    <div className="w-full h-80 flex-shrink-0 p-6 testimonial-card relative flex flex-col justify-center">
       <Quote className="absolute -top-2 -left-2 w-24 h-24 text-primary/5 opacity-50" />
         <div className="flex items-center gap-4 relative z-10">
             <Avatar>
@@ -38,7 +38,7 @@ const TestimonialCard = ({
                 <p className="text-sm text-muted-foreground">{role}</p>
             </div>
         </div>
-        <blockquote className="mt-4 text-foreground/90 italic relative z-10 before:content-['“'] after:content-['”'] line-clamp-3">
+        <blockquote className="mt-4 text-foreground/90 italic relative z-10 before:content-['“'] after:content-['”']">
             {text}
         </blockquote>
     </div>
@@ -164,48 +164,27 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="w-full py-20 lg:py-28 bg-card/20">
-        <div className="container mx-auto px-4">
-          <SectionTitle title="Why Choose SARC?" subtitle="OUR COMMITMENT" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-            {WHY_US_ITEMS.map((item, index) => (
-              <div
-                key={item.title}
-                className="transition-all duration-300 hover:-translate-y-2"
-              >
-                <div className="testimonial-card text-center h-full p-8">
-                  <div className="relative mb-4 inline-block bg-primary/10 p-4 rounded-full">
-                    <item.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="relative text-xl font-bold text-foreground">{item.title}</h3>
-                  <p className="relative text-muted-foreground mt-2 text-sm">{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
       {/* Testimonials */}
        <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-        <div className="relative mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-[600px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-          <Marquee vertical className="h-full [--duration:90s] [--gap:1rem]">
-            {TESTIMONIALS.slice(0, 5).map((testimonial, index) => (
-              <TestimonialCard key={`col1-${index}`} {...testimonial} />
-            ))}
-          </Marquee>
-          <Marquee vertical reverse className="h-full [--duration:90s] [--gap:1rem] hidden md:flex">
-            {TESTIMONIALS.slice(5, 10).map((testimonial, index) => (
-              <TestimonialCard key={`col2-${index}`} {...testimonial} />
-            ))}
-          </Marquee>
-          <Marquee vertical className="h-full [--duration:90s] [--gap:1rem] hidden lg:flex">
-            {TESTIMONIALS.slice(10, 15).map((testimonial, index) => (
-              <TestimonialCard key={`col3-${index}`} {...testimonial} />
-            ))}
-          </Marquee>
+        <div className="w-[90%] mx-auto">
+            <div className="relative mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 h-[800px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+              <Marquee vertical pauseOnHover={false} className="h-full [--duration:90s] [--gap:2rem]">
+                {TESTIMONIALS.slice(0, 5).map((testimonial, index) => (
+                  <TestimonialCard key={`col1-${index}`} {...testimonial} />
+                ))}
+              </Marquee>
+              <Marquee vertical reverse pauseOnHover={false} className="h-full [--duration:90s] [--gap:2rem] hidden md:flex">
+                {TESTIMONIALS.slice(5, 10).map((testimonial, index) => (
+                  <TestimonialCard key={`col2-${index}`} {...testimonial} />
+                ))}
+              </Marquee>
+              <Marquee vertical pauseOnHover={false} className="h-full [--duration:90s] [--gap:2rem] hidden lg:flex">
+                {TESTIMONIALS.slice(10, 15).map((testimonial, index) => (
+                  <TestimonialCard key={`col3-${index}`} {...testimonial} />
+                ))}
+              </Marquee>
+            </div>
         </div>
       </section>
 
