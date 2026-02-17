@@ -5,9 +5,8 @@ import * as XLSX from 'xlsx';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar as CalendarIcon, Upload, AlertTriangle, Award, School, Download, Edit } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar as CalendarIcon, Upload, AlertTriangle, Award, School, Download, Edit, Menu, X, Check } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -38,6 +37,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { NepaliDatepicker } from '@/components/ui/nepali-date-picker';
 import { NEPALI_MONTHS } from '@/lib/nepal-data';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions, isEditing, initialData }: {
     isOpen: boolean;
@@ -68,7 +68,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                     if (sheetName.toLowerCase() === 'general') {
                         // This library is client-side only, needs dynamic import
                         try {
-                            const converter = await import('ad-bs-converter');
+                            const converter = (await import('ad-bs-converter')).default;
                             const today = new Date();
                             const todayBS = converter.ad2bs(
                                 `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
@@ -432,7 +432,7 @@ const NoticeSheetEditor = ({ wbState, onStateChange }: { wbState: WorkbookState,
             newGridData = [...currentSheetData];
             newGridData[editingNotice.index + 1] = newRow;
         } else { // Creating new
-            newGridData = [...currentSheetData, newRow];
+            newGridData = [currentSheetData[0], newRow, ...currentSheetData.slice(1)];
         }
 
         const newWorkbook = { ...wbState.workbook, Sheets: { ...wbState.workbook.Sheets } };
@@ -467,48 +467,66 @@ const NoticeSheetEditor = ({ wbState, onStateChange }: { wbState: WorkbookState,
         }
         setRowToDelete(null);
     };
+    
+    const sortedBodyData = useMemo(() => {
+        return [...bodyData].reverse();
+    }, [bodyData]);
 
     return (
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-sm text-muted-foreground flex-1">
-                    Manage website notices. Add, edit, or delete notices using the buttons on each card.
-                </p>
+                 <div className="flex-1 space-y-1">
+                    <h3 className="font-semibold text-lg text-foreground">
+                        {activeSheetName} Notices
+                    </h3>
+                    <p className="text-sm text-muted-foreground flex-1">
+                        Manage website notices. Add, edit, or delete notices using the buttons on each card.
+                    </p>
+                </div>
+
                 <div className="flex items-center gap-2 flex-shrink-0">
                     <Button onClick={handleOpenNewModal} variant="outline" size="sm"><PlusCircle className="mr-2 h-4 w-4" />New Notice</Button>
                 </div>
             </div>
 
-            <Tabs value={activeSheetName} onValueChange={setActiveSheetName} className="w-full">
-                <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-none sm:inline-flex sm:w-auto">
-                    {noticeSheetNames.map((name) => (
-                        <TabsTrigger key={name} value={name}>{name}</TabsTrigger>
-                    ))}
-                </TabsList>
-                <div className="mt-6 relative">
-                    <div className="space-y-4">
-                        {bodyData.length > 0 ? bodyData.slice().reverse().map((row, reversedIndex) => {
-                            const originalIndex = bodyData.length - 1 - reversedIndex;
-                            return (
-                                <NoticeCard
-                                    key={originalIndex}
-                                    notice={row}
-                                    headers={headers}
-                                    sheetName={activeSheetName}
-                                    onEdit={() => handleOpenEditModal(originalIndex)}
-                                    onDelete={() => setRowToDelete({ sheetName: activeSheetName, rowIndex: originalIndex })}
-                                />
-                            )
-                        }) : (
-                            <div className="text-center py-12 text-muted-foreground flex flex-col items-center gap-4 border rounded-lg bg-card/50">
-                                <Inbox className="h-12 w-12" />
-                                <h3 className="text-lg font-semibold">No Notices Yet</h3>
-                                <p>Click "New Notice" to publish the first one in this category.</p>
-                            </div>
+            <div className="grid grid-cols-2 gap-1 rounded-lg bg-muted/50 p-1 max-w-xs">
+                {noticeSheetNames.map((name) => (
+                    <button 
+                        key={name} 
+                        onClick={() => setActiveSheetName(name)}
+                        className={cn(
+                            "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                            activeSheetName === name ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:bg-background/70"
                         )}
-                    </div>
+                    >
+                        {name}
+                    </button>
+                ))}
+            </div>
+
+            <div className="mt-6 relative">
+                <div className="space-y-4">
+                    {sortedBodyData.length > 0 ? sortedBodyData.map((row, reversedIndex) => {
+                        const originalIndex = bodyData.length - 1 - reversedIndex;
+                        return (
+                            <NoticeCard
+                                key={originalIndex}
+                                notice={row}
+                                headers={headers}
+                                sheetName={activeSheetName}
+                                onEdit={() => handleOpenEditModal(originalIndex)}
+                                onDelete={() => setRowToDelete({ sheetName: activeSheetName, rowIndex: originalIndex })}
+                            />
+                        )
+                    }) : (
+                        <div className="text-center py-12 text-muted-foreground flex flex-col items-center gap-4 border rounded-lg bg-card/50">
+                            <Inbox className="h-12 w-12" />
+                            <h3 className="text-lg font-semibold">No Notices Yet</h3>
+                            <p>Click "New Notice" to publish the first one in this category.</p>
+                        </div>
+                    )}
                 </div>
-            </Tabs>
+            </div>
 
             <NoticeModal
                 isOpen={isModalOpen}
@@ -557,17 +575,22 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
                     setGridData(data);
                 }
             } else {
-                setGridData([["StudentName", "SymbolNo", "DOB", "GPA", "Grade", "Remarks"]]);
+                // If sheet doesn't exist, create it.
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.aoa_to_sheet([["StudentName", "SymbolNo", "DOB", "GPA", "Grade", "Remarks"]]);
+                XLSX.utils.book_append_sheet(wb, ws, "Results");
+                onStateChange({workbook: wb, sha: wbState.sha });
             }
         }
-    }, [wbState.workbook]);
+    }, [wbState.workbook, onStateChange]);
 
     const { headers, bodyData } = useMemo(() => {
+        if (gridData.length === 0) return { headers: ["StudentName", "SymbolNo", "DOB", "GPA", "Grade", "Remarks"], bodyData: [] };
         const headers = gridData[0] || [];
         const bodyData = gridData.slice(1);
         return { headers, bodyData };
     }, [gridData]);
-
+    
     const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
         const updatedGridData = [...gridData];
         const actualRowIndex = rowIndex + 1;
@@ -594,6 +617,11 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
             updatedGridData[actualRowIndex] = newRow;
             setGridData(updatedGridData);
         }
+    };
+    
+    const addRow = () => {
+        const newRow = new Array(headers.length).fill('');
+        setGridData([...gridData, newRow]);
     };
 
     const commitChanges = async (newGridData: GridData): Promise<{ success: boolean; message: string; newSha?: string }> => {
@@ -632,9 +660,9 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
         const result = await commitChanges(updatedGridData);
         if (result.success) {
             toast({ title: 'Row Removed', description: `Row ${rowToDelete + 1} has been successfully removed and saved.` });
+            setGridData(updatedGridData);
         } else {
             toast({ variant: 'destructive', title: 'Error Deleting Row', description: result.message });
-            setGridData(gridData); // Revert UI on failure
         }
         setRowToDelete(null);
     };
@@ -687,6 +715,10 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
                     Manage student result data. Click "Save Changes" to publish.
                 </p>
                 <div className="flex items-center gap-2 flex-shrink-0">
+                     <Button onClick={addRow} variant="outline" size="sm">
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Add Row
+                    </Button>
                     <Button onClick={handleSaveChanges} disabled={isSaving} size="sm">
                         {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                         Save Changes
@@ -763,7 +795,7 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
             </AlertDialog>
         </div>
     );
-}
+};
 
 const formatDate = (timestamp: Timestamp | Date | undefined) => {
     if (!timestamp) return 'N/A';
@@ -1040,7 +1072,58 @@ const ContactTab = () => {
             </Dialog>
         </>
     );
-}
+};
+
+const AdminNavDrawer = ({ activeTab, setActiveTab, menuOpen, setMenuOpen }: {
+    activeTab: string;
+    setActiveTab: (tab: string) => void;
+    menuOpen: boolean;
+    setMenuOpen: (open: boolean) => void;
+}) => {
+    const menuItems = [
+        { id: 'admissions', label: 'Admissions' },
+        { id: 'contact', label: 'Contact Messages' },
+        { id: 'notice', label: 'Notice Editor' },
+        { id: 'results', label: 'Results Editor' },
+    ];
+
+    const handleSelect = (tab: string) => {
+        setActiveTab(tab);
+        setMenuOpen(false);
+    };
+
+    return (
+        <AnimatePresence>
+            {menuOpen && (
+                <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden"
+                >
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2 mb-6 rounded-lg bg-card/50 backdrop-blur-xl border border-border/50">
+                        {menuItems.map(item => (
+                            <button
+                                key={item.id}
+                                onClick={() => handleSelect(item.id)}
+                                className={cn(
+                                    "px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center justify-center gap-2",
+                                    activeTab === item.id
+                                        ? "bg-primary text-primary-foreground shadow-sm"
+                                        : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                                )}
+                            >
+                                {activeTab === item.id && <Check className="w-4 h-4" />}
+                                {item.label}
+                            </button>
+                        ))}
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+};
 
 export default function AdminView({ 
     initialNoticeData, 
@@ -1051,6 +1134,7 @@ export default function AdminView({
 }) {
     const { toast } = useToast();
     const [activeTab, setActiveTab] = useState("admissions");
+    const [menuOpen, setMenuOpen] = useState(false);
     
     const [noticeWbState, setNoticeWbState] = useState<WorkbookState>({ workbook: null, sha: initialNoticeData.sha });
     const [resultsWbState, setResultsWbState] = useState<WorkbookState>({ workbook: null, sha: initialResultsData.sha });
@@ -1097,6 +1181,13 @@ export default function AdminView({
     const handleResultsWbStateChange = (newState: WorkbookState) => {
         setResultsWbState(newState);
     }
+
+    const tabDescriptions: { [key: string]: string } = {
+        admissions: 'View all submitted admission inquiries.',
+        contact: 'View all submitted contact form messages.',
+        notice: 'Manage website notices and announcements.',
+        results: 'Manage student result data.',
+    };
     
     if (isLoading) {
         return (
@@ -1112,41 +1203,37 @@ export default function AdminView({
         <div className="container mx-auto px-4">
             <Card className="testimonial-card">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Admin Dashboard</CardTitle>
-                    <CardDescription>
-                        {
-                            activeTab === 'admissions' ? 'View all submitted admission inquiries.' :
-                            activeTab === 'contact' ? 'View all submitted contact form messages.' :
-                            activeTab === 'notice' ? 'Manage website notices and announcements.' :
-                            'Manage student result data.'
-                        }
-                    </CardDescription>
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <CardTitle className="text-2xl">Admin Dashboard</CardTitle>
+                            <CardDescription>
+                                {tabDescriptions[activeTab]}
+                            </CardDescription>
+                        </div>
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            className="text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                        >
+                            {menuOpen ? <X /> : <Menu />}
+                        </Button>
+                    </div>
                 </CardHeader>
                 <CardContent>
-                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full h-auto grid-cols-2 rounded-lg sm:h-12 sm:grid-cols-4 sm:rounded-full max-w-2xl mx-auto">
-                            <TabsTrigger value="admissions">Admissions</TabsTrigger>
-                            <TabsTrigger value="contact">Contact Messages</TabsTrigger>
-                            <TabsTrigger value="notice">Notice Editor</TabsTrigger>
-                            <TabsTrigger value="results">Results Editor</TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="admissions" className='mt-6'>
-                           <AdmissionsTab />
-                        </TabsContent>
-                        <TabsContent value="contact" className='mt-6'>
-                           <ContactTab />
-                        </TabsContent>
-                         <TabsContent value="notice" className='mt-6'>
-                           {noticeWbState.workbook && <NoticeSheetEditor wbState={noticeWbState} onStateChange={handleNoticeWbStateChange} />}
-                        </TabsContent>
-                         <TabsContent value="results" className='mt-6'>
-                           {resultsWbState.workbook && <ResultsEditor wbState={resultsWbState} onStateChange={handleResultsWbStateChange} />}
-                        </TabsContent>
-                    </Tabs>
+                    <AdminNavDrawer
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                        menuOpen={menuOpen}
+                        setMenuOpen={setMenuOpen}
+                    />
+
+                    {activeTab === 'admissions' && <AdmissionsTab />}
+                    {activeTab === 'contact' && <ContactTab />}
+                    {activeTab === 'notice' && noticeWbState.workbook && <NoticeSheetEditor wbState={noticeWbState} onStateChange={handleNoticeWbStateChange} />}
+                    {activeTab === 'results' && resultsWbState.workbook && <ResultsEditor wbState={resultsWbState} onStateChange={handleResultsWbStateChange} />}
                 </CardContent>
             </Card>
         </div>
     );
 }
-
-    
