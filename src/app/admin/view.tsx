@@ -551,7 +551,13 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
             const worksheet = wbState.workbook.Sheets['Results'];
             if (worksheet) {
                 const data: GridData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
-                setGridData(data);
+                if (data.length === 0 || data[0].length === 0) {
+                    setGridData([["StudentName", "SymbolNo", "DOB", "GPA", "Grade", "Remarks"]]);
+                } else {
+                    setGridData(data);
+                }
+            } else {
+                setGridData([["StudentName", "SymbolNo", "DOB", "GPA", "Grade", "Remarks"]]);
             }
         }
     }, [wbState.workbook]);
