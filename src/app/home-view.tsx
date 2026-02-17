@@ -46,9 +46,13 @@ const TestimonialCard = ({
 
 export default function HomeView() {
   
-  const testimonialsRow1 = [...TESTIMONIALS, ...TESTIMONIALS];
-  const testimonialsRow2 = [...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3), ...TESTIMONIALS.slice(3, 6), ...TESTIMONIALS.slice(0, 3)];
-  const testimonialsRow3 = [...[...TESTIMONIALS].reverse(), ...[...TESTIMONIALS].reverse()];
+  const row1Data = [...TESTIMONIALS];
+  const row2Data = [TESTIMONIALS[2], TESTIMONIALS[5], TESTIMONIALS[0], TESTIMONIALS[3], TESTIMONIALS[1], TESTIMONIALS[4]];
+  const row3Data = [...[...TESTIMONIALS].reverse()];
+
+  const testimonialsRow1 = [...row1Data, ...row1Data];
+  const testimonialsRow2 = [...row2Data, ...row2Data];
+  const testimonialsRow3 = [...row3Data, ...row3Data];
   
   const STATS = [
     { number: '2017', label: 'Established', icon: Calendar },
