@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare, Instagram } from 'lucide-react';
 import { imageData } from '@/lib/image-data';
-import { ALUMNI_MEMBERS } from '@/lib/constants';
+import { ALUMNI_MEMBERS, TOP_STUDENTS } from '@/lib/constants';
 
 const stats = [
     { number: '50+', label: 'Awards' },
@@ -43,57 +43,6 @@ const awards = [
         description: 'Teams won entrepreneurship challenges with sustainable, community-focused solutions.',
         category: 'Business Innovation',
         icon: Briefcase,
-    }
-];
-
-const topStudents = [
-    {
-        name: 'Harish Pathak',
-        class: '12 Science',
-        quote: "SARC's innovative teaching methods made learning fun and meaningful.",
-        gpa: 3.95,
-        subjects: 'Physics, Robotics, Environmental Science',
-        achievements: [
-            'Social Media Manager at SAKDU - SAK Digital University',
-            'Robotics Club President',
-        ],
-        image: 'https://picsum.photos/seed/harish/400/400',
-    },
-    {
-        name: 'Bikram Thapa',
-        class: '12 Management',
-        quote: "The practical business simulations at SARC gave me real-world experience.",
-        gpa: 3.92,
-        subjects: 'Entrepreneurship, Economics, Leadership',
-        achievements: [
-            'Business Plan Competition Winner',
-            'Debate Team Captain',
-        ],
-        image: 'https://picsum.photos/seed/bikram/400/400',
-    },
-    {
-        name: 'Chandra Gurung',
-        class: '10',
-        quote: "SARC's holistic approach helped me excel in both academics and extracurriculars.",
-        gpa: 3.98,
-        subjects: 'Mathematics, Sports, Music',
-        achievements: [
-            'Mathematics Olympiad Winner',
-            'Science Fair Champion',
-        ],
-        image: 'https://picsum.photos/seed/chandra/400/400',
-    },
-    {
-        name: 'Deepa Shrestha',
-        class: '11 Science',
-        quote: "SARC taught me that education is not just about grades, but about making a difference.",
-        gpa: 3.89,
-        subjects: 'Chemistry, Environmental Science, Community Service',
-        achievements: [
-            'Chemistry Lab Assistant',
-            'Environmental Club Leader',
-        ],
-        image: 'https://picsum.photos/seed/deepa/400/400',
     }
 ];
 
@@ -208,7 +157,7 @@ export default function AchievementsView() {
           <SectionTitle title="Top Students" subtitle="Future Leaders" />
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Celebrating our current students who are excelling in academics and beyond.</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-            {topStudents.map((student, index) => (
+            {TOP_STUDENTS.map((student, index) => (
               <div
                 key={student.name}
                 className="testimonial-card overflow-hidden p-0 transition-all duration-300 hover:-translate-y-2"

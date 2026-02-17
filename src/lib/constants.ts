@@ -160,101 +160,6 @@ export const ALUMNI_MEMBERS = [
             facebook: 'https://www.facebook.com/bikash.pandeya.69',
             instagram: 'https://www.instagram.com/its_bikash_pandeya'
         }
-    },
-    {
-        name: 'Rajesh Sharma',
-        role: 'Founder & CEO, TechNepal',
-        story: "Rajesh credits SARC's innovation labs for sparking his passion for entrepreneurship. Today, his company TechNepal is a leading force in the local tech scene, creating jobs and driving innovation.",
-        quote: "The innovation lab at SARC taught me that failure is just a stepping stone to success.",
-        education: 'B.E. in Computer Engineering',
-        university: 'IIT Delhi',
-        graduated: 2019,
-        achievements: [
-            'Founded 3 successful startups',
-            'Employed 50+ people',
-        ],
-        image: 'https://picsum.photos/seed/rajesh/400/400',
-         socials: {
-            linkedin: '#',
-            facebook: '#',
-            instagram: '#'
-        }
-    },
-    {
-        name: 'Priya Thapa',
-        role: 'Biomedical Engineer, Johns Hopkins',
-        story: "Priya's passion for blending technology and healthcare was ignited at SARC. Her groundbreaking work on a life-saving medical device has earned her international recognition and is a testament to the hands-on learning approach at SARC.",
-        quote: "SARC's hands-on approach made me realize my passion for helping others through technology.",
-        education: 'M.S. in Biomedical Engineering',
-        university: 'Johns Hopkins University',
-        graduated: 2020,
-        achievements: [
-            'Developed life-saving medical device',
-            'International recognition',
-        ],
-        image: 'https://picsum.photos/seed/priya/400/400',
-         socials: {
-            linkedin: '#',
-            facebook: '#',
-            instagram: '#'
-        }
-    },
-    {
-        name: 'Amit Gurung',
-        role: 'Data Scientist, Microsoft',
-        story: "Amit's experience with project-based learning at SARC gave him a competitive edge. At Microsoft, he now develops advanced AI models for healthcare, continuing to solve real-world problems with the skills he first honed on our campus.",
-        quote: "The project-based learning at SARC prepared me for the real challenges in tech industry.",
-        education: 'M.S. in Data Science',
-        university: 'MIT',
-        graduated: 2021,
-        achievements: [
-            'Developed AI models for healthcare',
-            'Open source contributor',
-        ],
-        image: 'https://picsum.photos/seed/amit/400/400',
-         socials: {
-            linkedin: '#',
-            facebook: '#',
-            instagram: '#'
-        }
-    },
-    {
-        name: 'Sunita Rai',
-        role: 'Lead Architect, Urban Designs',
-        story: "Sunita's creative vision was nurtured at SARC. She now leads major urban design projects that focus on sustainability and community living, proving that a strong foundation in science can lead to a beautiful and functional world.",
-        quote: "SARC's creative environment allowed me to merge art with science seamlessly.",
-        education: 'B.Arch',
-        university: 'Pulchowk Campus',
-        graduated: 2018,
-        achievements: [
-            'National Award for Sustainable Architecture',
-            'Designed two public parks',
-        ],
-        image: 'https://picsum.photos/seed/sunita/400/400',
-        socials: {
-            linkedin: '#',
-            facebook: '#',
-            instagram: '#'
-        }
-    },
-    {
-        name: 'Kiran Thapa',
-        role: 'Law Associate, Pradhan & Associates',
-        story: "The Law faculty at SARC was the perfect launchpad for Kiran. His sharp analytical skills, honed in our debate clubs and moot courts, now serve him well as he navigates complex legal cases at one of the country's top law firms.",
-        quote: "The moot court competitions were pivotal in building my confidence for a career in law.",
-        education: 'B.A.LLB',
-        university: 'Kathmandu School of Law',
-        graduated: 2023,
-        achievements: [
-            'Won National Moot Court Competition',
-            'Published paper on corporate law',
-        ],
-        image: 'https://picsum.photos/seed/kiran/400/400',
-        socials: {
-            linkedin: '#',
-            facebook: '#',
-            instagram: '#'
-        }
     }
 ];
 
@@ -494,6 +399,57 @@ export const STAFF_MEMBERS = [
     };
     return (roleOrder[a.role] || 99) - (roleOrder[b.role] || 99);
 });
+
+export const TOP_STUDENTS = [
+    {
+        name: 'Harish Pathak',
+        class: '12 Science',
+        quote: "SARC's innovative teaching methods made learning fun and meaningful.",
+        gpa: 3.95,
+        subjects: 'Physics, Robotics, Environmental Science',
+        achievements: [
+            'Social Media Manager at SAKDU - SAK Digital University',
+            'Robotics Club President',
+        ],
+        image: 'https://picsum.photos/seed/harish/400/400',
+    },
+    {
+        name: 'Bikram Thapa',
+        class: '12 Management',
+        quote: "The practical business simulations at SARC gave me real-world experience.",
+        gpa: 3.92,
+        subjects: 'Entrepreneurship, Economics, Leadership',
+        achievements: [
+            'Business Plan Competition Winner',
+            'Debate Team Captain',
+        ],
+        image: 'https://picsum.photos/seed/bikram/400/400',
+    },
+    {
+        name: 'Chandra Gurung',
+        class: '10',
+        quote: "SARC's holistic approach helped me excel in both academics and extracurriculars.",
+        gpa: 3.98,
+        subjects: 'Mathematics, Sports, Music',
+        achievements: [
+            'Mathematics Olympiad Winner',
+            'Science Fair Champion',
+        ],
+        image: 'https://picsum.photos/seed/chandra/400/400',
+    },
+    {
+        name: 'Deepa Shrestha',
+        class: '11 Science',
+        quote: "SARC taught me that education is not just about grades, but about making a difference.",
+        gpa: 3.89,
+        subjects: 'Chemistry, Environmental Science, Community Service',
+        achievements: [
+            'Chemistry Lab Assistant',
+            'Environmental Club Leader',
+        ],
+        image: 'https://picsum.photos/seed/deepa/400/400',
+    }
+];
 
 export const WHY_US_ITEMS = [
     {
