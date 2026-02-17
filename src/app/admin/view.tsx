@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
@@ -7,12 +8,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar as CalendarIcon, Upload, AlertTriangle, Award, School, Bold, Italic, Heading3, List, Edit, Download } from 'lucide-react';
+import { Loader2, Save, PlusCircle, Inbox, Trash2, User, Phone, GraduationCap, Users2, Building, Bell, FileText, Calendar as CalendarIcon, Upload, AlertTriangle, Award, School, Download, Edit } from 'lucide-react';
 import { saveExcelFile } from './actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, orderBy, query, Timestamp } from 'firebase/firestore';
 import { Badge } from '@/components/ui/badge';
+import RichTextEditor from '@/components/editor/editor';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,25 +36,8 @@ import {
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
 import { NEPALI_MONTHS, getNepaliYears, getDaysInMonth } from '@/lib/nepal-data';
-
-
-const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, children: React.ReactNode, label: string }) => (
-  <Button
-    type="button"
-    variant="ghost"
-    size="icon"
-    className="h-8 w-8 text-muted-foreground"
-    onClick={onClick}
-    aria-label={label}
-    title={label}
-  >
-    {children}
-  </Button>
-);
 
 const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions, isEditing, initialData }: {
     isOpen: boolean;
@@ -66,12 +51,12 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
     initialData?: Record<string, any> | null;
 }) => {
     const [formData, setFormData] = useState<Record<string, string>>({});
-    const detailsTextareaRef = useRef<HTMLTextAreaElement>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [noticeYear, setNoticeYear] = useState('');
     const [noticeMonth, setNoticeMonth] = useState('');
     const [noticeDay, setNoticeDay] = useState('');
+    const { years: nepaliYears, currentNepaliYear } = useMemo(() => getNepaliYears(), []);
 
 
     useEffect(() => {
@@ -98,7 +83,6 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
 
                 if (sheetName.toLowerCase() === 'general') {
                     // Set current year for new notices
-                    const currentNepaliYear = (new Date().getFullYear() + 57).toString();
                     setNoticeYear(currentNepaliYear);
                     setNoticeMonth(''); // Month and day are left for the user to select
                     setNoticeDay('');
@@ -110,11 +94,11 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
             }
             setFormData(initialFormData);
         }
-    }, [isOpen, headers, initialData, isEditing, sheetName]);
+    }, [isOpen, headers, initialData, isEditing, sheetName, currentNepaliYear]);
 
     useEffect(() => {
         if (sheetName.toLowerCase() === 'general') {
-            const combinedDate = noticeYear && noticeMonth && noticeDay ? `${noticeYear}-${noticeMonth}-${noticeDay}` : '';
+            const combinedDate = noticeYear && noticeMonth && noticeDay ? `${noticeYear}-${noticeMonth.padStart(2, '0')}-${noticeDay.padStart(2, '0')}` : '';
             if (formData.date !== combinedDate) {
                 setFormData(prev => ({ ...prev, date: combinedDate }));
             }
@@ -122,66 +106,16 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
     }, [noticeYear, noticeMonth, noticeDay, sheetName, formData.date]);
 
 
-    const handleFormat = (format: 'bold' | 'italic' | 'h3' | 'list') => {
-        const textarea = detailsTextareaRef.current;
-        if (!textarea) return;
-    
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const value = textarea.value;
-        const selectedText = value.substring(start, end);
-    
-        let prefix = '';
-        let suffix = '';
-        let newText = selectedText;
-        let newStart = start;
-        let newEnd = end;
-    
-        if (format === 'bold') {
-            prefix = '**';
-            suffix = '**';
-        } else if (format === 'italic') {
-            prefix = '*';
-            suffix = '*';
-        } else if (format === 'h3' || format === 'list') {
-            const marker = format === 'h3' ? '### ' : '- ';
-            const lineStart = value.lastIndexOf('\n', start - 1) + 1;
-            
-            const updatedValue = value.substring(0, lineStart) + marker + value.substring(lineStart);
-            setFormData(prev => ({ ...prev, details: updatedValue }));
-            
-            setTimeout(() => {
-                textarea.focus();
-                textarea.setSelectionRange(start + marker.length, end + marker.length);
-            }, 0);
-            return;
-        }
-    
-        if (selectedText) {
-            newText = prefix + selectedText + suffix;
-            newStart = start;
-            newEnd = start + newText.length;
-        } else {
-            newText = prefix + suffix;
-            newStart = start + prefix.length;
-            newEnd = newStart;
-        }
-    
-        const updatedValue = value.substring(0, start) + newText + value.substring(end);
-        setFormData(prev => ({ ...prev, details: updatedValue }));
-    
-        setTimeout(() => {
-            textarea.focus();
-            textarea.setSelectionRange(newStart, newEnd);
-        }, 0);
-    };
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSelectChange = (name: string, value: string) => {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+    
+    const handleEditorChange = (name: string, value: string) => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
@@ -240,7 +174,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                             <Select onValueChange={setNoticeYear} value={noticeYear}>
                                 <SelectTrigger><SelectValue placeholder="Year" /></SelectTrigger>
                                 <SelectContent>
-                                    {getNepaliYears().map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
+                                    {nepaliYears.map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
                                 </SelectContent>
                             </Select>
                             <Select onValueChange={setNoticeMonth} value={noticeMonth}>
@@ -282,35 +216,11 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
             return (
                  <div key={header} className="space-y-2">
                     <Label htmlFor={header}>{capitalizedHeader}</Label>
-                    <div className="rounded-md border">
-                         <div className="flex items-center gap-1 border-b p-1">
-                            <ToolbarButton onClick={() => handleFormat('bold')} label="Bold">
-                                <Bold className="h-4 w-4" />
-                            </ToolbarButton>
-                            <ToolbarButton onClick={() => handleFormat('italic')} label="Italic">
-                                <Italic className="h-4 w-4" />
-                            </ToolbarButton>
-                            <ToolbarButton onClick={() => handleFormat('h3')} label="Heading">
-                                <Heading3 className="h-4 w-4" />
-                            </ToolbarButton>
-                            <ToolbarButton onClick={() => handleFormat('list')} label="List">
-                                <List className="h-4 w-4" />
-                            </ToolbarButton>
-                        </div>
-                        <Textarea 
-                            ref={detailsTextareaRef}
-                            id={header} 
-                            name={header} 
-                            value={formData[header] || ''} 
-                            onChange={handleChange} 
-                            placeholder={`Enter notice details...`}
-                            rows={5}
-                            className="border-0 focus-visible:ring-0"
-                        />
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                        Use the toolbar or Markdown for formatting. E.g., `**bold**`, `*italic*`, `### Heading`.
-                    </p>
+                    <RichTextEditor
+                        value={formData.details || ''}
+                        onChange={(newValue) => handleEditorChange('details', newValue)}
+                        placeholder="Enter notice details..."
+                    />
                 </div>
             );
         }
@@ -334,7 +244,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-lg bg-card/80 backdrop-blur-xl">
+            <DialogContent className="sm:max-w-2xl bg-card/80 backdrop-blur-xl">
                 <DialogHeader>
                     <DialogTitle>{isEditing ? `Edit ${sheetName} Notice` : `New ${sheetName} Notice`}</DialogTitle>
                     <DialogDescription>
@@ -343,7 +253,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="custom-scrollbar space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
                     {headers.map(header => renderField(header))}
-                    <DialogFooter className="pt-4 bg-transparent">
+                    <DialogFooter className="pt-4 bg-transparent sticky bottom-0">
                         <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button>
                         <Button type="submit" disabled={isSubmitting}>
                             {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}

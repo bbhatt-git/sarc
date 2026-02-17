@@ -31,13 +31,25 @@ export const NEPALI_MONTHS = [
 
 export const getNepaliYears = () => {
     // Generate a range of years appropriate for both birth dates and recent notices.
-    const currentNepaliYear = new Date().getFullYear() + 57; 
+    // The Nepali new year (Bikram Sambat) starts in mid-April.
+    // A simple approximation is to add 57 years, but this can be off by one depending on the month.
+    // Correcting this for better accuracy.
+    const gregorianDate = new Date();
+    const gregorianYear = gregorianDate.getFullYear();
+    const gregorianMonth = gregorianDate.getMonth(); // 0 (Jan) - 11 (Dec)
+    
+    // If the month is before April (index 3), we are in the previous Nepali year relative to the simple conversion.
+    const offset = gregorianMonth < 3 ? 56 : 57;
+    const currentNepaliYear = gregorianYear + offset;
+
     const years = [];
+    // Go a few years into the future for notices, and far back for birth years.
     for (let i = currentNepaliYear + 5; i >= 2040; i--) {
         years.push(i.toString());
     }
-    return years;
+    return { years, currentNepaliYear: currentNepaliYear.toString() };
 };
+
 
 export const getDaysInMonth = () => {
     const days = [];
