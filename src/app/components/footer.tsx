@@ -99,7 +99,7 @@ export default function Footer() {
 
           <div className="border-t border-border/50 mt-12 pt-8 text-center md:text-left text-sm text-muted-foreground md:flex md:items-center md:justify-between">
             <p>&copy; {new Date().getFullYear()} SARC Education Foundation. All Rights Reserved.</p>
-            <p className="mt-2 md:mt-0 flex flex-wrap items-center justify-center md:justify-end gap-x-1.5 gap-y-1 text-xs">
+            <p className="mt-2 md:mt-0 flex flex-nowrap items-center justify-center md:justify-end gap-x-1.5 text-xs">
                 <Sparkles className="w-3 h-3 text-primary" />
                 <span className="whitespace-nowrap">Designed & Crafted by</span>
                 <a href="https://bbhatt.com.np" target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-primary transition-colors whitespace-nowrap">
