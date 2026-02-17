@@ -37,9 +37,7 @@ import { Textarea } from '@/components/ui/textarea';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
-import { format, parse, isValid } from 'date-fns';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
+
 
 const ToolbarButton = ({ onClick, children, label }: { onClick: () => void, children: React.ReactNode, label: string }) => (
   <Button
@@ -92,12 +90,6 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
             setFormData(initialFormData);
         }
     }, [isOpen, headers, initialData, isEditing, sheetName]);
-
-    const handleDateChange = (header: string, date: Date | undefined) => {
-        if (date) {
-            setFormData(prev => ({ ...prev, [header]: format(date, 'yyyy-MM-dd') }));
-        }
-    };
 
     const handleFormat = (format: 'bold' | 'italic' | 'h3' | 'list') => {
         const textarea = detailsTextareaRef.current;
@@ -209,54 +201,27 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
         }
         
         if (headerLower === 'date') {
-            if (sheetName.toLowerCase() === 'holiday') {
-                return (
-                    <div key={header} className="space-y-2">
-                        <Label htmlFor={header}>{capitalizedHeader}</Label>
-                        <Input 
-                            id={header} 
-                            name={header} 
-                            value={formData[header] || ''} 
-                            onChange={handleChange} 
-                            placeholder="e.g., Falgun 7, or Chaitra 15-17" 
-                            type="text"
-                        />
-                        <p className="text-xs text-muted-foreground">
-                            This is the date of the holiday, not the publish date.
-                        </p>
-                    </div>
-                );
-            }
-            
-            const dateString = formData[header];
-            const parsedDate = dateString ? parse(dateString, "yyyy-MM-dd", new Date()) : undefined;
-            const selectedDate = parsedDate && isValid(parsedDate) ? parsedDate : undefined;
-
+            const isHolidaySheet = sheetName.toLowerCase() === 'holiday';
             return (
                 <div key={header} className="space-y-2">
                     <Label htmlFor={header}>{capitalizedHeader}</Label>
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant={"outline"}
-                                className={cn(
-                                    "w-full justify-start text-left font-normal",
-                                    !selectedDate && "text-muted-foreground"
-                                )}
-                            >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
-                            <Calendar
-                                mode="single"
-                                selected={selectedDate}
-                                onSelect={(date) => handleDateChange(header, date)}
-                                initialFocus
-                            />
-                        </PopoverContent>
-                    </Popover>
+                    <Input 
+                        id={header} 
+                        name={header} 
+                        value={formData[header] || ''} 
+                        onChange={handleChange} 
+                        placeholder={isHolidaySheet ? "e.g., Falgun 7, or Chaitra 15-17" : "YYYY-MM-DD"} 
+                        type="text"
+                    />
+                    {isHolidaySheet ? (
+                        <p className="text-xs text-muted-foreground">
+                           Enter the holiday date or duration.
+                        </p>
+                    ) : (
+                         <p className="text-xs text-muted-foreground">
+                            Enter the notice publish date in YYYY-MM-DD format.
+                        </p>
+                    )}
                 </div>
             );
         }
@@ -342,7 +307,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
 const iconMap = {
     Bell,
     FileText,
-    Calendar,
+    Calendar: CalendarIcon,
     Award,
     School,
     GraduationCap,
@@ -371,7 +336,7 @@ const NoticeCard = ({ notice, headers, sheetName, onEdit, onDelete }: {
   const IconComponent = sheetName.toLowerCase() === 'general' 
       ? (iconMap[iconName] || iconMap.Default) 
       : sheetName.toLowerCase() === 'holiday' 
-      ? Calendar
+      ? CalendarIcon
       : FileText;
 
     const getIconColor = (sheetName: string) => {
