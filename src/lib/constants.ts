@@ -111,6 +111,12 @@ export const TESTIMONIALS = [
         author: "Suraj Pant",
         role: "Software Engineer",
         image: "/images/testimonials/suraj_pant.jpg"
+    },
+    {
+        text: "SARC gave me the foundation to think beyond textbooks and solve real-world problems.",
+        author: "Bikash Pandeya",
+        role: "CEO, NoteSwift",
+        image: "/images/testimonials/bikash_pandeya.jpg"
     }
 ];
 
@@ -407,7 +413,7 @@ export const TOP_STUDENTS = [
         quote: "SARC's innovative teaching methods made learning fun and meaningful.",
         gpa: 3.82,
         subjects: 'Economics, Mathematics, Accountancy',
-        image: '/images/alumni/ashim_giri.jpg',
+        image: 'https://picsum.photos/seed/harish/400/400',
         achievements: [
           'NEB District Level Topper',
           'NEB State Level 2nd Topper',

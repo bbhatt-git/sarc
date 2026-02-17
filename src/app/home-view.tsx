@@ -47,8 +47,24 @@ const TestimonialCard = ({
 export default function HomeView() {
   
   const row1Data = [...TESTIMONIALS];
-  const row2Data = [TESTIMONIALS[2], TESTIMONIALS[5], TESTIMONIALS[0], TESTIMONIALS[3], TESTIMONIALS[1], TESTIMONIALS[4]];
-  const row3Data = [...[...TESTIMONIALS].reverse()];
+  const row2Data = [
+    TESTIMONIALS[3], 
+    TESTIMONIALS[5], 
+    TESTIMONIALS[1], 
+    TESTIMONIALS[6], 
+    TESTIMONIALS[0], 
+    TESTIMONIALS[4], 
+    TESTIMONIALS[2]
+  ];
+  const row3Data = [
+    TESTIMONIALS[5], 
+    TESTIMONIALS[2], 
+    TESTIMONIALS[6], 
+    TESTIMONIALS[1], 
+    TESTIMONIALS[4], 
+    TESTIMONIALS[0], 
+    TESTIMONIALS[3]
+  ];
 
   const testimonialsRow1 = [...row1Data, ...row1Data];
   const testimonialsRow2 = [...row2Data, ...row2Data];
