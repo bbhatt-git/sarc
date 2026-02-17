@@ -19,7 +19,7 @@ export function NepaliDatepicker({ value, onChange, className, inputClassName }:
             className={cn("w-full", className)}
             value={value}
             onChange={onChange}
-            options={{ calenderLocale: "ne", valueLocale: "en" }}
+            options={{ calenderLocale: "en", valueLocale: "en" }}
         />
     )
 }

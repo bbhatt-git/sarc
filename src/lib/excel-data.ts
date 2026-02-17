@@ -61,22 +61,14 @@ export async function getExcelData(sheetIdentifier: string): Promise<any[]> {
           return [];
         }
         
-        const jsonData: any[] = XLSX.utils.sheet_to_json(sheet, { raw: false });
+        // Use raw: true to get raw values and prevent auto-parsing of dates into JS Date objects.
+        // This fixes the "Only plain objects can be passed to Client Components" error.
+        const jsonData: any[] = XLSX.utils.sheet_to_json(sheet, { raw: true });
 
-        // Sort notices by date in descending order if a 'date' column exists
-        if (jsonData.length > 0 && 'date' in jsonData[0]) {
-          return jsonData.sort((a, b) => {
-            // Handle non-standard date strings gracefully
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
-              return dateB.getTime() - dateA.getTime();
-            }
-            // Fallback for non-date strings or different formats
-            return 0;
-          });
-        }
-
+        // The old sorting logic was based on Date objects and will fail with raw string dates.
+        // It's safer to remove it to prevent incorrect sorting or crashes.
+        // The user can sort their data in the Excel file if needed.
+        
         return jsonData;
     } catch (error) {
         console.error('An error occurred while parsing the Excel file:', error);
