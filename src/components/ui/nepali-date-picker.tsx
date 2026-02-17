@@ -1,6 +1,8 @@
+
 'use client';
 import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import { cn } from "@/lib/utils";
+import { NEPALI_MONTHS } from "@/lib/nepal-data";
 
 interface NepaliDatePickerProps {
     value: string;
@@ -10,6 +12,42 @@ interface NepaliDatePickerProps {
 }
 
 export function NepaliDatepicker({ value, onChange, className, inputClassName }: NepaliDatePickerProps) {
+    
+    // Converts "YYYY MonthName DD" to "YYYY-MM-DD" for the library
+    const formattedToRaw = (formattedDate: string): string => {
+        if (!formattedDate || !formattedDate.includes(' ')) return formattedDate; // It's likely already raw or empty
+        const parts = formattedDate.split(' ');
+        if (parts.length !== 3) return formattedDate;
+
+        const [year, monthName, day] = parts;
+        const month = NEPALI_MONTHS.find(m => m.label.toLowerCase() === monthName.toLowerCase());
+
+        if (!month) return formattedDate; // Could not parse
+        return `${year}-${month.value}-${day}`;
+    };
+
+    // Converts "YYYY-MM-DD" from the library to "YYYY MonthName DD"
+    const handleOnChange = (rawDate: string) => {
+        if (!rawDate || !rawDate.includes('-')) {
+            onChange(rawDate);
+            return;
+        };
+        const parts = rawDate.split('-');
+        if (parts.length !== 3) {
+            onChange(rawDate);
+            return;
+        }
+        const [year, monthNum, day] = parts;
+
+        const month = NEPALI_MONTHS.find(m => m.value === monthNum);
+        if (!month) {
+            onChange(rawDate);
+            return;
+        }
+        
+        onChange(`${year} ${month.label} ${day}`);
+    };
+
     return (
         <NepaliDatePicker
             inputClassName={cn(
@@ -17,8 +55,8 @@ export function NepaliDatepicker({ value, onChange, className, inputClassName }:
                 inputClassName
             )}
             className={cn("w-full", className)}
-            value={value}
-            onChange={onChange}
+            value={formattedToRaw(value)}
+            onChange={handleOnChange}
             options={{ calenderLocale: "en", valueLocale: "en" }}
         />
     )

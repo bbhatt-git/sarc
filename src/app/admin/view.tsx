@@ -38,6 +38,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { NepaliDatepicker } from '@/components/ui/nepali-date-picker';
+import { NEPALI_MONTHS } from '@/lib/nepal-data';
 
 const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOptions, examTypeOptions, isEditing, initialData }: {
     isOpen: boolean;
@@ -55,19 +56,47 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
 
     useEffect(() => {
         if (isOpen) {
-            const initialFormData: Record<string, string> = {};
-            if (isEditing && initialData) {
-                headers.forEach(header => {
-                    initialFormData[header] = initialData[header] || '';
-                });
-            } else { // Creating a new notice
-                 headers.forEach(header => {
-                    initialFormData[header] = '';
-                });
-            }
-            setFormData(initialFormData);
+            const getInitialData = async () => {
+                const initialFormData: Record<string, string> = {};
+                if (isEditing && initialData) {
+                    headers.forEach(header => {
+                        initialFormData[header] = initialData[header] || '';
+                    });
+                } else { // Creating a new notice
+                    headers.forEach(header => {
+                        initialFormData[header] = '';
+                    });
+                    if (sheetName.toLowerCase() === 'general') {
+                        // This library is client-side only, needs dynamic import
+                        try {
+                            const converter = await import('ad-bs-converter');
+                            const today = new Date();
+                            const todayBS = converter.ad2bs(
+                                `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
+                            );
+                            
+                            const month = NEPALI_MONTHS.find(m => m.value === todayBS.en.month);
+                            const monthName = month ? month.label : '';
+
+                            if (monthName) {
+                                initialFormData['date'] = `${todayBS.en.year} ${monthName} ${todayBS.en.day}`;
+                            } else {
+                                // Fallback to raw format if month name not found
+                                initialFormData['date'] = `${todayBS.en.year}-${todayBS.en.month}-${todayBS.en.day}`;
+                            }
+                        } catch (e) {
+                             console.error("Failed to load ad-bs-converter", e);
+                             // fallback to empty date
+                             initialFormData['date'] = '';
+                        }
+                    }
+                }
+                setFormData(initialFormData);
+            };
+            getInitialData();
         }
     }, [isOpen, headers, initialData, isEditing, sheetName]);
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
