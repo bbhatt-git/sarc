@@ -402,52 +402,21 @@ export const STAFF_MEMBERS = [
 
 export const TOP_STUDENTS = [
     {
-        name: 'Harish Pathak',
-        class: '12 Science',
-        quote: "SARC's innovative teaching methods made learning fun and meaningful.",
-        gpa: 3.95,
-        subjects: 'Physics, Robotics, Environmental Science',
-        achievements: [
-            'Social Media Manager at SAKDU - SAK Digital University',
-            'Robotics Club President',
-        ],
-        image: 'https://picsum.photos/seed/harish/400/400',
-    },
-    {
-        name: 'Bikram Thapa',
+        name: 'Ashim Giri',
         class: '12 Management',
-        quote: "The practical business simulations at SARC gave me real-world experience.",
-        gpa: 3.92,
-        subjects: 'Entrepreneurship, Economics, Leadership',
+        quote: "SARC's innovative teaching methods made learning fun and meaningful.",
+        gpa: 3.82,
+        subjects: 'Economics, Mathematics, Accountancy',
+        image: 'https://picsum.photos/seed/harish/400/400',
         achievements: [
-            'Business Plan Competition Winner',
-            'Debate Team Captain',
-        ],
-        image: 'https://picsum.photos/seed/bikram/400/400',
-    },
-    {
-        name: 'Chandra Gurung',
-        class: '10',
-        quote: "SARC's holistic approach helped me excel in both academics and extracurriculars.",
-        gpa: 3.98,
-        subjects: 'Mathematics, Sports, Music',
-        achievements: [
-            'Mathematics Olympiad Winner',
-            'Science Fair Champion',
-        ],
-        image: 'https://picsum.photos/seed/chandra/400/400',
-    },
-    {
-        name: 'Deepa Shrestha',
-        class: '11 Science',
-        quote: "SARC taught me that education is not just about grades, but about making a difference.",
-        gpa: 3.89,
-        subjects: 'Chemistry, Environmental Science, Community Service',
-        achievements: [
-            'Chemistry Lab Assistant',
-            'Environmental Club Leader',
-        ],
-        image: 'https://picsum.photos/seed/deepa/400/400',
+          'NEB District Level Topper',
+          'NEB State Level 2nd Topper',
+      ],
+        socials: {
+          linkedin: 'https://www.linkedin.com/in/ashim-giri-b16521338/',
+          facebook: 'https://www.facebook.com/profile.php?id=100080102481707',
+          instagram: '#'
+      }
     }
 ];
 
