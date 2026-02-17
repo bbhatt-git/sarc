@@ -7,6 +7,7 @@ interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   vertical?: boolean;
   pauseOnHover?: boolean;
+  className?: string;
 }
 
 export function Marquee({
@@ -21,30 +22,29 @@ export function Marquee({
     <div
       {...props}
       className={cn(
-        'group flex overflow-hidden p-0 [--gap:1rem]',
+        'group flex overflow-hidden',
         vertical ? 'flex-col' : 'flex-row',
-        '[gap:var(--gap)]',
         className
       )}
     >
       <div
-        className={cn('flex shrink-0 items-center justify-start [gap:var(--gap)]', {
-          'animate-marquee': !vertical,
-          'animate-marquee-vertical': vertical,
-          '[animation-direction:reverse]': reverse,
-          'group-hover:[animation-play-state:paused]': pauseOnHover,
-        })}
+        className={cn(
+          'flex shrink-0 items-center justify-around [gap:var(--gap)]',
+          vertical ? 'flex-col animate-marquee-vertical' : 'flex-row animate-marquee-horizontal',
+          reverse && '[animation-direction:reverse]',
+          pauseOnHover && 'group-hover:[animation-play-state:paused]'
+        )}
       >
         {children}
       </div>
       <div
-        className={cn('flex shrink-0 items-center justify-start [gap:var(--gap)]', {
-          'animate-marquee': !vertical,
-          'animate-marquee-vertical': vertical,
-          '[animation-direction:reverse]': reverse,
-          'group-hover:[animation-play-state:paused]': pauseOnHover,
-        })}
         aria-hidden="true"
+        className={cn(
+          'flex shrink-0 items-center justify-around [gap:var(--gap)]',
+          vertical ? 'flex-col animate-marquee-vertical' : 'flex-row animate-marquee-horizontal',
+          reverse && '[animation-direction:reverse]',
+          pauseOnHover && 'group-hover:[animation-play-state:paused]'
+        )}
       >
         {children}
       </div>

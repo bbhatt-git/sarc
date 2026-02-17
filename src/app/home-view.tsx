@@ -194,12 +194,12 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
          <div className="relative mt-16 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <Marquee className="[--duration:60s] [--gap:1rem]">
+            <Marquee className="[--duration:90s] [--gap:1rem]">
               {testimonialsRow1.map((testimonial, index) => (
                 <TestimonialCard key={`row1-${index}`} {...testimonial} />
               ))}
             </Marquee>
-            <Marquee reverse className="[--duration:60s] [--gap:1rem]">
+            <Marquee reverse className="[--duration:90s] [--gap:1rem]">
               {testimonialsRow2.map((testimonial, index) => (
                 <TestimonialCard key={`row2-${index}`} {...testimonial} />
               ))}
