@@ -37,7 +37,7 @@ import { Textarea } from '@/components/ui/textarea';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
-import { format, parse } from 'date-fns';
+import { format, parse, isValid } from 'date-fns';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 
@@ -81,7 +81,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
             } else {
                  headers.forEach(header => {
                     const headerLower = String(header).toLowerCase();
-                    if (headerLower === 'date') {
+                    if (headerLower === 'date' && sheetName.toLowerCase() !== 'holiday') {
                         const today = new Date();
                         initialFormData[header] = today.toISOString().split('T')[0]; // YYYY-MM-DD
                     } else {
@@ -91,7 +91,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
             }
             setFormData(initialFormData);
         }
-    }, [isOpen, headers, initialData, isEditing]);
+    }, [isOpen, headers, initialData, isEditing, sheetName]);
 
     const handleDateChange = (header: string, date: Date | undefined) => {
         if (date) {
@@ -218,11 +218,11 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                             name={header} 
                             value={formData[header] || ''} 
                             onChange={handleChange} 
-                            placeholder="e.g., 2081-07-25" 
+                            placeholder="e.g., Falgun 7, or Chaitra 15-17" 
                             type="text"
                         />
                         <p className="text-xs text-muted-foreground">
-                            Enter the date in your desired text format.
+                            This is the date of the holiday, not the publish date.
                         </p>
                     </div>
                 );
@@ -230,7 +230,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
             
             const dateString = formData[header];
             const parsedDate = dateString ? parse(dateString, "yyyy-MM-dd", new Date()) : undefined;
-            const selectedDate = parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : undefined;
+            const selectedDate = parsedDate && isValid(parsedDate) ? parsedDate : undefined;
 
             return (
                 <div key={header} className="space-y-2">
