@@ -78,39 +78,39 @@ export const FACILITIES = [
 export const TESTIMONIALS = [
     {
         text: "SARC provided me with the perfect foundation for my medical career. The teachers are incredibly supportive and the labs are top-notch.",
-        author: "Anjali Sharma",
+        author: "Ankit Joshi",
         role: "MBBS Student, IOM",
-        image: "https://picsum.photos/seed/101/100/100"
+        image: "/images/testimonials/ankit_joshi.jpg"
     },
     {
         text: "The management program at SARC is outstanding. It gave me the confidence and skills to start my own business right after graduation.",
-        author: "Rohan Pradhan",
+        author: "Menuka Joshi",
         role: "Entrepreneur",
-        image: "https://picsum.photos/seed/102/100/100"
+        image: "/images/testimonials/menuka_joshi.jpg"
     },
     {
         text: "I always felt encouraged to explore my interests beyond academics. The extracurricular activities are fantastic!",
-        author: "Sunita K.C.",
+        author: "Chandani Dhami",
         role: "BBS Graduate",
-        image: "https://picsum.photos/seed/103/100/100"
+        image: "/images/testimonials/chandani_dhami.jpg"
     },
     {
         text: "The faculty's dedication is what makes SARC special. They are true mentors who guide you every step of the way.",
-        author: "Bijay Thapa",
+        author: "Amar Bohara",
         role: "+2 Science Graduate",
-        image: "https://picsum.photos/seed/104/100/100"
+        image: "/images/testimonials/amar_bohara.jpg"
     },
     {
         text: "I'm grateful for the career counseling services. They helped me choose the right path and prepared me for university interviews.",
-        author: "Priya Gurung",
+        author: "Ayush Sunar",
         role: "Studying in Australia",
-        image: "https://picsum.photos/seed/105/100/100"
+        image: "/images/testimonials/ayush_sunar.jpg"
     },
     {
         text: "A perfect blend of academic rigor and personal development. SARC prepares you for life, not just for exams.",
-        author: "Sameer Shrestha",
+        author: "Suraj Pant",
         role: "Software Engineer",
-        image: "https://picsum.photos/seed/106/100/100"
+        image: "/images/testimonials/suraj_pant.jpg"
     }
 ];
 
