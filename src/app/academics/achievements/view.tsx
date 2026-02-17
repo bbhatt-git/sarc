@@ -190,17 +190,17 @@ export default function AchievementsView() {
                         </ul>
                     </div>
                     <div className="flex justify-center gap-4 pt-4 border-t border-border/50">
-                        {student.socials.linkedin && student.socials.linkedin !== '#' && (
+                        {student.socials.linkedin && (
                             <Link href={student.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
                                 <Linkedin size={20} />
                             </Link>
                         )}
-                        {student.socials.facebook && student.socials.facebook !== '#' && (
+                        {student.socials.facebook && (
                             <Link href={student.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
                                 <Facebook size={20} />
                             </Link>
                         )}
-                        {student.socials.instagram && student.socials.instagram !== '#' && (
+                        {student.socials.instagram && (
                             <Link href={student.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
                                 <Instagram size={20} />
                             </Link>
