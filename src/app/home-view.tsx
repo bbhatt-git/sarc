@@ -26,7 +26,7 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="w-80 h-48 flex-shrink-0 p-6 testimonial-card relative">
+    <div className="w-full h-48 flex-shrink-0 p-6 testimonial-card relative">
       <Quote className="absolute -top-2 -left-2 w-24 h-24 text-primary/5 opacity-50" />
         <div className="flex items-center gap-4 relative z-10">
             <Avatar>
@@ -47,9 +47,6 @@ const TestimonialCard = ({
 
 
 export default function HomeView() {
-  
-  const testimonialsRow1 = TESTIMONIALS.slice(0, 8);
-  const testimonialsRow2 = TESTIMONIALS.slice(8, 15);
   
   const STATS = [
     { number: '2017', label: 'Established', icon: Calendar },
@@ -191,19 +188,24 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
       </section>
       
       {/* Testimonials */}
-      <section className="w-full py-20 lg:py-28">
+       <section className="w-full py-20 lg:py-28">
         <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-         <div className="relative mt-16 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]">
-            <Marquee className="[--duration:90s] [--gap:1rem]">
-              {testimonialsRow1.map((testimonial, index) => (
-                <TestimonialCard key={`row1-${index}`} {...testimonial} />
-              ))}
-            </Marquee>
-            <Marquee reverse className="[--duration:90s] [--gap:1rem]">
-              {testimonialsRow2.map((testimonial, index) => (
-                <TestimonialCard key={`row2-${index}`} {...testimonial} />
-              ))}
-            </Marquee>
+        <div className="relative mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-[600px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+          <Marquee vertical className="h-full [--duration:90s] [--gap:1rem]">
+            {TESTIMONIALS.slice(0, 5).map((testimonial, index) => (
+              <TestimonialCard key={`col1-${index}`} {...testimonial} />
+            ))}
+          </Marquee>
+          <Marquee vertical reverse className="h-full [--duration:90s] [--gap:1rem] hidden md:flex">
+            {TESTIMONIALS.slice(5, 10).map((testimonial, index) => (
+              <TestimonialCard key={`col2-${index}`} {...testimonial} />
+            ))}
+          </Marquee>
+          <Marquee vertical className="h-full [--duration:90s] [--gap:1rem] hidden lg:flex">
+            {TESTIMONIALS.slice(10, 15).map((testimonial, index) => (
+              <TestimonialCard key={`col3-${index}`} {...testimonial} />
+            ))}
+          </Marquee>
         </div>
       </section>
 
