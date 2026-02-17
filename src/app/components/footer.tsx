@@ -70,16 +70,16 @@ export default function Footer() {
              <div className="space-y-4 order-2 md:order-4">
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <Facebook size={20} />
                   </a>
-                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <Instagram size={20} />
                   </a>
-                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <TikTokIcon />
                   </a>
-                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <Github size={20} />
                   </a>
                 </div>
