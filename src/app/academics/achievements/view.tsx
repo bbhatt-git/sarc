@@ -194,10 +194,22 @@ export default function AchievementsView() {
                             ))}
                         </ul>
                     </div>
-                     <div className="flex justify-center gap-2 pt-3 border-t border-border/50">
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-700 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Linkedin size={16} /></Link>
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Facebook size={16} /></Link>
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-primary-600 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
+                    <div className="flex justify-center gap-4 pt-4 border-t border-border/50">
+                        {student.socials.linkedin && student.socials.linkedin !== '#' && (
+                            <Link href={student.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
+                                <Linkedin size={20} />
+                            </Link>
+                        )}
+                        {student.socials.facebook && student.socials.facebook !== '#' && (
+                            <Link href={student.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
+                                <Facebook size={20} />
+                            </Link>
+                        )}
+                        {student.socials.instagram && student.socials.instagram !== '#' && (
+                            <Link href={student.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
+                                <Instagram size={20} />
+                            </Link>
+                        )}
                     </div>
                 </div>
               </div>
