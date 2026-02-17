@@ -78,7 +78,14 @@ export const Toolbar = React.forwardRef<
   <div
     {...props}
     ref={ref}
-    className={cn('relative flex items-center gap-1 border-b bg-transparent p-2', className)}
+    className={cn(
+      'relative flex flex-wrap items-center gap-1 border-b bg-transparent p-2',
+      className
+    )}
   />
 ))
 Toolbar.displayName = 'Toolbar'
+
+export const ToolbarSeparator = () => (
+  <div className="w-[1px] h-5 bg-border mx-1" />
+)

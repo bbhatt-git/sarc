@@ -27,12 +27,13 @@ import {
   CustomElementWithAlign,
   CustomTextKey,
 } from './custom-types.d'
-import { Button, Icon, Toolbar } from './components'
+import { Button, Icon, Toolbar, ToolbarSeparator } from './components'
 
 const HOTKEYS: Record<string, CustomTextKey> = {
   'mod+b': 'bold',
   'mod+i': 'italic',
   'mod+u': 'underline',
+  'mod+`': 'code',
 }
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list'] as const
@@ -100,11 +101,15 @@ const RichTextEditor = ({
           <MarkButton format="bold" icon="format_bold" />
           <MarkButton format="italic" icon="format_italic" />
           <MarkButton format="underline" icon="format_underlined" />
+          <MarkButton format="code" icon="code" />
+          <ToolbarSeparator />
           <BlockButton format="heading-one" icon="looks_one" />
           <BlockButton format="heading-two" icon="looks_two" />
           <BlockButton format="block-quote" icon="format_quote" />
+          <ToolbarSeparator />
           <BlockButton format="numbered-list" icon="format_list_numbered" />
           <BlockButton format="bulleted-list" icon="format_list_bulleted" />
+          <ToolbarSeparator />
           <BlockButton format="left" icon="format_align_left" />
           <BlockButton format="center" icon="format_align_center" />
           <BlockButton format="right" icon="format_align_right" />
