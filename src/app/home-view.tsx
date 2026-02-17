@@ -1,8 +1,7 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { BookOpen, Calendar, ShieldCheck, Users, Quote } from 'lucide-react';
+import { BookOpen, Calendar, ShieldCheck, Users } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TESTIMONIALS, WHY_US_ITEMS } from '@/lib/constants';
@@ -26,21 +25,20 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="w-full h-80 flex-shrink-0 p-6 testimonial-card relative flex flex-col justify-center">
-      <Quote className="absolute -top-2 -left-2 w-24 h-24 text-primary/5 opacity-50" />
-        <div className="flex items-center gap-4 relative z-10">
-            <Avatar>
-                <AvatarImage src={image} alt={author}/>
-                <AvatarFallback>{author.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <div>
-                <p className="font-bold text-foreground">{author}</p>
-                <p className="text-sm text-muted-foreground">{role}</p>
-            </div>
+    <div className="mb-4 break-inside-avoid rounded-2xl border bg-card/60 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <blockquote className="text-muted-foreground mb-4">
+        "{text}"
+      </blockquote>
+      <div className="flex items-center gap-4">
+        <Avatar>
+          <AvatarImage src={image} alt={author} />
+          <AvatarFallback>{author.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="font-bold text-foreground">{author}</p>
+          <p className="text-sm text-muted-foreground">{role}</p>
         </div>
-        <blockquote className="mt-4 text-foreground/90 italic relative z-10 before:content-['“'] after:content-['”']">
-            {text}
-        </blockquote>
+      </div>
     </div>
   );
 };
@@ -166,24 +164,20 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
 
       {/* Testimonials */}
        <section className="w-full py-20 lg:py-28">
-        <SectionTitle title="What Our Community Says" subtitle="TESTIMONIALS" />
-        <div className="w-[90%] mx-auto">
-            <div className="relative mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 h-[800px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-              <Marquee vertical pauseOnHover={false} className="h-full [--duration:90s] [--gap:2rem]">
-                {TESTIMONIALS.slice(0, 5).map((testimonial, index) => (
-                  <TestimonialCard key={`col1-${index}`} {...testimonial} />
+        <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
+                What Our <span className="text-primary">Community</span> Says
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                Hear from students, parents, and alumni who experienced SARC's transformative education
+            </p>
+        </div>
+
+        <div className="container mx-auto px-4 mt-16">
+            <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                {TESTIMONIALS.map((testimonial, index) => (
+                    <TestimonialCard key={index} {...testimonial} />
                 ))}
-              </Marquee>
-              <Marquee vertical reverse pauseOnHover={false} className="h-full [--duration:90s] [--gap:2rem] hidden md:flex">
-                {TESTIMONIALS.slice(5, 10).map((testimonial, index) => (
-                  <TestimonialCard key={`col2-${index}`} {...testimonial} />
-                ))}
-              </Marquee>
-              <Marquee vertical pauseOnHover={false} className="h-full [--duration:90s] [--gap:2rem] hidden lg:flex">
-                {TESTIMONIALS.slice(10, 15).map((testimonial, index) => (
-                  <TestimonialCard key={`col3-${index}`} {...testimonial} />
-                ))}
-              </Marquee>
             </div>
         </div>
       </section>

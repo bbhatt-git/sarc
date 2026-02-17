@@ -79,37 +79,37 @@ export const TESTIMONIALS = [
   {
       text: "SARC provided a strong foundation for my medical career. The supportive teachers and modern labs made learning effective and inspiring.",
       author: "Ankit Joshi",
-      role: "+2 Graduate, 2026",
+      role: "Medical Student",
       image: "/images/testimonials/ankit_joshi.jpg"
   },
   {
       text: "The science program at SARC fosters critical thinking. It gave me the analytical skills and confidence to pursue future innovation.",
       author: "Menuka Joshi",
-      role: "Grade 11 Science, 2025",
+      role: "Grade 11 Science",
       image: "/images/testimonials/menuka_joshi.jpg"
   },
   {
-      text: "I always felt encouraged to explore my interests beyond academics. The fantastic extracurricular activities allowed me to grow into leadership.",
+      text: "As a parent, I've seen my child grow in confidence and leadership at SARC. The extracurriculars are fantastic.",
       author: "Chandani Dhami",
-      role: "Grade 11 Science, 2025",
+      role: "Parent",
       image: "/images/testimonials/chandani_dhami.jpg"
   },
   {
       text: "The faculty’s dedication is what makes SARC special. They are true mentors who guide every student through each growth step.",
       author: "Amar Bohara",
-      role: "Grade 11 Science, 2025",
+      role: "Parent",
       image: "/images/testimonials/amar_bohara.jpg"
   },
   {
       text: "I am grateful for the career counseling services. They helped me choose the right path and prepared for university interviews.",
       author: "Ayush Sunar",
-      role: "Grade 11 Management, 2025",
+      role: "Grade 11 Management",
       image: "/images/testimonials/ayush_sunar.jpg"
   },
   {
       text: "A perfect blend of academic rigor and personal development. SARC prepares you for real life challenges, not just for exams.",
       author: "Suraj Pant",
-      role: "+2 Graduate, 2025",
+      role: "Alumni, 2025",
       image: "/images/testimonials/suraj_pant.jpg"
   },
   {
@@ -121,7 +121,7 @@ export const TESTIMONIALS = [
   {
       text: "SARC's innovative teaching methods made learning fun and meaningful. These experiences paved the way for my recent academic achievements today.",
       author: "Ashim Giri",
-      role: "+2 Graduate, 2024",
+      role: "Alumni, 2024",
       image: "/images/testimonials/ashim_giri.jpg"
   },
   {
@@ -133,38 +133,38 @@ export const TESTIMONIALS = [
   {
       text: "I am thankful to SARC for providing a platform to excel. It allowed me to explore my scientific potential fully.",
       author: "Jeetu Kalauni",
-      role: "Grade 11 Science, 2025",
+      role: "Grade 11 Science",
       image: "/images/testimonials/jeetu_kalauni.jpg"
   },
   {
       text: "The practical approach to learning at SARC is what sets it apart. It was wonderful experience that shaped my mindset.",
       author: "Kishore Paneru",
-      role: "Grade 11 Science, 2025",
+      role: "Grade 11 Science",
       image: "/images/testimonials/kishore_paneru.jpg"
   },
   {
       text: "SARC’s faculty is top-notch. Their expert guidance was crucial in shaping my career path and helping me achieve personal goals.",
       author: "Rakesh Kathayat",
-      role: "Grade 11 Science, 2025",
+      role: "Grade 11 Science",
       image: "/images/testimonials/rakesh_kathayat.jpg"
   },
   {
       text: "An amazing institution that focuses on holistic development. I had a great time studying here while building a strong future.",
       author: "Uttam Gurudhami",
-      role: "Grade 11 Science, 2025",
+      role: "Grade 11 Science",
       image: "/images/testimonials/uttam_gurudhami.jpg"
   },
   {
       text: "From academics to extracurriculars, SARC provides a balanced life. This college offers an enriching experience for every student who joins.",
       author: "Vivek Bhatt",
-      role: "Grade 11 Science, 2025",
+      role: "Grade 11 Science",
       image: "/images/testimonials/vivek_bhatt.jpg"
   },
   {
-      text: "The college has a very positive and motivating atmosphere. It prepared me well for future challenges and upcoming professional opportunities.",
-      author: "Vyan Madai",
-      role: "Grade 11 Science, 2025",
-      image: "/images/testimonials/vyan_madai.jpg"
+      text: "As a teacher, I've seen how SARC's innovative methods spark curiosity in students. They don't just memorize—they understand and create.",
+      author: "Meen Bahadur Khadka",
+      role: "Senior Faculty",
+      image: "/images/staffs/meen_bahadur_khadka.jpg"
   }
 ];
 
