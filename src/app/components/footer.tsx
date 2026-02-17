@@ -4,11 +4,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Mail, Phone, MapPin, Sparkles, Facebook, Instagram, Github } from 'lucide-react';
 import Image from 'next/image';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const TikTokIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="h-5 w-5">
-    <path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"/>
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="h-5 w-5"><path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"/></svg>
 );
 
 
@@ -18,6 +17,13 @@ export default function Footer() {
   if (pathname.startsWith('/admin') || pathname === '/login') {
     return null;
   }
+
+  const socialLinks = [
+    { href: "https://www.facebook.com/sarc.edu.np", label: "Facebook", icon: Facebook },
+    { href: "https://instagram.com/sarc.edu.np", label: "Instagram", icon: Instagram },
+    { href: "https://www.tiktok.com/@sarceducationfoun", label: "TikTok", icon: TikTokIcon },
+    { href: "https://github.com/sarceducationfoundation", label: "Github", icon: Github },
+  ];
   
   return (
     <footer className="mt-20 z-10">
@@ -69,20 +75,25 @@ export default function Footer() {
              {/* Column 4: Follow Us */}
              <div className="space-y-4 order-2 md:order-4">
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
-                <div className="flex space-x-4">
-                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Facebook size={20} />
-                  </a>
-                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Instagram size={20} />
-                  </a>
-                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="text-muted-foreground hover:text-primary transition-colors">
-                    <TikTokIcon />
-                  </a>
-                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="text-muted-foreground hover:text-primary transition-colors">
-                    <Github size={20} />
-                  </a>
-                </div>
+                <TooltipProvider>
+                    <div className="flex space-x-4">
+                        {socialLinks.map((social) => {
+                            const Icon = social.icon;
+                            return (
+                                <Tooltip key={social.label}>
+                                    <TooltipTrigger asChild>
+                                        <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`Follow us on ${social.label}`} className="text-muted-foreground hover:text-primary transition-colors">
+                                            {social.label === 'TikTok' ? <Icon /> : <Icon size={20} />}
+                                        </a>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{social.href}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            )
+                        })}
+                    </div>
+                </TooltipProvider>
              </div>
           </div>
 

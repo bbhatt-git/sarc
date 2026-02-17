@@ -10,14 +10,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, ArrowLeft, ArrowRight, Camera, Share2, Facebook, Instagram, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { GALLERY_CATEGORIES } from '@/lib/constants';
 
 const TikTokIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="h-8 w-8">
-        <path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"/>
-    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="h-8 w-8"><path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"/></svg>
 );
 
 // Component for the Lightbox
@@ -117,6 +116,13 @@ export default function GalleryView() {
 
     // Social Modal state
     const [socialModalOpen, setSocialModalOpen] = useState(false);
+
+    const socialLinks = [
+        { href: "https://www.facebook.com/sarc.edu.np", label: "Facebook", icon: Facebook },
+        { href: "https://instagram.com/sarc.edu.np", label: "Instagram", icon: Instagram },
+        { href: "https://www.tiktok.com/@sarceducationfoun", label: "TikTok", icon: TikTokIcon },
+        { href: "https://github.com/sarceducationfoundation", label: "Github", icon: Github },
+    ];
 
     return (
         <div>
@@ -241,20 +247,25 @@ export default function GalleryView() {
                             Stay connected with SARC on social media for the latest updates, events, and moments.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="flex justify-around items-center py-8">
-                        <Link href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="text-muted-foreground hover:text-primary transition-colors">
-                            <Facebook size={32} />
-                        </Link>
-                        <Link href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="text-muted-foreground hover:text-primary transition-colors">
-                           <Instagram size={32} />
-                        </Link>
-                        <Link href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="text-muted-foreground hover:text-primary transition-colors">
-                            <TikTokIcon />
-                        </Link>
-                        <Link href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="text-muted-foreground hover:text-primary transition-colors">
-                            <Github size={32} />
-                        </Link>
-                    </div>
+                    <TooltipProvider>
+                        <div className="flex justify-around items-center py-8">
+                            {socialLinks.map((social) => {
+                                const Icon = social.icon;
+                                return (
+                                    <Tooltip key={social.label}>
+                                        <TooltipTrigger asChild>
+                                            <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`Follow us on ${social.label}`} className="text-muted-foreground hover:text-primary transition-colors">
+                                                {social.label === 'TikTok' ? <Icon /> : <Icon size={32} />}
+                                            </a>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>{social.href}</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                );
+                            })}
+                        </div>
+                    </TooltipProvider>
                 </DialogContent>
             </Dialog>
 
