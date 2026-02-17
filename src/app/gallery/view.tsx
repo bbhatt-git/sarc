@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -13,6 +14,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { GALLERY_CATEGORIES } from '@/lib/constants';
+
+const TikTokIcon = () => (
+  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8">
+    <path
+      fill="currentColor"
+      d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.63-1.1-6-3.02-1.3-1.82-1.55-4.15-1.5-6.25.08-3.55 1.7-6.79 4.4-8.89 1.35-1.03 2.87-1.66 4.51-1.85.01 2.19-.01 4.38-.01 6.57 0 1.21-.43 2.38-1.19 3.26-1.28 1.55-3.53 2.05-5.22 1.15-1.2-.63-1.85-2.01-1.8-3.34.02-1.35.53-2.61 1.58-3.44.82-.65 1.83-1.02 2.85-1.1.02 1.48.01 2.96.01 4.44z"
+    />
+  </svg>
+);
 
 // Component for the Lightbox
 const Lightbox = ({ images, selectedIndex, onClose, onPrev, onNext }: { images: typeof imageData.gallery, selectedIndex: number, onClose: () => void, onPrev: () => void, onNext: () => void }) => {
@@ -54,17 +64,17 @@ const Lightbox = ({ images, selectedIndex, onClose, onPrev, onNext }: { images: 
             </motion.div>
 
             {/* Close Button */}
-            <button onClick={(e) => { e.stopPropagation(); onClose(); }} className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
+            <button onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Close image viewer" className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
                 <X size={32} />
             </button>
 
             {/* Prev Button */}
-            <button onClick={(e) => { e.stopPropagation(); onPrev(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
+            <button onClick={(e) => { e.stopPropagation(); onPrev(); }} aria-label="Previous image" className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
                 <ArrowLeft size={32} />
             </button>
             
             {/* Next Button */}
-            <button onClick={(e) => { e.stopPropagation(); onNext(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
+            <button onClick={(e) => { e.stopPropagation(); onNext(); }} aria-label="Next image" className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full">
                 <ArrowRight size={32} />
             </button>
         </motion.div>
@@ -236,16 +246,16 @@ export default function GalleryView() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="flex justify-around items-center py-8">
-                        <Link href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                        <Link href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
                             <Facebook size={32} />
                         </Link>
-                        <Link href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                        <Link href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
                            <Instagram size={32} />
                         </Link>
-                        <Link href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
-                            <i className="fa-brands fa-tiktok fa-2x"></i>
+                        <Link href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                            <TikTokIcon />
                         </Link>
-                        <Link href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
+                        <Link href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="p-4 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-16 h-16 flex items-center justify-center">
                             <Github size={32} />
                         </Link>
                     </div>

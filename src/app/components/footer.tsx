@@ -1,9 +1,20 @@
+
 'use client'
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Mail, Phone, MapPin, Sparkles, Facebook, Instagram, Github } from 'lucide-react';
 import Image from 'next/image';
+
+const TikTokIcon = () => (
+  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
+    <path
+      fill="currentColor"
+      d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.63-1.1-6-3.02-1.3-1.82-1.55-4.15-1.5-6.25.08-3.55 1.7-6.79 4.4-8.89 1.35-1.03 2.87-1.66 4.51-1.85.01 2.19-.01 4.38-.01 6.57 0 1.21-.43 2.38-1.19 3.26-1.28 1.55-3.53 2.05-5.22 1.15-1.2-.63-1.85-2.01-1.8-3.34.02-1.35.53-2.61 1.58-3.44.82-.65 1.83-1.02 2.85-1.1.02 1.48.01 2.96.01 4.44z"
+    />
+  </svg>
+);
+
 
 export default function Footer() {
   const pathname = usePathname();
@@ -63,16 +74,16 @@ export default function Footer() {
              <div className="space-y-4 order-2 md:order-4">
                  <h3 className="font-semibold text-foreground uppercase tracking-wider text-sm">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://www.facebook.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <Facebook size={20} />
                   </a>
-                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                  <a href="https://instagram.com/sarc.edu.np" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <Instagram size={20} />
                   </a>
-                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
-                    <i className="fa-brands fa-tiktok fa-lg"></i>
+                  <a href="https://www.tiktok.com/@sarceducationfoun" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                    <TikTokIcon />
                   </a>
-                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
+                   <a href="https://github.com/sarceducationfoundation" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Github" className="p-2 bg-muted/70 rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-9 h-9 flex items-center justify-center">
                     <Github size={20} />
                   </a>
                 </div>

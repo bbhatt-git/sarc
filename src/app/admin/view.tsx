@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
@@ -314,9 +315,9 @@ const NoticeCard = ({ notice, headers, sheetName, onEdit, onDelete }: {
                 </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-1 sm:gap-2">
-                {link && <Button asChild size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground"><a href={link} target="_blank" rel="noopener noreferrer"><Download/></a></Button>}
-                <Button onClick={onEdit} size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground"><Edit /></Button>
-                <Button onClick={onDelete} size="icon" variant="ghost" className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"><Trash2 /></Button>
+                {link && <Button asChild size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground"><a href={link} target="_blank" rel="noopener noreferrer" aria-label={`Download file for ${title}`}><Download/></a></Button>}
+                <Button onClick={onEdit} size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground" aria-label={`Edit ${title}`}><Edit /></Button>
+                <Button onClick={onDelete} size="icon" variant="ghost" className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50" aria-label={`Delete ${title}`}><Trash2 /></Button>
             </div>
         </div>
       </CardContent>
@@ -757,7 +758,7 @@ const ResultsEditor = ({ wbState, onStateChange }: { wbState: WorkbookState, onS
                                         size="icon" 
                                         className="h-8 w-8 text-rose-500 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/50"
                                         onClick={() => setRowToDelete(rowIndex)}
-                                        aria-label="Remove row"
+                                        aria-label={`Remove row ${rowIndex + 1}`}
                                     >
                                         <Trash2 className="h-4 w-4" />
                                     </Button>
@@ -1214,6 +1215,7 @@ export default function AdminView({
                             size="icon"
                             onClick={() => setMenuOpen(!menuOpen)}
                             className="text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                            aria-label="Toggle navigation menu"
                         >
                             {menuOpen ? <X /> : <Menu />}
                         </Button>

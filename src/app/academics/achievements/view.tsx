@@ -1,3 +1,4 @@
+
 'use client';
 import PageHeader from '@/app/components/page-header';
 import SectionTitle from '@/app/components/section-title';
@@ -111,17 +112,17 @@ export default function AchievementsView() {
                     </div>
                     <div className="flex items-center justify-center gap-4 pt-4 border-t border-border/50 mt-auto">
                        {person.socials.linkedin && (
-                            <Link href={person.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
+                            <Link href={person.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`View ${person.name} on LinkedIn`} className="text-muted-foreground transition-colors hover:text-sky-700">
                                 <Linkedin size={20} />
                             </Link>
                         )}
                         {person.socials.facebook && (
-                            <Link href={person.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
+                            <Link href={person.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label={`View ${person.name} on Facebook`} className="text-muted-foreground transition-colors hover:text-blue-600">
                                 <Facebook size={20} />
                             </Link>
                         )}
                          {person.socials.instagram && (
-                            <Link href={person.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
+                            <Link href={person.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label={`View ${person.name} on Instagram`} className="text-muted-foreground transition-colors hover:text-pink-500">
                                 <Instagram size={20} />
                             </Link>
                         )}
@@ -191,17 +192,17 @@ export default function AchievementsView() {
                     </div>
                     <div className="flex justify-center gap-4 pt-4 border-t border-border/50">
                         {student.socials.linkedin && (
-                            <Link href={student.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
+                            <Link href={student.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`View ${student.name} on LinkedIn`} className="text-muted-foreground transition-colors hover:text-sky-700">
                                 <Linkedin size={20} />
                             </Link>
                         )}
                         {student.socials.facebook && (
-                            <Link href={student.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
+                            <Link href={student.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label={`View ${student.name} on Facebook`} className="text-muted-foreground transition-colors hover:text-blue-600">
                                 <Facebook size={20} />
                             </Link>
                         )}
                         {student.socials.instagram && (
-                            <Link href={student.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
+                            <Link href={student.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label={`View ${student.name} on Instagram`} className="text-muted-foreground transition-colors hover:text-pink-500">
                                 <Instagram size={20} />
                             </Link>
                         )}

@@ -64,13 +64,13 @@ const StaffCard = ({ staff }: { staff: StaffMember }) => {
                 </div>
                 <p className="flex-grow text-sm text-muted-foreground italic">"{staff.philosophy}"</p>
                 <div className="flex items-center justify-center gap-4 pt-4 border-t border-border/50">
-                    <Link href={staff.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
+                    <Link href={staff.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label={`Follow ${staff.name} on Facebook`} className="text-muted-foreground transition-colors hover:text-blue-600">
                         <Facebook size={20} />
                     </Link>
-                     <Link href={staff.socials.instagram} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-pink-500">
+                     <Link href={staff.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label={`Follow ${staff.name} on Instagram`} className="text-muted-foreground transition-colors hover:text-pink-500">
                         <Instagram size={20} />
                     </Link>
-                    <Link href={staff.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
+                    <Link href={staff.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`Follow ${staff.name} on LinkedIn`} className="text-muted-foreground transition-colors hover:text-sky-700">
                         <Linkedin size={20} />
                     </Link>
                 </div>

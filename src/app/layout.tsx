@@ -15,6 +15,7 @@ const poppins = Poppins({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-poppins',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -23,14 +24,17 @@ export const metadata: Metadata = {
     template: '%s | SARC Education Foundation',
     default: 'SARC Education Foundation | Pioneering Futures in Nepal',
   },
-  description: "Discover SARC in Bhimdatta, Kanchanpur, a top choice for +2 Science, Management, and Law. We have been nurturing Nepal's future leaders with excellence since 2017.",
+  description: "SARC in Bhimdatta, Kanchanpur offers top +2 Science, Management, and Law programs. We're dedicated to nurturing Nepal's future leaders with excellence.",
   keywords: ['SARC', 'SARC Education', 'Education in Nepal', 'Kanchanpur College', 'Bhimdatta College', '+2 Science', '+2 Management', '+2 Law', 'CTEVT', 'Bridge Course', 'Far-West Nepal Education'],
   authors: [{ name: 'SARC Education Foundation' }],
   creator: 'SARC Education Foundation',
   publisher: 'SARC Education Foundation',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'SARC Education Foundation | Pioneering Futures',
-    description: "Discover SARC in Bhimdatta, Kanchanpur. We offer a legacy of excellence in +2 Science, Management, and Law, nurturing future leaders with holistic education.",
+    description: "SARC in Bhimdatta, Kanchanpur offers top +2 Science, Management, and Law programs. We're dedicated to nurturing Nepal's future leaders with excellence.",
     url: 'https://sarc.edu.np',
     siteName: 'SARC Education Foundation',
     images: [
@@ -70,11 +74,37 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   width: 'device-width',
-  initialScale: 0.9,
-  maximumScale: 0.9,
-  userScalable: false,
+  initialScale: 1,
+  maximumScale: 5,
 };
 
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollegeOrUniversity",
+  "name": "SARC Education Foundation",
+  "url": "https://sarc.edu.np",
+  "logo": "https://sarc.edu.np/images/sarc.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+977-99-525271",
+    "contactType": "Customer Service",
+    "areaServed": "NP",
+    "availableLanguage": "en"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Bhimdatta-06",
+    "addressLocality": "Mahendranagar",
+    "addressRegion": "Kanchanpur",
+    "addressCountry": "NP"
+  },
+  "sameAs": [
+    "https://www.facebook.com/sarc.edu.np",
+    "https://instagram.com/sarc.edu.np",
+    "https://github.com/sarceducationfoundation"
+  ]
+};
 
 export default function RootLayout({
   children,
@@ -83,11 +113,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(poppins.variable)} suppressHydrationWarning>
-      <body
-        className={cn(
-          'font-sans antialiased min-h-screen flex flex-col bg-background'
-        )}
-      >
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
