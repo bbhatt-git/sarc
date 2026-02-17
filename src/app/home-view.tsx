@@ -6,11 +6,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { TESTIMONIALS, WHY_US_ITEMS } from '@/lib/constants';
 import SectionTitle from './components/section-title';
-import { Marquee } from './components/marquee';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { imageData } from '@/lib/image-data';
 import { HeroCarousel } from './components/hero-carousel';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Marquee } from './components/marquee';
 
 
 const TestimonialCard = ({
@@ -25,7 +26,7 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="mb-4 break-inside-avoid rounded-2xl border bg-card/60 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+    <div className="mb-4 break-inside-avoid rounded-2xl border bg-card/60 p-6 shadow-sm">
       <blockquote className="text-muted-foreground mb-4">
         "{text}"
       </blockquote>
@@ -45,6 +46,7 @@ const TestimonialCard = ({
 
 
 export default function HomeView() {
+  const isMobile = useIsMobile();
   
   const STATS = [
     { number: '2017', label: 'Established', icon: Calendar },
@@ -162,9 +164,27 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
         </div>
       </section>
 
+      {/* Why Choose Us Section */}
+      <section className="w-full py-20 lg:py-28">
+        <div className="container mx-auto px-4">
+          <SectionTitle title="Why Choose SARC?" subtitle="Our Unique Features" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+              {WHY_US_ITEMS.map((item, index) => (
+                    <div key={item.title} className="bg-card/50 backdrop-blur-sm border p-8 text-center transition-transform hover:-translate-y-2 h-full rounded-2xl">
+                      <div className="inline-block bg-primary/10 text-primary p-4 rounded-full mb-4">
+                          <item.icon className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
+                      <p className="text-muted-foreground">{item.description}</p>
+                  </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
-       <section className="w-full py-20 lg:py-28">
-        <div className="text-center">
+       <section className="w-full py-20 lg:py-28 overflow-x-hidden">
+        <div className="text-center container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
                 What Our <span className="text-primary">Community</span> Says
             </h2>
@@ -173,12 +193,24 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
             </p>
         </div>
 
-        <div className="container mx-auto px-4 mt-16">
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+        <div className="mt-16">
+           {isMobile ? (
+              <Marquee pauseOnHover={false} className="[--gap:1.5rem]">
                 {TESTIMONIALS.map((testimonial, index) => (
-                    <TestimonialCard key={index} {...testimonial} />
+                  <div key={index} className="w-80 flex-shrink-0">
+                    <TestimonialCard {...testimonial} />
+                  </div>
                 ))}
+              </Marquee>
+           ) : (
+            <div className="container mx-auto px-4">
+              <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                  {TESTIMONIALS.map((testimonial, index) => (
+                      <TestimonialCard key={index} {...testimonial} />
+                  ))}
+              </div>
             </div>
+           )}
         </div>
       </section>
 
