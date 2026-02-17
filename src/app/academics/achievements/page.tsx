@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import AchievementsView from './view';
 
 export const metadata: Metadata = {
-  title: 'Our Achievements',
-  description: 'Celebrating excellence, innovation, and the remarkable success of our students and alumni at SARC Education Foundation.',
+  title: 'Alumni Network',
+  description: 'Explore the success stories of SARC alumni and see how they are making an impact across the globe. Connect with our growing network of innovators and leaders.',
 };
 
 export default function AchievementsPage() {

@@ -49,6 +49,7 @@ const alumni = [
     {
         name: 'Mr Bikash Pandeya',
         role: 'CEO, NoteSwift',
+        story: "Bikash's journey from a curious SARC student to a Techfest representative at IIT Bombay and now the founder of NoteSwift showcases the entrepreneurial spirit we nurture. His work in digital education tools is making learning more accessible for students everywhere.",
         quote: "SARC gave me the foundation to think beyond textbooks and solve real-world problems.",
         education: 'Bachelors in Computer Science',
         university: 'Far-Western University',
@@ -58,10 +59,15 @@ const alumni = [
             'Founder and CEO at Note Swift',
         ],
         image: 'https://picsum.photos/seed/bikash/400/400',
+        socials: {
+            linkedin: 'https://www.linkedin.com/in/bikashpandeya',
+            facebook: 'https://www.facebook.com/bikashpandeya'
+        }
     },
     {
         name: 'Rajesh Sharma',
         role: 'Founder & CEO, TechNepal',
+        story: "Rajesh credits SARC's innovation labs for sparking his passion for entrepreneurship. Today, his company TechNepal is a leading force in the local tech scene, creating jobs and driving innovation.",
         quote: "The innovation lab at SARC taught me that failure is just a stepping stone to success.",
         education: 'B.E. in Computer Engineering',
         university: 'IIT Delhi',
@@ -71,10 +77,15 @@ const alumni = [
             'Employed 50+ people',
         ],
         image: 'https://picsum.photos/seed/rajesh/400/400',
+         socials: {
+            linkedin: '#',
+            facebook: '#',
+        }
     },
     {
         name: 'Priya Thapa',
-        role: 'Biomedical Engineer at Johns Hopkins',
+        role: 'Biomedical Engineer, Johns Hopkins',
+        story: "Priya's passion for blending technology and healthcare was ignited at SARC. Her groundbreaking work on a life-saving medical device has earned her international recognition and is a testament to the hands-on learning approach at SARC.",
         quote: "SARC's hands-on approach made me realize my passion for helping others through technology.",
         education: 'M.S. in Biomedical Engineering',
         university: 'Johns Hopkins University',
@@ -84,10 +95,15 @@ const alumni = [
             'International recognition',
         ],
         image: 'https://picsum.photos/seed/priya/400/400',
+         socials: {
+            linkedin: '#',
+            facebook: '#',
+        }
     },
     {
         name: 'Amit Gurung',
-        role: 'Data Scientist at Microsoft',
+        role: 'Data Scientist, Microsoft',
+        story: "Amit's experience with project-based learning at SARC gave him a competitive edge. At Microsoft, he now develops advanced AI models for healthcare, continuing to solve real-world problems with the skills he first honed on our campus.",
         quote: "The project-based learning at SARC prepared me for the real challenges in tech industry.",
         education: 'M.S. in Data Science',
         university: 'MIT',
@@ -97,7 +113,47 @@ const alumni = [
             'Open source contributor',
         ],
         image: 'https://picsum.photos/seed/amit/400/400',
+         socials: {
+            linkedin: '#',
+            facebook: '#',
+        }
     },
+    {
+        name: 'Sunita Rai',
+        role: 'Lead Architect, Urban Designs',
+        story: "Sunita's creative vision was nurtured at SARC. She now leads major urban design projects that focus on sustainability and community living, proving that a strong foundation in science can lead to a beautiful and functional world.",
+        quote: "SARC's creative environment allowed me to merge art with science seamlessly.",
+        education: 'B.Arch',
+        university: 'Pulchowk Campus',
+        graduated: 2018,
+        achievements: [
+            'National Award for Sustainable Architecture',
+            'Designed two public parks',
+        ],
+        image: 'https://picsum.photos/seed/sunita/400/400',
+        socials: {
+            linkedin: '#',
+            facebook: '#',
+        }
+    },
+    {
+        name: 'Kiran Thapa',
+        role: 'Law Associate, Pradhan & Associates',
+        story: "The Law faculty at SARC was the perfect launchpad for Kiran. His sharp analytical skills, honed in our debate clubs and moot courts, now serve him well as he navigates complex legal cases at one of the country's top law firms.",
+        quote: "The moot court competitions were pivotal in building my confidence for a career in law.",
+        education: 'B.A.LLB',
+        university: 'Kathmandu School of Law',
+        graduated: 2023,
+        achievements: [
+            'Won National Moot Court Competition',
+            'Published paper on corporate law',
+        ],
+        image: 'https://picsum.photos/seed/kiran/400/400',
+        socials: {
+            linkedin: '#',
+            facebook: '#',
+        }
+    }
 ];
 
 const topStudents = [
@@ -156,7 +212,7 @@ export default function AchievementsView() {
   return (
     <div>
       <PageHeader 
-        title="Our Achievements" 
+        title="Alumni Network" 
         subtitle="Celebrating excellence, innovation, and the remarkable success of our students and alumni" 
       />
 
@@ -178,74 +234,33 @@ export default function AchievementsView() {
 
       <section className="py-20 bg-card/20">
         <div className="container mx-auto">
-          <SectionTitle title="Awards & Recognition" subtitle="Our Accolades" />
-          <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Our commitment to excellence has been recognized at national and international levels.</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-            {awards.map((award, index) => (
-              <div
-                key={award.title}
-                className="testimonial-card p-6 text-center h-full transition-all duration-300 hover:-translate-y-2"
-              >
-                <div className="inline-block bg-sky-100 dark:bg-sky-900/50 p-4 rounded-full mb-4">
-                  <award.icon className="w-8 h-8 text-sky-600 dark:text-sky-400" />
-                </div>
-                <p className="font-bold text-sky-500">{award.year}</p>
-                <h3 className="text-lg font-bold text-foreground mt-2">{award.title}</h3>
-                <p className="text-sm text-muted-foreground mt-2">{award.description}</p>
-                <p className="text-xs font-semibold text-primary mt-4 uppercase tracking-wider bg-primary/10 px-2 py-1 rounded-full inline-block">{award.category}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
-      <section className="py-20">
-        <div className="container mx-auto">
-          <SectionTitle title="Our Alumni" subtitle="Making a Difference" />
+          <SectionTitle title="Alumni Network Hub" subtitle="Making a Difference" />
           <p className="text-center max-w-2xl mx-auto mt-4 text-muted-foreground">Meet our successful alumni who are making a difference in the world.</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
             {alumni.map((person, index) => (
               <div
                 key={person.name}
-                className="testimonial-card overflow-hidden p-0 h-full flex flex-col transition-all duration-300 hover:-translate-y-2"
+                className="testimonial-card overflow-hidden p-0 h-full flex flex-col transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               >
-                <div className="relative h-48">
+                <div className="relative h-56">
                     <Image src={person.image} alt={person.name} fill className="object-cover" data-ai-hint="person" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-1.5 rounded-full border border-white/20">
-                        <Star className="w-4 h-4 text-amber-300" fill="currentColor" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                    <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm p-1.5 rounded-full border border-white/20">
+                        <Star className="w-5 h-5 text-amber-300" fill="currentColor" />
                     </div>
-                    <div className="absolute bottom-0 left-0 p-4">
-                        <h3 className="text-xl font-bold text-white text-shadow-md">{person.name}</h3>
-                        <p className="text-sm text-white/90">{person.role}</p>
+                    <div className="absolute bottom-0 left-0 p-5">
+                        <h3 className="text-2xl font-bold text-white text-shadow-md">{person.name}</h3>
+                        <p className="text-md font-semibold text-primary">{person.role}</p>
                     </div>
                 </div>
                 <div className="p-6 space-y-4 flex flex-col flex-grow">
-                    <blockquote className="text-muted-foreground italic text-center text-sm">
+                    <blockquote className="text-muted-foreground italic text-sm">
                         "{person.quote}"
                     </blockquote>
-                    <div className="space-y-2 text-sm">
-                        <div className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
-                            <GraduationCap className="w-4 h-4 text-sky-500 mt-1 shrink-0" />
-                            <div>
-                                <span className="font-semibold text-foreground">Education:</span> {person.education}
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
-                            <Building className="w-4 h-4 text-sky-500 mt-1 shrink-0" />
-                            <div>
-                                <span className="font-semibold text-foreground">University:</span> {person.university}
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
-                            <Calendar className="w-4 h-4 text-sky-500 mt-1 shrink-0" />
-                            <div>
-                                <span className="font-semibold text-foreground">Graduated:</span> {person.graduated}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="mt-auto pt-4">
-                        <h4 className="font-semibold text-foreground mb-2 text-sm">Key Achievements:</h4>
+                    <p className="text-foreground/90 text-sm">{person.story}</p>
+                    
+                    <div className="mt-auto pt-4 space-y-3">
+                        <h4 className="font-semibold text-foreground text-sm">Key Achievements:</h4>
                         <ul className="space-y-1.5 text-xs text-muted-foreground">
                         {person.achievements.map((ach, i) => (
                             <li key={i} className="flex items-start gap-2">
@@ -255,17 +270,40 @@ export default function AchievementsView() {
                         ))}
                         </ul>
                     </div>
-                    <div className="flex justify-center gap-2 pt-3 border-t border-border/50 mt-4">
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-700 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Linkedin size={16} /></Link>
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-blue-500 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><Facebook size={16} /></Link>
-                        <Link href="#" className="inline-block text-muted-foreground hover:text-white hover:bg-primary-600 transition-colors bg-slate-200 dark:bg-slate-700 p-2 rounded-full"><MessageSquare size={16} /></Link>
+                    <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
+                        <div className="flex gap-3">
+                           {person.socials.linkedin && (
+                                <Link href={person.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-sky-700">
+                                    <Linkedin size={20} />
+                                </Link>
+                            )}
+                            {person.socials.facebook && (
+                                <Link href={person.socials.facebook} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-blue-600">
+                                    <Facebook size={20} />
+                                </Link>
+                            )}
+                        </div>
+                        <Button asChild variant="ghost" size="sm" className="text-primary hover:bg-primary/10">
+                            <Link href="#">Connect</Link>
+                        </Button>
                     </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="rounded-full">View All Alumni Stories</Button>
+        </div>
+      </section>
+
+      <section className="py-20 w-full">
+        <div className="container mx-auto">
+          <div className="bg-primary text-white rounded-2xl p-12 text-center">
+            <h2 className="text-3xl font-bold">Are You an SARC Alumnus?</h2>
+            <p className="mt-4 max-w-xl mx-auto opacity-90">We'd love to hear your story and feature you in our network. Reconnect with us and inspire the next generation!</p>
+            <div className="mt-8 flex justify-center gap-4">
+              <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90">
+                <Link href="/contact">Share Your Story</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
