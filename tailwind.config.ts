@@ -83,11 +83,11 @@ export default {
         },
         marquee: {
           from: { transform: "translateX(0)" },
-          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+          to: { transform: "translateX(calc(-50% - var(--gap) / 2))" },
         },
         "marquee-vertical": {
           from: { transform: "translateY(0)" },
-          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+          to: { transform: "translateY(calc(-50% - var(--gap) / 2))" },
         },
         'blob': {
           '0%': {

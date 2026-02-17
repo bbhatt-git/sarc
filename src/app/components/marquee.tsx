@@ -1,5 +1,5 @@
 'use client';
-import { ComponentPropsWithoutRef } from "react"
+import React, { ComponentPropsWithoutRef } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -27,11 +27,6 @@ interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
    * @default false
    */
   vertical?: boolean
-  /**
-   * Number of times to repeat the content
-   * @default 2
-   */
-  repeat?: number
 }
 
 export function Marquee({
@@ -40,14 +35,19 @@ export function Marquee({
   pauseOnHover = false,
   children,
   vertical = false,
-  repeat = 2,
   ...props
 }: MarqueeProps) {
+    const content = (
+        <div className={cn("flex shrink-0 items-stretch [gap:var(--gap)]", vertical ? 'flex-col' : 'flex-row')}>
+            {children}
+        </div>
+    );
+
   return (
     <div
       {...props}
       className={cn(
-        "group flex [gap:var(--gap)] overflow-hidden p-2 [--duration:40s] [--gap:1rem]",
+        "group flex overflow-hidden p-2 [--gap:1rem]",
         {
           "flex-row": !vertical,
           "flex-col": vertical,
@@ -55,21 +55,17 @@ export function Marquee({
         className
       )}
     >
-      {Array(repeat)
-        .fill(0)
-        .map((_, i) => (
-          <div
-            key={i}
-            className={cn("flex shrink-0 justify-start [gap:var(--gap)]", {
-              "animate-marquee flex-row": !vertical,
-              "animate-marquee-vertical flex-col": vertical,
-              "group-hover:[animation-play-state:paused]": pauseOnHover,
-              "[animation-direction:reverse]": reverse,
-            })}
-          >
-            {children}
-          </div>
-        ))}
+      <div
+        className={cn("flex shrink-0 [gap:var(--gap)]", {
+          "animate-marquee flex-row": !vertical,
+          "animate-marquee-vertical flex-col": vertical,
+          "group-hover:[animation-play-state:paused]": pauseOnHover,
+          "[animation-direction:reverse]": reverse,
+        })}
+      >
+        {content}
+        {content}
+      </div>
     </div>
   )
 }
