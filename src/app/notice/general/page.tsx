@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 
 export default async function GeneralNoticePage() {
   const notices = await getExcelData('General');
+  const reversedNotices = notices.reverse();
   // Ensure data is a plain object before passing to client component
-  const generalNotices = JSON.parse(JSON.stringify(notices));
+  const generalNotices = JSON.parse(JSON.stringify(reversedNotices));
   return <GeneralNoticeView initialNotices={generalNotices} />;
 }
