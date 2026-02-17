@@ -243,7 +243,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="custom-scrollbar space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
                     {headers.map(header => renderField(header))}
-                    <DialogFooter className="pt-4 bg-transparent sticky bottom-0">
+                    <DialogFooter className="pt-4">
                         <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button>
                         <Button type="submit" disabled={isSubmitting}>
                             {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
