@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -19,14 +20,16 @@ const TestimonialCard = ({
   author,
   role,
   text,
+  className,
 }: {
   image: string;
   author: string;
   role: string;
   text: string;
+  className?: string;
 }) => {
   return (
-    <div className="relative break-inside-avoid h-[280px] w-full flex flex-col justify-between rounded-2xl border bg-card/60 p-6 shadow-sm">
+    <div className={cn("relative flex flex-col justify-between rounded-2xl border bg-card/60 p-6 shadow-sm", className)}>
       <div className="absolute top-4 right-4 text-primary/10">
         <Quote className="h-16 w-16" />
       </div>
@@ -199,18 +202,14 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
         <div className="mt-16">
            {isMobile ? (
               <div className="space-y-4">
-                <Marquee pauseOnHover={false} className="[--gap:1.5rem] [--duration:120s]">
+                <Marquee pauseOnHover={false} className="[--gap:1rem] [--duration:120s]">
                   {TESTIMONIALS.slice(0, 8).map((testimonial, index) => (
-                    <div key={index} className="w-80 flex-shrink-0">
-                      <TestimonialCard {...testimonial} />
-                    </div>
+                      <TestimonialCard key={index} {...testimonial} className="w-80 flex-shrink-0" />
                   ))}
                 </Marquee>
-                <Marquee pauseOnHover={false} reverse className="[--gap:1.5rem] [--duration:120s]">
+                <Marquee pauseOnHover={false} reverse className="[--gap:1rem] [--duration:120s]">
                   {TESTIMONIALS.slice(8).map((testimonial, index) => (
-                    <div key={index} className="w-80 flex-shrink-0">
-                      <TestimonialCard {...testimonial} />
-                    </div>
+                      <TestimonialCard key={index} {...testimonial} className="w-80 flex-shrink-0" />
                   ))}
                 </Marquee>
               </div>
@@ -218,7 +217,7 @@ const aspectRatios = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4
             <div className="container mx-auto px-4">
               <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                   {TESTIMONIALS.map((testimonial, index) => (
-                      <TestimonialCard key={index} {...testimonial} />
+                      <TestimonialCard key={index} {...testimonial} className="break-inside-avoid" />
                   ))}
               </div>
             </div>
