@@ -243,7 +243,7 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="custom-scrollbar space-y-4 py-4 max-h-[70vh] overflow-y-auto px-1">
                     {headers.map(header => renderField(header))}
-                    <DialogFooter className="pt-4">
+                    <DialogFooter className="pt-4 sticky bottom-0 bg-card/80 backdrop-blur-xl py-4">
                         <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>Cancel</Button>
                         <Button type="submit" disabled={isSubmitting}>
                             {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
@@ -1114,7 +1114,6 @@ const AdminNavDrawer = ({ activeTab, setActiveTab, menuOpen, setMenuOpen }: {
                                         : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
                                 )}
                             >
-                                {activeTab === item.id && <Check className="w-4 h-4" />}
                                 {item.label}
                             </button>
                         ))}
