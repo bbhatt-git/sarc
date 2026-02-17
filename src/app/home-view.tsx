@@ -26,7 +26,7 @@ const TestimonialCard = ({
   text: string;
 }) => {
   return (
-    <div className="w-80 p-6 testimonial-card">
+    <div className="w-80 flex-shrink-0 p-6 testimonial-card">
         <div className="flex items-center gap-4">
             <Avatar>
                 <AvatarImage src={image} alt={author}/>
