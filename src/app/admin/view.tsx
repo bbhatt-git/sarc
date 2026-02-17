@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
@@ -189,6 +188,21 @@ const NoticeModal = ({ isOpen, onClose, onSubmit, sheetName, headers, iconOption
         }
 
         if (headerLower === 'details') {
+            if (sheetName.toLowerCase() === 'holiday') {
+                return (
+                    <div key={header} className="space-y-2">
+                        <Label htmlFor={header}>{capitalizedHeader}</Label>
+                        <Textarea 
+                            id={header} 
+                            name={header} 
+                            value={formData[header] || ''} 
+                            onChange={handleChange} 
+                            placeholder="Enter holiday details..." 
+                            rows={5}
+                        />
+                    </div>
+                );
+            }
             return (
                  <div key={header} className="space-y-2">
                     <Label htmlFor={header}>{capitalizedHeader}</Label>
