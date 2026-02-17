@@ -6,8 +6,8 @@ import { Mail, Phone, MapPin, Sparkles, Facebook, Instagram, Github } from 'luci
 import Image from 'next/image';
 
 const TikTokIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="h-5 w-5">
-    <path stroke="currentColor" strokeLinejoin="round" d="M16 1.5h-3.5V16c0 1.5-1.5 3-3 3s-3-0.5-3-3c0-2 1.899-3.339 3.5-3V9.5c-6.12 0-7 5-7 6.5s0.977 6.5 6.5 6.5c4.522 0 6.5-3.5 6.5-6v-8c1.146 1.018 2.922 1.357 5 1.5V6.5c-3.017 0-5-2.654-5-5Z" strokeWidth="1"></path>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="h-5 w-5">
+    <path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"/>
   </svg>
 );
 
