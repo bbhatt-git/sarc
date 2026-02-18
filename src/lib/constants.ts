@@ -168,55 +168,6 @@ export const TESTIMONIALS = [
   }
 ];
 
-export const NEWS_ITEMS = [
-    {
-        id: '1',
-        title: 'Annual Tech Fest "Innovate 2024" Concludes with Record Participation',
-        date: '2024-05-20',
-        summary: 'Our annual tech festival saw groundbreaking projects from students across various departments, from AI-driven apps to sustainable tech solutions, drawing attention from industry leaders.',
-        image: 'https://picsum.photos/seed/news1/600/400',
-        category: 'Campus Event'
-    },
-    {
-        id: '2',
-        title: 'SARC Organizes Successful Blood Donation Drive, Saving Lives',
-        date: '2024-04-15',
-        summary: 'In a powerful display of community spirit, our student-led blood donation drive in collaboration with the Red Cross collected over 200 pints, making a significant impact.',
-        image: 'https://picsum.photos/seed/news2/600/400',
-        category: 'Community'
-    },
-    {
-        id: '3',
-        title: 'Alumni Speaker Series Featuring Silicon Valley Innovators Inspires Students',
-        date: '2024-03-10',
-        summary: 'Top alumni from leading tech companies returned to campus to share their career journeys, offering invaluable insights and mentorship to the next generation of leaders.',
-        image: 'https://picsum.photos/seed/news3/600/400',
-        category: 'Alumni'
-    }
-];
-
-export const ALUMNI_MEMBERS = [
-    {
-        name: 'Mr Bikash Pandeya',
-        role: 'CEO, NoteSwift',
-        story: "Bikash's journey from a curious SARC student to a Techfest representative at IIT Bombay and now the founder of NoteSwift showcases the entrepreneurial spirit we nurture. His work in digital education tools is making learning more accessible for students everywhere.",
-        quote: "SARC gave me the foundation to think beyond textbooks and solve real-world problems.",
-        education: 'Bachelors in Computer Science',
-        university: 'Far-Western University',
-        graduated: 2024,
-        achievements: [
-            'Nation Representative at Techfest, IIT Bombay',
-            'Founder and CEO at Note Swift',
-        ],
-        image: '/images/alumni/bikash_pandeya.jpg',
-        socials: {
-            linkedin: 'https://www.linkedin.com/in/bikash-pandeya-bb53b4246/',
-            facebook: 'https://www.facebook.com/bikash.pandeya.69',
-            instagram: 'https://www.instagram.com/its_bikash_pandeya'
-        }
-    }
-];
-
 export const STAFF_MEMBERS = [
   {
     id: 'dr_laxman_basnet',
@@ -454,6 +405,60 @@ export const STAFF_MEMBERS = [
     return (roleOrder[a.role] || 99) - (roleOrder[b.role] || 99);
 });
 
+export const ALUMNI_MEMBERS = [
+    {
+        name: 'Bikash Pandeya',
+        role: 'CEO, NoteSwift',
+        quote: "SARC gave me the foundation to think beyond textbooks. The curriculum taught me how to solve real-world problems very effectively.",
+        story: "After graduating, Bikash founded NoteSwift, an innovative tech startup. He credits SARC's project-based learning for his entrepreneurial success.",
+        achievements: [
+            "Forbes 30 Under 30 Nepal",
+            "Launched successful tech startup",
+            "Guest lecturer on entrepreneurship"
+        ],
+        image: "/images/testimonials/bikash_pandeya.jpg",
+        socials: {
+            linkedin: '#',
+            facebook: '#',
+            instagram: '#'
+        }
+    },
+    {
+        name: 'Ashim Giri',
+        role: 'Alumnus, 2024',
+        quote: "SARC's innovative teaching methods made learning fun and meaningful. These experiences paved the way for my recent academic achievements today.",
+        story: "Ashim is currently pursuing a degree in Computer Engineering at a top university, focusing on artificial intelligence and machine learning.",
+        achievements: [
+            "Full scholarship to a leading engineering university",
+            "Published research paper on AI ethics",
+            "Winner of National Hackathon 2024"
+        ],
+        image: "/images/testimonials/ashim_giri.jpg",
+        socials: {
+            linkedin: 'https://www.linkedin.com/in/ashim-giri-b16521338/',
+            facebook: 'https://www.facebook.com/profile.php?id=100080102481707',
+            instagram: '#'
+        }
+    },
+    {
+        name: 'Ankit Joshi',
+        role: '+2 Graduate, 2026',
+        quote: "SARC provided a strong foundation for my medical career. The supportive teachers and modern labs made learning effective and inspiring.",
+        story: "Ankit is on the path to becoming a doctor, driven by the passion for biology he discovered in SARC's advanced science labs.",
+        achievements: [
+            "Top score in medical entrance exam",
+            "Volunteered at local health camps",
+            "Research assistant in a university lab"
+        ],
+        image: "/images/testimonials/ankit_joshi.jpg",
+        socials: {
+            linkedin: '#',
+            facebook: '#',
+            instagram: '#'
+        }
+    }
+];
+
 export const TOP_STUDENTS = [
     {
         name: 'Ashim Giri',
@@ -461,7 +466,7 @@ export const TOP_STUDENTS = [
         quote: "SARC's innovative teaching methods made learning fun and meaningful.",
         gpa: 3.82,
         subjects: 'Economics, Mathematics, Accountancy',
-        image: 'https://picsum.photos/seed/harish/400/400',
+        image: '/images/testimonials/ashim_giri.jpg',
         achievements: [
           'NEB District Level Topper',
           'NEB State Level 2nd Topper',
@@ -471,7 +476,24 @@ export const TOP_STUDENTS = [
           facebook: 'https://www.facebook.com/profile.php?id=100080102481707',
           instagram: '#'
       }
+    },
+    {
+      name: 'Roshani Bist',
+      class: '12 Management',
+      quote: "SARC taught me to excel life not just exams.",
+      gpa: 3.73,
+      subjects: 'Economics, Mathematics, Accountancy',
+      image: '/images/testimonials/chandani_dhami.jpg',
+      achievements: [
+        'NEB District Level Topper',
+        'NEB State Level 2nd Topper',
+    ],
+      socials: {
+        linkedin: '#',
+        facebook: '#',
+        instagram: '#'
     }
+  }
 ];
 
 export const WHY_US_ITEMS = [
