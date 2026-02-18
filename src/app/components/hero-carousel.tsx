@@ -5,14 +5,17 @@ import Image from 'next/image';
 import { imageData } from '@/lib/image-data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const heroData = imageData.hero;
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
+    setIsFirstRender(false); // Set to false after first render
+
     const timer = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % heroData.length);
     }, 5000); // Change image every 5 seconds
@@ -51,7 +54,7 @@ export function HeroCarousel() {
             <motion.div
                 key={index}
                 className='flex flex-col items-center'
-                initial={{ opacity: 0, y: 20 }}
+                initial={isFirstRender ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.8, ease: 'easeInOut' }}
