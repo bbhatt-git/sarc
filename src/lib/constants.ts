@@ -429,31 +429,14 @@ export const ALUMNI_MEMBERS = [
         quote: "SARC's innovative teaching methods made learning fun and meaningful. These experiences paved the way for my recent academic achievements today.",
         story: "Ashim is currently pursuing a degree in Computer Engineering at a top university, focusing on artificial intelligence and machine learning.",
         achievements: [
-            "Full scholarship to a leading engineering university",
-            "Published research paper on AI ethics",
-            "Winner of National Hackathon 2024"
+            "Full scholarship to a leading university",
+            "(IFoA) Institute and Faculty Of Actuaries London (U.K)",
+            "+2 National Boards Kanchanpur Topper"
         ],
         image: "/images/testimonials/ashim_giri.jpg",
         socials: {
             linkedin: 'https://www.linkedin.com/in/ashim-giri-b16521338/',
             facebook: 'https://www.facebook.com/profile.php?id=100080102481707',
-            instagram: '#'
-        }
-    },
-    {
-        name: 'Ankit Joshi',
-        role: '+2 Graduate, 2026',
-        quote: "SARC provided a strong foundation for my medical career. The supportive teachers and modern labs made learning effective and inspiring.",
-        story: "Ankit is on the path to becoming a doctor, driven by the passion for biology he discovered in SARC's advanced science labs.",
-        achievements: [
-            "Top score in medical entrance exam",
-            "Volunteered at local health camps",
-            "Research assistant in a university lab"
-        ],
-        image: "/images/testimonials/ankit_joshi.jpg",
-        socials: {
-            linkedin: '#',
-            facebook: '#',
             instagram: '#'
         }
     }
@@ -467,10 +450,6 @@ export const TOP_STUDENTS = [
         gpa: 3.82,
         subjects: 'Economics, Mathematics, Accountancy',
         image: '/images/testimonials/ashim_giri.jpg',
-        achievements: [
-          'NEB District Level Topper',
-          'NEB State Level 2nd Topper',
-      ],
         socials: {
           linkedin: 'https://www.linkedin.com/in/ashim-giri-b16521338/',
           facebook: 'https://www.facebook.com/profile.php?id=100080102481707',
@@ -483,17 +462,26 @@ export const TOP_STUDENTS = [
       quote: "SARC taught me to excel life not just exams.",
       gpa: 3.73,
       subjects: 'Economics, Mathematics, Accountancy',
-      image: '/images/testimonials/chandani_dhami.jpg',
-      achievements: [
-        'NEB District Level Topper',
-        'NEB State Level 2nd Topper',
-    ],
+      image: '/images/alumni/roshani_bist.jpg',
       socials: {
         linkedin: '#',
-        facebook: '#',
+        facebook: 'https://www.facebook.com/roshani.bist.900',
         instagram: '#'
     }
+  },
+  {
+    name: 'Bhism Raj Joshi',
+    class: '12 Science',
+    quote: "SARC taught me to excel life not just exams.",
+    gpa: 3.73,
+    subjects: 'Physics, Chemistry, Mathematics',
+    image: '/images/alumni/bhism_raj_joshi.jpg',
+    socials: {
+      linkedin: '#',
+      facebook: '#',
+      instagram: '#'
   }
+}
 ];
 
 export const WHY_US_ITEMS = [

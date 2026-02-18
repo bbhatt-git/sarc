@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare, Instagram } from 'lucide-react';
+import { BookOpen, Check, Rocket, Users, Building, Briefcase, Star, Trophy, Target, Sparkles, GraduationCap, Calendar, Linkedin, Facebook, MessageSquare, Instagram } from 'lucide-react';
 import { imageData } from '@/lib/image-data';
 import { ALUMNI_MEMBERS, TOP_STUDENTS } from '@/lib/constants';
 
@@ -178,17 +178,10 @@ export default function AchievementsView() {
                             <Trophy className="w-4 h-4 text-amber-500" />
                             <p><span className="font-semibold text-foreground">GPA:</span> {student.gpa.toFixed(2)}</p>
                         </div>
-                    </div>
-                    <div>
-                        <h4 className="font-semibold text-foreground mb-2 text-sm">Key Achievements:</h4>
-                        <ul className="space-y-1.5 text-xs text-muted-foreground">
-                            {student.achievements.map((ach, i) => (
-                                <li key={i} className="flex items-start gap-2">
-                                    <Sparkles className="w-3 h-3 text-primary mt-0.5 shrink-0" />
-                                    <span>{ach}</span>
-                                </li>
-                            ))}
-                        </ul>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                            <BookOpen className="w-4 h-4 text-sky-500" />
+                            <p><span className="font-semibold text-foreground">Subjects:</span> {student.subjects}</p>
+                        </div>
                     </div>
                     <div className="flex justify-center gap-4 pt-4 border-t border-border/50">
                         {student.socials.linkedin && (
